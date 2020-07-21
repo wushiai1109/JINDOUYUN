@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication(scanBasePackages = {"com.jindouyun.db", "com.jindouyun.core", "com" +
-        ".jindouyun.admin"})
+@SpringBootApplication(scanBasePackages = {"com.jindouyun.db", "com.jindouyun.core", "com.jindouyun.admin"})
 @MapperScan("com.jindouyun.db.dao")
 @EnableTransactionManagement
 @EnableScheduling
