@@ -10,7 +10,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-    public static final String LOGIN_TOKEN_KEY = "X-Litemall-Token";
+
+    public static final String LOGIN_TOKEN_KEY = "X-Jindouyun-Token";
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -18,15 +19,12 @@ public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgu
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container,
-                                  NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
-
-//        return new Integer(1);
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer container, NativeWebRequest request, WebDataBinderFactory factory) throws Exception {
         String token = request.getHeader(LOGIN_TOKEN_KEY);
         if (token == null || token.isEmpty()) {
             return null;
         }
-
         return UserTokenManager.getUserId(token);
     }
+
 }
