@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "litemall.wx")
+@ConfigurationProperties(prefix = "jindouyun.wx")
 public class WxProperties {
 
     private String appId;
