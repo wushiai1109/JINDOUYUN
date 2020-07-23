@@ -20,11 +20,27 @@ import java.util.List;
 public class JindouyunCategoryService {
 
     @Autowired
-    private JindouyunCategoryMapper jindouyunCategoryMapper;
+    private JindouyunCategoryMapper categoryMapper;
 
     public List<JindouyunCategory> queryChannel() {
         JindouyunCategoryExample jindouyunCategoryExample = new JindouyunCategoryExample();
         jindouyunCategoryExample.or().andLevelEqualTo("L1").andDeletedEqualTo(false);
-        return jindouyunCategoryMapper.selectByExample(jindouyunCategoryExample);
+        return categoryMapper.selectByExample(jindouyunCategoryExample);
+    }
+
+    public List<JindouyunCategory> queryL1() {
+        JindouyunCategoryExample example = new JindouyunCategoryExample();
+        example.or().andLevelEqualTo("L1").andDeletedEqualTo(false);
+        return categoryMapper.selectByExample(example);
+    }
+
+    public List<JindouyunCategory> queryByPid(Integer id) {
+        JindouyunCategoryExample example = new JindouyunCategoryExample();
+        example.or().andPidEqualTo(id).andDeletedEqualTo(false);
+        return categoryMapper.selectByExample(example);
+    }
+
+    public JindouyunCategory findById(Integer id) {
+        return categoryMapper.selectByPrimaryKey(id);
     }
 }
