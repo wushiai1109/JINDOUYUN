@@ -1,0 +1,27 @@
+package com.jindouyun.wx.domain;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @ClassName UserInfo
+ * @Description
+ * @Author Bruce
+ * @Date 2020/7/22 7:25 下午
+ */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserInfo {
+
+    private String nickName;
+    private String avatarUrl;
+    private String country;
+    private String province;
+    private String city;
+    private String language;
+    private Byte gender;
+
+}

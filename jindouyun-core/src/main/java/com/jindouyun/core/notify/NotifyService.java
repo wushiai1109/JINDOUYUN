@@ -37,8 +37,9 @@ public class NotifyService {
      */
     @Async
     public void notifySms(String phoneNumber, String message) {
-        if (smsSender == null)
+        if (smsSender == null) {
             return;
+        }
 
         smsSender.send(phoneNumber, message);
     }

@@ -6,8 +6,6 @@
 //import org.apache.commons.logging.LogFactory;
 //import com.jindouyun.core.storage.StorageService;
 //import com.jindouyun.core.system.SystemConfig;
-//import com.jindouyun.db.domain.LitemallGroupon;
-//import com.jindouyun.db.domain.LitemallStorage;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.core.io.ClassPathResource;
 //import org.springframework.stereotype.Service;

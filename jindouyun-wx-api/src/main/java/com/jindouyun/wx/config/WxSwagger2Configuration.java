@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * @ClassName WxSwagger2Configuration
  * @Description swagger在线文档配置<br>
- * 项目启动后可通过地址：http://host:ip/swagger-ui.html 查看在线文档
+ * 项目启动后可通过地址：http://host:port/swagger-ui.html 查看在线文档
  * @Author Bruce
  * @Date 2020/7/21 3:36 下午
  */
@@ -27,18 +27,15 @@ public class WxSwagger2Configuration {
                 .groupName("wx")
                 .apiInfo(wxApiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("org.linlinjava.litemall.wx.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.jindouyun.wx.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo wxApiInfo() {
         return new ApiInfoBuilder()
-                .title("litemall-wx API")
-                .description("litemall小商场API")
-                .termsOfServiceUrl("https://github.com/linlinjava/litemall")
-                .contact("https://github.com/linlinjava/litemall")
-                .version("1.0")
+                .title("jindouyun-wx API")
+                .description("jindouyun小商场API")
                 .build();
     }
 }

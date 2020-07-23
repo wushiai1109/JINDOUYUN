@@ -1,4 +1,4 @@
-package com.jindouyun.wx.controller;
+package com.jindouyun.wx.service;
 
 import com.jindouyun.core.util.RegexUtil;
 import com.jindouyun.core.util.ResponseUtil;
@@ -107,5 +107,11 @@ public class JindouyunAddressService {
             return ResponseUtil.badArgument();
         }
         return null;
+    }
+
+    public JindouyunAddress findDefault(Integer userId) {
+        JindouyunAddressExample example = new JindouyunAddressExample();
+        example.or().andUserIdEqualTo(userId).andIsDefaultEqualTo(true).andDeletedEqualTo(false);
+        return addressMapper.selectOneByExample(example);
     }
 }
