@@ -65,7 +65,7 @@ public class MinIOStorage implements Storage {
     }
 
     /**
-     * 获取阿里云OSS客户端对象
+     * 获取OSS客户端对象
      *
      * @return ossClient
      */

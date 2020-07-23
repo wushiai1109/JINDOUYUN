@@ -23,10 +23,10 @@
 //    private Environment environment;
 //
 //    @PostConstruct
-//    private void inist() {
+//    private void init() {
 //        systemInistService = this;
 //        initConfigs();
-//        SystemInfoPrinter.printInfo("Litemall 初始化信息", getSystemInfo());
+//        SystemInfoPrinter.printInfo("JinDouYun 初始化信息", getSystemInfo());
 //    }
 //
 //
