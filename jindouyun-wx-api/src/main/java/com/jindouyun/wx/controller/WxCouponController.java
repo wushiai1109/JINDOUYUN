@@ -31,6 +31,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/coupon")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxCouponController {
 
     @Autowired
