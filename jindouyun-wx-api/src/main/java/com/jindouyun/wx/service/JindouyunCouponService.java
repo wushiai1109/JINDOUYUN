@@ -68,18 +68,18 @@ public class JindouyunCouponService {
         return couponMapper.selectByExampleSelective(criteria.example(), result);
     }
 
-    public JindouyunCoupon findByCode(String code) {
-        JindouyunCouponExample example = new JindouyunCouponExample();
-        example.or().andCodeEqualTo(code).andTypeEqualTo(CouponConstant.TYPE_CODE).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
-        List<JindouyunCoupon> couponList =  couponMapper.selectByExample(example);
-        if(couponList.size() > 1){
-            throw new RuntimeException("");
-        }
-        else if(couponList.size() == 0){
-            return null;
-        }
-        else {
-            return couponList.get(0);
-        }
-    }
+//    public JindouyunCoupon findByCode(String code) {
+//        JindouyunCouponExample example = new JindouyunCouponExample();
+//        example.or().andCodeEqualTo(code).andTypeEqualTo(CouponConstant.TYPE_CODE).andStatusEqualTo(CouponConstant.STATUS_NORMAL).andDeletedEqualTo(false);
+//        List<JindouyunCoupon> couponList =  couponMapper.selectByExample(example);
+//        if(couponList.size() > 1){
+//            throw new RuntimeException("");
+//        }
+//        else if(couponList.size() == 0){
+//            return null;
+//        }
+//        else {
+//            return couponList.get(0);
+//        }
+//    }
 }

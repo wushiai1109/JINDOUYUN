@@ -2596,10 +2596,6 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andCodeEqualTo(String value) {
-            addCriterion("code =", value, "code");
-            return (Criteria) this;
-        }
     }
 
     /**

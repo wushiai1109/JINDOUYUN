@@ -181,7 +181,7 @@ public class JindouyunCouponService {
      */
     public List<JindouyunCoupon> queryExpired() {
         JindouyunCouponExample example = new JindouyunCouponExample();
-        example.or().andStatusEqualTo(CouponConstant.STATUS_NORMAL).andTimeTypeEqualTo(CouponConstant.TIME_TYPE_TIME).andEndTimeLessThan(new Date(System.currentTimeMillis())).andDeletedEqualTo(false);
+        example.or().andStatusEqualTo(CouponConstant.STATUS_NORMAL).andTimeTypeEqualTo(CouponConstant.TIME_TYPE_TIME).andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false);
         return couponMapper.selectByExample(example);
     }
 }
