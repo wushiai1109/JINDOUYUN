@@ -8,12 +8,12 @@ import com.jindouyun.core.notify.NotifyType;
 import com.jindouyun.core.util.*;
 import com.jindouyun.core.util.bcrypt.BCryptPasswordEncoder;
 import com.jindouyun.db.domain.JindouyunUser;
+import com.jindouyun.db.service.CouponAssignService;
 import com.jindouyun.wx.annotation.LoginUser;
 import com.jindouyun.wx.domain.UserInfo;
 import com.jindouyun.wx.domain.WxLoginInfo;
 import com.jindouyun.wx.service.CaptchaCodeManager;
-import com.jindouyun.wx.service.CouponAssignService;
-import com.jindouyun.wx.service.JindouyunUserService;
+import com.jindouyun.db.service.JindouyunUserService;
 import com.jindouyun.wx.service.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -75,8 +75,12 @@ public class WxAuthController {
             user = userList.get(0);
         }
 
+//        System.out.println(user);
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (!encoder.matches(password, user.getPassword())) {
+        if (encoder.matches(password, user.getPassword())) {
+//            System.out.println(password);
+//            System.out.println(user.getPassword());
             return ResponseUtil.fail(AUTH_INVALID_ACCOUNT, "账号密码不对");
         }
 
@@ -231,8 +235,7 @@ public class WxAuthController {
         // 其他情况，可以为空
         String wxCode = JacksonUtil.parseString(body, "wxCode");
 
-        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password) || StringUtils.isEmpty(mobile)
-                || StringUtils.isEmpty(code)) {
+        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password) || StringUtils.isEmpty(mobile) || StringUtils.isEmpty(code)) {
             return ResponseUtil.badArgument();
         }
 
@@ -315,7 +318,6 @@ public class WxAuthController {
     /**
      * 请求验证码
      * <p>
-     * TODO
      * 这里需要一定机制防止短信验证码被滥用
      *
      * @param body 手机号码 { mobile: xxx, type: xxx }
@@ -457,6 +459,7 @@ public class WxAuthController {
         return ResponseUtil.ok();
     }
 
+
     /**
      * 账号信息更新
      *
@@ -530,6 +533,7 @@ public class WxAuthController {
 
     @GetMapping("info")
     public Object info(@LoginUser Integer userId) {
+//        System.out.println(userId);
         if (userId == null) {
             return ResponseUtil.unlogin();
         }

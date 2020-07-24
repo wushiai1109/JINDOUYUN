@@ -157,7 +157,7 @@ public class AdminGoodsService {
             }
         }
         goods.setRetailPrice(retailPrice);
-        
+
         // 商品基本信息表Jindouyun_goods
         if (goodsService.updateById(goods) == 0) {
             throw new RuntimeException("更新数据失败");

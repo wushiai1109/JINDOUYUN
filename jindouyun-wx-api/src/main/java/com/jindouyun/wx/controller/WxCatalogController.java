@@ -3,7 +3,7 @@ package com.jindouyun.wx.controller;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunCategory;
 import com.jindouyun.wx.service.HomeCacheManager;
-import com.jindouyun.wx.service.JindouyunCategoryService;
+import com.jindouyun.db.service.JindouyunCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

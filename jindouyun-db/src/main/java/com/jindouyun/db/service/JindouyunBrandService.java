@@ -1,4 +1,4 @@
-package com.jindouyun.wx.service;
+package com.jindouyun.db.service;
 
 import com.github.pagehelper.PageHelper;
 import com.jindouyun.db.dao.JindouyunBrandMapper;

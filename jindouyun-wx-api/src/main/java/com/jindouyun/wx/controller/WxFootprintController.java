@@ -5,8 +5,8 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunFootprint;
 import com.jindouyun.db.domain.JindouyunGoods;
 import com.jindouyun.wx.annotation.LoginUser;
-import com.jindouyun.wx.service.JindouyunFootprintService;
-import com.jindouyun.wx.service.JindouyunGoodsService;
+import com.jindouyun.db.service.JindouyunFootprintService;
+import com.jindouyun.db.service.JindouyunGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

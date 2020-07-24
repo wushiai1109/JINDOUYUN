@@ -4,7 +4,7 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.core.validator.Order;
 import com.jindouyun.core.validator.Sort;
 import com.jindouyun.db.domain.JindouyunBrand;
-import com.jindouyun.wx.service.JindouyunBrandService;
+import com.jindouyun.db.service.JindouyunBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

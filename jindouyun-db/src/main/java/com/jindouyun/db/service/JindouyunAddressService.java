@@ -1,14 +1,11 @@
-package com.jindouyun.wx.service;
+package com.jindouyun.db.service;
 
-import com.jindouyun.core.util.RegexUtil;
-import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.dao.JindouyunAddressMapper;
 import com.jindouyun.db.domain.JindouyunAddress;
 import com.jindouyun.db.domain.JindouyunAddressExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,53 +57,6 @@ public class JindouyunAddressService {
 
     public void delete(Integer id) {
         addressMapper.logicalDeleteByPrimaryKey(id);
-    }
-
-    public Object validate(JindouyunAddress address) {
-        String name = address.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-
-        // 测试收货手机号码是否正确
-        String mobile = address.getTel();
-        if (StringUtils.isEmpty(mobile)) {
-            return ResponseUtil.badArgument();
-        }
-        if (!RegexUtil.isMobileExact(mobile)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String province = address.getProvince();
-        if (StringUtils.isEmpty(province)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String city = address.getCity();
-        if (StringUtils.isEmpty(city)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String county = address.getCounty();
-        if (StringUtils.isEmpty(county)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String areaCode = address.getAreaCode();
-        if (StringUtils.isEmpty(areaCode)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String detailedAddress = address.getAddressDetail();
-        if (StringUtils.isEmpty(detailedAddress)) {
-            return ResponseUtil.badArgument();
-        }
-
-        Boolean isDefault = address.getIsDefault();
-        if (isDefault == null) {
-            return ResponseUtil.badArgument();
-        }
-        return null;
     }
 
     public JindouyunAddress findDefault(Integer userId) {

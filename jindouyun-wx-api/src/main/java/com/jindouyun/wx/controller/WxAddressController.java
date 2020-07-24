@@ -1,10 +1,12 @@
 package com.jindouyun.wx.controller;
 
+import com.jindouyun.core.util.RegexUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunAddress;
 import com.jindouyun.wx.annotation.LoginUser;
-import com.jindouyun.wx.service.JindouyunAddressService;
+import com.jindouyun.db.service.JindouyunAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -55,6 +57,53 @@ public class WxAddressController {
         return ResponseUtil.ok(address);
     }
 
+    public Object validate(JindouyunAddress address) {
+        String name = address.getName();
+        if (StringUtils.isEmpty(name)) {
+            return ResponseUtil.badArgument();
+        }
+
+        // 测试收货手机号码是否正确
+        String mobile = address.getTel();
+        if (StringUtils.isEmpty(mobile)) {
+            return ResponseUtil.badArgument();
+        }
+        if (!RegexUtil.isMobileExact(mobile)) {
+            return ResponseUtil.badArgument();
+        }
+
+        String province = address.getProvince();
+        if (StringUtils.isEmpty(province)) {
+            return ResponseUtil.badArgument();
+        }
+
+        String city = address.getCity();
+        if (StringUtils.isEmpty(city)) {
+            return ResponseUtil.badArgument();
+        }
+
+        String county = address.getCounty();
+        if (StringUtils.isEmpty(county)) {
+            return ResponseUtil.badArgument();
+        }
+
+        String areaCode = address.getAreaCode();
+        if (StringUtils.isEmpty(areaCode)) {
+            return ResponseUtil.badArgument();
+        }
+
+        String detailedAddress = address.getAddressDetail();
+        if (StringUtils.isEmpty(detailedAddress)) {
+            return ResponseUtil.badArgument();
+        }
+
+        Boolean isDefault = address.getIsDefault();
+        if (isDefault == null) {
+            return ResponseUtil.badArgument();
+        }
+        return null;
+    }
+
     /**
      * 添加或更新收货地址
      *
@@ -67,7 +116,7 @@ public class WxAddressController {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
-        Object error = addressService.validate(address);
+        Object error = validate(address);
         if (error != null) {
             return error;
         }

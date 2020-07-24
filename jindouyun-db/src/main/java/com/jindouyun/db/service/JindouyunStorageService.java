@@ -26,8 +26,8 @@ public class JindouyunStorageService {
     }
 
     public void add(JindouyunStorage storageInfo) {
-        storageInfo.setAddTime(new Date(System.currentTimeMillis()));
-        storageInfo.setUpdateTime(new Date(System.currentTimeMillis()));
+        storageInfo.setAddTime(LocalDateTime.now());
+        storageInfo.setUpdateTime(LocalDateTime.now());
         storageMapper.insertSelective(storageInfo);
     }
 
@@ -38,7 +38,7 @@ public class JindouyunStorageService {
     }
 
     public int update(JindouyunStorage storageInfo) {
-        storageInfo.setUpdateTime(new Date(System.currentTimeMillis()));
+        storageInfo.setUpdateTime(LocalDateTime.now());
         return storageMapper.updateByPrimaryKeySelective(storageInfo);
     }
 

@@ -1,7 +1,9 @@
-package com.jindouyun.wx.service;
+package com.jindouyun.db.service;
 
 import com.jindouyun.db.domain.JindouyunCoupon;
 import com.jindouyun.db.domain.JindouyunCouponUser;
+import com.jindouyun.db.service.JindouyunCouponService;
+import com.jindouyun.db.service.JindouyunCouponUserService;
 import com.jindouyun.db.util.CouponConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,16 +13,18 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * @ClassName CouponVerifyService
+ * @ClassName JindouyunCouponVerifyService
  * @Description
  * @Author Bruce
- * @Date 2020/7/24 12:42 下午
+ * @Date 2020/7/23 4:22 下午
  */
 @Service
 @Transactional
-public class CouponVerifyService {
+public class JindouyunCouponVerifyService {
+
     @Autowired
     private JindouyunCouponUserService couponUserService;
+    
     @Autowired
     private JindouyunCouponService couponService;
 
@@ -80,10 +84,11 @@ public class CouponVerifyService {
             return null;
         }
         // 检测是否满足最低消费
-        if (checkedGoodsPrice.compareTo(coupon.getMin()) < 0) {
+        if (checkedGoodsPrice.compareTo(coupon.getMin()) == -1) {
             return null;
         }
 
         return coupon;
     }
+    
 }

@@ -1,4 +1,4 @@
-package com.jindouyun.wx.service;
+package com.jindouyun.db.service;
 
 
 import com.jindouyun.db.dao.JindouyunAdMapper;

@@ -96,7 +96,7 @@ public class JindouyunCouponUserService {
     //查询所有已过期的优惠券
     public List<JindouyunCouponUser> queryExpired() {
         JindouyunCouponUserExample example = new JindouyunCouponUserExample();
-        example.or().andStatusEqualTo(CouponUserConstant.STATUS_USABLE).andEndTimeLessThan(new Date(System.currentTimeMillis())).andDeletedEqualTo(false);
+        example.or().andStatusEqualTo(CouponUserConstant.STATUS_USABLE).andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false);
         return couponUserMapper.selectByExample(example);
     }
 }

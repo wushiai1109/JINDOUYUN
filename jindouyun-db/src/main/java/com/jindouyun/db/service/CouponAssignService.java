@@ -41,13 +41,13 @@ public class CouponAssignService {
                 couponUser.setUserId(userId);
                 Short timeType = coupon.getTimeType();
                 if (timeType.equals(CouponConstant.TIME_TYPE_TIME)) {
-                    couponUser.setStartTime(new Date(System.currentTimeMillis()));
-                    couponUser.setEndTime(new Date(System.currentTimeMillis()));
+                    couponUser.setStartTime(LocalDateTime.now());
+                    couponUser.setEndTime(LocalDateTime.now());
                 }
                 else{
                     LocalDateTime now = LocalDateTime.now();
                     couponUser.setStartTime(now);
-                    couponUser.setEndTime(new Date(now.plusDays(coupon.getDays()).toLocalTime()));
+                    couponUser.setEndTime(now.plusDays(coupon.getDays()));
                 }
                 couponUserService.add(couponUser);
 
