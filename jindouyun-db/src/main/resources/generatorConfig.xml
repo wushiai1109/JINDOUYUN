@@ -152,6 +152,7 @@
         <!--        <table tableName="jindouyun_permission">-->
         <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
         <!--        </table>-->
+
         <table tableName="Jindouyun_goods_product">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="specifications" javaType="java.lang.String[]"
