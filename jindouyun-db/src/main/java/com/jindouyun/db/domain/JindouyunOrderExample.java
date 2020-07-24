@@ -1,8 +1,8 @@
 package com.jindouyun.db.domain;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class JindouyunOrderExample {
@@ -2098,7 +2098,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeEqualTo(Date value) {
+        public Criteria andPayTimeEqualTo(LocalDateTime value) {
             addCriterion("pay_time =", value, "payTime");
             return (Criteria) this;
         }
@@ -2114,7 +2114,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeNotEqualTo(Date value) {
+        public Criteria andPayTimeNotEqualTo(LocalDateTime value) {
             addCriterion("pay_time <>", value, "payTime");
             return (Criteria) this;
         }
@@ -2130,7 +2130,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeGreaterThan(Date value) {
+        public Criteria andPayTimeGreaterThan(LocalDateTime value) {
             addCriterion("pay_time >", value, "payTime");
             return (Criteria) this;
         }
@@ -2146,7 +2146,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andPayTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("pay_time >=", value, "payTime");
             return (Criteria) this;
         }
@@ -2162,7 +2162,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeLessThan(Date value) {
+        public Criteria andPayTimeLessThan(LocalDateTime value) {
             addCriterion("pay_time <", value, "payTime");
             return (Criteria) this;
         }
@@ -2178,7 +2178,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeLessThanOrEqualTo(Date value) {
+        public Criteria andPayTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("pay_time <=", value, "payTime");
             return (Criteria) this;
         }
@@ -2194,22 +2194,22 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeIn(List<Date> values) {
+        public Criteria andPayTimeIn(List<LocalDateTime> values) {
             addCriterion("pay_time in", values, "payTime");
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeNotIn(List<Date> values) {
+        public Criteria andPayTimeNotIn(List<LocalDateTime> values) {
             addCriterion("pay_time not in", values, "payTime");
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeBetween(Date value1, Date value2) {
+        public Criteria andPayTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("pay_time between", value1, value2, "payTime");
             return (Criteria) this;
         }
 
-        public Criteria andPayTimeNotBetween(Date value1, Date value2) {
+        public Criteria andPayTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("pay_time not between", value1, value2, "payTime");
             return (Criteria) this;
         }
@@ -2622,7 +2622,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeEqualTo(Date value) {
+        public Criteria andRefundTimeEqualTo(LocalDateTime value) {
             addCriterion("refund_time =", value, "refundTime");
             return (Criteria) this;
         }
@@ -2638,7 +2638,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeNotEqualTo(Date value) {
+        public Criteria andRefundTimeNotEqualTo(LocalDateTime value) {
             addCriterion("refund_time <>", value, "refundTime");
             return (Criteria) this;
         }
@@ -2654,7 +2654,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeGreaterThan(Date value) {
+        public Criteria andRefundTimeGreaterThan(LocalDateTime value) {
             addCriterion("refund_time >", value, "refundTime");
             return (Criteria) this;
         }
@@ -2670,7 +2670,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andRefundTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("refund_time >=", value, "refundTime");
             return (Criteria) this;
         }
@@ -2686,7 +2686,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeLessThan(Date value) {
+        public Criteria andRefundTimeLessThan(LocalDateTime value) {
             addCriterion("refund_time <", value, "refundTime");
             return (Criteria) this;
         }
@@ -2702,7 +2702,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeLessThanOrEqualTo(Date value) {
+        public Criteria andRefundTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("refund_time <=", value, "refundTime");
             return (Criteria) this;
         }
@@ -2718,22 +2718,22 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeIn(List<Date> values) {
+        public Criteria andRefundTimeIn(List<LocalDateTime> values) {
             addCriterion("refund_time in", values, "refundTime");
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeNotIn(List<Date> values) {
+        public Criteria andRefundTimeNotIn(List<LocalDateTime> values) {
             addCriterion("refund_time not in", values, "refundTime");
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeBetween(Date value1, Date value2) {
+        public Criteria andRefundTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("refund_time between", value1, value2, "refundTime");
             return (Criteria) this;
         }
 
-        public Criteria andRefundTimeNotBetween(Date value1, Date value2) {
+        public Criteria andRefundTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("refund_time not between", value1, value2, "refundTime");
             return (Criteria) this;
         }
@@ -2748,7 +2748,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeEqualTo(Date value) {
+        public Criteria andConfirmTimeEqualTo(LocalDateTime value) {
             addCriterion("confirm_time =", value, "confirmTime");
             return (Criteria) this;
         }
@@ -2764,7 +2764,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeNotEqualTo(Date value) {
+        public Criteria andConfirmTimeNotEqualTo(LocalDateTime value) {
             addCriterion("confirm_time <>", value, "confirmTime");
             return (Criteria) this;
         }
@@ -2780,7 +2780,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeGreaterThan(Date value) {
+        public Criteria andConfirmTimeGreaterThan(LocalDateTime value) {
             addCriterion("confirm_time >", value, "confirmTime");
             return (Criteria) this;
         }
@@ -2796,7 +2796,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andConfirmTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("confirm_time >=", value, "confirmTime");
             return (Criteria) this;
         }
@@ -2812,7 +2812,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeLessThan(Date value) {
+        public Criteria andConfirmTimeLessThan(LocalDateTime value) {
             addCriterion("confirm_time <", value, "confirmTime");
             return (Criteria) this;
         }
@@ -2828,7 +2828,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeLessThanOrEqualTo(Date value) {
+        public Criteria andConfirmTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("confirm_time <=", value, "confirmTime");
             return (Criteria) this;
         }
@@ -2844,22 +2844,22 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeIn(List<Date> values) {
+        public Criteria andConfirmTimeIn(List<LocalDateTime> values) {
             addCriterion("confirm_time in", values, "confirmTime");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeNotIn(List<Date> values) {
+        public Criteria andConfirmTimeNotIn(List<LocalDateTime> values) {
             addCriterion("confirm_time not in", values, "confirmTime");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeBetween(Date value1, Date value2) {
+        public Criteria andConfirmTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("confirm_time between", value1, value2, "confirmTime");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeNotBetween(Date value1, Date value2) {
+        public Criteria andConfirmTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("confirm_time not between", value1, value2, "confirmTime");
             return (Criteria) this;
         }
@@ -3000,7 +3000,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeEqualTo(Date value) {
+        public Criteria andEndTimeEqualTo(LocalDateTime value) {
             addCriterion("end_time =", value, "endTime");
             return (Criteria) this;
         }
@@ -3016,7 +3016,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotEqualTo(Date value) {
+        public Criteria andEndTimeNotEqualTo(LocalDateTime value) {
             addCriterion("end_time <>", value, "endTime");
             return (Criteria) this;
         }
@@ -3032,7 +3032,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThan(Date value) {
+        public Criteria andEndTimeGreaterThan(LocalDateTime value) {
             addCriterion("end_time >", value, "endTime");
             return (Criteria) this;
         }
@@ -3048,7 +3048,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andEndTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("end_time >=", value, "endTime");
             return (Criteria) this;
         }
@@ -3064,7 +3064,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThan(Date value) {
+        public Criteria andEndTimeLessThan(LocalDateTime value) {
             addCriterion("end_time <", value, "endTime");
             return (Criteria) this;
         }
@@ -3080,7 +3080,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThanOrEqualTo(Date value) {
+        public Criteria andEndTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("end_time <=", value, "endTime");
             return (Criteria) this;
         }
@@ -3096,22 +3096,22 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeIn(List<Date> values) {
+        public Criteria andEndTimeIn(List<LocalDateTime> values) {
             addCriterion("end_time in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotIn(List<Date> values) {
+        public Criteria andEndTimeNotIn(List<LocalDateTime> values) {
             addCriterion("end_time not in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeBetween(Date value1, Date value2) {
+        public Criteria andEndTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("end_time between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotBetween(Date value1, Date value2) {
+        public Criteria andEndTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("end_time not between", value1, value2, "endTime");
             return (Criteria) this;
         }
@@ -3126,7 +3126,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeEqualTo(Date value) {
+        public Criteria andAddTimeEqualTo(LocalDateTime value) {
             addCriterion("add_time =", value, "addTime");
             return (Criteria) this;
         }
@@ -3142,7 +3142,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeNotEqualTo(Date value) {
+        public Criteria andAddTimeNotEqualTo(LocalDateTime value) {
             addCriterion("add_time <>", value, "addTime");
             return (Criteria) this;
         }
@@ -3158,7 +3158,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeGreaterThan(Date value) {
+        public Criteria andAddTimeGreaterThan(LocalDateTime value) {
             addCriterion("add_time >", value, "addTime");
             return (Criteria) this;
         }
@@ -3174,7 +3174,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andAddTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("add_time >=", value, "addTime");
             return (Criteria) this;
         }
@@ -3190,7 +3190,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeLessThan(Date value) {
+        public Criteria andAddTimeLessThan(LocalDateTime value) {
             addCriterion("add_time <", value, "addTime");
             return (Criteria) this;
         }
@@ -3206,7 +3206,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeLessThanOrEqualTo(Date value) {
+        public Criteria andAddTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("add_time <=", value, "addTime");
             return (Criteria) this;
         }
@@ -3222,22 +3222,22 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeIn(List<Date> values) {
+        public Criteria andAddTimeIn(List<LocalDateTime> values) {
             addCriterion("add_time in", values, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeNotIn(List<Date> values) {
+        public Criteria andAddTimeNotIn(List<LocalDateTime> values) {
             addCriterion("add_time not in", values, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeBetween(Date value1, Date value2) {
+        public Criteria andAddTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("add_time between", value1, value2, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeNotBetween(Date value1, Date value2) {
+        public Criteria andAddTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("add_time not between", value1, value2, "addTime");
             return (Criteria) this;
         }
@@ -3252,7 +3252,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeEqualTo(Date value) {
+        public Criteria andUpdateTimeEqualTo(LocalDateTime value) {
             addCriterion("update_time =", value, "updateTime");
             return (Criteria) this;
         }
@@ -3268,7 +3268,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotEqualTo(Date value) {
+        public Criteria andUpdateTimeNotEqualTo(LocalDateTime value) {
             addCriterion("update_time <>", value, "updateTime");
             return (Criteria) this;
         }
@@ -3284,7 +3284,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeGreaterThan(Date value) {
+        public Criteria andUpdateTimeGreaterThan(LocalDateTime value) {
             addCriterion("update_time >", value, "updateTime");
             return (Criteria) this;
         }
@@ -3300,7 +3300,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andUpdateTimeGreaterThanOrEqualTo(LocalDateTime value) {
             addCriterion("update_time >=", value, "updateTime");
             return (Criteria) this;
         }
@@ -3316,7 +3316,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeLessThan(Date value) {
+        public Criteria andUpdateTimeLessThan(LocalDateTime value) {
             addCriterion("update_time <", value, "updateTime");
             return (Criteria) this;
         }
@@ -3332,7 +3332,7 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeLessThanOrEqualTo(Date value) {
+        public Criteria andUpdateTimeLessThanOrEqualTo(LocalDateTime value) {
             addCriterion("update_time <=", value, "updateTime");
             return (Criteria) this;
         }
@@ -3348,22 +3348,22 @@ public class JindouyunOrderExample {
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeIn(List<Date> values) {
+        public Criteria andUpdateTimeIn(List<LocalDateTime> values) {
             addCriterion("update_time in", values, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotIn(List<Date> values) {
+        public Criteria andUpdateTimeNotIn(List<LocalDateTime> values) {
             addCriterion("update_time not in", values, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeBetween(Date value1, Date value2) {
+        public Criteria andUpdateTimeBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("update_time between", value1, value2, "updateTime");
             return (Criteria) this;
         }
 
-        public Criteria andUpdateTimeNotBetween(Date value1, Date value2) {
+        public Criteria andUpdateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("update_time not between", value1, value2, "updateTime");
             return (Criteria) this;
         }

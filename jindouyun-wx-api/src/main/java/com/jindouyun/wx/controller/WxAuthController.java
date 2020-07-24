@@ -35,6 +35,7 @@ import static com.jindouyun.wx.util.WxResponseCode.*;
  */
 @RestController
 @RequestMapping("/wx/auth")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxAuthController {
 
     @Autowired

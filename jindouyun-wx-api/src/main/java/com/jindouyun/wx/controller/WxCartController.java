@@ -30,6 +30,7 @@ import static com.jindouyun.wx.util.WxResponseCode.GOODS_UNSHELVE;
  */
 @RestController
 @RequestMapping("/wx/cart")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxCartController {
 
     private final Log logger = LogFactory.getLog(WxCartController.class);

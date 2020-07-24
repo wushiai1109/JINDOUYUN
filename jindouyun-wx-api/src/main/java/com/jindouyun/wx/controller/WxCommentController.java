@@ -25,6 +25,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/wx/comment")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxCommentController {
 
     @Autowired

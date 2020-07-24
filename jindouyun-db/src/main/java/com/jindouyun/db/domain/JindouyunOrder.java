@@ -2,9 +2,9 @@ package com.jindouyun.db.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class JindouyunOrder implements Serializable {
     /**
@@ -156,7 +156,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    private Date payTime;
+    private LocalDateTime payTime;
 
     /**
      *
@@ -192,7 +192,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    private Date refundTime;
+    private LocalDateTime refundTime;
 
     /**
      *
@@ -201,7 +201,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    private Date confirmTime;
+    private LocalDateTime confirmTime;
 
     /**
      *
@@ -219,7 +219,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    private Date endTime;
+    private LocalDateTime endTime;
 
     /**
      *
@@ -228,7 +228,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    private Date addTime;
+    private LocalDateTime addTime;
 
     /**
      *
@@ -237,7 +237,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      *
@@ -600,7 +600,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getPayTime() {
+    public LocalDateTime getPayTime() {
         return payTime;
     }
 
@@ -612,7 +612,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public void setPayTime(Date payTime) {
+    public void setPayTime(LocalDateTime payTime) {
         this.payTime = payTime;
     }
 
@@ -696,7 +696,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getRefundTime() {
+    public LocalDateTime getRefundTime() {
         return refundTime;
     }
 
@@ -708,7 +708,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public void setRefundTime(Date refundTime) {
+    public void setRefundTime(LocalDateTime refundTime) {
         this.refundTime = refundTime;
     }
 
@@ -720,7 +720,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getConfirmTime() {
+    public LocalDateTime getConfirmTime() {
         return confirmTime;
     }
 
@@ -732,7 +732,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public void setConfirmTime(Date confirmTime) {
+    public void setConfirmTime(LocalDateTime confirmTime) {
         this.confirmTime = confirmTime;
     }
 
@@ -768,7 +768,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
@@ -780,7 +780,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -792,7 +792,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getAddTime() {
+    public LocalDateTime getAddTime() {
         return addTime;
     }
 
@@ -804,7 +804,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public void setAddTime(Date addTime) {
+    public void setAddTime(LocalDateTime addTime) {
         this.addTime = addTime;
     }
 
@@ -816,7 +816,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
@@ -828,7 +828,7 @@ public class JindouyunOrder implements Serializable {
      *
      * @mbg.generated
      */
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
 

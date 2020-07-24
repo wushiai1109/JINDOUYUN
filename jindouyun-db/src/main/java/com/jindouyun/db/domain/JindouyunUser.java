@@ -1,10 +1,10 @@
 package com.jindouyun.db.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class JindouyunUser implements Serializable {
     /**
@@ -75,7 +75,7 @@ public class JindouyunUser implements Serializable {
      *
      * @mbg.generated
      */
-    private Date birthday;
+    private LocalDate birthday;
 
     /**
      *
@@ -312,7 +312,7 @@ public class JindouyunUser implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
@@ -324,7 +324,7 @@ public class JindouyunUser implements Serializable {
      *
      * @mbg.generated
      */
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

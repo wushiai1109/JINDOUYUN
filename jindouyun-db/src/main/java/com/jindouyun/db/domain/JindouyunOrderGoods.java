@@ -2,9 +2,9 @@ package com.jindouyun.db.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class JindouyunOrderGoods implements Serializable {
     /**
@@ -129,7 +129,7 @@ public class JindouyunOrderGoods implements Serializable {
      *
      * @mbg.generated
      */
-    private Date addTime;
+    private LocalDateTime addTime;
 
     /**
      *
@@ -138,7 +138,7 @@ public class JindouyunOrderGoods implements Serializable {
      *
      * @mbg.generated
      */
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     /**
      *
@@ -429,7 +429,7 @@ public class JindouyunOrderGoods implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getAddTime() {
+    public LocalDateTime getAddTime() {
         return addTime;
     }
 
@@ -441,7 +441,7 @@ public class JindouyunOrderGoods implements Serializable {
      *
      * @mbg.generated
      */
-    public void setAddTime(Date addTime) {
+    public void setAddTime(LocalDateTime addTime) {
         this.addTime = addTime;
     }
 
@@ -453,7 +453,7 @@ public class JindouyunOrderGoods implements Serializable {
      *
      * @mbg.generated
      */
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
@@ -465,7 +465,7 @@ public class JindouyunOrderGoods implements Serializable {
      *
      * @mbg.generated
      */
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
 

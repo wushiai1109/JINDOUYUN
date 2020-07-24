@@ -6,10 +6,7 @@ import com.jindouyun.core.validator.Sort;
 import com.jindouyun.db.domain.JindouyunBrand;
 import com.jindouyun.wx.service.JindouyunBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -22,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/brand")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxBrandController {
     
     @Autowired

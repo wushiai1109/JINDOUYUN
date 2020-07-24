@@ -18,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/address")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxAddressController {
 
     @Autowired

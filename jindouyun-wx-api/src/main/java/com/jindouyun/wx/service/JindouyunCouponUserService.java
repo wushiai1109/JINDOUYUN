@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -64,5 +65,23 @@ public class JindouyunCouponUserService {
             return null;
         }
         return couponUserList.get(0);
+    }
+
+    public Integer countCoupon(Integer couponId) {
+        JindouyunCouponUserExample example = new JindouyunCouponUserExample();
+        example.or().andCouponIdEqualTo(couponId).andDeletedEqualTo(false);
+        return (int)couponUserMapper.countByExample(example);
+    }
+
+    public Integer countUserAndCoupon(Integer userId, Integer couponId) {
+        JindouyunCouponUserExample example = new JindouyunCouponUserExample();
+        example.or().andUserIdEqualTo(userId).andCouponIdEqualTo(couponId).andDeletedEqualTo(false);
+        return (int)couponUserMapper.countByExample(example);
+    }
+
+    public void add(JindouyunCouponUser couponUser) {
+        couponUser.setAddTime(LocalDateTime.now());
+        couponUser.setUpdateTime(LocalDateTime.now());
+        couponUserMapper.insertSelective(couponUser);
     }
 }

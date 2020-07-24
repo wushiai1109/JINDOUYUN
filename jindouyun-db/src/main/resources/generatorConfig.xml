@@ -52,6 +52,10 @@
                         password="${spring.datasource.password}">
         </jdbcConnection>
 
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+
         <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false"/>
@@ -70,88 +74,89 @@
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
+
         <!--表名-->
-        <!--        <table tableName="jindouyun_ad">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_address">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_admin">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--            <columnOverride column="role_ids" javaType="java.lang.Integer[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_brand">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_cart">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--            <columnOverride column="specifications" javaType="java.lang.String[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_category">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_comment">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--            <columnOverride column="pic_urls" javaType="java.lang.String[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>-->
-        <!--        </table>-->
+        <table tableName="jindouyun_ad">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_address">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_admin">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="role_ids" javaType="java.lang.Integer[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler"/>
+        </table>
+        <table tableName="jindouyun_brand">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_cart">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="specifications" javaType="java.lang.String[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>
+        </table>
+        <table tableName="jindouyun_category">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_comment">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="pic_urls" javaType="java.lang.String[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>
+        </table>
 
-        <!--        <table tableName="jindouyun_feedback">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--            <columnOverride column="pic_urls" javaType="java.lang.String[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>-->
-        <!--        </table>-->
+        <table tableName="jindouyun_feedback">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="pic_urls" javaType="java.lang.String[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>
+        </table>
 
-        <!--        <table tableName="jindouyun_footprint">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_goods">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--            <columnOverride column="gallery" javaType="java.lang.String[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_issue">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_order">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_order_goods">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--            <columnOverride column="specifications" javaType="java.lang.String[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>-->
-        <!--            <columnOverride column="comments" javaType="java.lang.Integer[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_region">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_storage">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_user">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_system">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_coupon">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--            <columnOverride column="goods_value" javaType="java.lang.Integer[]"-->
-        <!--                            typeHandler="com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_coupon_user">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_role">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
-        <!--        <table tableName="jindouyun_permission">-->
-        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--        </table>-->
+        <table tableName="jindouyun_footprint">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_goods">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="gallery" javaType="java.lang.String[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>
+        </table>
+        <table tableName="jindouyun_issue">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_order">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_order_goods">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="specifications" javaType="java.lang.String[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>
+            <columnOverride column="comments" javaType="java.lang.Integer[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler"/>
+        </table>
+        <table tableName="jindouyun_region">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_storage">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_user">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_system">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_coupon">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="goods_value" javaType="java.lang.Integer[]"
+                            typeHandler="com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler"/>
+        </table>
+        <table tableName="jindouyun_coupon_user">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_role">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_permission">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="Jindouyun_goods_product">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
