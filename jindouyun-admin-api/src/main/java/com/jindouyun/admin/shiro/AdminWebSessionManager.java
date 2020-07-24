@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class AdminWebSessionManager extends DefaultWebSessionManager {
 
-    public static final String LOGIN_TOKEN_KEY = "X-Litemall-Admin-Token";
+    public static final String LOGIN_TOKEN_KEY = "X-Jindouyun-Admin-Token";
     private static final String REFERENCED_SESSION_ID_SOURCE = "Stateless request";
 
     @Override

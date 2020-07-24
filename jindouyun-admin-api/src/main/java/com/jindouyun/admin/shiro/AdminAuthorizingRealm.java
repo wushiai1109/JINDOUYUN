@@ -1,6 +1,11 @@
 package com.jindouyun.admin.shiro;
 
 
+import com.jindouyun.core.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.db.domain.JindouyunAdmin;
+import com.jindouyun.db.service.JindouyunAdminService;
+import com.jindouyun.db.service.JindouyunPermissionService;
+import com.jindouyun.db.service.JindouyunRoleService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;

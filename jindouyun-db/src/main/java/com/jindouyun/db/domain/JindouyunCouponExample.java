@@ -2595,7 +2595,6 @@ public class JindouyunCouponExample {
             addCriterion("deleted not between", value1, value2, "deleted");
             return (Criteria) this;
         }
-
     }
 
     /**
@@ -2809,7 +2808,4 @@ public class JindouyunCouponExample {
          */
         void example(com.jindouyun.db.domain.JindouyunCouponExample example);
     }
-
-
-
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,8 +40,8 @@ public class CouponAssignService {
                 couponUser.setUserId(userId);
                 Short timeType = coupon.getTimeType();
                 if (timeType.equals(CouponConstant.TIME_TYPE_TIME)) {
-                    couponUser.setStartTime(LocalDateTime.now());
-                    couponUser.setEndTime(LocalDateTime.now());
+                    couponUser.setStartTime(coupon.getStartTime());
+                    couponUser.setEndTime(coupon.getEndTime());
                 }
                 else{
                     LocalDateTime now = LocalDateTime.now();

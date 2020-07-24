@@ -1,6 +1,6 @@
 package com.jindouyun.db.util;
 
-//import com.jindouyun.db.domain.LitemallOrder;
+import com.jindouyun.db.domain.JindouyunOrder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * 订单流程：下单成功－》支付订单－》发货－》收货
  * 订单状态：
  * 101 订单生成，未支付；102，下单未支付用户取消；103，下单未支付超期系统自动取消
- * 201 支付完成，商家未发货；202，订单生产，已付款未发货，用户申请退款；203，管理员执行退款操作，确认退款成功；
+ * 201 支付完成，商家未发货；202，订单生成，已付款未发货，用户申请退款；203，管理员执行退款操作，确认退款成功；
  * 301 商家发货，用户未确认；
  * 401 用户确认收货，订单结束； 402 用户没有确认收货，但是快递反馈已收货后，超过一定时间，系统自动确认收货，订单结束。
  *
@@ -35,7 +35,7 @@ public class OrderUtil {
     public static final Short STATUS_TIMEOUT_GROUPON = 204;
 
 //
-//    public static String orderStatusText(LitemallOrder order) {
+//    public static String orderStatusText(JindouyunOrder order) {
 //        int status = order.getOrderStatus().intValue();
 //
 //        if (status == 101) {
@@ -86,7 +86,7 @@ public class OrderUtil {
 //    }
 //
 //
-//    public static OrderHandleOption build(LitemallOrder order) {
+//    public static OrderHandleOption build(JindouyunOrder order) {
 //        int status = order.getOrderStatus().intValue();
 //        OrderHandleOption handleOption = new OrderHandleOption();
 //
@@ -151,45 +151,45 @@ public class OrderUtil {
 //    }
 //
 //
-//    public static boolean isCreateStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_CREATE == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean hasPayed(LitemallOrder order) {
-//        return OrderUtil.STATUS_CREATE != order.getOrderStatus().shortValue()
-//                && OrderUtil.STATUS_CANCEL != order.getOrderStatus().shortValue()
-//                && OrderUtil.STATUS_AUTO_CANCEL != order.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isPayStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_PAY == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isShipStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_SHIP == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isConfirmStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_CONFIRM == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isCancelStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_CANCEL == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isAutoCancelStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_AUTO_CANCEL == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isRefundStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_REFUND == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isRefundConfirmStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_REFUND_CONFIRM == litemallOrder.getOrderStatus().shortValue();
-//    }
-//
-//    public static boolean isAutoConfirmStatus(LitemallOrder litemallOrder) {
-//        return OrderUtil.STATUS_AUTO_CONFIRM == litemallOrder.getOrderStatus().shortValue();
-//    }
+    public static boolean isCreateStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_CREATE == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean hasPayed(JindouyunOrder order) {
+        return OrderUtil.STATUS_CREATE != order.getOrderStatus().shortValue()
+                && OrderUtil.STATUS_CANCEL != order.getOrderStatus().shortValue()
+                && OrderUtil.STATUS_AUTO_CANCEL != order.getOrderStatus().shortValue();
+    }
+
+    public static boolean isPayStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_PAY == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean isShipStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_SHIP == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean isConfirmStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_CONFIRM == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean isCancelStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_CANCEL == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean isAutoCancelStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_AUTO_CANCEL == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean isRefundStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_REFUND == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean isRefundConfirmStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_REFUND_CONFIRM == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    public static boolean isAutoConfirmStatus(JindouyunOrder JindouyunOrder) {
+        return OrderUtil.STATUS_AUTO_CONFIRM == JindouyunOrder.getOrderStatus().shortValue();
+    }
 }

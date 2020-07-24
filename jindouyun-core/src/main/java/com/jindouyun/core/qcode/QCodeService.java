@@ -1,5 +1,5 @@
-//package com.jindouyun.core.qcode;
-//
+package com.jindouyun.core.qcode;
+
 //import cn.binarywang.wx.miniapp.api.WxMaService;
 //import me.chanjar.weixin.common.error.WxErrorException;
 //import org.apache.commons.logging.Log;
@@ -8,7 +8,7 @@
 //import com.jindouyun.core.system.SystemConfig;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.core.io.ClassPathResource;
-//import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;
 //
 //import javax.imageio.ImageIO;
 //import java.awt.*;
@@ -16,8 +16,8 @@
 //import java.io.*;
 //import java.net.URL;
 //
-//@Service
-//public class QCodeService {
+@Service
+public class QCodeService {
 //    private final Log logger = LogFactory.getLog(org.linlinjava.litemall.core.qcode.QCodeService.class);
 //    @Autowired
 //    WxMaService wxMaService;
@@ -183,4 +183,4 @@
 //        g2D.drawImage(imageToWrite, x, y, width, heigth, null);
 //        g2D.dispose();
 //    }
-//}
+}

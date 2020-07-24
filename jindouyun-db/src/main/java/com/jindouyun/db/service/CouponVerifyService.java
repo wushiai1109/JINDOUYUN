@@ -2,25 +2,16 @@ package com.jindouyun.db.service;
 
 import com.jindouyun.db.domain.JindouyunCoupon;
 import com.jindouyun.db.domain.JindouyunCouponUser;
-import com.jindouyun.db.service.JindouyunCouponService;
-import com.jindouyun.db.service.JindouyunCouponUserService;
 import com.jindouyun.db.util.CouponConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * @ClassName CouponVerifyService
- * @Description
- * @Author Bruce
- * @Date 2020/7/24 12:42 下午
- */
 @Service
-@Transactional
 public class CouponVerifyService {
+
     @Autowired
     private JindouyunCouponUserService couponUserService;
     @Autowired
@@ -32,7 +23,7 @@ public class CouponVerifyService {
      * @param userId
      * @param couponId
      * @param checkedGoodsPrice
-     * @return
+     * @return 如果不适合 返回 null，反之返回对应的coupon
      */
     public JindouyunCoupon checkCoupon(Integer userId, Integer couponId, Integer userCouponId, BigDecimal checkedGoodsPrice) {
         JindouyunCoupon coupon = couponService.findById(couponId);
@@ -71,6 +62,7 @@ public class CouponVerifyService {
         }
 
         // 检测商品是否符合
+        // TODO 目前仅支持全平台商品，所以不需要检测
         Short goodType = coupon.getGoodsType();
         if (!goodType.equals(CouponConstant.GOODS_TYPE_ALL)) {
             return null;
@@ -82,10 +74,11 @@ public class CouponVerifyService {
             return null;
         }
         // 检测是否满足最低消费
-        if (checkedGoodsPrice.compareTo(coupon.getMin()) < 0) {
+        if (checkedGoodsPrice.compareTo(coupon.getMin()) == -1) {
             return null;
         }
 
         return coupon;
     }
+
 }

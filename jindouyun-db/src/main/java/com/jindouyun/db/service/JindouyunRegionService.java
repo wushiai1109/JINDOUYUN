@@ -4,33 +4,30 @@ import com.github.pagehelper.PageHelper;
 import com.jindouyun.db.dao.JindouyunRegionMapper;
 import com.jindouyun.db.domain.JindouyunRegion;
 import com.jindouyun.db.domain.JindouyunRegionExample;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @ClassName JindouyunRegionService
- * @Description
- * @Author Bruce
- * @Date 2020/7/22 9:11 上午
- */
 @Service
-@Transactional
 public class JindouyunRegionService {
 
-    @Autowired
+    @Resource
     private JindouyunRegionMapper regionMapper;
 
-    public List<JindouyunRegion> getAll() {
-        JindouyunRegionExample regionExample = new JindouyunRegionExample();
+    public List<JindouyunRegion> getAll(){
+        JindouyunRegionExample example = new JindouyunRegionExample();
         byte b = 4;
-        regionExample.or().andTypeNotEqualTo(b);
-        return regionMapper.selectByExample(regionExample);
+        example.or().andTypeNotEqualTo(b);
+        return regionMapper.selectByExample(example);
     }
 
+    /**
+     * 查询 子列表
+     * @param parentId
+     * @return
+     */
     public List<JindouyunRegion> queryByPid(Integer parentId) {
         JindouyunRegionExample example = new JindouyunRegionExample();
         example.or().andPidEqualTo(parentId);
@@ -41,6 +38,16 @@ public class JindouyunRegionService {
         return regionMapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * 条件查询 name or code
+     * @param name
+     * @param code
+     * @param page
+     * @param size
+     * @param sort
+     * @param order
+     * @return
+     */
     public List<JindouyunRegion> querySelective(String name, Integer code, Integer page, Integer size, String sort, String order) {
         JindouyunRegionExample example = new JindouyunRegionExample();
         JindouyunRegionExample.Criteria criteria = example.createCriteria();

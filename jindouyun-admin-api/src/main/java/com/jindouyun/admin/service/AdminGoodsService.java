@@ -1,5 +1,14 @@
 package com.jindouyun.admin.service;
 
+import com.jindouyun.admin.model.dto.GoodsAllinone;
+import com.jindouyun.admin.model.vo.CatVo;
+import com.jindouyun.core.qcode.QCodeService;
+import com.jindouyun.core.util.ResponseUtil;
+import com.jindouyun.db.domain.JindouyunBrand;
+import com.jindouyun.db.domain.JindouyunCategory;
+import com.jindouyun.db.domain.JindouyunGoods;
+import com.jindouyun.db.domain.JindouyunGoodsProduct;
+import com.jindouyun.db.service.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +22,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.jindouyun.admin.util.AdminResponseCode.GOODS_NAME_EXIST;
+
+
 @Service
 public class AdminGoodsService {
     private final Log logger = LogFactory.getLog(AdminGoodsService.class);
 
     @Autowired
     private JindouyunGoodsService goodsService;
-    @Autowired
-    private JindouyunGoodsSpecificationService specificationService;
-    @Autowired
-    private JindouyunGoodsAttributeService attributeService;
+//    @Autowired
+//    private JindouyunGoodsSpecificationService specificationService;
+//    @Autowired
+//    private JindouyunGoodsAttributeService attributeService;
     @Autowired
     private JindouyunGoodsProductService productService;
     @Autowired
@@ -34,12 +46,29 @@ public class AdminGoodsService {
     @Autowired
     private QCodeService qCodeService;
 
+
+    /**
+     * 条件查询 goodsId or goodsSn or name
+     * @param goodsId
+     * @param goodsSn
+     * @param name
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @return
+     */
     public Object list(Integer goodsId, String goodsSn, String name,
                        Integer page, Integer limit, String sort, String order) {
         List<JindouyunGoods> goodsList = goodsService.querySelective(goodsId, goodsSn, name, page, limit, sort, order);
         return ResponseUtil.okList(goodsList);
     }
 
+    /**
+     * 验证商品
+     * @param goodsAllinone
+     * @return
+     */
     private Object validate(GoodsAllinone goodsAllinone) {
         JindouyunGoods goods = goodsAllinone.getGoods();
         String name = goods.getName();
@@ -50,7 +79,7 @@ public class AdminGoodsService {
         if (StringUtils.isEmpty(goodsSn)) {
             return ResponseUtil.badArgument();
         }
-        // 品牌商可以不设置，如果设置则需要验证品牌商存在
+        // 商家可以不设置，如果设置则需要验证商家存在
         Integer brandId = goods.getBrandId();
         if (brandId != null && brandId != 0) {
             if (brandService.findById(brandId) == null) {
@@ -65,30 +94,33 @@ public class AdminGoodsService {
             }
         }
 
-        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
-        for (JindouyunGoodsAttribute attribute : attributes) {
-            String attr = attribute.getAttribute();
-            if (StringUtils.isEmpty(attr)) {
-                return ResponseUtil.badArgument();
-            }
-            String value = attribute.getValue();
-            if (StringUtils.isEmpty(value)) {
-                return ResponseUtil.badArgument();
-            }
-        }
+        //验证商品属性
+//        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
+//        for (JindouyunGoodsAttribute attribute : attributes) {
+//            String attr = attribute.getAttribute();
+//            if (StringUtils.isEmpty(attr)) {
+//                return ResponseUtil.badArgument();
+//            }
+//            String value = attribute.getValue();
+//            if (StringUtils.isEmpty(value)) {
+//                return ResponseUtil.badArgument();
+//            }
+//        }
 
-        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
-        for (JindouyunGoodsSpecification specification : specifications) {
-            String spec = specification.getSpecification();
-            if (StringUtils.isEmpty(spec)) {
-                return ResponseUtil.badArgument();
-            }
-            String value = specification.getValue();
-            if (StringUtils.isEmpty(value)) {
-                return ResponseUtil.badArgument();
-            }
-        }
+        //验证商品Specification
+//        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
+//        for (JindouyunGoodsSpecification specification : specifications) {
+//            String spec = specification.getSpecification();
+//            if (StringUtils.isEmpty(spec)) {
+//                return ResponseUtil.badArgument();
+//            }
+//            String value = specification.getValue();
+//            if (StringUtils.isEmpty(value)) {
+//                return ResponseUtil.badArgument();
+//            }
+//        }
 
+        //验证商品规格
         JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
         for (JindouyunGoodsProduct product : products) {
             Integer number = product.getNumber();
@@ -140,15 +172,15 @@ public class AdminGoodsService {
         }
 
         JindouyunGoods goods = goodsAllinone.getGoods();
-        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
-        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
+//        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
+//        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
 
         //将生成的分享图片地址写入数据库
-        String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
-        goods.setShareUrl(url);
+//        String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
+//        goods.setShareUrl(url);
 
-        // 商品表里面有一个字段retailPrice记录当前商品的最低价
+        // 商品表里面有一个字段nowPrice记录当前商品的最低价
         BigDecimal retailPrice = new BigDecimal(Integer.MAX_VALUE);
         for (JindouyunGoodsProduct product : products) {
             BigDecimal productPrice = product.getPrice();
@@ -156,8 +188,8 @@ public class AdminGoodsService {
                 retailPrice = productPrice;
             }
         }
-        goods.setRetailPrice(retailPrice);
-
+        goods.setNowPrice(retailPrice);
+        
         // 商品基本信息表Jindouyun_goods
         if (goodsService.updateById(goods) == 0) {
             throw new RuntimeException("更新数据失败");
@@ -166,14 +198,14 @@ public class AdminGoodsService {
         Integer gid = goods.getId();
 
         // 商品规格表Jindouyun_goods_specification
-        for (JindouyunGoodsSpecification specification : specifications) {
-            // 目前只支持更新规格表的图片字段
-            if(specification.getUpdateTime() == null){
-                specification.setSpecification(null);
-                specification.setValue(null);
-                specificationService.updateById(specification);
-            }
-        }
+//        for (JindouyunGoodsSpecification specification : specifications) {
+//            // 目前只支持更新规格表的图片字段
+//            if(specification.getUpdateTime() == null){
+//                specification.setSpecification(null);
+//                specification.setValue(null);
+//                specificationService.updateById(specification);
+//            }
+//        }
 
         // 商品货品表Jindouyun_product
         for (JindouyunGoodsProduct product : products) {
@@ -183,18 +215,18 @@ public class AdminGoodsService {
         }
 
         // 商品参数表Jindouyun_goods_attribute
-        for (JindouyunGoodsAttribute attribute : attributes) {
-            if (attribute.getId() == null || attribute.getId().equals(0)){
-                attribute.setGoodsId(goods.getId());
-                attributeService.add(attribute);
-            }
-            else if(attribute.getDeleted()){
-                attributeService.deleteById(attribute.getId());
-            }
-            else if(attribute.getUpdateTime() == null){
-                attributeService.updateById(attribute);
-            }
-        }
+//        for (JindouyunGoodsAttribute attribute : attributes) {
+//            if (attribute.getId() == null || attribute.getId().equals(0)){
+//                attribute.setGoodsId(goods.getId());
+//                attributeService.add(attribute);
+//            }
+//            else if(attribute.getDeleted()){
+//                attributeService.deleteById(attribute.getId());
+//            }
+//            else if(attribute.getUpdateTime() == null){
+//                attributeService.updateById(attribute);
+//            }
+//        }
 
         // 这里需要注意的是购物车Jindouyun_cart有些字段是拷贝商品的一些字段，因此需要及时更新
         // 目前这些字段是goods_sn, goods_name, price, pic_url
@@ -214,8 +246,8 @@ public class AdminGoodsService {
 
         Integer gid = goods.getId();
         goodsService.deleteById(gid);
-        specificationService.deleteByGid(gid);
-        attributeService.deleteByGid(gid);
+//        specificationService.deleteByGid(gid);
+//        attributeService.deleteByGid(gid);
         productService.deleteByGid(gid);
         return ResponseUtil.ok();
     }
@@ -228,8 +260,8 @@ public class AdminGoodsService {
         }
 
         JindouyunGoods goods = goodsAllinone.getGoods();
-        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
-        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
+//        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
+//        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
 
         String name = goods.getName();
@@ -237,7 +269,7 @@ public class AdminGoodsService {
             return ResponseUtil.fail(GOODS_NAME_EXIST, "商品名已经存在");
         }
 
-        // 商品表里面有一个字段retailPrice记录当前商品的最低价
+        // 商品表里面有一个字段nowPrice记录当前商品的最低价
         BigDecimal retailPrice = new BigDecimal(Integer.MAX_VALUE);
         for (JindouyunGoodsProduct product : products) {
             BigDecimal productPrice = product.getPrice();
@@ -245,31 +277,31 @@ public class AdminGoodsService {
                 retailPrice = productPrice;
             }
         }
-        goods.setRetailPrice(retailPrice);
+        goods.setNowPrice(retailPrice);
 
         // 商品基本信息表Jindouyun_goods
         goodsService.add(goods);
 
         //将生成的分享图片地址写入数据库
-        String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
-        if (!StringUtils.isEmpty(url)) {
-            goods.setShareUrl(url);
-            if (goodsService.updateById(goods) == 0) {
-                throw new RuntimeException("更新数据失败");
-            }
-        }
+//        String url = qCodeService.createGoodShareImage(goods.getId().toString(), goods.getPicUrl(), goods.getName());
+//        if (!StringUtils.isEmpty(url)) {
+//            goods.setShareUrl(url);
+//            if (goodsService.updateById(goods) == 0) {
+//                throw new RuntimeException("更新数据失败");
+//            }
+//        }
 
         // 商品规格表Jindouyun_goods_specification
-        for (JindouyunGoodsSpecification specification : specifications) {
-            specification.setGoodsId(goods.getId());
-            specificationService.add(specification);
-        }
+//        for (JindouyunGoodsSpecification specification : specifications) {
+//            specification.setGoodsId(goods.getId());
+//            specificationService.add(specification);
+//        }
 
         // 商品参数表Jindouyun_goods_attribute
-        for (JindouyunGoodsAttribute attribute : attributes) {
-            attribute.setGoodsId(goods.getId());
-            attributeService.add(attribute);
-        }
+//        for (JindouyunGoodsAttribute attribute : attributes) {
+//            attribute.setGoodsId(goods.getId());
+//            attributeService.add(attribute);
+//        }
 
         // 商品货品表Jindouyun_product
         for (JindouyunGoodsProduct product : products) {
@@ -278,6 +310,7 @@ public class AdminGoodsService {
         }
         return ResponseUtil.ok();
     }
+
 
     public Object list2() {
         // http://element-cn.eleme.io/#/zh-CN/component/cascader
@@ -320,11 +353,16 @@ public class AdminGoodsService {
         return ResponseUtil.ok(data);
     }
 
+    /**
+     * 返回商品细节
+     * @param id
+     * @return
+     */
     public Object detail(Integer id) {
         JindouyunGoods goods = goodsService.findById(id);
         List<JindouyunGoodsProduct> products = productService.queryByGid(id);
-        List<JindouyunGoodsSpecification> specifications = specificationService.queryByGid(id);
-        List<JindouyunGoodsAttribute> attributes = attributeService.queryByGid(id);
+//        List<JindouyunGoodsSpecification> specifications = specificationService.queryByGid(id);
+//        List<JindouyunGoodsAttribute> attributes = attributeService.queryByGid(id);
 
         Integer categoryId = goods.getCategoryId();
         JindouyunCategory category = categoryService.findById(categoryId);
@@ -336,9 +374,9 @@ public class AdminGoodsService {
 
         Map<String, Object> data = new HashMap<>();
         data.put("goods", goods);
-        data.put("specifications", specifications);
+//        data.put("specifications", specifications);
         data.put("products", products);
-        data.put("attributes", attributes);
+//        data.put("attributes", attributes);
         data.put("categoryIds", categoryIds);
 
         return ResponseUtil.ok(data);

@@ -19,18 +19,31 @@ public class JindouyunStorageService {
     @Resource
     private JindouyunStorageMapper storageMapper;
 
+    /**
+     * 根据key 删除
+     * @param key
+     */
     public void deleteByKey(String key) {
         JindouyunStorageExample example = new JindouyunStorageExample();
         example.or().andKeyEqualTo(key);
         storageMapper.logicalDeleteByExample(example);
     }
 
+    /**
+     * 添加
+     * @param storageInfo
+     */
     public void add(JindouyunStorage storageInfo) {
         storageInfo.setAddTime(LocalDateTime.now());
         storageInfo.setUpdateTime(LocalDateTime.now());
         storageMapper.insertSelective(storageInfo);
     }
 
+    /**
+     * 通过可以查找
+     * @param key
+     * @return
+     */
     public JindouyunStorage findByKey(String key) {
         JindouyunStorageExample example = new JindouyunStorageExample();
         example.or().andKeyEqualTo(key).andDeletedEqualTo(false);
@@ -46,6 +59,16 @@ public class JindouyunStorageService {
         return storageMapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * 条件查询
+     * @param key
+     * @param name
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @return
+     */
     public List<JindouyunStorage> querySelective(String key, String name, Integer page, Integer limit, String sort, String order) {
         JindouyunStorageExample example = new JindouyunStorageExample();
         JindouyunStorageExample.Criteria criteria = example.createCriteria();

@@ -1,6 +1,7 @@
 package com.jindouyun.admin.util;
 
 import com.jindouyun.admin.annotation.RequiresPermissionsDesc;
+import com.jindouyun.admin.model.vo.PermVo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,6 +18,11 @@ import java.util.*;
 
 public class PermissionUtil {
 
+    /**
+     *
+     * @param permissions
+     * @return
+     */
     public static List<PermVo> listPermVo(List<Permission> permissions) {
         List<PermVo> root = new ArrayList<>();
         for (Permission permission : permissions) {
