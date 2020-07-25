@@ -2,7 +2,7 @@ package com.jindouyun.wx.controller;
 
 import com.jindouyun.core.validator.Order;
 import com.jindouyun.core.validator.Sort;
-import com.jindouyun.db.service.WxOrderService;
+import com.jindouyun.wx.service.WxOrderService;
 import com.jindouyun.wx.annotation.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

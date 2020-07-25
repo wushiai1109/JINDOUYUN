@@ -1,4 +1,4 @@
-package com.jindouyun.db.service;
+package com.jindouyun.wx.service;
 
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
@@ -10,7 +10,6 @@ import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.jindouyun.core.express.ExpressService;
-import com.jindouyun.core.express.dao.ExpressInfo;
 import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.core.notify.NotifyType;
 import com.jindouyun.core.qcode.QCodeService;
@@ -20,6 +19,7 @@ import com.jindouyun.core.util.DateTimeUtil;
 import com.jindouyun.core.util.IpUtil;
 import com.jindouyun.core.util.JacksonUtil;
 import com.jindouyun.db.domain.*;
+import com.jindouyun.db.service.*;
 import com.jindouyun.db.util.CouponUserConstant;
 import com.jindouyun.db.util.OrderHandleOption;
 import com.jindouyun.db.util.OrderUtil;
