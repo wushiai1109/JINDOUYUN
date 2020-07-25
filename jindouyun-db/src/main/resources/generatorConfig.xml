@@ -163,5 +163,8 @@
             <columnOverride column="specifications" javaType="java.lang.String[]"
                             typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>
         </table>
+        <table tableName="jindouyun_log">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>
