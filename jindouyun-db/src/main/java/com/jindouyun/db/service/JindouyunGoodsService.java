@@ -93,13 +93,15 @@ public class JindouyunGoodsService {
      * @param catId
      * @param brandId
      * @param keywords
+     * @param isHot
+     * @param isNew
      * @param offset
      * @param limit
      * @param sort
      * @param order
      * @return
      */
-    public List<JindouyunGoods> querySelective(Integer catId, Integer brandId, String keywords, Integer offset, Integer limit, String sort, String order) {
+    public List<JindouyunGoods> querySelective(Integer catId, Integer brandId, String keywords, Boolean isHot, Boolean isNew, Integer offset, Integer limit, String sort, String order) {
         JindouyunGoodsExample example = new JindouyunGoodsExample();
         JindouyunGoodsExample.Criteria criteria1 = example.or();
         JindouyunGoodsExample.Criteria criteria2 = example.or();
@@ -230,9 +232,11 @@ public class JindouyunGoodsService {
      * 条件查询 查询类id 通过brandId or keywords
      * @param brandId
      * @param keywords
+     * @param isHot
+     * @param isNew
      * @return
      */
-    public List<Integer> getCatIds(Integer brandId, String keywords) {
+    public List<Integer> getCatIds(Integer brandId, String keywords, Boolean isHot, Boolean isNew) {
         JindouyunGoodsExample example = new JindouyunGoodsExample();
         JindouyunGoodsExample.Criteria criteria1 = example.or();
         JindouyunGoodsExample.Criteria criteria2 = example.or();
