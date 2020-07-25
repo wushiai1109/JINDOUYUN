@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
