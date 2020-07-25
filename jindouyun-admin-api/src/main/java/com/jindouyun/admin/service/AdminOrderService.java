@@ -1,172 +1,190 @@
-//package com.jindouyun.admin.service;
-//
-//import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
-//import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
-//import com.github.binarywang.wxpay.exception.WxPayException;
-//import com.github.binarywang.wxpay.service.WxPayService;
-//import com.jindouyun.core.notify.NotifyService;
-//import com.jindouyun.core.util.JacksonUtil;
-//import com.jindouyun.core.util.ResponseUtil;
-//import com.jindouyun.db.domain.JindouyunOrder;
-//import com.jindouyun.db.domain.JindouyunOrderGoods;
-//import com.jindouyun.db.domain.UserVo;
-//import com.jindouyun.db.service.*;
-//import com.jindouyun.db.util.OrderUtil;
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//import org.springframework.util.StringUtils;
-//
-//import java.math.BigDecimal;
-//import java.time.LocalDateTime;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//
-//import static com.jindouyun.admin.util.AdminResponseCode.*;
-//
-//@Service
-//
-//public class AdminOrderService {
-//    private final Log logger = LogFactory.getLog(AdminOrderService.class);
-//
-//    @Autowired
-//    private JindouyunOrderGoodsService orderGoodsService;
-//    @Autowired
-//    private JindouyunOrderService orderService;
-//    @Autowired
-//    private JindouyunGoodsProductService productService;
-//    @Autowired
-//    private JindouyunUserService userService;
-//    @Autowired
-//    private JindouyunCommentService commentService;
-//    @Autowired
-//    private WxPayService wxPayService;
-//    @Autowired
-//    private NotifyService notifyService;
-//    @Autowired
-////    private LogHelper logHelper;
-//
-//    public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
-//                       Integer page, Integer limit, String sort, String order) {
-//        List<JindouyunOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit,
-//                sort, order);
-//        return ResponseUtil.okList(orderList);
-//    }
-//
-//    public Object detail(Integer id) {
-//        JindouyunOrder order = orderService.findById(id);
-//        List<JindouyunOrderGoods> orderGoods = orderGoodsService.queryByOid(id);
-//        UserVo user = userService.findUserVoById(order.getUserId());
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("order", order);
-//        data.put("orderGoods", orderGoods);
-//        data.put("user", user);
-//
-//        return ResponseUtil.ok(data);
-//    }
-//
-//    /**
-//     * 订单退款
-//     * <p>
-//     * 1. 检测当前订单是否能够退款;
-//     * 2. 微信退款操作;
-//     * 3. 设置订单退款确认状态；
-//     * 4. 订单商品库存回库。
-//     * <p>
-//     * TODO
-//     * 虽然接入了微信退款API，但是从安全角度考虑，建议开发者删除这里微信退款代码，采用以下两步走步骤：
-//     * 1. 管理员登录微信官方支付平台点击退款操作进行退款
-//     * 2. 管理员登录Jindouyun管理后台点击退款操作进行订单状态修改和商品库存回库
-//     *
-//     * @param body 订单信息，{ orderId：xxx }
-//     * @return 订单退款操作结果
-//     */
-//    @Transactional
-//    public Object refund(String body) {
-//        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
-//        String refundMoney = JacksonUtil.parseString(body, "refundMoney");
-//        if (orderId == null) {
-//            return ResponseUtil.badArgument();
-//        }
-//        if (StringUtils.isEmpty(refundMoney)) {
-//            return ResponseUtil.badArgument();
-//        }
-//
-//        JindouyunOrder order = orderService.findById(orderId);
-//        if (order == null) {
-//            return ResponseUtil.badArgument();
-//        }
-//
-//        if (order.getActualPrice().compareTo(new BigDecimal(refundMoney)) != 0) {
-//            return ResponseUtil.badArgumentValue();
-//        }
-//
-//        // 如果订单不是退款状态，则不能退款
-//        if (!order.getOrderStatus().equals(OrderUtil.STATUS_REFUND)) {
-//            return ResponseUtil.fail(ORDER_CONFIRM_NOT_ALLOWED, "订单不能确认收货");
-//        }
-//
-//        // 微信退款
-//        WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
-//        wxPayRefundRequest.setOutTradeNo(order.getOrderSn());
-//        wxPayRefundRequest.setOutRefundNo("refund_" + order.getOrderSn());
-//        // 元转成分
-//        Integer totalFee = order.getActualPrice().multiply(new BigDecimal(100)).intValue();
-//        wxPayRefundRequest.setTotalFee(totalFee);
-//        wxPayRefundRequest.setRefundFee(totalFee);
-//
-//        WxPayRefundResult wxPayRefundResult;
-//        try {
-//            wxPayRefundResult = wxPayService.refund(wxPayRefundRequest);
-//        } catch (WxPayException e) {
-//            logger.error(e.getMessage(), e);
-//            return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
-//        }
-//        if (!wxPayRefundResult.getReturnCode().equals("SUCCESS")) {
-//            logger.warn("refund fail: " + wxPayRefundResult.getReturnMsg());
-//            return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
-//        }
-//        if (!wxPayRefundResult.getResultCode().equals("SUCCESS")) {
-//            logger.warn("refund fail: " + wxPayRefundResult.getReturnMsg());
-//            return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
-//        }
-//
-//        LocalDateTime now = LocalDateTime.now();
-//        // 设置订单取消状态
-//        order.setOrderStatus(OrderUtil.STATUS_REFUND_CONFIRM);
-//        order.setEndTime(now);
-//        // 记录订单退款相关信息
-//        order.setRefundAmount(order.getActualPrice());
-//        order.setRefundType("微信退款接口");
-//        order.setRefundContent(wxPayRefundResult.getRefundId());
-//        order.setRefundTime(now);
-//        if (orderService.updateWithOptimisticLocker(order) == 0) {
-//            throw new RuntimeException("更新数据已失效");
-//        }
-//
-//        // 商品货品数量增加
-//        List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryByOid(orderId);
-//        for (JindouyunOrderGoods orderGoods : orderGoodsList) {
-//            Integer productId = orderGoods.getProductId();
-//            Short number = orderGoods.getNumber();
-//            if (productService.addStock(productId, number) == 0) {
-//                throw new RuntimeException("商品货品库存增加失败");
-//            }
-//        }
-//
-//        //TODO 发送邮件和短信通知，这里采用异步发送
-//        // 退款成功通知用户, 例如“您申请的订单退款 [ 单号:{1} ] 已成功，请耐心等待到账。”
-//        // 注意订单号只发后6位
-//        notifyService.notifySmsTemplate(order.getMobile(), NotifyType.REFUND,
-//                new String[]{order.getOrderSn().substring(8, 14)});
-//
-//        logHelper.logOrderSucceed("退款", "订单编号 " + orderId);
-//        return ResponseUtil.ok();
-//    }
-//
+package com.jindouyun.admin.service;
+
+import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
+import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
+import com.github.binarywang.wxpay.exception.WxPayException;
+import com.github.binarywang.wxpay.service.WxPayService;
+import com.jindouyun.core.notify.NotifyService;
+import com.jindouyun.core.notify.NotifyType;
+import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.core.util.ResponseUtil;
+import com.jindouyun.db.domain.JindouyunComment;
+import com.jindouyun.db.domain.JindouyunOrder;
+import com.jindouyun.db.domain.JindouyunOrderGoods;
+import com.jindouyun.db.domain.UserVo;
+import com.jindouyun.db.service.*;
+import com.jindouyun.db.util.OrderUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.jindouyun.admin.util.AdminResponseCode.*;
+
+@Service
+
+public class AdminOrderService {
+    private final Log logger = LogFactory.getLog(AdminOrderService.class);
+
+    @Autowired
+    private JindouyunOrderGoodsService orderGoodsService;
+    @Autowired
+    private JindouyunOrderService orderService;
+    @Autowired
+    private JindouyunGoodsProductService productService;
+    @Autowired
+    private JindouyunUserService userService;
+    @Autowired
+    private JindouyunCommentService commentService;
+    @Autowired
+    private WxPayService wxPayService;
+    @Autowired
+    private NotifyService notifyService;
+    @Autowired
+    private LogHelper logHelper;
+
+    /**
+     * 条件查询 userId orderSn orderStatusArray
+     * @param userId
+     * @param orderSn
+     * @param orderStatusArray
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @return
+     */
+    public Object list(Integer userId, String orderSn, List<Short> orderStatusArray,
+                       Integer page, Integer limit, String sort, String order) {
+        List<JindouyunOrder> orderList = orderService.querySelective(userId, orderSn, orderStatusArray, page, limit,
+                sort, order);
+        return ResponseUtil.okList(orderList);
+    }
+
+    /**
+     * 查询订单详情
+     * @param id
+     * @return
+     */
+    public Object detail(Integer id) {
+        JindouyunOrder order = orderService.findById(id);
+        List<JindouyunOrderGoods> orderGoods = orderGoodsService.queryByOid(id);
+        UserVo user = userService.findUserVoById(order.getUserId());
+        Map<String, Object> data = new HashMap<>();
+        data.put("order", order);
+        data.put("orderGoods", orderGoods);
+        data.put("user", user);
+
+        return ResponseUtil.ok(data);
+    }
+
+    /**
+     * 订单退款
+     * <p>
+     * 1. 检测当前订单是否能够退款;
+     * 2. 微信退款操作;
+     * 3. 设置订单退款确认状态；
+     * 4. 订单商品库存回库。
+     * <p>
+     * TODO
+     * 虽然接入了微信退款API，但是从安全角度考虑，建议开发者删除这里微信退款代码，采用以下两步走步骤：
+     * 1. 管理员登录微信官方支付平台点击退款操作进行退款
+     * 2. 管理员登录Jindouyun管理后台点击退款操作进行订单状态修改和商品库存回库
+     *
+     * @param body 订单信息，{ orderId：xxx }
+     * @return 订单退款操作结果
+     */
+    @Transactional
+    public Object refund(String body) {
+        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
+        String refundMoney = JacksonUtil.parseString(body, "refundMoney");
+        if (orderId == null) {
+            return ResponseUtil.badArgument();
+        }
+        if (StringUtils.isEmpty(refundMoney)) {
+            return ResponseUtil.badArgument();
+        }
+
+        JindouyunOrder order = orderService.findById(orderId);
+        if (order == null) {
+            return ResponseUtil.badArgument();
+        }
+
+        if (order.getActualPrice().compareTo(new BigDecimal(refundMoney)) != 0) {
+            return ResponseUtil.badArgumentValue();
+        }
+
+        // 如果订单不是退款状态，则不能退款
+        if (!order.getOrderStatus().equals(OrderUtil.STATUS_REFUND)) {
+            return ResponseUtil.fail(ORDER_CONFIRM_NOT_ALLOWED, "订单不能确认收货");
+        }
+
+        // 微信退款
+        WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
+        wxPayRefundRequest.setOutTradeNo(order.getOrderSn());
+        wxPayRefundRequest.setOutRefundNo("refund_" + order.getOrderSn());
+        // 元转成分
+        Integer totalFee = order.getActualPrice().multiply(new BigDecimal(100)).intValue();
+        wxPayRefundRequest.setTotalFee(totalFee);
+        wxPayRefundRequest.setRefundFee(totalFee);
+
+        WxPayRefundResult wxPayRefundResult;
+        try {
+            wxPayRefundResult = wxPayService.refund(wxPayRefundRequest);
+        } catch (WxPayException e) {
+            logger.error(e.getMessage(), e);
+            return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
+        }
+        if (!wxPayRefundResult.getReturnCode().equals("SUCCESS")) {
+            logger.warn("refund fail: " + wxPayRefundResult.getReturnMsg());
+            return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
+        }
+        if (!wxPayRefundResult.getResultCode().equals("SUCCESS")) {
+            logger.warn("refund fail: " + wxPayRefundResult.getReturnMsg());
+            return ResponseUtil.fail(ORDER_REFUND_FAILED, "订单退款失败");
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        // 设置订单取消状态
+        order.setOrderStatus(OrderUtil.STATUS_REFUND_CONFIRM);
+        order.setEndTime(now);
+        // 记录订单退款相关信息
+        order.setRefundAmount(order.getActualPrice());
+        order.setRefundType("微信退款接口");
+        order.setRefundContent(wxPayRefundResult.getRefundId());
+        order.setRefundTime(now);
+        if (orderService.updateWithOptimisticLocker(order) == 0) {
+            throw new RuntimeException("更新数据已失效");
+        }
+
+        // 商品货品数量增加
+        List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryByOid(orderId);
+        for (JindouyunOrderGoods orderGoods : orderGoodsList) {
+            Integer productId = orderGoods.getProductId();
+            Short number = orderGoods.getNumber();
+            if (productService.addStock(productId, number) == 0) {
+                throw new RuntimeException("商品货品库存增加失败");
+            }
+        }
+
+        //TODO 发送邮件和短信通知，这里采用异步发送
+        // 退款成功通知用户, 例如“您申请的订单退款 [ 单号:{1} ] 已成功，请耐心等待到账。”
+        // 注意订单号只发后6位
+        notifyService.notifySmsTemplate(order.getMobile(), NotifyType.REFUND,
+                new String[]{order.getOrderSn().substring(8, 14)});
+
+        logHelper.logOrderSucceed("退款", "订单编号 " + orderId);
+        return ResponseUtil.ok();
+    }
+
 //    /**
 //     * 发货
 //     * 1. 检测当前订单是否能够发货
@@ -211,8 +229,8 @@
 //        logHelper.logOrderSucceed("发货", "订单编号 " + orderId);
 //        return ResponseUtil.ok();
 //    }
-//
-//
+
+
 //    /**
 //     * 回复订单商品
 //     *
@@ -247,5 +265,5 @@
 //
 //        return ResponseUtil.ok();
 //    }
-//
-//}
+
+}
