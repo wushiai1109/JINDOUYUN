@@ -411,7 +411,7 @@ public class WxCartController {
      * @return 购物车操作结果
      */
     @GetMapping("checkout")
-    public Object checkout(@LoginUser Integer userId, Integer cartId, Integer addressId, Integer couponId, Integer userCouponId, Integer grouponRulesId) {
+    public Object checkout(@LoginUser Integer userId, Integer cartId, Integer addressId, Integer couponId, Integer userCouponId/*, Integer grouponRulesId*/) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -429,7 +429,6 @@ public class WxCartController {
             } else {
                 addressId = checkedAddress.getId();
             }
-
         } else {
             checkedAddress = addressService.query(userId, addressId);
             // 如果null, 则报错
@@ -473,15 +472,20 @@ public class WxCartController {
         Integer tmpUserCouponId = 0;
         int tmpCouponLength = 0;
         List<JindouyunCouponUser> couponUserList = couponUserService.queryAll(userId);
+        System.out.println(couponUserList);
         for (JindouyunCouponUser couponUser : couponUserList) {
             tmpUserCouponId = couponUser.getId();
+            System.out.println(userId);
+            System.out.println(couponUser.getCouponId());
+            System.out.println(tmpUserCouponId);
+            System.out.println(checkedGoodsPrice);
             JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponUser.getCouponId(), tmpUserCouponId, checkedGoodsPrice);
             if (coupon == null) {
                 continue;
             }
 
             tmpCouponLength++;
-            if (tmpCouponPrice.compareTo(coupon.getDiscount()) == -1) {
+            if (tmpCouponPrice.compareTo(coupon.getDiscount()) < 0) {
                 tmpCouponPrice = coupon.getDiscount();
                 tmpCouponId = coupon.getId();
             }
@@ -531,7 +535,6 @@ public class WxCartController {
         data.put("couponId", couponId);
         data.put("userCouponId", userCouponId);
         data.put("cartId", cartId);
-        data.put("grouponRulesId", grouponRulesId);
         data.put("checkedAddress", checkedAddress);
         data.put("availableCouponLength", availableCouponLength);
         data.put("goodsTotalPrice", checkedGoodsPrice);

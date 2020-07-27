@@ -99,15 +99,16 @@ public class WxCommentController {
     /**
      * 评论数量
      *
-     * @param type    类型ID。 如果是0，则查询商品评论；如果是1，则查询专题评论。
-     * @param valueId 商品或专题ID。如果type是0，则是商品ID；如果type是1，则是专题ID。
+     //* @param type    类型ID。 如果是0，则查询商品评论；如果是1，则查询专题评论。
+     //* @param valueId 商品或专题ID。如果type是0，则是商品ID；如果type是1，则是专题ID。
      * @return 评论数量
      */
     @GetMapping("count")
-    public Object count(@NotNull Byte type, @NotNull Integer valueId) {
+    public Object count(/*@NotNull Byte type,*/ @NotNull Integer valueId) {
+        Byte type = 0;
         int allCount = commentService.count(type, valueId, 0);
 //        int hasPicCount = commentService.count(type, valueId, 1);
-        Map<String, Object> entity = new HashMap<String, Object>();
+        Map<String, Object> entity = new HashMap<>();
         entity.put("allCount", allCount);
 //        entity.put("hasPicCount", hasPicCount);
         return ResponseUtil.ok(entity);
@@ -116,7 +117,7 @@ public class WxCommentController {
     /**
      * 评论列表
      *
-     * @param type     类型ID。 如果是0，则查询商品评论；如果是1，则查询专题评论。
+     //* @param type     类型ID。 如果是0，则查询商品评论；如果是1，则查询专题评论。
      * @param valueId  商品或专题ID。如果type是0，则是商品ID；如果type是1，则是专题ID。
      * @param showType 显示类型。如果是0，则查询全部；如果是1，则查询有图片的评论。
      * @param page     分页页数
@@ -124,11 +125,12 @@ public class WxCommentController {
      * @return 评论列表
      */
     @GetMapping("list")
-    public Object list(@NotNull Byte type,
+    public Object list(/*@NotNull Byte type,*/
                        @NotNull Integer valueId,
                        @NotNull Integer showType,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit) {
+        Byte type = 0;
         List<JindouyunComment> commentList = commentService.query(type, valueId, showType, page, limit);
 
         List<Map<String, Object>> commentVoList = new ArrayList<>(commentList.size());

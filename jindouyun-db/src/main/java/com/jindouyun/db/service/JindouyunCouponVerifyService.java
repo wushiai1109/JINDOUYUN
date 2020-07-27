@@ -67,8 +67,7 @@ public class JindouyunCouponVerifyService {
             if (now.isAfter(expired)) {
                 return null;
             }
-        }
-        else {
+        } else {
             return null;
         }
 
@@ -84,7 +83,7 @@ public class JindouyunCouponVerifyService {
             return null;
         }
         // 检测是否满足最低消费
-        if (checkedGoodsPrice.compareTo(coupon.getMin()) == -1) {
+        if (checkedGoodsPrice.compareTo(coupon.getMin()) < 0) {
             return null;
         }
 
