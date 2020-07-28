@@ -10,6 +10,9 @@ import com.jindouyun.db.domain.JindouyunAdmin;
 import com.jindouyun.db.service.JindouyunAdminService;
 import com.jindouyun.db.service.JindouyunPermissionService;
 import com.jindouyun.db.service.JindouyunRoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.SecurityUtils;
@@ -35,6 +38,7 @@ import static com.jindouyun.admin.util.AdminResponseCode.ADMIN_INVALID_ACCOUNT;
 @RestController
 @RequestMapping("/admin/auth")
 @Validated
+@Api(value = "鉴权模块")
 public class AdminAuthController {
     private final Log logger = LogFactory.getLog(AdminAuthController.class);
 
@@ -51,7 +55,9 @@ public class AdminAuthController {
      *  { username : value, password : value }
      */
     @PostMapping("/login")
-    public Object login(@RequestBody String body, HttpServletRequest request) {
+    @ApiOperation(value = "登录",notes = "用户登录接口",httpMethod = "POST")
+    public Object login(@ApiParam(name = "body",value = "{\"username\":\"admin123\",\"password\":\"admin123\"}", required = true) @RequestBody String body,
+                        HttpServletRequest request) {
         String username = JacksonUtil.parseString(body, "username");
         String password = JacksonUtil.parseString(body, "password");
 
@@ -96,6 +102,7 @@ public class AdminAuthController {
 
     @RequiresAuthentication
     @PostMapping("/logout")
+    @ApiOperation(value = "注销",notes = "退出登录")
     public Object logout() {
         Subject currentUser = SecurityUtils.getSubject();
 
@@ -107,6 +114,7 @@ public class AdminAuthController {
 
     @RequiresAuthentication
     @GetMapping("/info")
+    @ApiOperation(value = "获取管理员信息",notes = "获取管理员，包括角色，权限，头像接口",httpMethod = "GET")
     public Object info() {
         Subject currentUser = SecurityUtils.getSubject();
         JindouyunAdmin admin = (JindouyunAdmin) currentUser.getPrincipal();
@@ -132,7 +140,7 @@ public class AdminAuthController {
     private Collection<String> toApi(Set<String> permissions) {
         if (systemPermissionsMap == null) {
             systemPermissionsMap = new HashMap<>();
-            final String basicPackage = "org.linlinjava.Jindouyun.admin";
+            final String basicPackage = "com.jindouyun.admin";
             List<Permission> systemPermissions = PermissionUtil.listPermission(context, basicPackage);
             for (Permission permission : systemPermissions) {
                 String perm = permission.getRequiresPermissions().value()[0];
@@ -158,16 +166,19 @@ public class AdminAuthController {
     }
 
     @GetMapping("/401")
+    @ApiOperation(value = "未登录而访问失败跳转接口", notes = "前端不需要管，后端内部跳转接口",httpMethod = "GET")
     public Object page401() {
         return ResponseUtil.unlogin();
     }
 
     @GetMapping("/index")
+    @ApiOperation(value = "登录成功跳转接口", notes = "前端不需要管，后端内部跳转接口",httpMethod = "GET")
     public Object pageIndex() {
         return ResponseUtil.ok();
     }
 
     @GetMapping("/403")
+    @ApiOperation(value = "由于权限不足为拒绝操作", notes = "前端不需要管，后端内部跳转接口",httpMethod = "GET")
     public Object page403() {
         return ResponseUtil.unauthz();
     }

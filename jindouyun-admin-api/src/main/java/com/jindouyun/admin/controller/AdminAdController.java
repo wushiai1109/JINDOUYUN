@@ -6,6 +6,9 @@ import com.jindouyun.core.validator.Order;
 import com.jindouyun.core.validator.Sort;
 import com.jindouyun.db.domain.JindouyunAd;
 import com.jindouyun.db.service.JindouyunAdService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -20,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/ad")
 @Validated
+@Api(value = "活动推广模块")
 public class AdminAdController {
     private final Log logger = LogFactory.getLog(AdminAdController.class);
 
@@ -61,7 +65,8 @@ public class AdminAdController {
     @RequiresPermissions("admin:ad:create")
     @RequiresPermissionsDesc(menu = {"推广管理", "广告管理"}, button = "添加")
     @PostMapping("/create")
-    public Object create(@RequestBody JindouyunAd ad) {
+    @ApiOperation(value = "创建推广活动",notes = "创建推广活动",httpMethod = "POST")
+    public Object create(@ApiParam @RequestBody JindouyunAd ad) {
         Object error = validate(ad);
         if (error != null) {
             return error;
