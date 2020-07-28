@@ -16,7 +16,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserInfo {
 
+    //用户昵称或网络名称
     private String nickName;
+    //用户头像图片
     private String avatarUrl;
     private String country;
     private String province;

@@ -120,11 +120,11 @@ public class WxCouponController {
      *
      * @param userId
      * @param cartId
-     * @param grouponRulesId
+//     * @param grouponRulesId
      * @return
      */
     @GetMapping("selectlist")
-    public Object selectlist(@LoginUser Integer userId, Integer cartId, Integer grouponRulesId) {
+    public Object selectlist(@LoginUser Integer userId, Integer cartId/*, Integer grouponRulesId*/) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
