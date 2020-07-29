@@ -158,12 +158,15 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
-        <table tableName="Jindouyun_goods_product">
+        <table tableName="jindouyun_goods_product">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
             <columnOverride column="specifications" javaType="java.lang.String[]"
                             typeHandler="com.jindouyun.db.mybatis.JsonStringArrayTypeHandler"/>
         </table>
         <table tableName="jindouyun_log">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="jindouyun_search_history">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>

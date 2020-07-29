@@ -62,7 +62,6 @@ public class CouponVerifyService {
         }
 
         // 检测商品是否符合
-        // TODO 目前仅支持全平台商品，所以不需要检测
         Short goodType = coupon.getGoodsType();
         if (!goodType.equals(CouponConstant.GOODS_TYPE_ALL)) {
             return null;

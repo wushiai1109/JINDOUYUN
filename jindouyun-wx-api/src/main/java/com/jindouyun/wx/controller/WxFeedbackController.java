@@ -75,8 +75,8 @@ public class WxFeedbackController {
         feedback.setId(null);
         feedback.setUserId(userId);
         feedback.setUsername(username);
-        //状态默认是0，1表示状态已发生变化
-        feedback.setStatus(1);
+//        //状态默认是0，1表示状态已发生变化
+//        feedback.setStatus(1);
         feedbackService.add(feedback);
 
         return ResponseUtil.ok();

@@ -8,6 +8,7 @@ import com.jindouyun.core.validator.Sort;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.wx.annotation.LoginUser;
+import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,8 +60,8 @@ public class WxGoodsController {
     @Autowired
     private JindouyunCategoryService categoryService;
 
-//    @Autowired
-//    private JindouyunSearchHistoryService searchHistoryService;
+    @Autowired
+    private JindouyunSearchHistoryService searchHistoryService;
 
 //    @Autowired
 //    private JindouyunGoodsSpecificationService goodsSpecificationService;
@@ -251,14 +252,14 @@ public class WxGoodsController {
             @Sort(accepts = {"add_time", "retail_price", "name"}) @RequestParam(defaultValue = "add_time") String sort,
             @Order @RequestParam(defaultValue = "desc") String order) {
 
-//        //添加到搜索历史
-//        if (userId != null && !StringUtils.isNullOrEmpty(keyword)) {
-//            JindouyunSearchHistory searchHistoryVo = new JindouyunSearchHistory();
-//            searchHistoryVo.setKeyword(keyword);
-//            searchHistoryVo.setUserId(userId);
-//            searchHistoryVo.setFrom("wx");
-//            searchHistoryService.save(searchHistoryVo);
-//        }
+        //添加到搜索历史
+        if (userId != null && !StringUtils.isNullOrEmpty(keyword)) {
+            JindouyunSearchHistory searchHistoryVo = new JindouyunSearchHistory();
+            searchHistoryVo.setKeyword(keyword);
+            searchHistoryVo.setUserId(userId);
+            searchHistoryVo.setFrom("wx");
+            searchHistoryService.save(searchHistoryVo);
+        }
 
         //查询列表数据
         List<JindouyunGoods> goodsList = goodsService.querySelective(categoryId, brandId, keyword, isHot, isNew, page, limit, sort, order);
@@ -285,6 +286,7 @@ public class WxGoodsController {
         // 因为这里需要返回额外的filterCategoryList参数，因此不能方便使用ResponseUtil.okList
         return ResponseUtil.ok(entity);
     }
+
 
     /**
      * 商品详情页面“大家都在看”推荐商品

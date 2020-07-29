@@ -278,4 +278,36 @@ public class JindouyunGoodsService {
         example.or().andIdIn(Arrays.asList(ids)).andIsOnSaleEqualTo(true).andDeletedEqualTo(false);
         return goodsMapper.selectByExampleSelective(example, columns);
     }
+
+    /**
+     *
+     * @param keyword
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @return
+     */
+    public List<JindouyunGoods> searchList(String keyword, Integer page, Integer limit, String sort, String order) {
+        JindouyunGoodsExample example = new JindouyunGoodsExample();
+        JindouyunGoodsExample.Criteria criteria1 = example.or();
+        JindouyunGoodsExample.Criteria criteria2 = example.or();
+
+        if (!StringUtils.isEmpty(keyword)) {
+            criteria1.andKeywordsLike("%" + keyword + "%");
+            criteria2.andNameLike("%" + keyword + "%");
+        }
+        criteria1.andIsOnSaleEqualTo(true);
+        criteria2.andIsOnSaleEqualTo(true);
+        criteria1.andDeletedEqualTo(false);
+        criteria2.andDeletedEqualTo(false);
+
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            example.setOrderByClause(sort + " " + order);
+        }
+
+        PageHelper.startPage(page, limit);
+
+        return goodsMapper.selectByExampleSelective(example, columns);
+    }
 }

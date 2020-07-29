@@ -260,8 +260,8 @@ public class WxOrderService {
         Integer couponId = JacksonUtil.parseInteger(body, "couponId");
         Integer userCouponId = JacksonUtil.parseInteger(body, "userCouponId");
         String message = JacksonUtil.parseString(body, "message");
-        Integer grouponRulesId = JacksonUtil.parseInteger(body, "grouponRulesId");
-        Integer grouponLinkId = JacksonUtil.parseInteger(body, "grouponLinkId");
+//        Integer grouponRulesId = JacksonUtil.parseInteger(body, "grouponRulesId");
+//        Integer grouponLinkId = JacksonUtil.parseInteger(body, "grouponLinkId");
 
 //        //如果是团购项目,验证活动是否有效
 //        if (grouponRulesId != null && grouponRulesId > 0) {
@@ -469,12 +469,12 @@ public class WxOrderService {
 
         Map<String, Object> data = new HashMap<>();
         data.put("orderId", orderId);
-        if (grouponRulesId != null && grouponRulesId > 0) {
-            data.put("grouponLinkId", grouponLinkId);
-        }
-        else {
-            data.put("grouponLinkId", 0);
-        }
+//        if (grouponRulesId != null && grouponRulesId > 0) {
+//            data.put("grouponLinkId", grouponLinkId);
+//        }
+//        else {
+//            data.put("grouponLinkId", 0);
+//        }
         return ResponseUtil.ok(data);
     }
 
