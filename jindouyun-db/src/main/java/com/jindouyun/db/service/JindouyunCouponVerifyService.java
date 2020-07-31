@@ -56,6 +56,8 @@ public class JindouyunCouponVerifyService {
         //检查是否是通用券或者是否是此商家的优惠券
         if (brandId != 0) {
             System.out.println("brand"+brandId.intValue());
+            System.out.println("~~~~"+couponId);
+            System.out.println("!!!"+coupon.getId());
             System.out.println("coupon.getType()"+(coupon.getType()).intValue());
             System.out.println(brandId.intValue() == coupon.getType().intValue());
             boolean flag = brandId.intValue() != coupon.getType().intValue();
@@ -82,11 +84,11 @@ public class JindouyunCouponVerifyService {
             return null;
         }
 
-        // 检测商品是否符合
-        Short goodType = coupon.getGoodsType();
-        if (!goodType.equals(CouponConstant.GOODS_TYPE_ALL)) {
-            return null;
-        }
+//        // 检测商品是否符合
+//        Short goodType = coupon.getGoodsType();
+//        if (!goodType.equals(CouponConstant.GOODS_TYPE_ALL)) {
+//            return null;
+//        }
 
         // 检测订单状态
         Short status = coupon.getStatus();

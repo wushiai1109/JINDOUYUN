@@ -72,25 +72,25 @@ public class WxAddressController {
             return ResponseUtil.badArgument();
         }
 
-        String province = address.getProvince();
-        if (StringUtils.isEmpty(province)) {
-            return ResponseUtil.badArgument();
-        }
+//        String province = address.getProvince();
+//        if (StringUtils.isEmpty(province)) {
+//            return ResponseUtil.badArgument();
+//        }
 
-        String city = address.getCity();
-        if (StringUtils.isEmpty(city)) {
-            return ResponseUtil.badArgument();
-        }
+//        String city = address.getCity();
+//        if (StringUtils.isEmpty(city)) {
+//            return ResponseUtil.badArgument();
+//        }
 
-        String county = address.getCounty();
-        if (StringUtils.isEmpty(county)) {
-            return ResponseUtil.badArgument();
-        }
+//        String county = address.getCounty();
+//        if (StringUtils.isEmpty(county)) {
+//            return ResponseUtil.badArgument();
+//        }
 
-        String areaCode = address.getAreaCode();
-        if (StringUtils.isEmpty(areaCode)) {
-            return ResponseUtil.badArgument();
-        }
+//        String areaCode = address.getAreaCode();
+//        if (StringUtils.isEmpty(areaCode)) {
+//            return ResponseUtil.badArgument();
+//        }
 
         String detailedAddress = address.getAddressDetail();
         if (StringUtils.isEmpty(detailedAddress)) {

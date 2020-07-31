@@ -413,6 +413,8 @@ public class WxCartController {
      */
     @GetMapping("checkout")
     public Object checkout(@LoginUser Integer userId, Integer cartId, Integer addressId, Integer couponId, Integer userCouponId/*, Integer grouponRulesId*/) {
+        System.out.println("couponId"+couponId);
+        System.out.println("userCouponId"+userCouponId);
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -516,6 +518,7 @@ public class WxCartController {
             couponId = tmpCouponId;
             userCouponId = tmpUserCouponId;
         } else {
+
             JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponId, userCouponId, checkedGoodsPrice,brandId);
             // 用户选择的优惠券有问题，则选择合适优惠券，否则使用用户选择的优惠券
             if (coupon == null) {

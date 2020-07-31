@@ -244,7 +244,7 @@ public class WxOrderService {
      * 5. 如果是团购商品，则创建团购活动表项。
      *
      * @param userId 用户ID
-     * @param body   订单信息，{ cartId：xxx, addressId: xxx, couponId: xxx, message: xxx, grouponRulesId: xxx,  grouponLinkId: xxx}
+     * @param body   订单信息，{ cartIds：[xx,x], addressId: xxx, couponId: xxx, message: xxx, grouponRulesId: xxx,  grouponLinkId: xxx}
      * @return 提交订单操作结果
      */
     @Transactional
@@ -255,7 +255,9 @@ public class WxOrderService {
         if (body == null) {
             return ResponseUtil.badArgument();
         }
-        Integer cartId = JacksonUtil.parseInteger(body, "cartId");
+//        Integer cartId = JacksonUtil.parseInteger(body, "cartId");
+        List<Integer> cartIds = JacksonUtil.parseIntegerList(body, "cartIds");
+
         Integer addressId = JacksonUtil.parseInteger(body, "addressId");
         Integer couponId = JacksonUtil.parseInteger(body, "couponId");
         Integer userCouponId = JacksonUtil.parseInteger(body, "userCouponId");
@@ -299,7 +301,11 @@ public class WxOrderService {
 //            }
 //        }
 
-        if (cartId == null || addressId == null || couponId == null) {
+//        if (cartId == null || addressId == null || couponId == null) {
+//            return ResponseUtil.badArgument();
+//        }
+
+        if (cartIds == null || addressId == null || couponId == null) {
             return ResponseUtil.badArgument();
         }
 
@@ -317,23 +323,29 @@ public class WxOrderService {
 //        }
 
         // 货品价格
-        List<JindouyunCart> checkedGoodsList = null;
-        if (cartId.equals(0)) {
-            checkedGoodsList = cartService.queryByUidAndChecked(userId);
-        } else {
-            JindouyunCart cart = cartService.findById(cartId);
-            checkedGoodsList = new ArrayList<>(1);
-            checkedGoodsList.add(cart);
+        BigDecimal checkedGoodsPrice = new BigDecimal(0);
+        List<JindouyunCart> checkedGoodsList = new ArrayList<>();
+        for (Integer cartId:cartIds) {
+            if (cartId.equals(0)) {
+                checkedGoodsList = cartService.queryByUidAndChecked(userId);
+            } else {
+                JindouyunCart cart = cartService.findById(cartId);
+//                checkedGoodsList = new ArrayList<>();
+                checkedGoodsList.add(cart);
+            }
         }
+        System.out.println(checkedGoodsList);
+
         if (checkedGoodsList.size() == 0) {
             return ResponseUtil.badArgumentValue();
         }
-        BigDecimal checkedGoodsPrice = new BigDecimal(0);
+
         for (JindouyunCart checkGoods : checkedGoodsList) {
 //            //  只有当团购规格商品ID符合才进行团购优惠
 //            if (grouponRules != null && grouponRules.getGoodsId().equals(checkGoods.getGoodsId())) {
 //                checkedGoodsPrice = checkedGoodsPrice.add(checkGoods.getPrice().subtract(grouponPrice).multiply(new BigDecimal(checkGoods.getNumber())));
 //            } else {
+            System.out.println(checkedGoodsPrice.add(checkGoods.getPrice().multiply(new BigDecimal(checkGoods.getNumber()))));
                 checkedGoodsPrice = checkedGoodsPrice.add(checkGoods.getPrice().multiply(new BigDecimal(checkGoods.getNumber())));
 //            }
         }
@@ -351,8 +363,14 @@ public class WxOrderService {
         }
 
 
-        // 根据订单商品总价计算运费，满足条件（例如88元）则免运费，否则需要支付运费（例如8元）；
-        BigDecimal freightPrice = new BigDecimal(0);
+//        // 根据订单商品总价计算运费，满足条件（例如88元）则免运费，否则需要支付运费（例如8元）；
+//        BigDecimal freightPrice = new BigDecimal(0);
+//        if (checkedGoodsPrice.compareTo(SystemConfig.getFreightLimit()) < 0) {
+//            freightPrice = SystemConfig.getFreight();
+//        }
+
+        // 根据订单商品总价计算运费，满10则1运费，否则2元；
+        BigDecimal freightPrice = new BigDecimal(1.00);
         if (checkedGoodsPrice.compareTo(SystemConfig.getFreightLimit()) < 0) {
             freightPrice = SystemConfig.getFreight();
         }
