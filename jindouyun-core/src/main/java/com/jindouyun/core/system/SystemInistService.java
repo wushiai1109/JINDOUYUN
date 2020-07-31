@@ -42,8 +42,8 @@ class SystemInistService {
         DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_WX_INDEX_CATLOG_GOODS, "4");
         DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_WX_SHARE, "false");
         // 运费相关配置默认值
-        DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_EXPRESS_FREIGHT_VALUE, "8");
-        DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_EXPRESS_FREIGHT_MIN, "88");
+        DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_EXPRESS_FREIGHT_VALUE, "2");
+        DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_EXPRESS_FREIGHT_MIN, "10");
         // 订单相关配置默认值
         DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_ORDER_UNPAID, "30");
         DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_ORDER_UNCONFIRM, "7");

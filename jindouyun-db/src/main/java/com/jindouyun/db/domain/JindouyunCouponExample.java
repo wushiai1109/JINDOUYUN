@@ -1210,7 +1210,7 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(Short value) {
+        public Criteria andTypeEqualTo(Integer value) {
             addCriterion("`type` =", value, "type");
             return (Criteria) this;
         }
@@ -1226,7 +1226,7 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(Short value) {
+        public Criteria andTypeNotEqualTo(Integer value) {
             addCriterion("`type` <>", value, "type");
             return (Criteria) this;
         }
@@ -1242,7 +1242,7 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(Short value) {
+        public Criteria andTypeGreaterThan(Integer value) {
             addCriterion("`type` >", value, "type");
             return (Criteria) this;
         }
@@ -1258,7 +1258,7 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(Short value) {
+        public Criteria andTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("`type` >=", value, "type");
             return (Criteria) this;
         }
@@ -1274,7 +1274,7 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(Short value) {
+        public Criteria andTypeLessThan(Integer value) {
             addCriterion("`type` <", value, "type");
             return (Criteria) this;
         }
@@ -1290,7 +1290,7 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(Short value) {
+        public Criteria andTypeLessThanOrEqualTo(Integer value) {
             addCriterion("`type` <=", value, "type");
             return (Criteria) this;
         }
@@ -1306,22 +1306,22 @@ public class JindouyunCouponExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<Short> values) {
+        public Criteria andTypeIn(List<Integer> values) {
             addCriterion("`type` in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<Short> values) {
+        public Criteria andTypeNotIn(List<Integer> values) {
             addCriterion("`type` not in", values, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(Short value1, Short value2) {
+        public Criteria andTypeBetween(Integer value1, Integer value2) {
             addCriterion("`type` between", value1, value2, "type");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(Short value1, Short value2) {
+        public Criteria andTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("`type` not between", value1, value2, "type");
             return (Criteria) this;
         }

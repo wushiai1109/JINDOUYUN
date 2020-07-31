@@ -33,7 +33,7 @@ public class AdminCouponController {
     @RequiresPermissions("admin:coupon:list")
     @RequiresPermissionsDesc(menu = {"推广管理", "优惠券管理"}, button = "查询")
     @GetMapping("/list")
-    public Object list(String name, Short type, Short status,
+    public Object list(String name, Integer type, Short status,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "add_time") String sort,

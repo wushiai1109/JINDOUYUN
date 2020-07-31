@@ -3,9 +3,9 @@ package com.jindouyun.db.util;
 public class CouponConstant {
 
     //优惠券类型
-    public static final Short TYPE_COMMON = 0;                  //通用券，用户领取
-    public static final Short TYPE_REGISTER = 1;                //注册赠券
-    public static final Short TYPE_CODE = 2;                    //优惠券码兑换
+    public static final Integer TYPE_COMMON = 0;                  //通用券，用户领取
+    public static final Integer TYPE_REGISTER = 0;                //注册赠券
+    public static final Integer TYPE_CODE = 2;                    //优惠券码兑换
 
     //商品限制类型
     public static final Short GOODS_TYPE_ALL = 0;               //全部商品

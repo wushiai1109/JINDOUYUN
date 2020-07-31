@@ -408,6 +408,7 @@ public class WxCartController {
      *                  如果收货地址ID是空，则查询当前用户的默认地址。
      * @param couponId  优惠券ID：
      *                  如果优惠券ID是空，则自动选择合适的优惠券。
+     * @param userCouponId 用户拥有的优惠卷的id
      * @return 购物车操作结果
      */
     @GetMapping("checkout")
@@ -446,6 +447,10 @@ public class WxCartController {
 
         // 商品价格
         List<JindouyunCart> checkedGoodsList = null;
+
+        //商品是否是外卖，是则赋值为外卖商家id
+        Integer brandId = 0;
+
         if (cartId == null || cartId.equals(0)) {
             checkedGoodsList = cartService.queryByUidAndChecked(userId);
         } else {
@@ -455,6 +460,12 @@ public class WxCartController {
             }
             checkedGoodsList = new ArrayList<>(1);
             checkedGoodsList.add(cart);
+            // 商品信息
+            JindouyunGoods goods = goodsService.findById(cart.getGoodsId());
+            if (goods.getBrandId() != 0){
+                brandId = goods.getBrandId();
+            }
+
         }
         BigDecimal checkedGoodsPrice = new BigDecimal(0.00);
         for (JindouyunCart cart : checkedGoodsList) {
@@ -475,11 +486,11 @@ public class WxCartController {
         System.out.println(couponUserList);
         for (JindouyunCouponUser couponUser : couponUserList) {
             tmpUserCouponId = couponUser.getId();
-            System.out.println(userId);
-            System.out.println(couponUser.getCouponId());
-            System.out.println(tmpUserCouponId);
-            System.out.println(checkedGoodsPrice);
-            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponUser.getCouponId(), tmpUserCouponId, checkedGoodsPrice);
+            System.out.println("userId"+userId);
+            System.out.println("couponUser.getCouponId()"+couponUser.getCouponId());
+            System.out.println("tmpUserCouponId"+tmpUserCouponId);
+            System.out.println("checkedGoodsPrice"+checkedGoodsPrice);
+            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponUser.getCouponId(), tmpUserCouponId, checkedGoodsPrice,brandId);
             if (coupon == null) {
                 continue;
             }
@@ -505,7 +516,7 @@ public class WxCartController {
             couponId = tmpCouponId;
             userCouponId = tmpUserCouponId;
         } else {
-            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponId, userCouponId, checkedGoodsPrice);
+            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponId, userCouponId, checkedGoodsPrice,brandId);
             // 用户选择的优惠券有问题，则选择合适优惠券，否则使用用户选择的优惠券
             if (coupon == null) {
                 couponPrice = tmpCouponPrice;
@@ -516,8 +527,8 @@ public class WxCartController {
             }
         }
 
-        // 根据订单商品总价计算运费，满88则免运费，否则8元；
-        BigDecimal freightPrice = new BigDecimal(0.00);
+        // 根据订单商品总价计算运费，满10则1运费，否则2元；
+        BigDecimal freightPrice = new BigDecimal(1.00);
         if (checkedGoodsPrice.compareTo(SystemConfig.getFreightLimit()) < 0) {
             freightPrice = SystemConfig.getFreight();
         }

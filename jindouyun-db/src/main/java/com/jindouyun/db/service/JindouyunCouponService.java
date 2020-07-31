@@ -109,7 +109,7 @@ public class JindouyunCouponService {
         return couponMapper.selectByExample(example);
     }
 
-    public List<JindouyunCoupon> querySelective(String name, Short type, Short status, Integer page, Integer limit, String sort, String order) {
+    public List<JindouyunCoupon> querySelective(String name, Integer type, Short status, Integer page, Integer limit, String sort, String order) {
         JindouyunCouponExample example = new JindouyunCouponExample();
         JindouyunCouponExample.Criteria criteria = example.createCriteria();
 

@@ -24,7 +24,7 @@ public class JindouyunCouponVerifyService {
 
     @Autowired
     private JindouyunCouponUserService couponUserService;
-    
+
     @Autowired
     private JindouyunCouponService couponService;
 
@@ -36,7 +36,7 @@ public class JindouyunCouponVerifyService {
      * @param checkedGoodsPrice
      * @return
      */
-    public JindouyunCoupon checkCoupon(Integer userId, Integer couponId, Integer userCouponId, BigDecimal checkedGoodsPrice) {
+    public JindouyunCoupon checkCoupon(Integer userId, Integer couponId, Integer userCouponId, BigDecimal checkedGoodsPrice, Integer brandId) {
         JindouyunCoupon coupon = couponService.findById(couponId);
         if (coupon == null) {
             return null;
@@ -53,6 +53,18 @@ public class JindouyunCouponVerifyService {
             return null;
         }
 
+        //检查是否是通用券或者是否是此商家的优惠券
+        if (brandId != 0) {
+            System.out.println("brand"+brandId.intValue());
+            System.out.println("coupon.getType()"+(coupon.getType()).intValue());
+            System.out.println(brandId.intValue() == coupon.getType().intValue());
+            boolean flag = brandId.intValue() != coupon.getType().intValue();
+            System.out.println("flag:"+flag);
+            if (flag) {
+                return null;
+            }
+        }
+
         // 检查是否超期
         Short timeType = coupon.getTimeType();
         Short days = coupon.getDays();
@@ -61,8 +73,7 @@ public class JindouyunCouponVerifyService {
             if (now.isBefore(coupon.getStartTime()) || now.isAfter(coupon.getEndTime())) {
                 return null;
             }
-        }
-        else if(timeType.equals(CouponConstant.TIME_TYPE_DAYS)) {
+        } else if (timeType.equals(CouponConstant.TIME_TYPE_DAYS)) {
             LocalDateTime expired = couponUser.getAddTime().plusDays(days);
             if (now.isAfter(expired)) {
                 return null;
@@ -82,6 +93,7 @@ public class JindouyunCouponVerifyService {
         if (!status.equals(CouponConstant.STATUS_NORMAL)) {
             return null;
         }
+
         // 检测是否满足最低消费
         if (checkedGoodsPrice.compareTo(coupon.getMin()) < 0) {
             return null;
@@ -89,5 +101,5 @@ public class JindouyunCouponVerifyService {
 
         return coupon;
     }
-    
+
 }

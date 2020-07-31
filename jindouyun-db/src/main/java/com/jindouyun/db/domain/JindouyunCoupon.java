@@ -93,7 +93,7 @@ public class JindouyunCoupon implements Serializable {
      *
      * @mbg.generated
      */
-    private Short type;
+    private Integer type;
 
     /**
      *
@@ -369,7 +369,7 @@ public class JindouyunCoupon implements Serializable {
      *
      * @mbg.generated
      */
-    public Short getType() {
+    public Integer getType() {
         return type;
     }
 
@@ -381,7 +381,7 @@ public class JindouyunCoupon implements Serializable {
      *
      * @mbg.generated
      */
-    public void setType(Short type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -823,7 +823,7 @@ public class JindouyunCoupon implements Serializable {
         discount("discount", "discount", "DECIMAL", false),
         min("min", "min", "DECIMAL", true),
         limit("limit", "limit", "SMALLINT", true),
-        type("type", "type", "SMALLINT", true),
+        type("type", "type", "INTEGER", true),
         status("status", "status", "SMALLINT", true),
         goodsType("goods_type", "goodsType", "SMALLINT", false),
         goodsValue("goods_value", "goodsValue", "VARCHAR", false),

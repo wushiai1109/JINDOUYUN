@@ -13,7 +13,7 @@
     <result column="discount" jdbcType="DECIMAL" property="discount" />
     <result column="min" jdbcType="DECIMAL" property="min" />
     <result column="limit" jdbcType="SMALLINT" property="limit" />
-    <result column="type" jdbcType="SMALLINT" property="type" />
+    <result column="type" jdbcType="INTEGER" property="type" />
     <result column="status" jdbcType="SMALLINT" property="status" />
     <result column="goods_type" jdbcType="SMALLINT" property="goodsType" />
     <result column="goods_value" jdbcType="VARCHAR" property="goodsValue" typeHandler="com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler" />
@@ -265,7 +265,7 @@
       deleted)
     values (#{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
       #{discount,jdbcType=DECIMAL}, #{min,jdbcType=DECIMAL}, #{limit,jdbcType=SMALLINT}, 
-      #{type,jdbcType=SMALLINT}, #{status,jdbcType=SMALLINT}, #{goodsType,jdbcType=SMALLINT}, 
+      #{type,jdbcType=INTEGER}, #{status,jdbcType=SMALLINT}, #{goodsType,jdbcType=SMALLINT}, 
       #{goodsValue,jdbcType=VARCHAR,typeHandler=com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler}, 
       #{timeType,jdbcType=SMALLINT}, #{days,jdbcType=SMALLINT}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
@@ -353,7 +353,7 @@
         #{limit,jdbcType=SMALLINT},
       </if>
       <if test="type != null">
-        #{type,jdbcType=SMALLINT},
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=SMALLINT},
@@ -426,7 +426,7 @@
         `limit` = #{record.limit,jdbcType=SMALLINT},
       </if>
       <if test="record.type != null">
-        `type` = #{record.type,jdbcType=SMALLINT},
+        `type` = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         `status` = #{record.status,jdbcType=SMALLINT},
@@ -476,7 +476,7 @@
       discount = #{record.discount,jdbcType=DECIMAL},
       `min` = #{record.min,jdbcType=DECIMAL},
       `limit` = #{record.limit,jdbcType=SMALLINT},
-      `type` = #{record.type,jdbcType=SMALLINT},
+      `type` = #{record.type,jdbcType=INTEGER},
       `status` = #{record.status,jdbcType=SMALLINT},
       goods_type = #{record.goodsType,jdbcType=SMALLINT},
       goods_value = #{record.goodsValue,jdbcType=VARCHAR,typeHandler=com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler},
@@ -517,7 +517,7 @@
         `limit` = #{limit,jdbcType=SMALLINT},
       </if>
       <if test="type != null">
-        `type` = #{type,jdbcType=SMALLINT},
+        `type` = #{type,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=SMALLINT},
@@ -564,7 +564,7 @@
       discount = #{discount,jdbcType=DECIMAL},
       `min` = #{min,jdbcType=DECIMAL},
       `limit` = #{limit,jdbcType=SMALLINT},
-      `type` = #{type,jdbcType=SMALLINT},
+      `type` = #{type,jdbcType=INTEGER},
       `status` = #{status,jdbcType=SMALLINT},
       goods_type = #{goodsType,jdbcType=SMALLINT},
       goods_value = #{goodsValue,jdbcType=VARCHAR,typeHandler=com.jindouyun.db.mybatis.JsonIntegerArrayTypeHandler},

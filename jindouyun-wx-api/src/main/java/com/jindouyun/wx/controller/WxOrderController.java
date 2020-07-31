@@ -60,7 +60,7 @@ public class WxOrderController {
      * 提交订单
      *
      * @param userId 用户ID
-     * @param body   订单信息，{ cartId：xxx, addressId: xxx, couponId: xxx, message: xxx //, grouponRulesId: xxx,  grouponLinkId: xxx}
+     * @param body   订单信息，{ cartId：xxx, addressId: xxx, couponId: xxx,userCouponId:xxx, message: xxx //, grouponRulesId: xxx,  grouponLinkId: xxx}
      * @return 提交订单操作结果
      */
     @PostMapping("submit")

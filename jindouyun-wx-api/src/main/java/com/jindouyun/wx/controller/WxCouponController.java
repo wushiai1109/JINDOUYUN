@@ -208,7 +208,7 @@ public class WxCouponController {
 
         // 优惠券分发类型
         // 例如注册赠券类型的优惠券不能领取
-        Short type = coupon.getType();
+        Integer type = coupon.getType();
         if(type.equals(CouponConstant.TYPE_REGISTER)){
             return ResponseUtil.fail(WxResponseCode.COUPON_RECEIVE_FAIL, "新用户优惠券自动发送");
         }
