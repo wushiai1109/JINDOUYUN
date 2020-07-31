@@ -4,10 +4,7 @@ import com.jindouyun.admin.model.dto.GoodsAllinone;
 import com.jindouyun.admin.model.vo.CatVo;
 import com.jindouyun.core.qcode.QCodeService;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.db.domain.JindouyunBrand;
-import com.jindouyun.db.domain.JindouyunCategory;
-import com.jindouyun.db.domain.JindouyunGoods;
-import com.jindouyun.db.domain.JindouyunGoodsProduct;
+import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,10 +28,10 @@ public class AdminGoodsService {
 
     @Autowired
     private JindouyunGoodsService goodsService;
-//    @Autowired
-//    private JindouyunGoodsSpecificationService specificationService;
-//    @Autowired
-//    private JindouyunGoodsAttributeService attributeService;
+    @Autowired
+    private JindouyunGoodsSpecificationService specificationService;
+    @Autowired
+    private JindouyunGoodsAttributeService attributeService;
     @Autowired
     private JindouyunGoodsProductService productService;
     @Autowired
@@ -94,31 +91,31 @@ public class AdminGoodsService {
             }
         }
 
-        //验证商品属性
-//        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
-//        for (JindouyunGoodsAttribute attribute : attributes) {
-//            String attr = attribute.getAttribute();
-//            if (StringUtils.isEmpty(attr)) {
-//                return ResponseUtil.badArgument();
-//            }
-//            String value = attribute.getValue();
-//            if (StringUtils.isEmpty(value)) {
-//                return ResponseUtil.badArgument();
-//            }
-//        }
+//        验证商品属性
+        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
+        for (JindouyunGoodsAttribute attribute : attributes) {
+            String attr = attribute.getAttribute();
+            if (StringUtils.isEmpty(attr)) {
+                return ResponseUtil.badArgument();
+            }
+            String value = attribute.getValue();
+            if (StringUtils.isEmpty(value)) {
+                return ResponseUtil.badArgument();
+            }
+        }
 
         //验证商品Specification
-//        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
-//        for (JindouyunGoodsSpecification specification : specifications) {
-//            String spec = specification.getSpecification();
-//            if (StringUtils.isEmpty(spec)) {
-//                return ResponseUtil.badArgument();
-//            }
-//            String value = specification.getValue();
-//            if (StringUtils.isEmpty(value)) {
-//                return ResponseUtil.badArgument();
-//            }
-//        }
+        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
+        for (JindouyunGoodsSpecification specification : specifications) {
+            String spec = specification.getSpecification();
+            if (StringUtils.isEmpty(spec)) {
+                return ResponseUtil.badArgument();
+            }
+            String value = specification.getValue();
+            if (StringUtils.isEmpty(value)) {
+                return ResponseUtil.badArgument();
+            }
+        }
 
         //验证商品规格
         JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
@@ -172,8 +169,8 @@ public class AdminGoodsService {
         }
 
         JindouyunGoods goods = goodsAllinone.getGoods();
-//        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
-//        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
+        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
+        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
 
         //将生成的分享图片地址写入数据库
@@ -198,14 +195,14 @@ public class AdminGoodsService {
         Integer gid = goods.getId();
 
         // 商品规格表Jindouyun_goods_specification
-//        for (JindouyunGoodsSpecification specification : specifications) {
-//            // 目前只支持更新规格表的图片字段
-//            if(specification.getUpdateTime() == null){
-//                specification.setSpecification(null);
-//                specification.setValue(null);
-//                specificationService.updateById(specification);
-//            }
-//        }
+        for (JindouyunGoodsSpecification specification : specifications) {
+            // 目前只支持更新规格表的图片字段
+            if(specification.getUpdateTime() == null){
+                specification.setSpecification(null);
+                specification.setValue(null);
+                specificationService.updateById(specification);
+            }
+        }
 
         // 商品货品表Jindouyun_product
         for (JindouyunGoodsProduct product : products) {
@@ -215,18 +212,18 @@ public class AdminGoodsService {
         }
 
         // 商品参数表Jindouyun_goods_attribute
-//        for (JindouyunGoodsAttribute attribute : attributes) {
-//            if (attribute.getId() == null || attribute.getId().equals(0)){
-//                attribute.setGoodsId(goods.getId());
-//                attributeService.add(attribute);
-//            }
-//            else if(attribute.getDeleted()){
-//                attributeService.deleteById(attribute.getId());
-//            }
-//            else if(attribute.getUpdateTime() == null){
-//                attributeService.updateById(attribute);
-//            }
-//        }
+        for (JindouyunGoodsAttribute attribute : attributes) {
+            if (attribute.getId() == null || attribute.getId().equals(0)){
+                attribute.setGoodsId(goods.getId());
+                attributeService.add(attribute);
+            }
+            else if(attribute.getDeleted()){
+                attributeService.deleteById(attribute.getId());
+            }
+            else if(attribute.getUpdateTime() == null){
+                attributeService.updateById(attribute);
+            }
+        }
 
         // 这里需要注意的是购物车Jindouyun_cart有些字段是拷贝商品的一些字段，因此需要及时更新
         // 目前这些字段是goods_sn, goods_name, price, pic_url
@@ -246,8 +243,8 @@ public class AdminGoodsService {
 
         Integer gid = goods.getId();
         goodsService.deleteById(gid);
-//        specificationService.deleteByGid(gid);
-//        attributeService.deleteByGid(gid);
+        specificationService.deleteByGid(gid);
+        attributeService.deleteByGid(gid);
         productService.deleteByGid(gid);
         return ResponseUtil.ok();
     }
@@ -260,8 +257,8 @@ public class AdminGoodsService {
         }
 
         JindouyunGoods goods = goodsAllinone.getGoods();
-//        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
-//        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
+        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
+        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
 
         String name = goods.getName();
@@ -292,16 +289,16 @@ public class AdminGoodsService {
 //        }
 
         // 商品规格表Jindouyun_goods_specification
-//        for (JindouyunGoodsSpecification specification : specifications) {
-//            specification.setGoodsId(goods.getId());
-//            specificationService.add(specification);
-//        }
+        for (JindouyunGoodsSpecification specification : specifications) {
+            specification.setGoodsId(goods.getId());
+            specificationService.add(specification);
+        }
 
         // 商品参数表Jindouyun_goods_attribute
-//        for (JindouyunGoodsAttribute attribute : attributes) {
-//            attribute.setGoodsId(goods.getId());
-//            attributeService.add(attribute);
-//        }
+        for (JindouyunGoodsAttribute attribute : attributes) {
+            attribute.setGoodsId(goods.getId());
+            attributeService.add(attribute);
+        }
 
         // 商品货品表Jindouyun_product
         for (JindouyunGoodsProduct product : products) {
@@ -361,8 +358,8 @@ public class AdminGoodsService {
     public Object detail(Integer id) {
         JindouyunGoods goods = goodsService.findById(id);
         List<JindouyunGoodsProduct> products = productService.queryByGid(id);
-//        List<JindouyunGoodsSpecification> specifications = specificationService.queryByGid(id);
-//        List<JindouyunGoodsAttribute> attributes = attributeService.queryByGid(id);
+        List<JindouyunGoodsSpecification> specifications = specificationService.queryByGid(id);
+        List<JindouyunGoodsAttribute> attributes = attributeService.queryByGid(id);
 
         Integer categoryId = goods.getCategoryId();
         JindouyunCategory category = categoryService.findById(categoryId);
@@ -374,9 +371,9 @@ public class AdminGoodsService {
 
         Map<String, Object> data = new HashMap<>();
         data.put("goods", goods);
-//        data.put("specifications", specifications);
+        data.put("specifications", specifications);
         data.put("products", products);
-//        data.put("attributes", attributes);
+        data.put("attributes", attributes);
         data.put("categoryIds", categoryIds);
 
         return ResponseUtil.ok(data);
