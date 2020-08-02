@@ -39,8 +39,8 @@ public class WxGoodsController {
     @Autowired
     private JindouyunIssueService goodsIssueService;
 
-//    @Autowired
-//    private JindouyunGoodsAttributeService goodsAttributeService;
+    @Autowired
+    private JindouyunGoodsAttributeService goodsAttributeService;
 
     @Autowired
     private JindouyunBrandService brandService;
@@ -63,8 +63,8 @@ public class WxGoodsController {
     @Autowired
     private JindouyunSearchHistoryService searchHistoryService;
 
-//    @Autowired
-//    private JindouyunGoodsSpecificationService goodsSpecificationService;
+    @Autowired
+    private JindouyunGoodsSpecificationService goodsSpecificationService;
 
 //    @Autowired
 //    private JindouyunGrouponRulesService rulesService;
@@ -90,11 +90,11 @@ public class WxGoodsController {
         // 商品信息
         JindouyunGoods info = goodsService.findById(id);
 
-//        // 商品属性
-//        Callable<List> goodsAttributeListCallable = () -> goodsAttributeService.queryByGid(id);
+        // 商品属性
+        Callable<List> goodsAttributeListCallable = () -> goodsAttributeService.queryByGid(id);
 
-//        // 商品规格 返回的是定制的GoodsSpecificationVo
-//        Callable<Object> objectCallable = () -> goodsSpecificationService.getSpecificationVoList(id);
+        // 商品规格 返回的是定制的GoodsSpecificationVo
+        Callable<Object> objectCallable = () -> goodsSpecificationService.getSpecificationVoList(id);
 
         // 商品规格对应的数量和价格
         Callable<List> productListCallable = () -> productService.queryByGid(id);
