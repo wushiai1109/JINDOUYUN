@@ -1,6 +1,7 @@
 package com.jindouyun.db.service;
 
 import com.jindouyun.db.dao.JindouyunOrderGoodsMapper;
+import com.jindouyun.db.domain.JindouyunOrder;
 import com.jindouyun.db.domain.JindouyunOrderGoods;
 import com.jindouyun.db.domain.JindouyunOrderGoodsExample;
 import org.springframework.stereotype.Service;

@@ -83,9 +83,6 @@ public class WxOrderService {
     private final Log logger = LogFactory.getLog(WxOrderService.class);
 
     @Autowired
-    private JindouyunOrderMapperDemo orderMapperDemo;
-
-    @Autowired
     private JindouyunUserService userService;
     @Autowired
     private JindouyunOrderService orderService;
@@ -513,9 +510,9 @@ public class WxOrderService {
      * @param keyword
      * @return
      */
-    public Object find(Integer userId, String keyword) {
+    public Object find(int userId, String keyword) {
         //查询列表数据
-        List<JindouyunOrder> orderList = orderMapperDemo.find(userId, keyword);
+        List<JindouyunOrder> orderList = orderService.find(userId, keyword);
         return ResponseUtil.ok(orderList);
     }
 

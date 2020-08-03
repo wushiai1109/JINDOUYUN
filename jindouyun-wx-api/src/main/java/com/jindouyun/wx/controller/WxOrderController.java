@@ -76,7 +76,7 @@ public class WxOrderController {
      * @return 提交订单操作结果
      */
     @GetMapping("find")
-    public Object find(@LoginUser Integer userId, String keyword) {
+    public Object find(@LoginUser int userId, String keyword) {
         return wxOrderService.find(userId, keyword);
     }
 

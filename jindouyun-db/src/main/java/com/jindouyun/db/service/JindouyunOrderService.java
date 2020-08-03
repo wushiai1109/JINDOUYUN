@@ -1,10 +1,10 @@
 package com.jindouyun.db.service;
 
 import com.github.pagehelper.PageHelper;
+import com.jindouyun.db.dao.JindouyunOrderGoodsMapper;
 import com.jindouyun.db.dao.JindouyunOrderMapper;
 import com.jindouyun.db.dao.OrderMapper;
-import com.jindouyun.db.domain.JindouyunOrder;
-import com.jindouyun.db.domain.JindouyunOrderExample;
+import com.jindouyun.db.domain.*;
 import com.jindouyun.db.util.OrderUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -13,10 +13,7 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class JindouyunOrderService {
@@ -25,8 +22,12 @@ public class JindouyunOrderService {
     @Resource
     private OrderMapper orderMapper;
 
+    @Resource
+    private JindouyunOrderGoodsMapper orderGoodsMapper;
+
     /**
      * 添加订单
+     *
      * @param order
      * @return
      */
@@ -38,6 +39,7 @@ public class JindouyunOrderService {
 
     /**
      * 用户订单数量
+     *
      * @param userId
      * @return
      */
@@ -65,6 +67,7 @@ public class JindouyunOrderService {
 
     /**
      * 查询 orderSn和userId 同时满足的数量
+     *
      * @param userId
      * @param orderSn
      * @return
@@ -88,6 +91,7 @@ public class JindouyunOrderService {
 
     /**
      * 查询用户订单 根据订单状态
+     *
      * @param userId
      * @param orderStatus
      * @param page
@@ -115,6 +119,7 @@ public class JindouyunOrderService {
 
     /**
      * 条件查询 userId 或orderSn 或orderStatusArray
+     *
      * @param userId
      * @param orderSn
      * @param orderStatusArray
@@ -149,6 +154,7 @@ public class JindouyunOrderService {
 
     /**
      * 更新
+     *
      * @param order
      * @return
      */
@@ -164,6 +170,7 @@ public class JindouyunOrderService {
 
     /**
      * 所有订单数量
+     *
      * @return
      */
     public int count() {
@@ -174,6 +181,7 @@ public class JindouyunOrderService {
 
     /**
      * 查询未支付订单
+     *
      * @param minutes
      * @return
      */
@@ -185,6 +193,7 @@ public class JindouyunOrderService {
 
     /**
      * 查询未确认的订单
+     *
      * @param days
      * @return
      */
@@ -204,6 +213,7 @@ public class JindouyunOrderService {
 
     /**
      * 根据userId 查询订单详情
+     *
      * @param userId
      * @return
      */
@@ -250,5 +260,35 @@ public class JindouyunOrderService {
         JindouyunOrderExample example = new JindouyunOrderExample();
         example.or().andCommentsGreaterThan((short) 0).andConfirmTimeLessThan(expired).andDeletedEqualTo(false);
         return jindouyunOrderMapper.selectByExample(example);
+    }
+
+    /**
+     * 订单搜索
+     * @param userId
+     * @param keyword
+     * @return
+     */
+    public List<JindouyunOrder> find(int userId, String keyword) {
+        JindouyunOrderGoodsExample example = new JindouyunOrderGoodsExample();
+        JindouyunOrderGoodsExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(keyword)) {
+            criteria.andGoodsNameLike("%" + keyword + "%");
+        }
+        criteria.andDeletedEqualTo(false);
+
+        List<JindouyunOrderGoods> jindouyunOrderGoods = orderGoodsMapper.selectByExampleSelective(example);
+        System.out.println(jindouyunOrderGoods);
+
+        List<JindouyunOrder> jindouyunOrderList = new ArrayList<>();
+
+        for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
+            JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
+//            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
+            if (jindouyunOrder.getUserId() == userId){
+                jindouyunOrderList.add(jindouyunOrder);
+            }
+        }
+        return jindouyunOrderList;
     }
 }
