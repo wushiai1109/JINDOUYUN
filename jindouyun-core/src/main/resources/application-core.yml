@@ -1,8 +1,8 @@
 jindouyun:
   # 开发者应该设置成自己的wx相关信息
   wx:
-    app-id: wx882e9215bc07eb0d
-    app-secret: f8a7c151b647a637b4e7b03d778ccb5e
+    app-id: wxc8c2e6fea04f48a7
+    app-secret: 8726adf035ec8582733a8903e2db18a3
     mch-id: 111111
     mch-key: xxxxxx
     notify-url: http://www.example.com/wx/order/pay-notify
