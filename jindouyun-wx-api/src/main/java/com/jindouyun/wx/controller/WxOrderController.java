@@ -34,7 +34,7 @@ public class WxOrderController {
      * @param limit     分页大小
      * @return 订单列表
      */
-    @GetMapping("list")
+    @PostMapping("list")
     public Object list(@LoginUser Integer userId,
                        @RequestParam(defaultValue = "0") Integer showType,
                        @RequestParam(defaultValue = "1") Integer page,
