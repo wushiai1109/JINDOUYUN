@@ -51,7 +51,7 @@ public class WxOrderController {
      * @param orderId 订单ID
      * @return 订单详情
      */
-    @PostMapping("detail")
+    @GetMapping("detail")
     public Object detail(@LoginUser Integer userId, @NotNull Integer orderId) {
         return wxOrderService.detail(userId, orderId);
     }
@@ -63,7 +63,7 @@ public class WxOrderController {
      * @param body   订单信息，{ cartIds：[xxx,xxx], addressId: xxx, couponId: xxx,userCouponId:xxx, message: xxx //, grouponRulesId: xxx,  grouponLinkId: xxx}
      * @return 提交订单操作结果
      */
-    @PostMapping("submit")
+    @GetMapping("submit")
     public Object submit(@LoginUser Integer userId, @RequestBody String body) {
         return wxOrderService.submit(userId, body);
     }
