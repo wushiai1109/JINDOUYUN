@@ -163,7 +163,7 @@ public class JindouyunGoodsService {
         }
 
         PageHelper.startPage(page, size);
-        return goodsMapper.selectByExample(example);
+        return goodsMapper.selectByExampleWithBLOBs(example);
     }
 
     /**
@@ -175,7 +175,7 @@ public class JindouyunGoodsService {
     public JindouyunGoods findById(Integer id) {
         JindouyunGoodsExample example = new JindouyunGoodsExample();
         example.or().andIdEqualTo(id).andDeletedEqualTo(false);
-        return goodsMapper.selectOneByExample(example);
+        return goodsMapper.selectOneByExampleWithBLOBs(example);
     }
 
     /**
