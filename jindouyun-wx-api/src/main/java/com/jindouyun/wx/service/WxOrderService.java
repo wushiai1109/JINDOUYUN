@@ -9,6 +9,7 @@ import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
+import com.github.pagehelper.PageInfo;
 import com.jindouyun.core.express.ExpressService;
 import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.core.notify.NotifyType;
@@ -18,19 +19,24 @@ import com.jindouyun.core.task.TaskService;
 import com.jindouyun.core.util.DateTimeUtil;
 import com.jindouyun.core.util.IpUtil;
 import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.db.dao.JindouyunOrderMapper;
+import com.jindouyun.db.dao.JindouyunOrderMapperDemo;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.db.util.CouponUserConstant;
 import com.jindouyun.db.util.OrderHandleOption;
 import com.jindouyun.db.util.OrderUtil;
 import com.jindouyun.wx.task.OrderUnpaidTask;
+import com.mysql.cj.util.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -77,6 +83,9 @@ public class WxOrderService {
     private final Log logger = LogFactory.getLog(WxOrderService.class);
 
     @Autowired
+    private JindouyunOrderMapperDemo orderMapperDemo;
+
+    @Autowired
     private JindouyunUserService userService;
     @Autowired
     private JindouyunOrderService orderService;
@@ -94,7 +103,7 @@ public class WxOrderService {
     private WxPayService wxPayService;
     @Autowired
     private NotifyService notifyService;
-//    @Autowired
+    //    @Autowired
 //    private JindouyunGrouponRulesService grouponRulesService;
 //    @Autowired
 //    private JindouyunGrouponService grouponService;
@@ -124,7 +133,7 @@ public class WxOrderService {
      *                 3，待收货；
      *                 4，待评价。
      * @param page     分页页数
-     * @param limit     分页大小
+     * @param limit    分页大小
      * @return 订单列表
      */
     public Object list(Integer userId, Integer showType, Integer page, Integer limit, String sort, String order) {
@@ -160,7 +169,7 @@ public class WxOrderService {
                 orderGoodsVo.put("number", orderGoods.getNumber());
                 orderGoodsVo.put("picUrl", orderGoods.getPicUrl());
                 orderGoodsVo.put("specifications", orderGoods.getSpecifications());
-                orderGoodsVo.put("price",orderGoods.getPrice());
+                orderGoodsVo.put("price", orderGoods.getPrice());
                 orderGoodsVoList.add(orderGoodsVo);
             }
             orderVo.put("goodsList", orderGoodsVoList);
@@ -325,7 +334,7 @@ public class WxOrderService {
         // 货品价格
         BigDecimal checkedGoodsPrice = new BigDecimal(0);
         List<JindouyunCart> checkedGoodsList = new ArrayList<>();
-        for (Integer cartId:cartIds) {
+        for (Integer cartId : cartIds) {
             if (cartId.equals(0)) {
                 checkedGoodsList = cartService.queryByUidAndChecked(userId);
             } else {
@@ -346,7 +355,7 @@ public class WxOrderService {
 //                checkedGoodsPrice = checkedGoodsPrice.add(checkGoods.getPrice().subtract(grouponPrice).multiply(new BigDecimal(checkGoods.getNumber())));
 //            } else {
             System.out.println(checkedGoodsPrice.add(checkGoods.getPrice().multiply(new BigDecimal(checkGoods.getNumber()))));
-                checkedGoodsPrice = checkedGoodsPrice.add(checkGoods.getPrice().multiply(new BigDecimal(checkGoods.getNumber())));
+            checkedGoodsPrice = checkedGoodsPrice.add(checkGoods.getPrice().multiply(new BigDecimal(checkGoods.getNumber())));
 //            }
         }
 
@@ -494,6 +503,20 @@ public class WxOrderService {
 //            data.put("grouponLinkId", 0);
 //        }
         return ResponseUtil.ok(data);
+    }
+
+
+    /**
+     * 搜索订单
+     *
+     * @param userId
+     * @param keyword
+     * @return
+     */
+    public Object find(Integer userId, String keyword) {
+        //查询列表数据
+        List<JindouyunOrder> orderList = orderMapperDemo.find(userId, keyword);
+        return ResponseUtil.ok(orderList);
     }
 
     /**
@@ -698,11 +721,11 @@ public class WxOrderService {
         try {
             result = wxPayService.parseOrderNotifyResult(xmlResult);
 
-            if(!WxPayConstants.ResultCode.SUCCESS.equals(result.getResultCode())){
+            if (!WxPayConstants.ResultCode.SUCCESS.equals(result.getResultCode())) {
                 logger.error(xmlResult);
                 throw new WxPayException("微信通知支付失败！");
             }
-            if(!WxPayConstants.ResultCode.SUCCESS.equals(result.getReturnCode())){
+            if (!WxPayConstants.ResultCode.SUCCESS.equals(result.getReturnCode())) {
                 logger.error(xmlResult);
                 throw new WxPayException("微信通知支付失败！");
             }
@@ -1023,5 +1046,4 @@ public class WxOrderService {
 
         return ResponseUtil.ok();
     }
-    
 }

@@ -149,4 +149,5 @@ public interface JindouyunOrderMapper {
      * @mbg.generated
      */
     int logicalDeleteByPrimaryKey(Integer id);
+
 }

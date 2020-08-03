@@ -34,7 +34,7 @@ public class WxOrderController {
      * @param limit     分页大小
      * @return 订单列表
      */
-    @GetMapping("list")
+    @PostMapping("list")
     public Object list(@LoginUser Integer userId,
                        @RequestParam(defaultValue = "0") Integer showType,
                        @RequestParam(defaultValue = "1") Integer page,
@@ -51,7 +51,7 @@ public class WxOrderController {
      * @param orderId 订单ID
      * @return 订单详情
      */
-    @GetMapping("detail")
+    @PostMapping("detail")
     public Object detail(@LoginUser Integer userId, @NotNull Integer orderId) {
         return wxOrderService.detail(userId, orderId);
     }
@@ -66,6 +66,18 @@ public class WxOrderController {
     @PostMapping("submit")
     public Object submit(@LoginUser Integer userId, @RequestBody String body) {
         return wxOrderService.submit(userId, body);
+    }
+
+    /**
+     * 订单搜索
+     *
+     * @param userId 用户ID
+     * @param keyword   订单信息，{keyword: xxx}
+     * @return 提交订单操作结果
+     */
+    @GetMapping("find")
+    public Object find(@LoginUser Integer userId, String keyword) {
+        return wxOrderService.find(userId, keyword);
     }
 
     /**
