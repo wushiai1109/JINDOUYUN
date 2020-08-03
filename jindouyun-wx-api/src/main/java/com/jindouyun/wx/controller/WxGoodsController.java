@@ -154,16 +154,16 @@ public class WxGoodsController {
                 footprintService.add(footprint);
             });
         }
-//        FutureTask<List> goodsAttributeListTask = new FutureTask<>(goodsAttributeListCallable);
-//        FutureTask<Object> objectCallableTask = new FutureTask<>(objectCallable);
+        FutureTask<List> goodsAttributeListTask = new FutureTask<>(goodsAttributeListCallable);
+        FutureTask<Object> objectCallableTask = new FutureTask<>(objectCallable);
         FutureTask<List> productListCallableTask = new FutureTask<>(productListCallable);
         FutureTask<List> issueCallableTask = new FutureTask<>(issueCallable);
         FutureTask<Map> commentsCallableTsk = new FutureTask<>(commentsCallable);
         FutureTask<JindouyunBrand> brandCallableTask = new FutureTask<>(brandCallable);
 //        FutureTask<List> grouponRulesCallableTask = new FutureTask<>(grouponRulesCallable);
 
-//        executorService.submit(goodsAttributeListTask);
-//        executorService.submit(objectCallableTask);
+        executorService.submit(goodsAttributeListTask);
+        executorService.submit(objectCallableTask);
         executorService.submit(productListCallableTask);
         executorService.submit(issueCallableTask);
         executorService.submit(commentsCallableTsk);
@@ -177,9 +177,9 @@ public class WxGoodsController {
 //            data.put("userHasCollect", userHasCollect);
             data.put("issue", issueCallableTask.get());
             data.put("comment", commentsCallableTsk.get());
-//            data.put("specificationList", objectCallableTask.get());
+            data.put("specificationList", objectCallableTask.get());
             data.put("productList", productListCallableTask.get());
-//            data.put("attribute", goodsAttributeListTask.get());
+            data.put("attribute", goodsAttributeListTask.get());
             data.put("brand", brandCallableTask.get());
 //            data.put("groupon", grouponRulesCallableTask.get());
             //SystemConfig.isAutoCreateShareImage()
