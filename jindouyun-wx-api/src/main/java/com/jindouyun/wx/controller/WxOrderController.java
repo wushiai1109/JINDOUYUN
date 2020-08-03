@@ -51,7 +51,7 @@ public class WxOrderController {
      * @param orderId 订单ID
      * @return 订单详情
      */
-    @GetMapping("detail")
+    @PostMapping("detail")
     public Object detail(@LoginUser Integer userId, @NotNull Integer orderId) {
         return wxOrderService.detail(userId, orderId);
     }
