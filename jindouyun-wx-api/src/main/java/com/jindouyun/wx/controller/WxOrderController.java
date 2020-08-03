@@ -34,7 +34,7 @@ public class WxOrderController {
      * @param limit     分页大小
      * @return 订单列表
      */
-    @PostMapping("list")
+    @GetMapping("list")
     public Object list(@LoginUser Integer userId,
                        @RequestParam(defaultValue = "0") Integer showType,
                        @RequestParam(defaultValue = "1") Integer page,
@@ -63,7 +63,7 @@ public class WxOrderController {
      * @param body   订单信息，{ cartIds：[xxx,xxx], addressId: xxx, couponId: xxx,userCouponId:xxx, message: xxx //, grouponRulesId: xxx,  grouponLinkId: xxx}
      * @return 提交订单操作结果
      */
-    @GetMapping("submit")
+    @PostMapping("submit")
     public Object submit(@LoginUser Integer userId, @RequestBody String body) {
         return wxOrderService.submit(userId, body);
     }
