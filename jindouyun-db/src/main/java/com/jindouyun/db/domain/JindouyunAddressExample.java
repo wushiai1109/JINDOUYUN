@@ -1069,7 +1069,7 @@ public class JindouyunAddressExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuildingEqualTo(Integer value) {
+        public Criteria andBuildingEqualTo(Short value) {
             addCriterion("building =", value, "building");
             return (Criteria) this;
         }
@@ -1085,7 +1085,7 @@ public class JindouyunAddressExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuildingNotEqualTo(Integer value) {
+        public Criteria andBuildingNotEqualTo(Short value) {
             addCriterion("building <>", value, "building");
             return (Criteria) this;
         }
@@ -1101,7 +1101,7 @@ public class JindouyunAddressExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuildingGreaterThan(Integer value) {
+        public Criteria andBuildingGreaterThan(Short value) {
             addCriterion("building >", value, "building");
             return (Criteria) this;
         }
@@ -1117,7 +1117,7 @@ public class JindouyunAddressExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuildingGreaterThanOrEqualTo(Integer value) {
+        public Criteria andBuildingGreaterThanOrEqualTo(Short value) {
             addCriterion("building >=", value, "building");
             return (Criteria) this;
         }
@@ -1133,7 +1133,7 @@ public class JindouyunAddressExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuildingLessThan(Integer value) {
+        public Criteria andBuildingLessThan(Short value) {
             addCriterion("building <", value, "building");
             return (Criteria) this;
         }
@@ -1149,7 +1149,7 @@ public class JindouyunAddressExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuildingLessThanOrEqualTo(Integer value) {
+        public Criteria andBuildingLessThanOrEqualTo(Short value) {
             addCriterion("building <=", value, "building");
             return (Criteria) this;
         }
@@ -1165,22 +1165,22 @@ public class JindouyunAddressExample {
             return (Criteria) this;
         }
 
-        public Criteria andBuildingIn(List<Integer> values) {
+        public Criteria andBuildingIn(List<Short> values) {
             addCriterion("building in", values, "building");
             return (Criteria) this;
         }
 
-        public Criteria andBuildingNotIn(List<Integer> values) {
+        public Criteria andBuildingNotIn(List<Short> values) {
             addCriterion("building not in", values, "building");
             return (Criteria) this;
         }
 
-        public Criteria andBuildingBetween(Integer value1, Integer value2) {
+        public Criteria andBuildingBetween(Short value1, Short value2) {
             addCriterion("building between", value1, value2, "building");
             return (Criteria) this;
         }
 
-        public Criteria andBuildingNotBetween(Integer value1, Integer value2) {
+        public Criteria andBuildingNotBetween(Short value1, Short value2) {
             addCriterion("building not between", value1, value2, "building");
             return (Criteria) this;
         }

@@ -83,7 +83,7 @@ public class JindouyunAddress implements Serializable {
      *
      * @mbg.generated
      */
-    private Integer building;
+    private Short building;
 
     /**
      *
@@ -317,7 +317,7 @@ public class JindouyunAddress implements Serializable {
      *
      * @mbg.generated
      */
-    public Integer getBuilding() {
+    public Short getBuilding() {
         return building;
     }
 
@@ -329,7 +329,7 @@ public class JindouyunAddress implements Serializable {
      *
      * @mbg.generated
      */
-    public void setBuilding(Integer building) {
+    public void setBuilding(Short building) {
         this.building = building;
     }
 
@@ -713,7 +713,7 @@ public class JindouyunAddress implements Serializable {
         province("province", "province", "VARCHAR", false),
         city("city", "city", "VARCHAR", false),
         county("county", "county", "VARCHAR", false),
-        building("building", "building", "INTEGER", false),
+        building("building", "building", "SMALLINT", false),
         addressDetail("address_detail", "addressDetail", "VARCHAR", false),
         areaCode("area_code", "areaCode", "CHAR", false),
         postalCode("postal_code", "postalCode", "CHAR", false),

@@ -12,7 +12,7 @@
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="county" jdbcType="VARCHAR" property="county" />
-    <result column="building" jdbcType="INTEGER" property="building" />
+    <result column="building" jdbcType="SMALLINT" property="building" />
     <result column="address_detail" jdbcType="VARCHAR" property="addressDetail" />
     <result column="area_code" jdbcType="CHAR" property="areaCode" />
     <result column="postal_code" jdbcType="CHAR" property="postalCode" />
@@ -221,7 +221,7 @@
       tel, is_default, add_time, 
       update_time, deleted)
     values (#{name,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, 
-      #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{building,jdbcType=INTEGER}, 
+      #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{building,jdbcType=SMALLINT}, 
       #{addressDetail,jdbcType=VARCHAR}, #{areaCode,jdbcType=CHAR}, #{postalCode,jdbcType=CHAR}, 
       #{tel,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
@@ -296,7 +296,7 @@
         #{county,jdbcType=VARCHAR},
       </if>
       <if test="building != null">
-        #{building,jdbcType=INTEGER},
+        #{building,jdbcType=SMALLINT},
       </if>
       <if test="addressDetail != null">
         #{addressDetail,jdbcType=VARCHAR},
@@ -360,7 +360,7 @@
         county = #{record.county,jdbcType=VARCHAR},
       </if>
       <if test="record.building != null">
-        building = #{record.building,jdbcType=INTEGER},
+        building = #{record.building,jdbcType=SMALLINT},
       </if>
       <if test="record.addressDetail != null">
         address_detail = #{record.addressDetail,jdbcType=VARCHAR},
@@ -403,7 +403,7 @@
       province = #{record.province,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
       county = #{record.county,jdbcType=VARCHAR},
-      building = #{record.building,jdbcType=INTEGER},
+      building = #{record.building,jdbcType=SMALLINT},
       address_detail = #{record.addressDetail,jdbcType=VARCHAR},
       area_code = #{record.areaCode,jdbcType=CHAR},
       postal_code = #{record.postalCode,jdbcType=CHAR},
@@ -439,7 +439,7 @@
         county = #{county,jdbcType=VARCHAR},
       </if>
       <if test="building != null">
-        building = #{building,jdbcType=INTEGER},
+        building = #{building,jdbcType=SMALLINT},
       </if>
       <if test="addressDetail != null">
         address_detail = #{addressDetail,jdbcType=VARCHAR},
@@ -479,7 +479,7 @@
       province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       county = #{county,jdbcType=VARCHAR},
-      building = #{building,jdbcType=INTEGER},
+      building = #{building,jdbcType=SMALLINT},
       address_detail = #{addressDetail,jdbcType=VARCHAR},
       area_code = #{areaCode,jdbcType=CHAR},
       postal_code = #{postalCode,jdbcType=CHAR},
