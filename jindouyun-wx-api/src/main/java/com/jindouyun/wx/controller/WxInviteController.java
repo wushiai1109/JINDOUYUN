@@ -3,6 +3,8 @@ package com.jindouyun.wx.controller;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.dao.JindouyunInviteMapper;
 import com.jindouyun.db.domain.JindouyunInvite;
+import com.jindouyun.db.domain.JindouyunInviteExample;
+import com.jindouyun.db.domain.JindouyunOrderGoodsExample;
 import com.jindouyun.db.service.JindouyunInviteService;
 import com.jindouyun.wx.annotation.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/wx/invite")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class WxInviteController {
 
     @Autowired
@@ -29,6 +31,7 @@ public class WxInviteController {
 
     /**
      * 填写邀请码
+     *
      * @param userId 用户ID
      * @param invite 邀请码账号： { inviteId: xxx }
      * @return
@@ -43,11 +46,51 @@ public class WxInviteController {
         }
         invite.setInvitedUserId(userId);
 
+        JindouyunInviteExample example = new JindouyunInviteExample();
+        JindouyunInviteExample.Criteria criteria = example.createCriteria();
 
+        criteria.andInvitedUserIdEqualTo(userId);
+        criteria.andDeletedEqualTo(false);
 
-        inviteService.submit(invite);
-        return ResponseUtil.ok();
+        JindouyunInvite jindouyunInvite = inviteMapper.selectOneByExample(example);
 
+        if (jindouyunInvite == null) {
+            inviteService.submit(invite);
+            return ResponseUtil.ok();
+        }
+        return ResponseUtil.fail(500,"该账号已被邀请过");
     }
+
+//    /**
+//     * 填写邀请码
+//     *
+//     * @param userId 用户ID
+//     * @param invite 邀请码账号： { inviteId: xxx }
+//     * @return
+//     */
+//    @PostMapping("/submit")
+//    public Object submit(@LoginUser Integer userId, @RequestBody JindouyunInvite invite) {
+//        if (userId == null) {
+//            return ResponseUtil.unlogin();
+//        }
+//        if (invite == null) {
+//            return ResponseUtil.badArgument();
+//        }
+//        invite.setInvitedUserId(userId);
+//
+//        JindouyunInviteExample example = new JindouyunInviteExample();
+//        JindouyunInviteExample.Criteria criteria = example.createCriteria();
+//
+//        criteria.andInvitedUserIdEqualTo(userId);
+//        criteria.andDeletedEqualTo(false);
+//
+//        JindouyunInvite jindouyunInvite = inviteMapper.selectOneByExample(example);
+//
+//        if (jindouyunInvite == null) {
+//            inviteService.submit(invite);
+//            return ResponseUtil.ok();
+//        }
+//        return ResponseUtil.fail(500,"该账号已被邀请过");
+//    }
 
 }
