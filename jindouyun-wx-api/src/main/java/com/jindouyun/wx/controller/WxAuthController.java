@@ -165,9 +165,11 @@ public class WxAuthController {
 
         Map<Object, Object> result = new HashMap<>();
         result.put("token", token);
+//        System.out.println(token);
         result.put("userInfo", userInfo);
         return ResponseUtil.ok(result);
     }
+
 
     /**
      * 请求注册验证码
