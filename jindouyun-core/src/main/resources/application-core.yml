@@ -10,6 +10,16 @@ jindouyun:
     # 请参考“商户证书”一节 https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3
     key-path: xxxxx
 
+  delivery:
+    app-id: wx330f134a794c9e6c
+    app-secret: c051e309d90b3a0203f2aba170259171
+    mch-id: 111111
+    mch-key: xxxxxx
+    notify-url: http://www.example.com/wx/order/pay-notify
+    # 商户证书文件路径
+    # 请参考“商户证书”一节 https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3
+    key-path: xxxxx
+
   #通知相关配置
   notify:
     mail:

@@ -20,6 +20,7 @@ import com.jindouyun.delivery.service.UserTokenManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,7 @@ public class DeliveryAuthController {
     private JindouyunDeliveryService deliveryService;
 
     @Autowired
+    @Qualifier("deliveryWxMaService")
     private WxMaService wxService;
 
     @Autowired

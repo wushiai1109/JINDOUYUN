@@ -8,15 +8,19 @@ import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.*;
 
 @Configuration
 public class WxConfig {
     @Autowired
     private WxProperties properties;
 
-    @Bean
+    @Autowired
+    private DeliveryWxProperties deliveryWxProperties;
+
+    @Bean(name = "wxMaConfig")
     public WxMaConfig wxMaConfig() {
         WxMaInMemoryConfig config = new WxMaInMemoryConfig();
         config.setAppid(properties.getAppId());
@@ -24,15 +28,30 @@ public class WxConfig {
         return config;
     }
 
+    @Bean(name = "deliveryWxMaConfig")
+    public WxMaConfig deliveryWxMaConfig(){
+        WxMaInMemoryConfig config = new WxMaInMemoryConfig();
+        config.setAppid(deliveryWxProperties.getAppId());
+        config.setSecret(deliveryWxProperties.getAppSecret());
+        return config;
+    }
 
-    @Bean
-    public WxMaService wxMaService(WxMaConfig maConfig) {
+
+    @Bean(name = "wxMaService")
+    public WxMaService wxMaService(@Qualifier("wxMaConfig") WxMaConfig maConfig) {
         WxMaService service = new WxMaServiceImpl();
         service.setWxMaConfig(maConfig);
         return service;
     }
 
-    @Bean
+    @Bean(name = "deliveryWxMaService")
+    public WxMaService deliveryWxMaService(@Qualifier("deliveryWxMaConfig") WxMaConfig maConfig){
+        WxMaService service = new WxMaServiceImpl();
+        service.setWxMaConfig(maConfig);
+        return service;
+    }
+
+    @Bean(name = "wxPayConfig")
     public WxPayConfig wxPayConfig() {
         WxPayConfig payConfig = new WxPayConfig();
         payConfig.setAppId(properties.getAppId());
@@ -46,7 +65,7 @@ public class WxConfig {
     }
 
 
-    @Bean
+    @Bean(name = "wxPayService")
     public WxPayService wxPayService(WxPayConfig payConfig) {
         WxPayService wxPayService = new WxPayServiceImpl();
         wxPayService.setConfig(payConfig);
