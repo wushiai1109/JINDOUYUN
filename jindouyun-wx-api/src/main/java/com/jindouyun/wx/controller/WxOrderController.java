@@ -51,7 +51,7 @@ public class WxOrderController {
      * @param orderId 订单ID
      * @return 订单详情
      */
-    @PostMapping("detail")
+    @GetMapping("detail")
     public Object detail(@LoginUser Integer userId, @NotNull Integer orderId) {
         return wxOrderService.detail(userId, orderId);
     }
@@ -76,7 +76,7 @@ public class WxOrderController {
      * @return 提交订单操作结果
      */
     @GetMapping("find")
-    public Object find(@LoginUser int userId, String keyword) {
+    public Object find(@LoginUser Integer userId, String keyword) {
         return wxOrderService.find(userId, keyword);
     }
 

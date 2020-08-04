@@ -268,7 +268,7 @@ public class JindouyunOrderService {
      * @param keyword
      * @return
      */
-    public List<JindouyunOrder> find(int userId, String keyword) {
+    public List<JindouyunOrder> find(Integer userId, String keyword) {
         JindouyunOrderGoodsExample example = new JindouyunOrderGoodsExample();
         JindouyunOrderGoodsExample.Criteria criteria = example.createCriteria();
 
@@ -285,7 +285,10 @@ public class JindouyunOrderService {
         for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
             JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
 //            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
-            if (jindouyunOrder.getUserId() == userId){
+//            System.out.println("jindouyunOrder.getUserId().intValue()"+jindouyunOrder.getUserId().intValue());
+//            System.out.println("userId.intValue()"+userId.intValue());
+//            System.out.println(jindouyunOrder.getUserId().intValue() == userId.intValue());
+            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
                 jindouyunOrderList.add(jindouyunOrder);
             }
         }

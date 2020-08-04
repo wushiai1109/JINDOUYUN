@@ -510,7 +510,7 @@ public class WxOrderService {
      * @param keyword
      * @return
      */
-    public Object find(int userId, String keyword) {
+    public Object find(Integer userId, String keyword) {
         //查询列表数据
         List<JindouyunOrder> orderList = orderService.find(userId, keyword);
         return ResponseUtil.ok(orderList);
