@@ -7540,3 +7540,559 @@ Consider marking one of the beans as @Primary, updating the consumer to accept m
 2020-08-04 18:37:03,580 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
 2020-08-04 18:37:03,581 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 18:37:03.5793397(Timestamp), false(Boolean)
 2020-08-04 18:37:03,582 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:44:59,252 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-04 19:44:59,336 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-04 19:44:59,360 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 18
+2020-08-04 19:44:59,369 DEBUG [restartedMain] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==>  Preparing: insert into jindouyun_system ( key_name, key_value, add_time, update_time ) values ( ?, ?, ?, ? ) 
+2020-08-04 19:44:59,375 DEBUG [restartedMain] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==> Parameters: Jindouyun_TRUE_ISWEIGHT(String), 2(String), 2020-08-04 19:44:59.3685064(Timestamp), 2020-08-04 19:44:59.3685064(Timestamp)
+2020-08-04 19:44:59,379 DEBUG [restartedMain] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-04 19:44:59,379 DEBUG [restartedMain] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==>  Preparing: SELECT LAST_INSERT_ID() 
+2020-08-04 19:44:59,381 DEBUG [restartedMain] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-04 19:44:59,383 DEBUG [restartedMain] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-04 19:44:59,390 DEBUG [restartedMain] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==>  Preparing: insert into jindouyun_system ( key_name, key_value, add_time, update_time ) values ( ?, ?, ?, ? ) 
+2020-08-04 19:44:59,390 DEBUG [restartedMain] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==> Parameters: Jindouyun_FALSE_ISWEIGHT(String), 3(String), 2020-08-04 19:44:59.389418(Timestamp), 2020-08-04 19:44:59.3904168(Timestamp)
+2020-08-04 19:44:59,393 DEBUG [restartedMain] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-04 19:44:59,393 DEBUG [restartedMain] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==>  Preparing: SELECT LAST_INSERT_ID() 
+2020-08-04 19:44:59,394 DEBUG [restartedMain] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-04 19:44:59,395 DEBUG [restartedMain] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-04 19:44:59,409 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-04 19:44:59,410 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-04 19:44:59,411 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-04 19:44:59,411 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-04 19:44:59,411 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:44:59,411 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-04 19:44:59,411 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:44:59,413 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-04 19:44:59,413 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-04 19:44:59,414 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-04 19:44:59,414 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:44:59,414 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-04 19:44:59,414 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:44:59,414 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:44:59,414 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-04 19:44:59,415 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:44:59,415 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:44:59,415 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-04 19:44:59,415 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:44:59,415 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-04 19:44:59,416 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-04 19:44:59,416 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-04 19:44:59,416 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-04 19:44:59,416 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-04 19:45:01,425 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:45:01,436 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:45:01,438 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:45:01.4289653(Timestamp), false(Boolean)
+2020-08-04 19:45:01,440 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:45:01,447 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:45:01,449 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:45:01.4449215(Timestamp), false(Boolean)
+2020-08-04 19:45:01,450 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:45:18,032 ERROR [restartedMain] o.s.boot.SpringApplication [SpringApplication.java : 858] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'objectMapperConfigurer' defined in class path resource [springfox/documentation/spring/web/SpringfoxWebMvcConfiguration.class]: BeanPostProcessor before instantiation of bean failed; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizationAttributeSourceAdvisor' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'authorizationAttributeSourceAdvisor' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shiroFilterFactoryBean' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shiroFilterFactoryBean' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'defaultWebSecurityManager' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.DefaultWebSecurityManager]: Factory method 'defaultWebSecurityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'realm' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.jindouyun.admin.shiro.AdminAuthorizingRealm] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47ccfa27]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:510)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.registerBeanPostProcessors(PostProcessorRegistrationDelegate.java:240)
+	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:721)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:534)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.jindouyun.all.Application.main(Application.java:16)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizationAttributeSourceAdvisor' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'authorizationAttributeSourceAdvisor' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shiroFilterFactoryBean' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shiroFilterFactoryBean' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'defaultWebSecurityManager' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.DefaultWebSecurityManager]: Factory method 'defaultWebSecurityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'realm' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.jindouyun.admin.shiro.AdminAuthorizingRealm] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47ccfa27]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:769)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1160)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
+	at org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper.findAdvisorBeans(BeanFactoryAdvisorRetrievalHelper.java:91)
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findCandidateAdvisors(AbstractAdvisorAutoProxyCreator.java:109)
+	at org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator.findCandidateAdvisors(AnnotationAwareAspectJAutoProxyCreator.java:92)
+	at org.springframework.aop.aspectj.autoproxy.AspectJAwareAdvisorAutoProxyCreator.shouldSkip(AspectJAwareAdvisorAutoProxyCreator.java:101)
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessBeforeInstantiation(AbstractAutoProxyCreator.java:251)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInstantiation(AbstractAutowireCapableBeanFactory.java:1124)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeforeInstantiation(AbstractAutowireCapableBeanFactory.java:1097)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:504)
+	... 19 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'shiroFilterFactoryBean' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Unsatisfied dependency expressed through method 'shiroFilterFactoryBean' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'defaultWebSecurityManager' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.DefaultWebSecurityManager]: Factory method 'defaultWebSecurityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'realm' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.jindouyun.admin.shiro.AdminAuthorizingRealm] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47ccfa27]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:769)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:509)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1160)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getSingletonFactoryBeanForTypeCheck(AbstractAutowireCapableBeanFactory.java:991)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getTypeForFactoryBean(AbstractAutowireCapableBeanFactory.java:865)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isTypeMatch(AbstractBeanFactory.java:574)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doGetBeanNamesForType(DefaultListableBeanFactory.java:516)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:479)
+	at org.springframework.beans.factory.BeanFactoryUtils.beanNamesForTypeIncludingAncestors(BeanFactoryUtils.java:227)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1412)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1211)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1168)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:857)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:760)
+	... 36 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'defaultWebSecurityManager' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.DefaultWebSecurityManager]: Factory method 'defaultWebSecurityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'realm' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.jindouyun.admin.shiro.AdminAuthorizingRealm] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47ccfa27]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:627)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:456)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1321)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1160)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:555)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:277)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1248)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1168)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:857)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:760)
+	... 50 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.shiro.web.mgt.DefaultWebSecurityManager]: Factory method 'defaultWebSecurityManager' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'realm' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.jindouyun.admin.shiro.AdminAuthorizingRealm] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47ccfa27]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:622)
+	... 64 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'realm' defined in class path resource [com/jindouyun/admin/config/ShiroConfig.class]: Post-processing of merged bean definition failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.jindouyun.admin.shiro.AdminAuthorizingRealm] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47ccfa27]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:570)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.resolveBeanReference(ConfigurationClassEnhancer.java:394)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:366)
+	at com.jindouyun.admin.config.ShiroConfig$$EnhancerBySpringCGLIB$$b81a2718.realm(<generated>)
+	at com.jindouyun.admin.config.ShiroConfig.defaultWebSecurityManager(ShiroConfig.java:55)
+	at com.jindouyun.admin.config.ShiroConfig$$EnhancerBySpringCGLIB$$b81a2718.CGLIB$defaultWebSecurityManager$1(<generated>)
+	at com.jindouyun.admin.config.ShiroConfig$$EnhancerBySpringCGLIB$$b81a2718$$FastClassBySpringCGLIB$$8474a741.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:363)
+	at com.jindouyun.admin.config.ShiroConfig$$EnhancerBySpringCGLIB$$b81a2718.defaultWebSecurityManager(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
+	... 65 common frames omitted
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.jindouyun.admin.shiro.AdminAuthorizingRealm] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@47ccfa27]
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:760)
+	at org.springframework.util.ReflectionUtils.doWithLocalFields(ReflectionUtils.java:692)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.buildResourceMetadata(CommonAnnotationBeanPostProcessor.java:365)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.findResourceMetadata(CommonAnnotationBeanPostProcessor.java:350)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessMergedBeanDefinition(CommonAnnotationBeanPostProcessor.java:298)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyMergedBeanDefinitionPostProcessors(AbstractAutowireCapableBeanFactory.java:1077)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:567)
+	... 84 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: Lcom/jindouyun/db/service/JindouyunAdminService;
+	at java.base/java.lang.Class.getDeclaredFields0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredFields(Class.java:3062)
+	at java.base/java.lang.Class.getDeclaredFields(Class.java:2249)
+	at org.springframework.util.ReflectionUtils.getDeclaredFields(ReflectionUtils.java:755)
+	... 90 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com.jindouyun.db.service.JindouyunAdminService
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:582)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:148)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	... 94 common frames omitted
+2020-08-04 19:45:29,578 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-04 19:45:29,580 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-04 19:45:29,594 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-04 19:45:29,605 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-04 19:45:29,605 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-04 19:45:29,606 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-04 19:45:29,606 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-04 19:45:29,607 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:29,608 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-04 19:45:29,608 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:29,609 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-04 19:45:29,609 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-04 19:45:29,610 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-04 19:45:29,610 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:29,611 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-04 19:45:29,612 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:29,612 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:29,613 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-04 19:45:29,614 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:29,615 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:29,615 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-04 19:45:29,616 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:29,616 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-04 19:45:29,617 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-04 19:45:29,617 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-04 19:45:29,618 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-04 19:45:29,618 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-04 19:45:33,065 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:45:33,074 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:45:33,077 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:45:33.0690321(Timestamp), false(Boolean)
+2020-08-04 19:45:33,079 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:45:33,091 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:45:33,093 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:45:33.0849886(Timestamp), false(Boolean)
+2020-08-04 19:45:33,095 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:45:44,534 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-04 19:45:44,535 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-04 19:45:44,540 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-04 19:45:44,545 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-04 19:45:44,545 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-04 19:45:44,546 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-04 19:45:44,546 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-04 19:45:44,546 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:44,546 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-04 19:45:44,547 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:44,547 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-04 19:45:44,547 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-04 19:45:44,547 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-04 19:45:44,547 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:44,548 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-04 19:45:44,548 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:44,548 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:44,548 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-04 19:45:44,548 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:44,548 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 19:45:44,549 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-04 19:45:44,549 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 19:45:44,549 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-04 19:45:44,549 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-04 19:45:44,549 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-04 19:45:44,549 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-04 19:45:44,550 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-04 19:45:46,042 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:45:46,051 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:45:46,053 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:45:46.0461072(Timestamp), false(Boolean)
+2020-08-04 19:45:46,055 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:45:46,067 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:45:46,070 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:45:46.0620654(Timestamp), false(Boolean)
+2020-08-04 19:45:46,072 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:46:46,074 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:46:46,078 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:46:46,078 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:46:46.0746605(Timestamp), false(Boolean)
+2020-08-04 19:46:46,079 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:46:46,081 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:46:46,081 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:46:46.0806704(Timestamp), false(Boolean)
+2020-08-04 19:46:46,082 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:47:46,084 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:47:46,087 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:47:46,088 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:47:46.0842654(Timestamp), false(Boolean)
+2020-08-04 19:47:46,089 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:47:46,090 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:47:46,091 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:47:46.0902189(Timestamp), false(Boolean)
+2020-08-04 19:47:46,092 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:48:46,093 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:48:46,096 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:48:46,097 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:48:46.0932548(Timestamp), false(Boolean)
+2020-08-04 19:48:46,099 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:48:46,100 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:48:46,101 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:48:46.0992007(Timestamp), false(Boolean)
+2020-08-04 19:48:46,102 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:49:46,103 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:49:46,105 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:49:46,106 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:49:46.103582(Timestamp), false(Boolean)
+2020-08-04 19:49:46,107 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:49:46,108 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:49:46,108 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:49:46.1075618(Timestamp), false(Boolean)
+2020-08-04 19:49:46,109 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:50:46,111 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:50:46,113 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:50:46,114 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:50:46.1111953(Timestamp), false(Boolean)
+2020-08-04 19:50:46,114 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:50:46,117 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:50:46,117 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:50:46.1150094(Timestamp), false(Boolean)
+2020-08-04 19:50:46,117 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:51:46,119 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:51:46,121 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:51:46,122 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:51:46.1191624(Timestamp), false(Boolean)
+2020-08-04 19:51:46,122 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:51:46,123 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:51:46,124 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:51:46.1231521(Timestamp), false(Boolean)
+2020-08-04 19:51:46,124 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:52:46,126 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:52:46,128 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:52:46,129 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:52:46.126972(Timestamp), false(Boolean)
+2020-08-04 19:52:46,130 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:52:46,131 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:52:46,131 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:52:46.1307515(Timestamp), false(Boolean)
+2020-08-04 19:52:46,132 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:53:46,134 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:53:46,136 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:53:46,137 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:53:46.1340798(Timestamp), false(Boolean)
+2020-08-04 19:53:46,137 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:53:46,138 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:53:46,139 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:53:46.1380924(Timestamp), false(Boolean)
+2020-08-04 19:53:46,140 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:54:46,141 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:54:46,143 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:54:46,143 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:54:46.1414012(Timestamp), false(Boolean)
+2020-08-04 19:54:46,144 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:54:46,145 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:54:46,146 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:54:46.1453929(Timestamp), false(Boolean)
+2020-08-04 19:54:46,146 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:55:46,149 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:55:46,151 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:55:46,152 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:55:46.1495769(Timestamp), false(Boolean)
+2020-08-04 19:55:46,153 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:55:46,154 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:55:46,154 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:55:46.1534029(Timestamp), false(Boolean)
+2020-08-04 19:55:46,155 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:56:46,157 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:56:46,159 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:56:46,160 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:56:46.1578268(Timestamp), false(Boolean)
+2020-08-04 19:56:46,160 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:56:46,161 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:56:46,162 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:56:46.1618154(Timestamp), false(Boolean)
+2020-08-04 19:56:46,163 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:57:46,164 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:57:46,166 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:57:46,166 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:57:46.1648993(Timestamp), false(Boolean)
+2020-08-04 19:57:46,167 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:57:46,168 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:57:46,169 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:57:46.1688897(Timestamp), false(Boolean)
+2020-08-04 19:57:46,169 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:58:46,171 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:58:46,173 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:58:46,174 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:58:46.171495(Timestamp), false(Boolean)
+2020-08-04 19:58:46,175 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:58:46,176 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:58:46,176 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:58:46.1752582(Timestamp), false(Boolean)
+2020-08-04 19:58:46,177 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:59:46,179 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 19:59:46,181 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:59:46,182 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 19:59:46.1796175(Timestamp), false(Boolean)
+2020-08-04 19:59:46,182 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 19:59:46,183 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 19:59:46,184 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 19:59:46.1834197(Timestamp), false(Boolean)
+2020-08-04 19:59:46,184 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:00:46,186 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:00:46,189 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:00:46,189 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:00:46.1868964(Timestamp), false(Boolean)
+2020-08-04 20:00:46,190 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:00:46,191 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:00:46,192 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:00:46.1908866(Timestamp), false(Boolean)
+2020-08-04 20:00:46,193 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:01:46,195 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:01:46,197 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:01:46,198 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:01:46.1954109(Timestamp), false(Boolean)
+2020-08-04 20:01:46,198 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:01:46,199 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:01:46,200 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:01:46.19923(Timestamp), false(Boolean)
+2020-08-04 20:01:46,200 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:02:46,201 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:02:46,203 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:02:46,203 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:02:46.2015485(Timestamp), false(Boolean)
+2020-08-04 20:02:46,204 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:02:46,205 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:02:46,205 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:02:46.2055309(Timestamp), false(Boolean)
+2020-08-04 20:02:46,206 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:03:46,207 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:03:46,209 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:03:46,209 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:03:46.2077858(Timestamp), false(Boolean)
+2020-08-04 20:03:46,210 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:03:46,211 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:03:46,211 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:03:46.2107468(Timestamp), false(Boolean)
+2020-08-04 20:03:46,212 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:04:46,215 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:04:46,217 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:04:46,217 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:04:46.2154657(Timestamp), false(Boolean)
+2020-08-04 20:04:46,218 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:04:46,219 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:04:46,219 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:04:46.2194755(Timestamp), false(Boolean)
+2020-08-04 20:04:46,220 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:05:46,222 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:05:46,223 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:05:46,224 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:05:46.2220326(Timestamp), false(Boolean)
+2020-08-04 20:05:46,224 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:05:46,225 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:05:46,225 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:05:46.2258136(Timestamp), false(Boolean)
+2020-08-04 20:05:46,226 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:06:46,228 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:06:46,230 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:06:46,231 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:06:46.2286531(Timestamp), false(Boolean)
+2020-08-04 20:06:46,231 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:06:46,232 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:06:46,233 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:06:46.2324471(Timestamp), false(Boolean)
+2020-08-04 20:06:46,233 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:07:46,234 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:07:46,236 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:07:46,237 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:07:46.2344995(Timestamp), false(Boolean)
+2020-08-04 20:07:46,237 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:07:46,238 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:07:46,238 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:07:46.2383072(Timestamp), false(Boolean)
+2020-08-04 20:07:46,239 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:08:46,241 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:08:46,243 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:08:46,244 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:08:46.2410432(Timestamp), false(Boolean)
+2020-08-04 20:08:46,245 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:08:46,246 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:08:46,246 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:08:46.2450333(Timestamp), false(Boolean)
+2020-08-04 20:08:46,247 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:09:46,248 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:09:46,250 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:09:46,250 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:09:46.2483432(Timestamp), false(Boolean)
+2020-08-04 20:09:46,251 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:09:46,252 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:09:46,252 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:09:46.2513359(Timestamp), false(Boolean)
+2020-08-04 20:09:46,253 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:10:46,254 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:10:46,256 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:10:46,256 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:10:46.2547262(Timestamp), false(Boolean)
+2020-08-04 20:10:46,257 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:10:46,258 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:10:46,258 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:10:46.2585662(Timestamp), false(Boolean)
+2020-08-04 20:10:46,259 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:11:46,261 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:11:46,263 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:11:46,263 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:11:46.2618269(Timestamp), false(Boolean)
+2020-08-04 20:11:46,264 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:11:46,265 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:11:46,265 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:11:46.2648112(Timestamp), false(Boolean)
+2020-08-04 20:11:46,266 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:12:46,268 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:12:46,270 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:12:46,270 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:12:46.2683085(Timestamp), false(Boolean)
+2020-08-04 20:12:46,271 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:12:46,272 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:12:46,272 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:12:46.2713018(Timestamp), false(Boolean)
+2020-08-04 20:12:46,273 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:13:46,274 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:13:46,276 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:13:46,276 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:13:46.2746879(Timestamp), false(Boolean)
+2020-08-04 20:13:46,277 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:13:46,278 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:13:46,278 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:13:46.2786781(Timestamp), false(Boolean)
+2020-08-04 20:13:46,279 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:14:46,280 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:14:46,282 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:14:46,282 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:14:46.2806216(Timestamp), false(Boolean)
+2020-08-04 20:14:46,283 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:14:46,284 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:14:46,284 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:14:46.2843985(Timestamp), false(Boolean)
+2020-08-04 20:14:46,285 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:15:46,287 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:15:46,289 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:15:46,290 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:15:46.2875142(Timestamp), false(Boolean)
+2020-08-04 20:15:46,291 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:15:46,292 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:15:46,293 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:15:46.2915046(Timestamp), false(Boolean)
+2020-08-04 20:15:46,294 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:16:46,295 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:16:46,298 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:16:46,298 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:16:46.295841(Timestamp), false(Boolean)
+2020-08-04 20:16:46,299 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:16:46,300 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:16:46,301 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:16:46.3008284(Timestamp), false(Boolean)
+2020-08-04 20:16:46,303 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:18:17,629 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-04 20:18:17,713 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-04 20:18:17,737 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-04 20:18:17,751 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-04 20:18:17,751 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-04 20:18:17,752 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-04 20:18:17,752 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-04 20:18:17,752 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:18:17,752 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-04 20:18:17,753 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:18:17,755 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-04 20:18:17,755 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-04 20:18:17,755 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-04 20:18:17,756 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:18:17,756 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-04 20:18:17,756 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:18:17,756 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:18:17,756 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-04 20:18:17,756 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:18:17,757 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:18:17,757 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-04 20:18:17,757 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:18:17,757 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-04 20:18:17,757 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-04 20:18:17,758 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-04 20:18:17,758 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-04 20:18:17,758 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-04 20:18:18,749 ERROR [restartedMain] o.s.boot.SpringApplication [SpringApplication.java : 858] Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'deliveryAuthController': Unsatisfied dependency expressed through field 'regiterDeliveryService'; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.jindouyun.db.service.JindouyunRegiteDeliveryService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:596)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:90)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:374)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1411)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:592)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:515)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:843)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:877)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.jindouyun.all.Application.main(Application.java:16)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.jindouyun.db.service.JindouyunRegiteDeliveryService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:1655)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1214)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1168)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:593)
+	... 24 common frames omitted
+2020-08-04 20:20:42,106 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-04 20:20:42,193 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-04 20:20:42,219 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-04 20:20:42,234 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-04 20:20:42,235 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-04 20:20:42,235 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-04 20:20:42,235 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-04 20:20:42,235 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:20:42,236 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-04 20:20:42,236 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:20:42,239 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-04 20:20:42,239 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-04 20:20:42,240 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-04 20:20:42,240 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:20:42,240 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-04 20:20:42,240 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:20:42,241 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:20:42,241 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-04 20:20:42,241 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:20:42,241 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-04 20:20:42,241 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-04 20:20:42,241 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-04 20:20:42,242 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-04 20:20:42,242 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-04 20:20:42,242 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-04 20:20:42,242 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-04 20:20:42,242 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-04 20:20:44,154 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:20:44,170 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:20:44,173 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:20:44.1621452(Timestamp), false(Boolean)
+2020-08-04 20:20:44,176 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:20:44,184 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:20:44,185 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:20:44.1800971(Timestamp), false(Boolean)
+2020-08-04 20:20:44,186 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:21:44,188 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-04 20:21:44,192 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:21:44,192 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-04 20:21:44.1886931(Timestamp), false(Boolean)
+2020-08-04 20:21:44,193 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-04 20:21:44,195 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-04 20:21:44,195 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-04 20:21:44.1944712(Timestamp), false(Boolean)
+2020-08-04 20:21:44,196 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
