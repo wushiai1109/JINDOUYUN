@@ -50,10 +50,9 @@
     </root>
     <logger name="org.mybatis" level="ERROR"/>
     <logger name="org.springframework" level="ERROR"/>
-    <logger name="org.jindouyun.core" level="DEBUG"/>
-     
-    <logger name="org.jindouyun.db" level="DEBUG"/>
-    <logger name="org.jindouyun.admin" level="DEBUG"/>
-    <logger name="org.jindouyun.wx" level="DEBUG"/>
-    <logger name="org.jindouyun.litemall" level="DEBUG"/>
+    <logger name="com.jindouyun.core" level="DEBUG"/>
+    <logger name="com.jindouyun.db" level="DEBUG"/>
+    <logger name="com.jindouyun.admin" level="DEBUG"/>
+    <logger name="com.jindouyun.wx" level="DEBUG"/>
+    <logger name="com.jindouyun.delivery" level="DEBUG"/>
 </configuration>
