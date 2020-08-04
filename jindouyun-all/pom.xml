@@ -28,6 +28,11 @@
             <groupId>com.JinDouYun</groupId>
             <artifactId>jindouyun-wx-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.JinDouYun</groupId>
+            <artifactId>jindouyun-delivery-api</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

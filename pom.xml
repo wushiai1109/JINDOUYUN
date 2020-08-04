@@ -15,6 +15,7 @@
         <module>jindouyun-admin-api</module>
         <module>jindouyun-all</module>
         <module>jindouyun-wx-api</module>
+        <module>jindouyun-delivery-api</module>
     </modules>
 
     <parent>
