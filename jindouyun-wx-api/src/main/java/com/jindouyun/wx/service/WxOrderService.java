@@ -33,6 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -96,7 +97,9 @@ public class WxOrderService {
     private JindouyunRegionService regionService;
     @Autowired
     private JindouyunGoodsProductService productService;
+
     @Autowired
+    @Qualifier("wxPayService")
     private WxPayService wxPayService;
     @Autowired
     private NotifyService notifyService;

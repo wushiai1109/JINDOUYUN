@@ -16,9 +16,11 @@ import com.jindouyun.wx.service.CaptchaCodeManager;
 import com.jindouyun.db.service.JindouyunUserService;
 import com.jindouyun.wx.service.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -42,6 +44,8 @@ public class WxAuthController {
     private JindouyunUserService userService;
 
     @Autowired
+    @Qualifier("wxMaService")
+//    @Resource
     private WxMaService wxMaService;
 
     @Autowired
