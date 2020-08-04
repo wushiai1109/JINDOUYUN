@@ -30,6 +30,9 @@ public class SystemConfig {
     public final static String Jindouyun_MALL_QQ = "Jindouyun_mall_qq";
     public final static String Jindouyun_MALL_LONGITUDE = "Jindouyun_mall_longitude";
     public final static String Jindouyun_MALL_Latitude = "Jindouyun_mall_latitude";
+    //快递包裹的费用
+    public final static String Jindouyun_FALSE_ISWEIGHT = "Jindouyun_FALSE_ISWEIGHT";
+    public final static String Jindouyun_TRUE_ISWEIGHT = "Jindouyun_TRUE_ISWEIGHT";
 
     //所有的配置均保存在该 HashMap 中
     private static Map<String, String> SYSTEM_CONFIGS = new HashMap<>();
@@ -130,5 +133,13 @@ public class SystemConfig {
         for (Map.Entry<String, String> entry : data.entrySet()) {
             SYSTEM_CONFIGS.put(entry.getKey(), entry.getValue());
         }
+    }
+
+    public static BigDecimal getFalseIsweight() {
+        return getConfigBigDec(Jindouyun_FALSE_ISWEIGHT);
+    }
+
+    public static BigDecimal getTrueIsweight() {
+        return getConfigBigDec(Jindouyun_TRUE_ISWEIGHT);
     }
 }

@@ -399,7 +399,9 @@ public class WxOrderService {
         order.setConsignee(checkedAddress.getName());
         order.setMobile(checkedAddress.getTel());
         order.setMessage(message);
-        String detailedAddress = checkedAddress.getProvince() + checkedAddress.getCity() + checkedAddress.getCounty() + " " + checkedAddress.getAddressDetail();
+        order.setBuilding(checkedAddress.getBuilding());
+//        String detailedAddress = checkedAddress.getProvince() + checkedAddress.getCity() + checkedAddress.getCounty() + " " + checkedAddress.getAddressDetail();
+        String detailedAddress = checkedAddress.getAddressDetail();
         order.setAddress(detailedAddress);
         order.setGoodsPrice(checkedGoodsPrice);
         order.setFreightPrice(freightPrice);
@@ -418,6 +420,7 @@ public class WxOrderService {
         // 添加订单表项
         orderService.add(order);
         orderId = order.getId();
+        System.out.println("~~~~~~~~~" + orderId);
 
         // 添加订单商品表项
         for (JindouyunCart cartGoods : checkedGoodsList) {

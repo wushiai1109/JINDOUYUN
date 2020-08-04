@@ -55,6 +55,9 @@ class SystemInistService {
         DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_MALL_LONGITUDE, "121.587839");
         DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_MALL_PHONE, "021-xxxx-xxxx");
         DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_MALL_QQ, "705144434");
+        //快递包裹的费用
+        DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_FALSE_ISWEIGHT, "3");
+        DEFAULT_CONFIGS.put(SystemConfig.Jindouyun_TRUE_ISWEIGHT, "2");
     }
 
     @Autowired
