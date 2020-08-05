@@ -19,8 +19,10 @@ import com.jindouyun.core.task.TaskService;
 import com.jindouyun.core.util.DateTimeUtil;
 import com.jindouyun.core.util.IpUtil;
 import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.db.dao.JindouyunOrderGoodsMapper;
 import com.jindouyun.db.dao.JindouyunOrderMapper;
 import com.jindouyun.db.dao.JindouyunOrderMapperDemo;
+import com.jindouyun.db.dao.OrderMapper;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.db.util.CouponUserConstant;
@@ -37,6 +39,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -97,6 +100,12 @@ public class WxOrderService {
     private JindouyunRegionService regionService;
     @Autowired
     private JindouyunGoodsProductService productService;
+
+    @Resource
+    private JindouyunOrderMapper jindouyunOrderMapper;
+
+    @Resource
+    private JindouyunOrderGoodsMapper orderGoodsMapper;
 
     @Autowired
     @Qualifier("wxPayService")
@@ -520,7 +529,34 @@ public class WxOrderService {
      * @return
      */
     public Object find(Integer userId, String keyword) {
-        return orderService.find(userId,keyword);
+        JindouyunOrderGoodsExample example = new JindouyunOrderGoodsExample();
+        JindouyunOrderGoodsExample.Criteria criteria = example.createCriteria();
+
+        if (!StringUtils.isEmpty(keyword)) {
+            criteria.andGoodsNameLike("%" + keyword + "%");
+        }
+        criteria.andDeletedEqualTo(false);
+
+        List<JindouyunOrderGoods> jindouyunOrderGoods = orderGoodsMapper.selectByExampleSelective(example);
+        System.out.println(jindouyunOrderGoods);
+
+        List<Map<String,Object>> mapList = new ArrayList<>();
+
+        for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
+            JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
+            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
+                Map<String,Object> map = new HashMap<>();
+                map.put("id", jindouyunOrder.getId());
+                map.put("orderSn", jindouyunOrder.getOrderSn());
+                map.put("actualPrice", jindouyunOrder.getActualPrice());
+                map.put("orderStatusText", OrderUtil.orderStatusText(jindouyunOrder));
+                map.put("goodsList",orderGoods);
+                mapList.add(map);
+            }
+        }
+//        List<Map<String, Object>> maps = orderService.find(userId, keyword);
+//        return ResponseUtil.okList(maps);
+        return ResponseUtil.okList(mapList);
     }
 
     /**
