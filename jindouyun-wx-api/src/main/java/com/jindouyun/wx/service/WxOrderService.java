@@ -27,7 +27,6 @@ import com.jindouyun.db.util.CouponUserConstant;
 import com.jindouyun.db.util.OrderHandleOption;
 import com.jindouyun.db.util.OrderUtil;
 import com.jindouyun.wx.task.OrderUnpaidTask;
-import com.mysql.cj.util.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.jindouyun.core.util.ResponseUtil;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -121,6 +121,9 @@ public class WxOrderService {
     private CouponVerifyService couponVerifyService;
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private JindouyunOrderMapper orderMapper;
 
     /**
      * 订单列表
@@ -517,9 +520,7 @@ public class WxOrderService {
      * @return
      */
     public Object find(Integer userId, String keyword) {
-        //查询列表数据
-        List<JindouyunOrder> orderList = orderService.find(userId, keyword);
-        return ResponseUtil.ok(orderList);
+        return orderService.find(userId,keyword);
     }
 
     /**

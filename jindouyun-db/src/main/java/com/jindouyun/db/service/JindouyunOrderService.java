@@ -6,6 +6,7 @@ import com.jindouyun.db.dao.JindouyunOrderMapper;
 import com.jindouyun.db.dao.OrderMapper;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.util.OrderUtil;
+import org.apache.ibatis.ognl.ObjectElementsAccessor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -268,7 +269,7 @@ public class JindouyunOrderService {
      * @param keyword
      * @return
      */
-    public List<JindouyunOrder> find(Integer userId, String keyword) {
+    public List<Map<String,Object>> find(Integer userId, String keyword) {
         JindouyunOrderGoodsExample example = new JindouyunOrderGoodsExample();
         JindouyunOrderGoodsExample.Criteria criteria = example.createCriteria();
 
@@ -280,18 +281,20 @@ public class JindouyunOrderService {
         List<JindouyunOrderGoods> jindouyunOrderGoods = orderGoodsMapper.selectByExampleSelective(example);
         System.out.println(jindouyunOrderGoods);
 
-        List<JindouyunOrder> jindouyunOrderList = new ArrayList<>();
+        List<Map<String,Object>> mapList = new ArrayList<>();
 
         for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
             JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
-//            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
 //            System.out.println("jindouyunOrder.getUserId().intValue()"+jindouyunOrder.getUserId().intValue());
-//            System.out.println("userId.intValue()"+userId.intValue());
+//            System.out.println("getUserId().intValue()"+userId.intValue());
 //            System.out.println(jindouyunOrder.getUserId().intValue() == userId.intValue());
             if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
-                jindouyunOrderList.add(jindouyunOrder);
+                Map<String,Object> map = new HashMap<>();
+                map.put("orderInfo",jindouyunOrder);
+                map.put("goodsList",orderGoods);
+                mapList.add(map);
             }
         }
-        return jindouyunOrderList;
+        return mapList;
     }
 }

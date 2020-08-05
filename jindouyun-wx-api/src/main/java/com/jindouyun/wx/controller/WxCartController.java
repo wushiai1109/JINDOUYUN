@@ -305,7 +305,10 @@ public class WxCartController {
         if (cartService.updateById(existCart) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
-        return ResponseUtil.ok();
+//        System.out.println(existCart);
+        index(userId);
+//        return ResponseUtil.ok(existCart);
+        return index(userId);
     }
 
     /**
