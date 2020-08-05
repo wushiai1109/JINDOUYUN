@@ -20,6 +20,9 @@ public class WxConfig {
     @Autowired
     private DeliveryWxProperties deliveryWxProperties;
 
+    @Autowired
+    private MerchantWxProperties merchantWxProperties;
+
     @Bean(name = "wxMaConfig")
     public WxMaConfig wxMaConfig() {
         WxMaInMemoryConfig config = new WxMaInMemoryConfig();
@@ -36,6 +39,14 @@ public class WxConfig {
         return config;
     }
 
+    @Bean(name = "merchantWxMaConfig")
+    public WxMaConfig merchantWxMaConfig(){
+        WxMaInMemoryConfig config = new WxMaInMemoryConfig();
+        config.setAppid(merchantWxProperties.getAppId());
+        config.setSecret(merchantWxProperties.getAppSecret());
+        return config;
+    }
+
 
     @Bean(name = "wxMaService")
     public WxMaService wxMaService(@Qualifier("wxMaConfig") WxMaConfig maConfig) {
@@ -46,6 +57,13 @@ public class WxConfig {
 
     @Bean(name = "deliveryWxMaService")
     public WxMaService deliveryWxMaService(@Qualifier("deliveryWxMaConfig") WxMaConfig maConfig){
+        WxMaService service = new WxMaServiceImpl();
+        service.setWxMaConfig(maConfig);
+        return service;
+    }
+
+    @Bean(name = "merchantWxMaService")
+    public WxMaService merchantWxMaService(@Qualifier("merchantWxMaConfig") WxMaConfig maConfig){
         WxMaService service = new WxMaServiceImpl();
         service.setWxMaConfig(maConfig);
         return service;
