@@ -9,14 +9,12 @@ import com.jindouyun.db.domain.JindouyunCoupon.Column;
 import com.jindouyun.db.domain.JindouyunCouponExample;
 import com.jindouyun.db.domain.JindouyunCouponUser;
 import com.jindouyun.db.domain.JindouyunCouponUserExample;
-import com.jindouyun.db.util.CouponConstant;
+import com.jindouyun.common.constant.CouponConstant;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service

@@ -2,7 +2,7 @@ package com.jindouyun.wx.controller;
 
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.service.JindouyunOrderService;
-import com.jindouyun.wx.annotation.LoginUser;
+import com.jindouyun.common.annotation.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

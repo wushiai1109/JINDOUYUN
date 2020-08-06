@@ -1,8 +1,8 @@
 package com.jindouyun.wx.controller;
 
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.core.validator.Order;
-import com.jindouyun.core.validator.Sort;
+import com.jindouyun.common.validator.Order;
+import com.jindouyun.common.validator.Sort;
 import com.jindouyun.db.domain.JindouyunBrand;
 import com.jindouyun.db.service.JindouyunBrandService;
 import org.springframework.beans.factory.annotation.Autowired;

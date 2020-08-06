@@ -1,7 +1,7 @@
 package com.jindouyun.wx.controller;
 
 import com.jindouyun.core.storage.StorageService;
-import com.jindouyun.core.util.CharUtil;
+import com.jindouyun.common.util.CharUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunStorage;
 import com.jindouyun.db.service.JindouyunStorageService;

@@ -2,26 +2,26 @@ package com.jindouyun.delivery.controller;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.common.domain.UserInfo;
+import com.jindouyun.common.domain.WxLoginInfo;
+import com.jindouyun.common.service.UserTokenManager;
 import com.jindouyun.core.notify.NotifyService;
-import com.jindouyun.core.util.*;
-import com.jindouyun.core.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.common.util.*;
+import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunDeliveryStaff;
 import com.jindouyun.db.domain.JindouyunRegisteDeliveries;
 import com.jindouyun.db.domain.JindouyunUser;
 import com.jindouyun.db.service.JindouyunDeliveryService;
 import com.jindouyun.db.service.JindouyunRegiteDeliveryService;
 import com.jindouyun.db.service.JindouyunUserService;
-import com.jindouyun.delivery.annotation.LoginUser;
 import com.jindouyun.delivery.dto.DeliveryInfo;
-import com.jindouyun.delivery.dto.DeliveryWxLoginInfo;
-import com.jindouyun.delivery.dto.UserInfo;
 import com.jindouyun.delivery.service.LoginUserManager;
-import com.jindouyun.delivery.service.UserTokenManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +31,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jindouyun.delivery.util.DeliveryResponseCode.*;
+import static com.jindouyun.common.constant.WxResponseCode.*;
+
 
 /**
  * 鉴权服务
@@ -131,7 +132,7 @@ public class DeliveryAuthController {
      * @return 登录结果
      */
     @PostMapping("login_by_weixin")
-    public Object loginByWeixin(@RequestBody DeliveryWxLoginInfo wxLoginInfo, HttpServletRequest request) {
+    public Object loginByWeixin(@RequestBody WxLoginInfo wxLoginInfo, HttpServletRequest request) {
         String code = wxLoginInfo.getCode();
         UserInfo userInfo = wxLoginInfo.getUserInfo();
         if (code == null || userInfo == null) {
@@ -217,7 +218,7 @@ public class DeliveryAuthController {
         registerDeliveries.setUserId(userId);
         registerDeliveries.setMessage(message);
         registerDeliveryService.add(registerDeliveries);
-        return null;
+        return ResponseUtil.ok();
     }
 
 

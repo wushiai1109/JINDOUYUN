@@ -1,7 +1,7 @@
 package com.jindouyun.admin.shiro;
 
 
-import com.jindouyun.core.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
 import com.jindouyun.db.domain.JindouyunAdmin;
 import com.jindouyun.db.service.JindouyunAdminService;
 import com.jindouyun.db.service.JindouyunPermissionService;

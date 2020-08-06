@@ -4,14 +4,12 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.dao.JindouyunInviteMapper;
 import com.jindouyun.db.domain.JindouyunInvite;
 import com.jindouyun.db.domain.JindouyunInviteExample;
-import com.jindouyun.db.domain.JindouyunOrderGoodsExample;
 import com.jindouyun.db.service.JindouyunInviteService;
-import com.jindouyun.wx.annotation.LoginUser;
+import com.jindouyun.common.annotation.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

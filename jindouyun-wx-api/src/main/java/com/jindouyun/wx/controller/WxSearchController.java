@@ -2,19 +2,17 @@ package com.jindouyun.wx.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.core.validator.Order;
-import com.jindouyun.core.validator.Sort;
-import com.jindouyun.db.domain.JindouyunCategory;
+import com.jindouyun.common.validator.Order;
+import com.jindouyun.common.validator.Sort;
 import com.jindouyun.db.domain.JindouyunGoods;
 import com.jindouyun.db.domain.JindouyunSearchHistory;
 import com.jindouyun.db.service.JindouyunGoodsService;
 import com.jindouyun.db.service.JindouyunSearchHistoryService;
-import com.jindouyun.wx.annotation.LoginUser;
+import com.jindouyun.common.annotation.LoginUser;
 import com.mysql.cj.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.jindouyun.wx.config;
 
-import com.jindouyun.wx.annotation.support.LoginUserHandlerMethodArgumentResolver;
+import com.jindouyun.common.annotation.support.LoginUserHandlerMethodArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

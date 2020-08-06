@@ -16,6 +16,10 @@ public class JindouyunAddressService {
     @Resource
     private JindouyunAddressMapper addressMapper;
 
+    public JindouyunAddress queryById(Integer id){
+        return addressMapper.selectByPrimaryKey(id);
+    }
+
     /**
      * 通过用户id查询地址列表
      * @param uid

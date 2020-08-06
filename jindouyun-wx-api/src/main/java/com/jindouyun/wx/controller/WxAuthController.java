@@ -5,29 +5,30 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.core.notify.NotifyType;
-import com.jindouyun.core.util.*;
-import com.jindouyun.core.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.common.util.*;
+import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunUser;
 import com.jindouyun.db.service.CouponAssignService;
-import com.jindouyun.wx.annotation.LoginUser;
-import com.jindouyun.wx.domain.UserInfo;
-import com.jindouyun.wx.domain.WxLoginInfo;
-import com.jindouyun.wx.service.CaptchaCodeManager;
+import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.common.domain.UserInfo;
+import com.jindouyun.common.domain.WxLoginInfo;
+import com.jindouyun.common.service.CaptchaCodeManager;
 import com.jindouyun.db.service.JindouyunUserService;
-import com.jindouyun.wx.service.UserTokenManager;
+import com.jindouyun.common.service.UserTokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jindouyun.wx.util.WxResponseCode.*;
+import static com.jindouyun.common.constant.WxResponseCode.*;
+
 
 /**
  * @ClassName WxAuthController

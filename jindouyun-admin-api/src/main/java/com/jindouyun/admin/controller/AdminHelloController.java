@@ -18,4 +18,5 @@ public class AdminHelloController {
     public String hello() {
         return "hello";
     }
+
 }

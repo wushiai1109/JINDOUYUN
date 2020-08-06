@@ -1,10 +1,10 @@
 package com.jindouyun.wx.controller;
 
-import com.jindouyun.core.util.RegexUtil;
+import com.jindouyun.common.util.RegexUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunFeedback;
 import com.jindouyun.db.domain.JindouyunUser;
-import com.jindouyun.wx.annotation.LoginUser;
+import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.db.service.JindouyunFeedbackService;
 import com.jindouyun.db.service.JindouyunUserService;
 import org.apache.commons.lang3.StringUtils;

@@ -2,7 +2,7 @@ package com.jindouyun.wx.task;
 
 import com.jindouyun.core.system.SystemConfig;
 import com.jindouyun.core.task.Task;
-import com.jindouyun.core.util.BeanUtil;
+import com.jindouyun.common.util.BeanUtil;
 import com.jindouyun.db.domain.JindouyunOrder;
 import com.jindouyun.db.domain.JindouyunOrderGoods;
 import com.jindouyun.db.service.JindouyunGoodsProductService;

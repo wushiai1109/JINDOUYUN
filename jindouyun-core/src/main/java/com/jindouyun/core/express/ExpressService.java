@@ -5,7 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import com.jindouyun.core.express.config.ExpressProperties;
 import com.jindouyun.core.express.dao.ExpressInfo;
-import com.jindouyun.core.util.HttpUtil;
+import com.jindouyun.common.util.HttpUtil;
 import org.springframework.util.Base64Utils;
 
 import java.net.URLEncoder;

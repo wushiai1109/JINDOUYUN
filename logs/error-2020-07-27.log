@@ -4,7 +4,7 @@ java.lang.IllegalArgumentException: Cannot deserialize instance of `java.util.Ar
  at [Source: UNKNOWN; line: -1, column: -1]
 	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:3750)
 	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:3678)
-	at com.jindouyun.core.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
+	at com.jindouyun.common.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
 	at com.jindouyun.wx.controller.WxCartController.delete(WxCartController.java:367)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -94,7 +94,7 @@ java.lang.IllegalArgumentException: Cannot deserialize instance of `java.lang.In
  at [Source: UNKNOWN; line: -1, column: -1] (through reference chain: java.util.ArrayList[0])
 	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:3750)
 	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:3678)
-	at com.jindouyun.core.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
+	at com.jindouyun.common.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
 	at com.jindouyun.wx.controller.WxCartController.delete(WxCartController.java:367)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -180,7 +180,7 @@ Caused by: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot d
 	at com.fasterxml.jackson.databind.deser.std.CollectionDeserializer.deserialize(CollectionDeserializer.java:27)
 	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:3745)
 	... 73 common frames omitted
-2020-07-27 14:27:16,044 ERROR [http-nio-8080-exec-2] com.jindouyun.core.util.JacksonUtil [JacksonUtil.java : 76] Unexpected character ('p' (code 112)): was expecting comma to separate Object entries
+2020-07-27 14:27:16,044 ERROR [http-nio-8080-exec-2] com.jindouyun.common.util.JacksonUtil [JacksonUtil.java : 76] Unexpected character ('p' (code 112)): was expecting comma to separate Object entries
  at [Source: (String)"{
     "body":"[{"productIds":7}]"
 }"; line: 2, column: 17]
@@ -198,7 +198,7 @@ com.fasterxml.jackson.core.JsonParseException: Unexpected character ('p' (code 1
 	at com.fasterxml.jackson.databind.deser.std.JsonNodeDeserializer.deserialize(JsonNodeDeserializer.java:15)
 	at com.fasterxml.jackson.databind.ObjectMapper._readTreeAndClose(ObjectMapper.java:4056)
 	at com.fasterxml.jackson.databind.ObjectMapper.readTree(ObjectMapper.java:2551)
-	at com.jindouyun.core.util.JacksonUtil.parseIntegerList(JacksonUtil.java:68)
+	at com.jindouyun.common.util.JacksonUtil.parseIntegerList(JacksonUtil.java:68)
 	at com.jindouyun.wx.controller.WxCartController.delete(WxCartController.java:367)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
