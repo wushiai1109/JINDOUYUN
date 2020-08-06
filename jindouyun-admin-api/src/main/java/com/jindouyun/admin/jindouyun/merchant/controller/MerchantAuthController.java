@@ -6,6 +6,7 @@ import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.jindouyun.admin.jindouyun.merchant.dto.BrandInfo;
 import com.jindouyun.admin.jindouyun.merchant.dto.MerchantInfo;
 import com.jindouyun.admin.jindouyun.merchant.service.MerchantUserManager;
+import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.common.domain.UserInfo;
 import com.jindouyun.common.domain.WxLoginInfo;
 import com.jindouyun.common.service.CaptchaCodeManager;
@@ -14,6 +15,7 @@ import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.common.util.CharUtil;
 import com.jindouyun.common.util.IpUtil;
 import com.jindouyun.common.util.JacksonUtil;
+import com.jindouyun.core.service.AuthServiceImpl;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
 import com.jindouyun.db.domain.*;
@@ -41,7 +43,7 @@ import static com.jindouyun.common.constant.WxResponseCode.*;
 @RestController
 @RequestMapping("/merchant/auth")
 @Validated
-public class MerchantAuthController {
+public class MerchantAuthController extends AuthServiceImpl {
     private final Log logger = LogFactory.getLog(MerchantAuthController.class);
 
     @Autowired
@@ -60,8 +62,6 @@ public class MerchantAuthController {
     @Qualifier("merchantWxMaService")
     private WxMaService wxService;
 
-    @Autowired
-    private NotifyService notifyService;
 
     /**
      * 账号登录
@@ -260,7 +260,7 @@ public class MerchantAuthController {
      * @return
      */
     @PostMapping("register")
-    public Object register(Integer userId, @RequestParam(name = "name") String name,
+    public Object register(@LoginUser Integer userId, @RequestParam(name = "name") String name,
                            @RequestParam("desc") String desc, @RequestParam("picUrl") String picUrl){
         JindouyunRegisteBrand registerBrand = new JindouyunRegisteBrand();
         registerBrand.setName(name);
@@ -272,6 +272,21 @@ public class MerchantAuthController {
 
 
     /**
+     * 请求验证码
+     * <p>
+     * 这里需要一定机制防止短信验证码被滥用
+     *
+     * @param body 手机号码 { mobile: xxx}
+     * @return
+     */
+    @PostMapping("captcha")
+    public Object captcha(@RequestBody String body) {
+        String phoneNumber = JacksonUtil.parseString(body, "mobile");
+        Object result = super.captcha(phoneNumber);
+        return result;
+    }
+
+    /**
      * 账号密码重置
      *
      * @param body    请求内容
@@ -281,45 +296,18 @@ public class MerchantAuthController {
      *                code: xxx
      *                }
      *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @param request 请求对象
      * @return 登录结果
      * 成功则 { errno: 0, errmsg: '成功' }
      * 失败则 { errno: XXX, errmsg: XXX }
      */
     @PostMapping("reset")
-    public Object reset(@RequestBody String body, HttpServletRequest request) {
+    public Object reset(@RequestBody String body) {
         String password = JacksonUtil.parseString(body, "password");
         String mobile = JacksonUtil.parseString(body, "mobile");
         String code = JacksonUtil.parseString(body, "code");
 
-        if (mobile == null || code == null || password == null) {
-            return ResponseUtil.badArgument();
-        }
-
-        //判断验证码是否正确
-        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code))
-            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
-
-        List<JindouyunUser> userList = userService.queryByMobile(mobile);
-        JindouyunUser user = null;
-        if (userList.size() > 1) {
-            return ResponseUtil.serious();
-        } else if (userList.size() == 0) {
-            return ResponseUtil.fail(AUTH_MOBILE_UNREGISTERED, "手机号未注册");
-        } else {
-            user = userList.get(0);
-        }
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(password);
-        user.setPassword(encodedPassword);
-
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-
-        return ResponseUtil.ok();
+        Object result = super.reset(password,mobile,code);
+        return result;
     }
 
     /**
@@ -332,89 +320,48 @@ public class MerchantAuthController {
      *                code: xxx
      *                }
      *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @param request 请求对象
      * @return 登录结果
      * 成功则 { errno: 0, errmsg: '成功' }
      * 失败则 { errno: XXX, errmsg: XXX }
      */
     @PostMapping("resetPhone")
-    public Object resetPhone(Integer userId, @RequestBody String body, HttpServletRequest request) {
-        if(userId == null){
+    public Object resetPhone(@LoginUser Integer userId, @RequestBody String body) {
+        if (userId == null) {
             return ResponseUtil.unlogin();
         }
         String password = JacksonUtil.parseString(body, "password");
         String mobile = JacksonUtil.parseString(body, "mobile");
         String code = JacksonUtil.parseString(body, "code");
 
-        if (mobile == null || code == null || password == null) {
-            return ResponseUtil.badArgument();
-        }
+        Object result = super.resetPhone(userId,password,mobile,code);
 
-        //判断验证码是否正确
-        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code))
-            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
-
-        List<JindouyunUser> userList = userService.queryByMobile(mobile);
-        JindouyunUser user = null;
-        if (userList.size() > 1) {
-            return ResponseUtil.fail(AUTH_MOBILE_REGISTERED, "手机号已注册");
-        }
-        user = userService.findById(userId);
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (!encoder.matches(password, user.getPassword())) {
-            return ResponseUtil.fail(AUTH_INVALID_ACCOUNT, "账号密码不对");
-        }
-
-        user.setMobile(mobile);
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-
-        return ResponseUtil.ok();
+        return result;
     }
+
 
     /**
      * 账号信息更新
      *
      * @param body    请求内容
      *                {
-     *                password: xxx,
-     *                mobile: xxx
-     *                code: xxx
+     *                avatar: xxx,
+     *                gender: xxx
+     *                nickname: xxx
      *                }
-     *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @param request 请求对象
      * @return 登录结果
-     * 成功则 { errno: 0, errmsg: '成功' }
-     * 失败则 { errno: XXX, errmsg: XXX }
      */
     @PostMapping("profile")
-    public Object profile(Integer userId, @RequestBody String body, HttpServletRequest request) {
-        if(userId == null){
+    public Object profile(@LoginUser Integer userId, @RequestBody String body) {
+        if (userId == null) {
             return ResponseUtil.unlogin();
         }
         String avatar = JacksonUtil.parseString(body, "avatar");
         Byte gender = JacksonUtil.parseByte(body, "gender");
         String nickname = JacksonUtil.parseString(body, "nickname");
 
-        JindouyunUser user = userService.findById(userId);
-        if(!StringUtils.isEmpty(avatar)){
-            user.setAvatar(avatar);
-        }
-        if(gender != null){
-            user.setGender(gender);
-        }
-        if(!StringUtils.isEmpty(nickname)){
-            user.setNickname(nickname);
-        }
+        Object result = super.profile(userId,gender,avatar,nickname);
 
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-
-        return ResponseUtil.ok();
+        return result;
     }
 
     /**

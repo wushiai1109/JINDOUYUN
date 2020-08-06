@@ -2,13 +2,14 @@ package com.jindouyun.delivery.controller;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.common.domain.UserInfo;
 import com.jindouyun.common.domain.WxLoginInfo;
 import com.jindouyun.common.service.UserTokenManager;
-import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.common.util.*;
 import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.core.service.AuthServiceImpl;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunDeliveryStaff;
 import com.jindouyun.db.domain.JindouyunRegisteDeliveries;
@@ -40,7 +41,7 @@ import static com.jindouyun.common.constant.WxResponseCode.*;
 @RestController
 @RequestMapping("/delivery/auth")
 @Validated
-public class DeliveryAuthController {
+public class DeliveryAuthController extends AuthServiceImpl {
     private final Log logger = LogFactory.getLog(DeliveryAuthController.class);
 
     @Autowired
@@ -56,8 +57,6 @@ public class DeliveryAuthController {
     @Qualifier("deliveryWxMaService")
     private WxMaService wxService;
 
-    @Autowired
-    private NotifyService notifyService;
 
     /**
      * 账号登录
@@ -222,175 +221,123 @@ public class DeliveryAuthController {
     }
 
 
-//    /**
-//     * 账号密码重置
-//     *
-//     * @param body    请求内容
-//     *                {
-//     *                password: xxx,
-//     *                mobile: xxx
-//     *                code: xxx
-//     *                }
-//     *                其中code是手机验证码，目前还不支持手机短信验证码
-//     * @param request 请求对象
-//     * @return 登录结果
-//     * 成功则 { errno: 0, errmsg: '成功' }
-//     * 失败则 { errno: XXX, errmsg: XXX }
-//     */
-//    @PostMapping("reset")
-//    public Object reset(@RequestBody String body, HttpServletRequest request) {
-//        String password = JacksonUtil.parseString(body, "password");
-//        String mobile = JacksonUtil.parseString(body, "mobile");
-//        String code = JacksonUtil.parseString(body, "code");
-//
-//        if (mobile == null || code == null || password == null) {
-//            return ResponseUtil.badArgument();
-//        }
-//
-//        //判断验证码是否正确
-//        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-//        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code))
-//            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
-//
-//        List<JindouyunUser> userList = userService.queryByMobile(mobile);
-//        JindouyunUser user = null;
-//        if (userList.size() > 1) {
-//            return ResponseUtil.serious();
-//        } else if (userList.size() == 0) {
-//            return ResponseUtil.fail(AUTH_MOBILE_UNREGISTERED, "手机号未注册");
-//        } else {
-//            user = userList.get(0);
-//        }
-//
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        String encodedPassword = encoder.encode(password);
-//        user.setPassword(encodedPassword);
-//
-//        if (userService.updateById(user) == 0) {
-//            return ResponseUtil.updatedDataFailed();
-//        }
-//
-//        return ResponseUtil.ok();
-//    }
-//
-//    /**
-//     * 账号手机号码重置
-//     *
-//     * @param body    请求内容
-//     *                {
-//     *                password: xxx,
-//     *                mobile: xxx
-//     *                code: xxx
-//     *                }
-//     *                其中code是手机验证码，目前还不支持手机短信验证码
-//     * @param request 请求对象
-//     * @return 登录结果
-//     * 成功则 { errno: 0, errmsg: '成功' }
-//     * 失败则 { errno: XXX, errmsg: XXX }
-//     */
-//    @PostMapping("resetPhone")
-//    public Object resetPhone(@LoginUser Integer userId, @RequestBody String body, HttpServletRequest request) {
-//        if(userId == null){
-//            return ResponseUtil.unlogin();
-//        }
-//        String password = JacksonUtil.parseString(body, "password");
-//        String mobile = JacksonUtil.parseString(body, "mobile");
-//        String code = JacksonUtil.parseString(body, "code");
-//
-//        if (mobile == null || code == null || password == null) {
-//            return ResponseUtil.badArgument();
-//        }
-//
-//        //判断验证码是否正确
-//        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-//        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code))
-//            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
-//
-//        List<JindouyunUser> userList = userService.queryByMobile(mobile);
-//        JindouyunUser user = null;
-//        if (userList.size() > 1) {
-//            return ResponseUtil.fail(AUTH_MOBILE_REGISTERED, "手机号已注册");
-//        }
-//        user = userService.findById(userId);
-//
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        if (!encoder.matches(password, user.getPassword())) {
-//            return ResponseUtil.fail(AUTH_INVALID_ACCOUNT, "账号密码不对");
-//        }
-//
-//        user.setMobile(mobile);
-//        if (userService.updateById(user) == 0) {
-//            return ResponseUtil.updatedDataFailed();
-//        }
-//
-//        return ResponseUtil.ok();
-//    }
-//
-//    /**
-//     * 账号信息更新
-//     *
-//     * @param body    请求内容
-//     *                {
-//     *                password: xxx,
-//     *                mobile: xxx
-//     *                code: xxx
-//     *                }
-//     *                其中code是手机验证码，目前还不支持手机短信验证码
-//     * @param request 请求对象
-//     * @return 登录结果
-//     * 成功则 { errno: 0, errmsg: '成功' }
-//     * 失败则 { errno: XXX, errmsg: XXX }
-//     */
-//    @PostMapping("profile")
-//    public Object profile(@LoginUser Integer userId, @RequestBody String body, HttpServletRequest request) {
-//        if(userId == null){
-//            return ResponseUtil.unlogin();
-//        }
-//        String avatar = JacksonUtil.parseString(body, "avatar");
-//        Byte gender = JacksonUtil.parseByte(body, "gender");
-//        String nickname = JacksonUtil.parseString(body, "nickname");
-//
-//        JindouyunUser user = userService.findById(userId);
-//        if(!StringUtils.isEmpty(avatar)){
-//            user.setAvatar(avatar);
-//        }
-//        if(gender != null){
-//            user.setGender(gender);
-//        }
-//        if(!StringUtils.isEmpty(nickname)){
-//            user.setNickname(nickname);
-//        }
-//
-//        if (userService.updateById(user) == 0) {
-//            return ResponseUtil.updatedDataFailed();
-//        }
-//
-//        return ResponseUtil.ok();
-//    }
-//
-//    /**
-//     * 微信手机号码绑定
-//     *
-//     * @param userId
-//     * @param body
-//     * @return
-//     */
-//    @PostMapping("bindPhone")
-//    public Object bindPhone(@LoginUser Integer userId, @RequestBody String body) {
-//    	if (userId == null) {
-//            return ResponseUtil.unlogin();
-//        }
-//    	JindouyunUser user = userService.findById(userId);
-//        String encryptedData = JacksonUtil.parseString(body, "encryptedData");
-//        String iv = JacksonUtil.parseString(body, "iv");
-//        WxMaPhoneNumberInfo phoneNumberInfo = this.wxService.getUserService().getPhoneNoInfo(user.getSessionKey(), encryptedData, iv);
-//        String phone = phoneNumberInfo.getPhoneNumber();
-//        user.setMobile(phone);
-//        if (userService.updateById(user) == 0) {
-//            return ResponseUtil.updatedDataFailed();
-//        }
-//        return ResponseUtil.ok();
-//    }
+    /**
+     * 请求验证码
+     * <p>
+     * 这里需要一定机制防止短信验证码被滥用
+     *
+     * @param body 手机号码 { mobile: xxx}
+     * @return
+     */
+    @PostMapping("captcha")
+    public Object captcha(@RequestBody String body) {
+        String phoneNumber = JacksonUtil.parseString(body, "mobile");
+        Object result = super.captcha(phoneNumber);
+        return result;
+    }
+
+    /**
+     * 账号密码重置
+     *
+     * @param body    请求内容
+     *                {
+     *                password: xxx,
+     *                mobile: xxx
+     *                code: xxx
+     *                }
+     *                其中code是手机验证码，目前还不支持手机短信验证码
+     * @return 登录结果
+     * 成功则 { errno: 0, errmsg: '成功' }
+     * 失败则 { errno: XXX, errmsg: XXX }
+     */
+    @PostMapping("reset")
+    public Object reset(@RequestBody String body) {
+        String password = JacksonUtil.parseString(body, "password");
+        String mobile = JacksonUtil.parseString(body, "mobile");
+        String code = JacksonUtil.parseString(body, "code");
+
+        Object result = super.reset(password,mobile,code);
+        return result;
+    }
+
+    /**
+     * 账号手机号码重置
+     *
+     * @param body    请求内容
+     *                {
+     *                password: xxx,
+     *                mobile: xxx
+     *                code: xxx
+     *                }
+     *                其中code是手机验证码，目前还不支持手机短信验证码
+     * @return 登录结果
+     * 成功则 { errno: 0, errmsg: '成功' }
+     * 失败则 { errno: XXX, errmsg: XXX }
+     */
+    @PostMapping("resetPhone")
+    public Object resetPhone(@LoginUser Integer userId, @RequestBody String body) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+        String password = JacksonUtil.parseString(body, "password");
+        String mobile = JacksonUtil.parseString(body, "mobile");
+        String code = JacksonUtil.parseString(body, "code");
+
+        Object result = super.resetPhone(userId,password,mobile,code);
+
+        return result;
+    }
+
+
+    /**
+     * 账号信息更新
+     *
+     * @param body    请求内容
+     *                {
+     *                avatar: xxx,
+     *                gender: xxx
+     *                nickname: xxx
+     *                }
+     * @return 登录结果
+     */
+    @PostMapping("profile")
+    public Object profile(@LoginUser Integer userId, @RequestBody String body) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+        String avatar = JacksonUtil.parseString(body, "avatar");
+        Byte gender = JacksonUtil.parseByte(body, "gender");
+        String nickname = JacksonUtil.parseString(body, "nickname");
+
+        Object result = super.profile(userId,gender,avatar,nickname);
+
+        return result;
+    }
+
+    /**
+     * 微信手机号码绑定
+     *
+     * @param userId
+     * @param body
+     * @return
+     */
+    @PostMapping("bindPhone")
+    public Object bindPhone(@LoginUser Integer userId, @RequestBody String body) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+        JindouyunUser user = userService.findById(userId);
+        String encryptedData = JacksonUtil.parseString(body, "encryptedData");
+        String iv = JacksonUtil.parseString(body, "iv");
+        WxMaPhoneNumberInfo phoneNumberInfo = this.wxService.getUserService().getPhoneNoInfo(user.getSessionKey(), encryptedData, iv);
+        String phone = phoneNumberInfo.getPhoneNumber();
+        user.setMobile(phone);
+        if (userService.updateById(user) == 0) {
+            return ResponseUtil.updatedDataFailed();
+        }
+        return ResponseUtil.ok();
+    }
+
 
     @PostMapping("logout")
     public Object logout(@LoginUser Integer userId) {

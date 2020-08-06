@@ -7,6 +7,7 @@ import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.core.notify.NotifyType;
 import com.jindouyun.common.util.*;
 import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.core.service.AuthServiceImpl;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunUser;
 import com.jindouyun.db.service.CouponAssignService;
@@ -39,7 +40,7 @@ import static com.jindouyun.common.constant.WxResponseCode.*;
 @RestController
 @RequestMapping("/wx/auth")
 @CrossOrigin(origins = "*",maxAge = 3600)
-public class WxAuthController {
+public class WxAuthController extends AuthServiceImpl {
 
     @Autowired
     private JindouyunUserService userService;
@@ -49,8 +50,6 @@ public class WxAuthController {
 //    @Resource
     private WxMaService wxMaService;
 
-    @Autowired
-    private NotifyService notifyService;
 
     @Autowired
     private CouponAssignService couponAssignService;
@@ -175,189 +174,135 @@ public class WxAuthController {
         return ResponseUtil.ok(result);
     }
 
-
-    /**
-     * 请求注册验证码
-     * 这里需要一定机制防止短信验证码被滥用
-     *
-     * @param body 手机号码 { mobile }
-     * @return
-     */
-    @PostMapping("regCaptcha")
-    public Object registerCaptcha(@RequestBody String body) {
-        String phoneNumber = JacksonUtil.parseString(body, "mobile");
-        if (StringUtils.isEmpty(phoneNumber)) {
-            return ResponseUtil.badArgument();
-        }
-        if (!RegexUtil.isMobileExact(phoneNumber)) {
-            return ResponseUtil.badArgumentValue();
-        }
-
-        if (!notifyService.isSmsEnable()) {
-            return ResponseUtil.fail(AUTH_CAPTCHA_UNSUPPORT, "小程序后台验证码服务不支持");
-        }
-        String code = CharUtil.getRandomNum(6);
-        boolean successful = CaptchaCodeManager.addToCache(phoneNumber, code);
-        if (!successful) {
-            return ResponseUtil.fail(AUTH_CAPTCHA_FREQUENCY, "验证码未超时1分钟，不能发送");
-        }
-        notifyService.notifySmsTemplate(phoneNumber, NotifyType.CAPTCHA, new String[]{code});
-
-        return ResponseUtil.ok();
-    }
-
-    /**
-     * 账号注册
-     *
-     * @param body    请求内容
-     *                {
-     *                username: xxx,
-     *                password: xxx,
-     *                mobile: xxx
-     *                code: xxx
-     *                }
-     *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @param request 请求对象
-     * @return 登录结果
-     * 成功则
-     * {
-     * errno: 0,
-     * errmsg: '成功',
-     * data:
-     * {
-     * token: xxx,
-     * tokenExpire: xxx,
-     * userInfo: xxx
-     * }
-     * }
-     * 失败则 { errno: XXX, errmsg: XXX }
-     */
-    @PostMapping("register")
-    public Object register(@RequestBody String body, HttpServletRequest request) {
-        String username = JacksonUtil.parseString(body, "username");
-        String password = JacksonUtil.parseString(body, "password");
-        String mobile = JacksonUtil.parseString(body, "mobile");
-        String code = JacksonUtil.parseString(body, "code");
-        // 如果是小程序注册，则必须非空
-        // 其他情况，可以为空
-        String wxCode = JacksonUtil.parseString(body, "wxCode");
-
-        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password) || StringUtils.isEmpty(mobile) || StringUtils.isEmpty(code)) {
-            return ResponseUtil.badArgument();
-        }
-
-        List<JindouyunUser> userList = userService.queryByUsername(username);
-        if (userList.size() > 0) {
-            return ResponseUtil.fail(AUTH_NAME_REGISTERED, "用户名已注册");
-        }
-
-        userList = userService.queryByMobile(mobile);
-        if (userList.size() > 0) {
-            return ResponseUtil.fail(AUTH_MOBILE_REGISTERED, "手机号已注册");
-        }
-        if (!RegexUtil.isMobileExact(mobile)) {
-            return ResponseUtil.fail(AUTH_INVALID_MOBILE, "手机号格式不正确");
-        }
-        //判断验证码是否正确
-        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code)) {
-            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
-        }
-
-        String openId = "";
-        // 非空，则是小程序注册
-        // 继续验证openid
-        if (!StringUtils.isEmpty(wxCode)) {
-            try {
-                WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(wxCode);
-                openId = result.getOpenid();
-            } catch (Exception e) {
-                e.printStackTrace();
-                return ResponseUtil.fail(AUTH_OPENID_UNACCESS, "openid 获取失败");
-            }
-            userList = userService.queryByOpenid(openId);
-            if (userList.size() > 1) {
-                return ResponseUtil.serious();
-            }
-            if (userList.size() == 1) {
-                JindouyunUser checkUser = userList.get(0);
-                String checkUsername = checkUser.getUsername();
-                String checkPassword = checkUser.getPassword();
-                if (!checkUsername.equals(openId) || !checkPassword.equals(openId)) {
-                    return ResponseUtil.fail(AUTH_OPENID_BINDED, "openid已绑定账号");
-                }
-            }
-        }
-
-        JindouyunUser user = null;
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(password);
-        user = new JindouyunUser();
-        user.setUsername(username);
-        user.setPassword(encodedPassword);
-        user.setMobile(mobile);
-        user.setWeixinOpenid(openId);
-        user.setAvatar("https://yanxuan.nosdn.127.net/80841d741d7fa3073e0ae27bf487339f.jpg?imageView&quality=90&thumbnail=64x64");
-        user.setNickname(username);
-        user.setGender((byte) 0);
-        user.setStatus((byte) 0);
-        user.setLastLoginTime(LocalDateTime.now());
-        user.setLastLoginIp(IpUtil.getIpAddr(request));
-        userService.add(user);
-
-        // 给新用户发送注册优惠券
-        couponAssignService.assignForRegister(user.getId());
-
-        // userInfo
-        UserInfo userInfo = new UserInfo();
-        userInfo.setNickName(username);
-        userInfo.setAvatarUrl(user.getAvatar());
-
-        // token
-        String token = UserTokenManager.generateToken(user.getId());
-
-        Map<Object, Object> result = new HashMap<Object, Object>();
-        result.put("token", token);
-        result.put("userInfo", userInfo);
-        return ResponseUtil.ok(result);
-    }
+//    /**
+//     * 账号注册
+//     *
+//     * @param body    请求内容
+//     *                {
+//     *                username: xxx,
+//     *                password: xxx,
+//     *                mobile: xxx
+//     *                code: xxx
+//     *                }
+//     *                其中code是手机验证码，目前还不支持手机短信验证码
+//     * @param request 请求对象
+//     * @return 登录结果
+//     * 成功则
+//     * {
+//     * errno: 0,
+//     * errmsg: '成功',
+//     * data:
+//     * {
+//     * token: xxx,
+//     * tokenExpire: xxx,
+//     * userInfo: xxx
+//     * }
+//     * }
+//     * 失败则 { errno: XXX, errmsg: XXX }
+//     */
+//    @PostMapping("register")
+//    public Object register(@RequestBody String body, HttpServletRequest request) {
+//        String username = JacksonUtil.parseString(body, "username");
+//        String password = JacksonUtil.parseString(body, "password");
+//        String mobile = JacksonUtil.parseString(body, "mobile");
+//        String code = JacksonUtil.parseString(body, "code");
+//        // 如果是小程序注册，则必须非空
+//        // 其他情况，可以为空
+//        String wxCode = JacksonUtil.parseString(body, "wxCode");
+//
+//        if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password) || StringUtils.isEmpty(mobile) || StringUtils.isEmpty(code)) {
+//            return ResponseUtil.badArgument();
+//        }
+//
+//        List<JindouyunUser> userList = userService.queryByUsername(username);
+//        if (userList.size() > 0) {
+//            return ResponseUtil.fail(AUTH_NAME_REGISTERED, "用户名已注册");
+//        }
+//
+//        userList = userService.queryByMobile(mobile);
+//        if (userList.size() > 0) {
+//            return ResponseUtil.fail(AUTH_MOBILE_REGISTERED, "手机号已注册");
+//        }
+//        if (!RegexUtil.isMobileExact(mobile)) {
+//            return ResponseUtil.fail(AUTH_INVALID_MOBILE, "手机号格式不正确");
+//        }
+//        //判断验证码是否正确
+//        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
+//        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code)) {
+//            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
+//        }
+//
+//        String openId = "";
+//        // 非空，则是小程序注册
+//        // 继续验证openid
+//        if (!StringUtils.isEmpty(wxCode)) {
+//            try {
+//                WxMaJscode2SessionResult result = this.wxMaService.getUserService().getSessionInfo(wxCode);
+//                openId = result.getOpenid();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return ResponseUtil.fail(AUTH_OPENID_UNACCESS, "openid 获取失败");
+//            }
+//            userList = userService.queryByOpenid(openId);
+//            if (userList.size() > 1) {
+//                return ResponseUtil.serious();
+//            }
+//            if (userList.size() == 1) {
+//                JindouyunUser checkUser = userList.get(0);
+//                String checkUsername = checkUser.getUsername();
+//                String checkPassword = checkUser.getPassword();
+//                if (!checkUsername.equals(openId) || !checkPassword.equals(openId)) {
+//                    return ResponseUtil.fail(AUTH_OPENID_BINDED, "openid已绑定账号");
+//                }
+//            }
+//        }
+//
+//        JindouyunUser user = null;
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        String encodedPassword = encoder.encode(password);
+//        user = new JindouyunUser();
+//        user.setUsername(username);
+//        user.setPassword(encodedPassword);
+//        user.setMobile(mobile);
+//        user.setWeixinOpenid(openId);
+//        user.setAvatar("https://yanxuan.nosdn.127.net/80841d741d7fa3073e0ae27bf487339f.jpg?imageView&quality=90&thumbnail=64x64");
+//        user.setNickname(username);
+//        user.setGender((byte) 0);
+//        user.setStatus((byte) 0);
+//        user.setLastLoginTime(LocalDateTime.now());
+//        user.setLastLoginIp(IpUtil.getIpAddr(request));
+//        userService.add(user);
+//
+//        // 给新用户发送注册优惠券
+//        couponAssignService.assignForRegister(user.getId());
+//
+//        // userInfo
+//        UserInfo userInfo = new UserInfo();
+//        userInfo.setNickName(username);
+//        userInfo.setAvatarUrl(user.getAvatar());
+//
+//        // token
+//        String token = UserTokenManager.generateToken(user.getId());
+//
+//        Map<Object, Object> result = new HashMap<Object, Object>();
+//        result.put("token", token);
+//        result.put("userInfo", userInfo);
+//        return ResponseUtil.ok(result);
+//    }
 
     /**
      * 请求验证码
      * <p>
      * 这里需要一定机制防止短信验证码被滥用
      *
-     * @param body 手机号码 { mobile: xxx, type: xxx }
+     * @param body 手机号码 { mobile: xxx}
      * @return
      */
     @PostMapping("captcha")
-    public Object captcha(@LoginUser Integer userId, @RequestBody String body) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
+    public Object captcha(@RequestBody String body) {
         String phoneNumber = JacksonUtil.parseString(body, "mobile");
-        String captchaType = JacksonUtil.parseString(body, "type");
-        if (StringUtils.isEmpty(phoneNumber)) {
-            return ResponseUtil.badArgument();
-        }
-        if (!RegexUtil.isMobileExact(phoneNumber)) {
-            return ResponseUtil.badArgumentValue();
-        }
-        if (StringUtils.isEmpty(captchaType)) {
-            return ResponseUtil.badArgument();
-        }
-
-        if (!notifyService.isSmsEnable()) {
-            return ResponseUtil.fail(AUTH_CAPTCHA_UNSUPPORT, "小程序后台验证码服务不支持");
-        }
-        String code = CharUtil.getRandomNum(6);
-        boolean successful = CaptchaCodeManager.addToCache(phoneNumber, code);
-        if (!successful) {
-            return ResponseUtil.fail(AUTH_CAPTCHA_FREQUENCY, "验证码未超时1分钟，不能发送");
-        }
-        notifyService.notifySmsTemplate(phoneNumber, NotifyType.CAPTCHA, new String[]{code});
-
-        return ResponseUtil.ok();
+        Object result = super.captcha(phoneNumber);
+        return result;
     }
 
     /**
@@ -370,46 +315,18 @@ public class WxAuthController {
      *                code: xxx
      *                }
      *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @param request 请求对象
      * @return 登录结果
      * 成功则 { errno: 0, errmsg: '成功' }
      * 失败则 { errno: XXX, errmsg: XXX }
      */
     @PostMapping("reset")
-    public Object reset(@RequestBody String body, HttpServletRequest request) {
+    public Object reset(@RequestBody String body) {
         String password = JacksonUtil.parseString(body, "password");
         String mobile = JacksonUtil.parseString(body, "mobile");
         String code = JacksonUtil.parseString(body, "code");
 
-        if (mobile == null || code == null || password == null) {
-            return ResponseUtil.badArgument();
-        }
-
-        //判断验证码是否正确
-        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code)) {
-            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
-        }
-
-        List<JindouyunUser> userList = userService.queryByMobile(mobile);
-        JindouyunUser user = null;
-        if (userList.size() > 1) {
-            return ResponseUtil.serious();
-        } else if (userList.size() == 0) {
-            return ResponseUtil.fail(AUTH_MOBILE_UNREGISTERED, "手机号未注册");
-        } else {
-            user = userList.get(0);
-        }
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        String encodedPassword = encoder.encode(password);
-        user.setPassword(encodedPassword);
-
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-
-        return ResponseUtil.ok();
+        Object result = super.reset(password,mobile,code);
+        return result;
     }
 
     /**
@@ -422,13 +339,12 @@ public class WxAuthController {
      *                code: xxx
      *                }
      *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @param request 请求对象
      * @return 登录结果
      * 成功则 { errno: 0, errmsg: '成功' }
      * 失败则 { errno: XXX, errmsg: XXX }
      */
     @PostMapping("resetPhone")
-    public Object resetPhone(@LoginUser Integer userId, @RequestBody String body, HttpServletRequest request) {
+    public Object resetPhone(@LoginUser Integer userId, @RequestBody String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -436,34 +352,9 @@ public class WxAuthController {
         String mobile = JacksonUtil.parseString(body, "mobile");
         String code = JacksonUtil.parseString(body, "code");
 
-        if (mobile == null || code == null || password == null) {
-            return ResponseUtil.badArgument();
-        }
+        Object result = super.resetPhone(userId,password,mobile,code);
 
-        //判断验证码是否正确
-        String cacheCode = CaptchaCodeManager.getCachedCaptcha(mobile);
-        if (cacheCode == null || cacheCode.isEmpty() || !cacheCode.equals(code)) {
-            return ResponseUtil.fail(AUTH_CAPTCHA_UNMATCH, "验证码错误");
-        }
-
-        List<JindouyunUser> userList = userService.queryByMobile(mobile);
-        JindouyunUser user = null;
-        if (userList.size() > 1) {
-            return ResponseUtil.fail(AUTH_MOBILE_REGISTERED, "手机号已注册");
-        }
-        user = userService.findById(userId);
-
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        if (!encoder.matches(password, user.getPassword())) {
-            return ResponseUtil.fail(AUTH_INVALID_ACCOUNT, "账号密码不对");
-        }
-
-        user.setMobile(mobile);
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-
-        return ResponseUtil.ok();
+        return result;
     }
 
 
@@ -476,11 +367,10 @@ public class WxAuthController {
      *                gender: xxx
      *                nickname: xxx
      *                }
-     * @param request 请求对象
      * @return 登录结果
      */
     @PostMapping("profile")
-    public Object profile(@LoginUser Integer userId, @RequestBody String body, HttpServletRequest request) {
+    public Object profile(@LoginUser Integer userId, @RequestBody String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -488,22 +378,9 @@ public class WxAuthController {
         Byte gender = JacksonUtil.parseByte(body, "gender");
         String nickname = JacksonUtil.parseString(body, "nickname");
 
-        JindouyunUser user = userService.findById(userId);
-        if (!StringUtils.isEmpty(avatar)) {
-            user.setAvatar(avatar);
-        }
-        if (gender != null) {
-            user.setGender(gender);
-        }
-        if (!StringUtils.isEmpty(nickname)) {
-            user.setNickname(nickname);
-        }
+        Object result = super.profile(userId,gender,avatar,nickname);
 
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-
-        return ResponseUtil.ok();
+        return result;
     }
 
     /**
