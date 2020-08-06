@@ -8137,3 +8137,478 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2020-08-05 19:26:36,404 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
 2020-08-05 19:26:36,404 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 19:26:36.4038787(Timestamp), false(Boolean)
 2020-08-05 19:26:36,405 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:53:45,544 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-05 19:53:45,628 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-05 19:53:45,650 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-05 19:53:45,659 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-05 19:53:45,659 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-05 19:53:45,659 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-05 19:53:45,660 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-05 19:53:45,660 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:53:45,660 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-05 19:53:45,660 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:53:45,660 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-05 19:53:45,660 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-05 19:53:45,661 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-05 19:53:45,661 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:53:45,661 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-05 19:53:45,661 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-05 19:53:45,662 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-05 19:53:45,663 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-05 19:53:45,663 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-05 19:53:45,663 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-05 19:53:47,332 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-05 19:53:47,344 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:53:47,346 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-05 19:53:47.337829(Timestamp), false(Boolean)
+2020-08-05 19:53:47,348 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:53:47,352 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:53:47,354 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 19:53:47.350734(Timestamp), false(Boolean)
+2020-08-05 19:53:47,355 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:53:47,817 ERROR [restartedMain] o.apache.catalina.util.LifecycleBase [DirectJDKLog.java : 175] Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.jindouyun.all.Application.main(Application.java:16)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:479)
+	at java.base/sun.nio.ch.Net.bind(Net.java:468)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:220)
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:88)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:239)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1116)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1202)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 19 common frames omitted
+2020-08-05 19:53:47,834 ERROR [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter [LoggingFailureAnalysisReporter.java : 42] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2020-08-05 19:54:57,546 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-05 19:54:57,628 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-05 19:54:57,646 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-05 19:54:57,654 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-05 19:54:57,655 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-05 19:54:57,655 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-05 19:54:57,655 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-05 19:54:57,655 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:54:57,655 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-05 19:54:57,655 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:54:57,656 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-05 19:54:57,657 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:54:57,657 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:54:57,657 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-05 19:54:57,657 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:54:57,657 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-05 19:54:57,657 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-05 19:54:57,657 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-05 19:54:57,658 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-05 19:54:57,658 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-05 19:54:59,313 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-05 19:54:59,321 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:54:59,324 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-05 19:54:59.316915(Timestamp), false(Boolean)
+2020-08-05 19:54:59,326 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:54:59,330 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:54:59,331 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 19:54:59.328142(Timestamp), false(Boolean)
+2020-08-05 19:54:59,332 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:54:59,777 ERROR [restartedMain] o.apache.catalina.util.LifecycleBase [DirectJDKLog.java : 175] Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.jindouyun.all.Application.main(Application.java:16)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:479)
+	at java.base/sun.nio.ch.Net.bind(Net.java:468)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:220)
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:88)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:239)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1116)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1202)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 19 common frames omitted
+2020-08-05 19:54:59,795 ERROR [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter [LoggingFailureAnalysisReporter.java : 42] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2020-08-05 19:56:18,139 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-05 19:56:18,218 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-05 19:56:18,237 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-05 19:56:18,244 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-05 19:56:18,245 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-05 19:56:18,245 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-05 19:56:18,245 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-05 19:56:18,245 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:56:18,246 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-05 19:56:18,246 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:56:18,246 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-05 19:56:18,246 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-05 19:56:18,246 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-05 19:56:18,247 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:56:18,247 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-05 19:56:18,247 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:56:18,247 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:56:18,247 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-05 19:56:18,247 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:56:18,248 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:56:18,248 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-05 19:56:18,248 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:56:18,248 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-05 19:56:18,248 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-05 19:56:18,248 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-05 19:56:18,249 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-05 19:56:18,249 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-05 19:56:19,885 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-05 19:56:19,895 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:56:19,897 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-05 19:56:19.889779(Timestamp), false(Boolean)
+2020-08-05 19:56:19,899 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:56:19,903 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:56:19,904 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 19:56:19.901464(Timestamp), false(Boolean)
+2020-08-05 19:56:19,905 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:56:20,382 ERROR [restartedMain] o.apache.catalina.util.LifecycleBase [DirectJDKLog.java : 175] Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.jindouyun.all.Application.main(Application.java:16)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:479)
+	at java.base/sun.nio.ch.Net.bind(Net.java:468)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:220)
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:88)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:239)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1116)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1202)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 19 common frames omitted
+2020-08-05 19:56:20,400 ERROR [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter [LoggingFailureAnalysisReporter.java : 42] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2020-08-05 19:59:05,882 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-05 19:59:05,955 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-05 19:59:05,975 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-05 19:59:05,983 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-05 19:59:05,984 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-05 19:59:05,984 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-05 19:59:05,984 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-05 19:59:05,984 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:59:05,984 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-05 19:59:05,985 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:59:05,985 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-05 19:59:05,985 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-05 19:59:05,985 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-05 19:59:05,985 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:59:05,985 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-05 19:59:05,986 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:59:05,986 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:59:05,986 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-05 19:59:05,986 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:59:05,986 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 19:59:05,986 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-05 19:59:05,986 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 19:59:05,987 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-05 19:59:05,987 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-05 19:59:05,987 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-05 19:59:05,987 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-05 19:59:05,987 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-05 19:59:07,585 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-05 19:59:07,595 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:59:07,597 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-05 19:59:07.589782(Timestamp), false(Boolean)
+2020-08-05 19:59:07,602 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:59:07,605 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-05 19:59:07,607 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 19:59:07.604061(Timestamp), false(Boolean)
+2020-08-05 19:59:07,609 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 19:59:08,053 ERROR [restartedMain] o.apache.catalina.util.LifecycleBase [DirectJDKLog.java : 175] Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.jindouyun.all.Application.main(Application.java:16)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:479)
+	at java.base/sun.nio.ch.Net.bind(Net.java:468)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:220)
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:88)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:239)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1116)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1202)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 19 common frames omitted
+2020-08-05 19:59:08,069 ERROR [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter [LoggingFailureAnalysisReporter.java : 42] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2020-08-05 20:01:05,770 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-05 20:01:05,850 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-05 20:01:05,872 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-05 20:01:05,882 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-05 20:01:05,883 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-05 20:01:05,883 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-05 20:01:05,883 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-05 20:01:05,884 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:01:05,884 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-05 20:01:05,884 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:01:05,884 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8080
+2020-08-05 20:01:05,884 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-05 20:01:05,885 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-05 20:01:05,885 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:01:05,885 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-05 20:01:05,885 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:01:05,885 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-05 20:01:05,886 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-05 20:01:05,887 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-05 20:01:05,887 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-05 20:01:07,503 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-05 20:01:07,513 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-05 20:01:07,516 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-05 20:01:07.507609(Timestamp), false(Boolean)
+2020-08-05 20:01:07,517 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 20:01:07,522 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-05 20:01:07,523 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 20:01:07.519959(Timestamp), false(Boolean)
+2020-08-05 20:01:07,524 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 20:01:07,988 ERROR [restartedMain] o.apache.catalina.util.LifecycleBase [DirectJDKLog.java : 175] Failed to start component [Connector[HTTP/1.1-8080]]
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183)
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:226)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:259)
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:197)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:311)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:164)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at com.jindouyun.all.Application.main(Application.java:16)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:479)
+	at java.base/sun.nio.ch.Net.bind(Net.java:468)
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:220)
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:88)
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:239)
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213)
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1116)
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1202)
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:568)
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005)
+	... 19 common frames omitted
+2020-08-05 20:01:08,004 ERROR [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter [LoggingFailureAnalysisReporter.java : 42] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2020-08-05 20:03:32,249 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-05 20:03:32,321 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-05 20:03:32,338 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-05 20:03:32,346 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 42] ===========================================================================================================================================================================================================
+2020-08-05 20:03:32,347 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 43] 
+2020-08-05 20:03:32,347 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 44]               JinDouYun 初始化信息
+2020-08-05 20:03:32,347 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 45] 
+2020-08-05 20:03:32,347 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:03:32,347 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统信息  ]]
+2020-08-05 20:03:32,347 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:03:32,348 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     服务器端口        ->        8088
+2020-08-05 20:03:32,348 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库USER        ->        jindouyun
+2020-08-05 20:03:32,348 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     数据库地址        ->        jdbc:mysql://localhost:3306/jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+2020-08-05 20:03:32,348 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:03:32,348 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  模块状态  ]]
+2020-08-05 20:03:32,348 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:03:32,348 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  微信相关  ]]
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 67] 
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 68]     [[  系统设置  ]]
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 69] 
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     自动创建朋友圈分享图        ->        false
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     商场名称        ->        Jindouyun
+2020-08-05 20:03:32,349 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 71]     首页显示记录数：NEW,HOT,BRAND,TOPIC,CatlogList,CatlogMore        ->        6,6,4,4,4,4
+2020-08-05 20:03:32,350 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 49]   
+2020-08-05 20:03:32,350 INFO [restartedMain] c.j.core.util.SystemInfoPrinter [SystemInfoPrinter.java : 50] ===========================================================================================================================================================================================================
+2020-08-05 20:03:33,933 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-05 20:03:33,943 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-05 20:03:33,946 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-05 20:03:33.938233(Timestamp), false(Boolean)
+2020-08-05 20:03:33,947 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 20:03:33,951 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-05 20:03:33,952 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 20:03:33.949585(Timestamp), false(Boolean)
+2020-08-05 20:03:33,953 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 20:03:52,982 DEBUG [http-nio-8088-exec-2] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, username, `password`, gender, birthday, last_login_time, last_login_ip, nickname, mobile, avatar, weixin_openid, session_key, `status`, add_time, update_time, deleted from jindouyun_user WHERE ( username = ? and deleted = ? ) 
+2020-08-05 20:03:52,984 DEBUG [http-nio-8088-exec-2] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: or1mC4n_zFejkqA3f7e0QEjrhSlo(String), false(Boolean)
+2020-08-05 20:03:52,988 DEBUG [http-nio-8088-exec-2] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-05 20:03:52,989 WARN [http-nio-8088-exec-2] c.j.c.u.bcrypt.BCryptPasswordEncoder [BCryptPasswordEncoder.java : 83] Encoded password does not look like BCrypt
+2020-08-05 20:03:52,992 DEBUG [http-nio-8088-exec-2] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==>  Preparing: update jindouyun_user SET role_id = ?, username = ?, `password` = ?, gender = ?, last_login_time = ?, last_login_ip = ?, nickname = ?, mobile = ?, avatar = ?, weixin_openid = ?, session_key = ?, `status` = ?, add_time = ?, update_time = ?, deleted = ? where id = ? 
+2020-08-05 20:03:52,996 DEBUG [http-nio-8088-exec-2] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), or1mC4n_zFejkqA3f7e0QEjrhSlo(String), or1mC4n_zFejkqA3f7e0QEjrhSlo(String), 2(Byte), 2020-08-05 20:03:52.989953(Timestamp), 0:0:0:0:0:0:0:1(String), 尤宫羽(String), (String), https://wx.qlogo.cn/mmopen/vi_32/ibXbRJ3yOT4icbId3dVGK18SbhetzrtqouiazUBUm1KCfunoNX7Tt1YXnmeX2DpAvmvcH1unpKJ3scNH3ZC4TCWsA/132(String), or1mC4n_zFejkqA3f7e0QEjrhSlo(String), bmw0siOizKhraB5RdRVctw==(String), 0(Byte), 2020-08-04 14:01:23.0(Timestamp), 2020-08-05 20:03:52.9904(Timestamp), false(Boolean), 1000001(Integer)
+2020-08-05 20:03:53,003 DEBUG [http-nio-8088-exec-2] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-05 20:04:12,647 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByExampleSelective [BaseJdbcLogger.java : 159] ==>  Preparing: select id, order_id, goods_id, goods_name, goods_sn, product_id, `number`, price, specifications, pic_url, is_arrive, `comment`, add_time, update_time, deleted from jindouyun_order_goods WHERE ( goods_name like ? and deleted = ? ) 
+2020-08-05 20:04:12,648 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByExampleSelective [BaseJdbcLogger.java : 159] ==> Parameters: %哈哈哈%(String), false(Boolean)
+2020-08-05 20:04:12,655 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByExampleSelective [BaseJdbcLogger.java : 159] <==      Total: 3
+2020-08-05 20:04:12,657 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, order_sn, order_status, consignee, mobile, building, address, message, goods_price, freight_price, coupon_price, order_price, actual_price, pay_id, pay_time, refund_amount, refund_type, refund_content, refund_time, confirm_time, comments, end_time, add_time, update_time, deleted from jindouyun_order where id = ? 
+2020-08-05 20:04:12,658 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==> Parameters: 5(Integer)
+2020-08-05 20:04:12,662 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-05 20:04:12,664 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, order_sn, order_status, consignee, mobile, building, address, message, goods_price, freight_price, coupon_price, order_price, actual_price, pay_id, pay_time, refund_amount, refund_type, refund_content, refund_time, confirm_time, comments, end_time, add_time, update_time, deleted from jindouyun_order where id = ? 
+2020-08-05 20:04:12,664 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==> Parameters: 6(Integer)
+2020-08-05 20:04:12,665 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-05 20:04:12,666 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, order_sn, order_status, consignee, mobile, building, address, message, goods_price, freight_price, coupon_price, order_price, actual_price, pay_id, pay_time, refund_amount, refund_type, refund_content, refund_time, confirm_time, comments, end_time, add_time, update_time, deleted from jindouyun_order where id = ? 
+2020-08-05 20:04:12,666 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==> Parameters: 7(Integer)
+2020-08-05 20:04:12,668 DEBUG [http-nio-8088-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-05 20:04:33,959 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-05 20:04:33,960 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-05 20:04:33,961 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-05 20:04:33.959918(Timestamp), false(Boolean)
+2020-08-05 20:04:33,962 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-05 20:04:33,963 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-05 20:04:33,964 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-05 20:04:33.962763(Timestamp), false(Boolean)
+2020-08-05 20:04:33,965 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0

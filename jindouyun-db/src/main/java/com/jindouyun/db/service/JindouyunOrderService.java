@@ -263,38 +263,38 @@ public class JindouyunOrderService {
         return jindouyunOrderMapper.selectByExample(example);
     }
 
-    /**
-     * 订单搜索
-     * @param userId
-     * @param keyword
-     * @return
-     */
-    public List<Map<String,Object>> find(Integer userId, String keyword) {
-        JindouyunOrderGoodsExample example = new JindouyunOrderGoodsExample();
-        JindouyunOrderGoodsExample.Criteria criteria = example.createCriteria();
-
-        if (!StringUtils.isEmpty(keyword)) {
-            criteria.andGoodsNameLike("%" + keyword + "%");
-        }
-        criteria.andDeletedEqualTo(false);
-
-        List<JindouyunOrderGoods> jindouyunOrderGoods = orderGoodsMapper.selectByExampleSelective(example);
-        System.out.println(jindouyunOrderGoods);
-
-        List<Map<String,Object>> mapList = new ArrayList<>();
-
-        for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
-            JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
-//            System.out.println("jindouyunOrder.getUserId().intValue()"+jindouyunOrder.getUserId().intValue());
-//            System.out.println("getUserId().intValue()"+userId.intValue());
-//            System.out.println(jindouyunOrder.getUserId().intValue() == userId.intValue());
-            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
-                Map<String,Object> map = new HashMap<>();
-                map.put("orderInfo",jindouyunOrder);
-                map.put("goodsList",orderGoods);
-                mapList.add(map);
-            }
-        }
-        return mapList;
-    }
+//    /**
+//     * 订单搜索
+//     * @param userId
+//     * @param keyword
+//     * @return
+//     */
+//    public List<Map<String,Object>> find(Integer userId, String keyword) {
+//        JindouyunOrderGoodsExample example = new JindouyunOrderGoodsExample();
+//        JindouyunOrderGoodsExample.Criteria criteria = example.createCriteria();
+//
+//        if (!StringUtils.isEmpty(keyword)) {
+//            criteria.andGoodsNameLike("%" + keyword + "%");
+//        }
+//        criteria.andDeletedEqualTo(false);
+//
+//        List<JindouyunOrderGoods> jindouyunOrderGoods = orderGoodsMapper.selectByExampleSelective(example);
+//        System.out.println(jindouyunOrderGoods);
+//
+//        List<Map<String,Object>> mapList = new ArrayList<>();
+//
+//        for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
+//            JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
+////            System.out.println("jindouyunOrder.getUserId().intValue()"+jindouyunOrder.getUserId().intValue());
+////            System.out.println("getUserId().intValue()"+userId.intValue());
+////            System.out.println(jindouyunOrder.getUserId().intValue() == userId.intValue());
+//            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
+//                Map<String,Object> map = new HashMap<>();
+//                map.put("orderInfo",jindouyunOrder);
+//                map.put("goodsList",orderGoods);
+//                mapList.add(map);
+//            }
+//        }
+//        return mapList;
+//    }
 }
