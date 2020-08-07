@@ -5,8 +5,11 @@ import com.jindouyun.common.validator.Order;
 import com.jindouyun.common.validator.Sort;
 import com.jindouyun.db.domain.JindouyunBrand;
 import com.jindouyun.db.domain.JindouyunCoupon;
+import com.jindouyun.db.domain.JindouyunOrder;
+import com.jindouyun.db.domain.JindouyunOrderGoods;
 import com.jindouyun.db.service.JindouyunBrandService;
 import com.jindouyun.db.service.JindouyunCouponService;
+import com.jindouyun.db.util.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +27,9 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/wx/brand")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class WxBrandController {
-    
+
     @Autowired
     private JindouyunBrandService brandService;
 
@@ -36,7 +39,7 @@ public class WxBrandController {
     /**
      * 品牌列表
      *
-     * @param page 分页页数
+     * @param page  分页页数
      * @param limit 分页大小
      * @return 品牌列表
      */
@@ -46,15 +49,21 @@ public class WxBrandController {
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunBrand> brandList = brandService.query(page, limit, sort, order);
-        List<Map<String,Object>> mapList = new ArrayList<>();
-        for (JindouyunBrand jindouyunBrand : brandList) {
-            List<JindouyunCoupon> couponList = couponService.findByBrandId(jindouyunBrand.getId());
-            Map<String,Object> map = new HashMap<>();
-            map.put("jindouyunBrand",jindouyunBrand);
-            map.put("couponList",couponList);
+
+        List<Map<String, Object>> mapList = new ArrayList<>();
+
+        for (JindouyunBrand brand : brandList) {
+            Map<String, Object> map = new HashMap<>();
+            List<JindouyunCoupon> couponList = couponService.findByBrandId(brand.getId());
+            map.put("id", brand.getId());
+            map.put("name", brand.getName());
+            map.put("desc", brand.getDesc());
+            map.put("notice", brand.getNotice());
+            map.put("picUrl", brand.getPicUrl());
+            map.put("floorPrice", brand.getFloorPrice());
+            map.put("couponList", couponList);
             mapList.add(map);
         }
-//        return ResponseUtil.okList(brandList);
         return ResponseUtil.okList(mapList);
     }
 
@@ -70,8 +79,31 @@ public class WxBrandController {
         if (entity == null) {
             return ResponseUtil.badArgumentValue();
         }
+        List<Map<String, Object>> mapList = new ArrayList<>();
 
-        return ResponseUtil.ok(entity);
+        Map<String, Object> map = new HashMap<>();
+        List<JindouyunCoupon> couponList = couponService.findByBrandId(id);
+        map.put("id", entity.getId());
+        map.put("userId", entity.getUserId());
+        map.put("adderssId", entity.getDesc());
+        map.put("name", entity.getName());
+        map.put("desc", entity.getDesc());
+        map.put("notice", entity.getNotice());
+        map.put("picUrl", entity.getPicUrl());
+        map.put("startTime", entity.getStartTime());
+        map.put("endTime", entity.getEndTime());
+        map.put("deliveryPrice", entity.getDeliveryPrice());
+        map.put("totalTurnover", entity.getTotalTurnover());
+        map.put("todayTurnover", entity.getTodayTurnover());
+        map.put("totalOrder", entity.getTotalOrder());
+        map.put("todayOrder", entity.getTodayOrder());
+        map.put("floorPrice", entity.getFloorPrice());
+        map.put("sortOrder", entity.getSortOrder());
+        map.put("status", entity.getStatus());
+        map.put("couponList", couponList);
+        mapList.add(map);
+
+        return ResponseUtil.okList(mapList);
     }
-    
+
 }
