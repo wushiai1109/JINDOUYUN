@@ -79,7 +79,7 @@ public class WxBrandController {
         if (entity == null) {
             return ResponseUtil.badArgumentValue();
         }
-        List<Map<String, Object>> mapList = new ArrayList<>();
+//        List<Map<String, Object>> mapList = new ArrayList<>();
 
         Map<String, Object> map = new HashMap<>();
         List<JindouyunCoupon> couponList = couponService.findByBrandId(id);
@@ -101,9 +101,9 @@ public class WxBrandController {
         map.put("sortOrder", entity.getSortOrder());
         map.put("status", entity.getStatus());
         map.put("couponList", couponList);
-        mapList.add(map);
+//        mapList.add(map);
 
-        return ResponseUtil.okList(mapList);
+        return ResponseUtil.ok(map);
     }
 
 }
