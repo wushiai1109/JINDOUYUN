@@ -1,11 +1,11 @@
 package com.jindouyun.wx.controller;
 
 import com.jindouyun.core.system.SystemConfig;
-import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
-import com.jindouyun.wx.annotation.LoginUser;
+import com.jindouyun.common.annotation.LoginUser;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -19,18 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jindouyun.wx.util.WxResponseCode.GOODS_NO_STOCK;
-import static com.jindouyun.wx.util.WxResponseCode.GOODS_UNSHELVE;
+import static com.jindouyun.common.constant.WxResponseCode.*;
 
-/**
- * @ClassName WxCartController
- * @Description 用户购物车服务
- * @Author Bruce
- * @Date 2020/7/23 1:30 下午
- */
-@RestController
-@RequestMapping("/wx/cart")
-@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxCartController {
 
     private final Log logger = LogFactory.getLog(WxCartController.class);

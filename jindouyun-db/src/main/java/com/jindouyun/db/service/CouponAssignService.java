@@ -2,7 +2,7 @@ package com.jindouyun.db.service;
 
 import com.jindouyun.db.domain.JindouyunCoupon;
 import com.jindouyun.db.domain.JindouyunCouponUser;
-import com.jindouyun.db.util.CouponConstant;
+import com.jindouyun.common.constant.CouponConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

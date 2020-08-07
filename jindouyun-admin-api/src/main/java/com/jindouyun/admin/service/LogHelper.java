@@ -1,6 +1,6 @@
 package com.jindouyun.admin.service;
 
-import com.jindouyun.core.util.IpUtil;
+import com.jindouyun.common.util.IpUtil;
 import com.jindouyun.db.domain.JindouyunAdmin;
 import com.jindouyun.db.domain.JindouyunLog;
 import com.jindouyun.db.service.JindouyunLogService;

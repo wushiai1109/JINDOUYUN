@@ -2,7 +2,7 @@ package com.jindouyun.admin.controller;
 
 import com.jindouyun.admin.annotation.RequiresPermissionsDesc;
 import com.jindouyun.core.system.SystemConfig;
-import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.service.JindouyunSystemConfigService;
 import org.apache.commons.logging.Log;

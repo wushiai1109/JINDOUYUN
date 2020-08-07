@@ -14,6 +14,11 @@
     <dependencies>
         <dependency>
             <groupId>com.JinDouYun</groupId>
+            <artifactId>jindouyun-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.JinDouYun</groupId>
             <artifactId>jindouyun-db</artifactId>
         </dependency>
 
@@ -30,17 +35,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
 
         <dependency>
@@ -67,14 +62,6 @@
                     <artifactId>commons-lang</artifactId>
                     <groupId>commons-lang</groupId>
                 </exclusion>
-                <!--<exclusion>-->
-                    <!--<groupId>commons-beanutils</groupId>-->
-                    <!--<artifactId>commons-beanutils</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>commons-collections</groupId>-->
-                    <!--<artifactId>commons-collections</artifactId>-->
-                <!--</exclusion>-->
             </exclusions>
         </dependency>
 

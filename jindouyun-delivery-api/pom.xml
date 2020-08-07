@@ -16,8 +16,13 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
+            <groupId>com.JinDouYun</groupId>
+            <artifactId>jindouyun-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.JinDouYun</groupId>
+            <artifactId>jindouyun-db</artifactId>
         </dependency>
 
         <dependency>
@@ -29,17 +34,6 @@
                     <groupId>commons-lang</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.JinDouYun</groupId>
-            <artifactId>jindouyun-db</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>3.4.1</version>
         </dependency>
 
         <dependency>

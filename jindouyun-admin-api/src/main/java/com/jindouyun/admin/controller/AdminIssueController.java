@@ -2,8 +2,8 @@ package com.jindouyun.admin.controller;
 
 import com.jindouyun.admin.annotation.RequiresPermissionsDesc;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.core.validator.Order;
-import com.jindouyun.core.validator.Sort;
+import com.jindouyun.common.validator.Order;
+import com.jindouyun.common.validator.Sort;
 import com.jindouyun.db.domain.JindouyunIssue;
 import com.jindouyun.db.service.JindouyunIssueService;
 import org.apache.commons.logging.Log;

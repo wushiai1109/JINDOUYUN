@@ -2,11 +2,11 @@ package com.jindouyun.admin.controller;
 
 import com.jindouyun.admin.annotation.RequiresPermissionsDesc;
 import com.jindouyun.admin.service.LogHelper;
-import com.jindouyun.core.util.RegexUtil;
+import com.jindouyun.common.util.RegexUtil;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.core.util.bcrypt.BCryptPasswordEncoder;
-import com.jindouyun.core.validator.Order;
-import com.jindouyun.core.validator.Sort;
+import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.common.validator.Order;
+import com.jindouyun.common.validator.Sort;
 import com.jindouyun.db.domain.JindouyunAdmin;
 import com.jindouyun.db.service.JindouyunAdminService;
 import org.apache.commons.logging.Log;

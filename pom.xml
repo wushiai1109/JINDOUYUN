@@ -16,6 +16,7 @@
         <module>jindouyun-all</module>
         <module>jindouyun-wx-api</module>
         <module>jindouyun-delivery-api</module>
+        <module>jindouyun-common</module>
     </modules>
 
     <parent>
@@ -37,6 +38,11 @@
         <dependencies>
             <dependency>
                 <groupId>com.JinDouYun</groupId>
+                <artifactId>jindouyun-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.JinDouYun</groupId>
                 <artifactId>jindouyun-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -53,6 +59,11 @@
             <dependency>
                 <groupId>com.JinDouYun</groupId>
                 <artifactId>jindouyun-admin-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.JinDouYun</groupId>
+                <artifactId>jindouyun-delivery-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -186,6 +197,12 @@
                 <version>1.18.8</version>
                 <optional>true</optional>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>3.4.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

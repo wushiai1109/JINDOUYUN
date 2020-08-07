@@ -1,8 +1,8 @@
 package com.jindouyun.admin.controller;
 
-import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.core.util.bcrypt.BCryptPasswordEncoder;
+import com.jindouyun.common.util.bcrypt.BCryptPasswordEncoder;
 import com.jindouyun.db.domain.JindouyunAdmin;
 import com.jindouyun.db.service.JindouyunAdminService;
 import org.apache.commons.logging.Log;

@@ -2,8 +2,8 @@ package com.jindouyun.wx.controller;
 
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunComment;
-import com.jindouyun.wx.annotation.LoginUser;
-import com.jindouyun.wx.domain.UserInfo;
+import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.common.domain.UserInfo;
 import com.jindouyun.db.service.JindouyunCommentService;
 import com.jindouyun.db.service.JindouyunGoodsService;
 import com.jindouyun.wx.service.UserInfoService;

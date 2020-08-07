@@ -1,5 +1,7 @@
 package com.jindouyun.delivery.util;
 
+import com.jindouyun.common.constant.DeliveryConstant;
+
 /**
  * @className: BadArgumentUtil
  * @description:

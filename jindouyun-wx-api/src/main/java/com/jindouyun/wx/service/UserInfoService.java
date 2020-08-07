@@ -2,7 +2,7 @@ package com.jindouyun.wx.service;
 
 import com.jindouyun.db.domain.JindouyunUser;
 import com.jindouyun.db.service.JindouyunUserService;
-import com.jindouyun.wx.domain.UserInfo;
+import com.jindouyun.common.domain.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -4,13 +4,12 @@ import com.github.pagehelper.PageHelper;
 import com.jindouyun.db.dao.JindouyunCouponUserMapper;
 import com.jindouyun.db.domain.JindouyunCouponUser;
 import com.jindouyun.db.domain.JindouyunCouponUserExample;
-import com.jindouyun.db.util.CouponUserConstant;
+import com.jindouyun.common.constant.CouponUserConstant;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service

@@ -1462,7 +1462,7 @@ java.lang.IllegalArgumentException: Cannot deserialize instance of `java.util.Ar
  at [Source: UNKNOWN; line: -1, column: -1]
 	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:3750)
 	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:3678)
-	at com.jindouyun.core.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
+	at com.jindouyun.common.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
 	at com.jindouyun.wx.controller.WxCartController.delete(WxCartController.java:367)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -1552,7 +1552,7 @@ java.lang.IllegalArgumentException: Cannot deserialize instance of `java.util.Ar
  at [Source: UNKNOWN; line: -1, column: -1]
 	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:3750)
 	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:3678)
-	at com.jindouyun.core.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
+	at com.jindouyun.common.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
 	at com.jindouyun.wx.controller.WxCartController.delete(WxCartController.java:367)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
@@ -1642,7 +1642,7 @@ java.lang.IllegalArgumentException: Cannot deserialize instance of `java.util.Ar
  at [Source: UNKNOWN; line: -1, column: -1]
 	at com.fasterxml.jackson.databind.ObjectMapper._convert(ObjectMapper.java:3750)
 	at com.fasterxml.jackson.databind.ObjectMapper.convertValue(ObjectMapper.java:3678)
-	at com.jindouyun.core.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
+	at com.jindouyun.common.util.JacksonUtil.parseIntegerList(JacksonUtil.java:72)
 	at com.jindouyun.wx.controller.WxCartController.delete(WxCartController.java:367)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)

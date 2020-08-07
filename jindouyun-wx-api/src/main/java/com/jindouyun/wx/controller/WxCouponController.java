@@ -1,21 +1,21 @@
 package com.jindouyun.wx.controller;
 
-import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.core.validator.Order;
-import com.jindouyun.core.validator.Sort;
+import com.jindouyun.common.validator.Order;
+import com.jindouyun.common.validator.Sort;
 import com.jindouyun.db.domain.JindouyunCart;
 import com.jindouyun.db.domain.JindouyunCoupon;
 import com.jindouyun.db.domain.JindouyunCouponUser;
 import com.jindouyun.db.service.JindouyunCouponService;
 import com.jindouyun.db.service.JindouyunCouponUserService;
-import com.jindouyun.db.util.CouponConstant;
-import com.jindouyun.wx.annotation.LoginUser;
+import com.jindouyun.common.constant.CouponConstant;
+import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.wx.domain.CouponVo;
 import com.jindouyun.db.service.CouponVerifyService;
 import com.jindouyun.db.service.JindouyunCartService;
 //import com.jindouyun.wx.service.JindouyunCouponUserService;
-import com.jindouyun.wx.util.WxResponseCode;
+import com.jindouyun.common.constant.WxResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

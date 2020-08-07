@@ -1,8 +1,7 @@
 package com.jindouyun.core.storage;
 
-import com.jindouyun.core.util.CharUtil;
+import com.jindouyun.common.util.CharUtil;
 import com.jindouyun.db.domain.JindouyunStorage;
-import com.jindouyun.db.service.JindouyunStorageService;
 import com.jindouyun.db.service.JindouyunStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

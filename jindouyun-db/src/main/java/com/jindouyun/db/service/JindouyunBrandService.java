@@ -41,6 +41,11 @@ public class JindouyunBrandService {
         return query(page, limit, null, null);
     }
 
+    public JindouyunBrand findByUserId(Integer userId){
+        JindouyunBrandExample example = new JindouyunBrandExample();
+        example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false);
+        return brandMapper.selectOneByExampleSelective(example);
+    }
 
     public JindouyunBrand findById(Integer id) {
         return brandMapper.selectByPrimaryKey(id);

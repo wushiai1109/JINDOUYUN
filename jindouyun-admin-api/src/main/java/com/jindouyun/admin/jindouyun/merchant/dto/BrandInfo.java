@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @className:
@@ -24,8 +25,8 @@ public class BrandInfo {
     private String name;
     private String desc;
     private String picUrl;
-    private LocalDate start_time;
-    private LocalDate end_time;
+    private LocalDateTime start_time;
+    private LocalDateTime end_time;
     private BigDecimal delivery_price;
     private BigDecimal today_turnover;
     private BigDecimal average_price;

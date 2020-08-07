@@ -9,30 +9,26 @@ import com.github.binarywang.wxpay.bean.result.BaseWxPayResult;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-import com.github.pagehelper.PageInfo;
 import com.jindouyun.core.express.ExpressService;
 import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.core.notify.NotifyType;
 import com.jindouyun.core.qcode.QCodeService;
 import com.jindouyun.core.system.SystemConfig;
 import com.jindouyun.core.task.TaskService;
-import com.jindouyun.core.util.DateTimeUtil;
-import com.jindouyun.core.util.IpUtil;
-import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.common.util.DateTimeUtil;
+import com.jindouyun.common.util.IpUtil;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.db.dao.JindouyunOrderGoodsMapper;
 import com.jindouyun.db.dao.JindouyunOrderMapper;
-import com.jindouyun.db.dao.JindouyunOrderMapperDemo;
-import com.jindouyun.db.dao.OrderMapper;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
-import com.jindouyun.db.util.CouponUserConstant;
+import com.jindouyun.common.constant.CouponUserConstant;
 import com.jindouyun.db.util.OrderHandleOption;
 import com.jindouyun.db.util.OrderUtil;
 import com.jindouyun.wx.task.OrderUnpaidTask;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -54,8 +50,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jindouyun.wx.util.WxResponseCode.*;
-
+import static com.jindouyun.common.constant.WxResponseCode.*;
 /**
  * @ClassName WxOrderService
  * @Description * 订单服务

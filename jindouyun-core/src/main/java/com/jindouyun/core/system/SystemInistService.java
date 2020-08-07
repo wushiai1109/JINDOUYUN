@@ -1,6 +1,6 @@
 package com.jindouyun.core.system;
 
-import com.jindouyun.core.util.SystemInfoPrinter;
+import com.jindouyun.common.util.SystemInfoPrinter;
 import com.jindouyun.db.service.JindouyunSystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;

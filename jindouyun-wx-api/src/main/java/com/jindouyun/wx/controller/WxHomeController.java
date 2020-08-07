@@ -5,7 +5,7 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunCategory;
 import com.jindouyun.db.domain.JindouyunGoods;
 import com.jindouyun.db.service.*;
-import com.jindouyun.wx.annotation.LoginUser;
+import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.wx.service.HomeCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

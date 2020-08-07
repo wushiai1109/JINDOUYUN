@@ -1,12 +1,9 @@
 package com.jindouyun.delivery.controller;
 
-import com.jindouyun.core.util.JacksonUtil;
+import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.db.dao.JindouyunDeliveryStaffMapper;
-import com.jindouyun.db.domain.JindouyunDeliveryStaff;
-import com.jindouyun.db.domain.JindouyunRegisteDeliveries;
 import com.jindouyun.db.service.JindouyunDeliveryStaffService;
-import com.jindouyun.delivery.annotation.LoginUser;
 import com.jindouyun.delivery.dto.DeliveryInfo;
 import com.jindouyun.delivery.service.LoginUserManager;
 import com.jindouyun.delivery.util.BadArgumentUtil;
@@ -14,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import static com.jindouyun.delivery.util.DeliveryResponseCode.AUTH_INVALID_ACCOUNT;
+import static com.jindouyun.common.constant.WxResponseCode.*;
 
 /**
  * @className: DeliveryStaffController

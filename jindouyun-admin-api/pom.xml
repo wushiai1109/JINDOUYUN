@@ -17,24 +17,16 @@
 
         <dependency>
             <groupId>com.JinDouYun</groupId>
+            <artifactId>jindouyun-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.JinDouYun</groupId>
             <artifactId>jindouyun-core</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.JinDouYun</groupId>
             <artifactId>jindouyun-db</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.shiro</groupId>
