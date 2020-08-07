@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 import static com.jindouyun.admin.util.AdminResponseCode.*;
+import static com.jindouyun.admin.util.ValidateUtil.validate;
 
 @RestController
 @RequestMapping("/admin/admin")
@@ -45,29 +46,6 @@ public class AdminAdminController {
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunAdmin> adminList = adminService.querySelective(username, page, limit, sort, order);
         return ResponseUtil.okList(adminList);
-    }
-
-    /**
-     * 验证管理员信息
-     *  1. name不为空
-     *  2. 名称符合要求
-     *  3. 密码符合要求
-     * @param admin
-     * @return
-     */
-    private Object validate(JindouyunAdmin admin) {
-        String name = admin.getUsername();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-        if (!RegexUtil.isUsername(name)) {
-            return ResponseUtil.fail(ADMIN_INVALID_NAME, "管理员名称不符合规定");
-        }
-        String password = admin.getPassword();
-        if (StringUtils.isEmpty(password) || password.length() < 6) {
-            return ResponseUtil.fail(ADMIN_INVALID_PASSWORD, "管理员密码长度不能小于6");
-        }
-        return null;
     }
 
     @RequiresPermissions("admin:admin:create")
@@ -99,6 +77,7 @@ public class AdminAdminController {
     @GetMapping("/read")
     public Object read(@NotNull Integer id) {
         JindouyunAdmin admin = adminService.findById(id);
+//        System.out.println(admin.toString());
         return ResponseUtil.ok(admin);
     }
 
@@ -130,8 +109,7 @@ public class AdminAdminController {
     @RequiresPermissions("admin:admin:delete")
     @RequiresPermissionsDesc(menu = {"系统管理", "管理员管理"}, button = "删除")
     @PostMapping("/delete")
-    public Object delete(@RequestBody JindouyunAdmin admin) {
-        Integer anotherAdminId = admin.getId();
+    public Object delete(@RequestParam("id") Integer anotherAdminId) {
         if (anotherAdminId == null) {
             return ResponseUtil.badArgument();
         }
@@ -144,7 +122,7 @@ public class AdminAdminController {
         }
 
         adminService.deleteById(anotherAdminId);
-        logHelper.logAuthSucceed("删除管理员", admin.getUsername());
+        logHelper.logAuthSucceed("删除管理员", String.valueOf(anotherAdminId));
         return ResponseUtil.ok();
     }
 }

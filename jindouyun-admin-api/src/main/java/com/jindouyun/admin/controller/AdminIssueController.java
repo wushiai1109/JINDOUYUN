@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import static com.jindouyun.admin.util.ValidateUtil.validate;
+
 @RestController
 @RequestMapping("/admin/issue")
 @Validated
@@ -36,18 +38,6 @@ public class AdminIssueController {
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunIssue> issueList = issueService.querySelective(question, page, limit, sort, order);
         return ResponseUtil.okList(issueList);
-    }
-
-    private Object validate(JindouyunIssue issue) {
-        String question = issue.getQuestion();
-        if (StringUtils.isEmpty(question)) {
-            return ResponseUtil.badArgument();
-        }
-        String answer = issue.getAnswer();
-        if (StringUtils.isEmpty(answer)) {
-            return ResponseUtil.badArgument();
-        }
-        return null;
     }
 
     @RequiresPermissions("admin:issue:create")

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import static com.jindouyun.admin.util.ValidateUtil.validate;
+
 @RestController
 @RequestMapping("/admin/coupon")
 @Validated
@@ -53,14 +55,6 @@ public class AdminCouponController {
         List<JindouyunCouponUser> couponList = couponUserService.queryList(userId, couponId, status, page,
                 limit, sort, order);
         return ResponseUtil.okList(couponList);
-    }
-
-    private Object validate(JindouyunCoupon coupon) {
-        String name = coupon.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-        return null;
     }
 
     @RequiresPermissions("admin:coupon:create")

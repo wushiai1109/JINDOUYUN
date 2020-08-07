@@ -76,6 +76,7 @@ public class JindouyunAdminService {
     public void add(JindouyunAdmin admin) {
         admin.setAddTime(LocalDateTime.now());
         admin.setUpdateTime(LocalDateTime.now());
+        admin.setDeleted(false);
         adminMapper.insertSelective(admin);
     }
 

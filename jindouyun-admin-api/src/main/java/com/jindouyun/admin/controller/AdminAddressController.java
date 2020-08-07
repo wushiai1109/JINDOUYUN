@@ -33,13 +33,13 @@ public class AdminAddressController {
     @RequiresPermissions("admin:address:list")
     @RequiresPermissionsDesc(menu = {"用户管理", "收货地址"}, button = "查询")
     @GetMapping("/list")
-    public Object list(Integer userId, String name,
+    public Object list(Integer userId, String name,Short building,String phone,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
-                       @Sort @RequestParam(defaultValue = "add_time") String sort,
+                       @Sort(accepts = {"id","building","add_time"}) @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
 
-        List<JindouyunAddress> addressList = addressService.querySelective(userId, name, page, limit, sort, order);
+        List<JindouyunAddress> addressList = addressService.querySelective(userId, name, building, phone, page, limit, sort, order);
         return ResponseUtil.okList(addressList);
     }
 }

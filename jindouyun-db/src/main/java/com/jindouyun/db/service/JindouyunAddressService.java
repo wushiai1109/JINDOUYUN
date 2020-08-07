@@ -88,16 +88,18 @@ public class JindouyunAddressService {
     }
 
     /**
-     * 根据用户id 或 姓名 查找地址列表
+     * 根据用户id 或 姓名 或电话 或楼栋 查找地址列表
      * @param userId
      * @param name
+     * @param building
+     * @param phone
      * @param page
      * @param limit
      * @param sort
      * @param order
      * @return
      */
-    public List<JindouyunAddress> querySelective(Integer userId, String name, Integer page, Integer limit, String sort, String order) {
+    public List<JindouyunAddress> querySelective(Integer userId, String name, Short building, String phone, Integer page, Integer limit, String sort, String order) {
         JindouyunAddressExample example = new JindouyunAddressExample();
         JindouyunAddressExample.Criteria criteria = example.createCriteria();
 
@@ -106,6 +108,12 @@ public class JindouyunAddressService {
         }
         if (!StringUtils.isEmpty(name)) {
             criteria.andNameLike("%" + name + "%");
+        }
+        if (building != null){
+            criteria.andBuildingEqualTo(building);
+        }
+        if (phone != null){
+            criteria.andTelEqualTo(phone);
         }
         criteria.andDeletedEqualTo(false);
 

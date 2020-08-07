@@ -18,6 +18,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.jindouyun.admin.util.ValidateUtil.validate;
+
 @RestController
 @RequestMapping("/admin/brand")
 @Validated
@@ -37,24 +39,6 @@ public class AdminBrandController {
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunBrand> brandList = brandService.querySelective(id, name, page, limit, sort, order);
         return ResponseUtil.okList(brandList);
-    }
-
-    private Object validate(JindouyunBrand brand) {
-        String name = brand.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String desc = brand.getDesc();
-        if (StringUtils.isEmpty(desc)) {
-            return ResponseUtil.badArgument();
-        }
-
-        BigDecimal price = brand.getFloorPrice();
-        if (price == null) {
-            return ResponseUtil.badArgument();
-        }
-        return null;
     }
 
     @RequiresPermissions("admin:brand:create")
