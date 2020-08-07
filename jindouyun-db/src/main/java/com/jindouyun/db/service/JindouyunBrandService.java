@@ -17,7 +17,7 @@ import java.util.List;
 public class JindouyunBrandService {
     @Resource
     private JindouyunBrandMapper brandMapper;
-    private Column[] columns = new Column[]{Column.id, Column.name, Column.desc, Column.picUrl, Column.floorPrice};
+    private Column[] columns = new Column[]{Column.id, Column.name, Column.desc, Column.notice, Column.picUrl, Column.floorPrice};
 
     /**
      * 分页查询所有商家
