@@ -20,7 +20,15 @@ import java.util.List;
 import java.util.Map;
 
 import static com.jindouyun.common.constant.WxResponseCode.*;
-
+/**
+ * @ClassName WxCatalogController
+ * @Description 类目服务
+ * @Author Bruce
+ * @Date 2020/7/23 8:23 下午
+ */
+@RestController
+@RequestMapping("/wx/cart")
+@CrossOrigin(origins = "*",maxAge = 3600)
 public class WxCartController {
 
     private final Log logger = LogFactory.getLog(WxCartController.class);
