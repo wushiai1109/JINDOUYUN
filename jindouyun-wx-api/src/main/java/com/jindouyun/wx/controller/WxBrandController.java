@@ -85,7 +85,7 @@ public class WxBrandController {
         List<JindouyunCoupon> couponList = couponService.findByBrandId(id);
         map.put("id", entity.getId());
         map.put("userId", entity.getUserId());
-        map.put("adderssId", entity.getDesc());
+        map.put("addressId", entity.getAdderssId());
         map.put("name", entity.getName());
         map.put("desc", entity.getDesc());
         map.put("notice", entity.getNotice());
