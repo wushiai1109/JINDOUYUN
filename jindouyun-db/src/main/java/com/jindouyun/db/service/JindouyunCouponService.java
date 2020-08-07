@@ -182,4 +182,11 @@ public class JindouyunCouponService {
         example.or().andStatusEqualTo(CouponConstant.STATUS_NORMAL).andTimeTypeEqualTo(CouponConstant.TIME_TYPE_TIME).andEndTimeLessThan(LocalDateTime.now()).andDeletedEqualTo(false);
         return couponMapper.selectByExample(example);
     }
+
+    public List<JindouyunCoupon> findByBrandId(Integer id) {
+        JindouyunCouponExample example = new JindouyunCouponExample();
+        example.or().andTypeEqualTo(id).andDeletedEqualTo(false);
+        return couponMapper.selectByExample(example);
+    }
+
 }

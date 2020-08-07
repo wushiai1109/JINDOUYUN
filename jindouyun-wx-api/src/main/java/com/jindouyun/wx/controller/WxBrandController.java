@@ -4,12 +4,17 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.common.validator.Order;
 import com.jindouyun.common.validator.Sort;
 import com.jindouyun.db.domain.JindouyunBrand;
+import com.jindouyun.db.domain.JindouyunCoupon;
 import com.jindouyun.db.service.JindouyunBrandService;
+import com.jindouyun.db.service.JindouyunCouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName WxBrandController
@@ -25,6 +30,9 @@ public class WxBrandController {
     @Autowired
     private JindouyunBrandService brandService;
 
+    @Autowired
+    private JindouyunCouponService couponService;
+
     /**
      * 品牌列表
      *
@@ -38,7 +46,16 @@ public class WxBrandController {
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunBrand> brandList = brandService.query(page, limit, sort, order);
-        return ResponseUtil.okList(brandList);
+        List<Map<String,Object>> mapList = new ArrayList<>();
+        for (JindouyunBrand jindouyunBrand : brandList) {
+            List<JindouyunCoupon> couponList = couponService.findByBrandId(jindouyunBrand.getId());
+            Map<String,Object> map = new HashMap<>();
+            map.put("jindouyunBrand",jindouyunBrand);
+            map.put("couponList",couponList);
+            mapList.add(map);
+        }
+//        return ResponseUtil.okList(brandList);
+        return ResponseUtil.okList(mapList);
     }
 
     /**
