@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.jindouyun.admin.util.ValidateUtil.validate;
+
 @RestController
 @RequestMapping("/admin/category")
 @Validated
@@ -65,28 +67,6 @@ public class AdminCategoryController {
         }
 
         return ResponseUtil.okList(categoryVoList);
-    }
-
-    private Object validate(JindouyunCategory category) {
-        String name = category.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String level = category.getLevel();
-        if (StringUtils.isEmpty(level)) {
-            return ResponseUtil.badArgument();
-        }
-        if (!level.equals("L1") && !level.equals("L2")) {
-            return ResponseUtil.badArgumentValue();
-        }
-
-        Integer pid = category.getPid();
-        if (level.equals("L2") && (pid == null)) {
-            return ResponseUtil.badArgument();
-        }
-
-        return null;
     }
 
     @RequiresPermissions("admin:category:create")

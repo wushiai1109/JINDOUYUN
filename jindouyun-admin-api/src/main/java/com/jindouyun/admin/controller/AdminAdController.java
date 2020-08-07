@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import static com.jindouyun.admin.util.ValidateUtil.validate;
+
 @RestController
 @RequestMapping("/admin/ad")
 @Validated
@@ -36,31 +38,13 @@ public class AdminAdController {
     public Object list(String name, String content,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
-                       @Sort @RequestParam(defaultValue = "add_time") String sort,
+                       @Sort(accepts = {"id","position","start_time","end_time"}) @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunAd> adList = adService.querySelective(name, content, page, limit, sort, order);
         return ResponseUtil.okList(adList);
     }
 
-    /**
-     * 验证广告是否合法
-     *      合法广告：
-     *          1. name不为空
-     *          2. content不为空
-     * @param ad
-     * @return
-     */
-    private Object validate(JindouyunAd ad) {
-        String name = ad.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-        String content = ad.getContent();
-        if (StringUtils.isEmpty(content)) {
-            return ResponseUtil.badArgument();
-        }
-        return null;
-    }
+
 
     @RequiresPermissions("admin:ad:create")
     @RequiresPermissionsDesc(menu = {"推广管理", "广告管理"}, button = "添加")
@@ -101,8 +85,7 @@ public class AdminAdController {
     @RequiresPermissions("admin:ad:delete")
     @RequiresPermissionsDesc(menu = {"推广管理", "广告管理"}, button = "删除")
     @PostMapping("/delete")
-    public Object delete(@RequestBody JindouyunAd ad) {
-        Integer id = ad.getId();
+    public Object delete(@RequestParam("id") Integer id) {
         if (id == null) {
             return ResponseUtil.badArgument();
         }

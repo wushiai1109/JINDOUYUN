@@ -29,6 +29,7 @@ import java.util.*;
 
 import static com.jindouyun.admin.util.AdminResponseCode.ROLE_NAME_EXIST;
 import static com.jindouyun.admin.util.AdminResponseCode.ROLE_USER_EXIST;
+import static com.jindouyun.admin.util.ValidateUtil.validate;
 
 @RestController
 @RequestMapping("/admin/role")
@@ -78,15 +79,6 @@ public class AdminRoleController {
         return ResponseUtil.ok(role);
     }
 
-
-    private Object validate(JindouyunRole role) {
-        String name = role.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-
-        return null;
-    }
 
     @RequiresPermissions("admin:role:create")
     @RequiresPermissionsDesc(menu = {"系统管理", "角色管理"}, button = "角色添加")
