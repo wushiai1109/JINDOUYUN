@@ -1196,7 +1196,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeEqualTo(LocalDateTime value) {
+        public Criteria andStartTimeEqualTo(Byte value) {
             addCriterion("start_time =", value, "startTime");
             return (Criteria) this;
         }
@@ -1212,7 +1212,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeNotEqualTo(LocalDateTime value) {
+        public Criteria andStartTimeNotEqualTo(Byte value) {
             addCriterion("start_time <>", value, "startTime");
             return (Criteria) this;
         }
@@ -1228,7 +1228,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeGreaterThan(LocalDateTime value) {
+        public Criteria andStartTimeGreaterThan(Byte value) {
             addCriterion("start_time >", value, "startTime");
             return (Criteria) this;
         }
@@ -1244,7 +1244,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeGreaterThanOrEqualTo(LocalDateTime value) {
+        public Criteria andStartTimeGreaterThanOrEqualTo(Byte value) {
             addCriterion("start_time >=", value, "startTime");
             return (Criteria) this;
         }
@@ -1260,7 +1260,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeLessThan(LocalDateTime value) {
+        public Criteria andStartTimeLessThan(Byte value) {
             addCriterion("start_time <", value, "startTime");
             return (Criteria) this;
         }
@@ -1276,7 +1276,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeLessThanOrEqualTo(LocalDateTime value) {
+        public Criteria andStartTimeLessThanOrEqualTo(Byte value) {
             addCriterion("start_time <=", value, "startTime");
             return (Criteria) this;
         }
@@ -1292,22 +1292,22 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeIn(List<LocalDateTime> values) {
+        public Criteria andStartTimeIn(List<Byte> values) {
             addCriterion("start_time in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeNotIn(List<LocalDateTime> values) {
+        public Criteria andStartTimeNotIn(List<Byte> values) {
             addCriterion("start_time not in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andStartTimeBetween(Byte value1, Byte value2) {
             addCriterion("start_time between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andStartTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andStartTimeNotBetween(Byte value1, Byte value2) {
             addCriterion("start_time not between", value1, value2, "startTime");
             return (Criteria) this;
         }
@@ -1322,7 +1322,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeEqualTo(LocalDateTime value) {
+        public Criteria andEndTimeEqualTo(Byte value) {
             addCriterion("end_time =", value, "endTime");
             return (Criteria) this;
         }
@@ -1338,7 +1338,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotEqualTo(LocalDateTime value) {
+        public Criteria andEndTimeNotEqualTo(Byte value) {
             addCriterion("end_time <>", value, "endTime");
             return (Criteria) this;
         }
@@ -1354,7 +1354,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThan(LocalDateTime value) {
+        public Criteria andEndTimeGreaterThan(Byte value) {
             addCriterion("end_time >", value, "endTime");
             return (Criteria) this;
         }
@@ -1370,7 +1370,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeGreaterThanOrEqualTo(LocalDateTime value) {
+        public Criteria andEndTimeGreaterThanOrEqualTo(Byte value) {
             addCriterion("end_time >=", value, "endTime");
             return (Criteria) this;
         }
@@ -1386,7 +1386,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThan(LocalDateTime value) {
+        public Criteria andEndTimeLessThan(Byte value) {
             addCriterion("end_time <", value, "endTime");
             return (Criteria) this;
         }
@@ -1402,7 +1402,7 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeLessThanOrEqualTo(LocalDateTime value) {
+        public Criteria andEndTimeLessThanOrEqualTo(Byte value) {
             addCriterion("end_time <=", value, "endTime");
             return (Criteria) this;
         }
@@ -1418,22 +1418,22 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeIn(List<LocalDateTime> values) {
+        public Criteria andEndTimeIn(List<Byte> values) {
             addCriterion("end_time in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotIn(List<LocalDateTime> values) {
+        public Criteria andEndTimeNotIn(List<Byte> values) {
             addCriterion("end_time not in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andEndTimeBetween(Byte value1, Byte value2) {
             addCriterion("end_time between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andEndTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+        public Criteria andEndTimeNotBetween(Byte value1, Byte value2) {
             addCriterion("end_time not between", value1, value2, "endTime");
             return (Criteria) this;
         }
@@ -1690,132 +1690,6 @@ public class JindouyunBrandExample {
             return (Criteria) this;
         }
 
-        public Criteria andTodayTurnoverIsNull() {
-            addCriterion("today_turnover is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverIsNotNull() {
-            addCriterion("today_turnover is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverEqualTo(BigDecimal value) {
-            addCriterion("today_turnover =", value, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayTurnoverEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_turnover = ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverNotEqualTo(BigDecimal value) {
-            addCriterion("today_turnover <>", value, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayTurnoverNotEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_turnover <> ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverGreaterThan(BigDecimal value) {
-            addCriterion("today_turnover >", value, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayTurnoverGreaterThanColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_turnover > ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("today_turnover >=", value, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayTurnoverGreaterThanOrEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_turnover >= ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverLessThan(BigDecimal value) {
-            addCriterion("today_turnover <", value, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayTurnoverLessThanColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_turnover < ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("today_turnover <=", value, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayTurnoverLessThanOrEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_turnover <= ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverIn(List<BigDecimal> values) {
-            addCriterion("today_turnover in", values, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverNotIn(List<BigDecimal> values) {
-            addCriterion("today_turnover not in", values, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("today_turnover between", value1, value2, "todayTurnover");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayTurnoverNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("today_turnover not between", value1, value2, "todayTurnover");
-            return (Criteria) this;
-        }
-
         public Criteria andTotalOrderIsNull() {
             addCriterion("total_order is null");
             return (Criteria) this;
@@ -1939,132 +1813,6 @@ public class JindouyunBrandExample {
 
         public Criteria andTotalOrderNotBetween(Integer value1, Integer value2) {
             addCriterion("total_order not between", value1, value2, "totalOrder");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderIsNull() {
-            addCriterion("today_order is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderIsNotNull() {
-            addCriterion("today_order is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderEqualTo(Integer value) {
-            addCriterion("today_order =", value, "todayOrder");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayOrderEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_order = ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderNotEqualTo(Integer value) {
-            addCriterion("today_order <>", value, "todayOrder");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayOrderNotEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_order <> ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderGreaterThan(Integer value) {
-            addCriterion("today_order >", value, "todayOrder");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayOrderGreaterThanColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_order > ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderGreaterThanOrEqualTo(Integer value) {
-            addCriterion("today_order >=", value, "todayOrder");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayOrderGreaterThanOrEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_order >= ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderLessThan(Integer value) {
-            addCriterion("today_order <", value, "todayOrder");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayOrderLessThanColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_order < ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderLessThanOrEqualTo(Integer value) {
-            addCriterion("today_order <=", value, "todayOrder");
-            return (Criteria) this;
-        }
-
-        /**
-         * This method was generated by MyBatis Generator.
-         * This method corresponds to the database table jindouyun_brand
-         *
-         * @mbg.generated
-         */
-        public Criteria andTodayOrderLessThanOrEqualToColumn(JindouyunBrand.Column column) {
-            addCriterion(new StringBuilder("today_order <= ").append(column.getEscapedColumnName()).toString());
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderIn(List<Integer> values) {
-            addCriterion("today_order in", values, "todayOrder");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderNotIn(List<Integer> values) {
-            addCriterion("today_order not in", values, "todayOrder");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderBetween(Integer value1, Integer value2) {
-            addCriterion("today_order between", value1, value2, "todayOrder");
-            return (Criteria) this;
-        }
-
-        public Criteria andTodayOrderNotBetween(Integer value1, Integer value2) {
-            addCriterion("today_order not between", value1, value2, "todayOrder");
             return (Criteria) this;
         }
 

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.jindouyun.common.constant.WxResponseCode.*;
+
 /**
  * @ClassName WxCatalogController
  * @Description 类目服务
@@ -28,7 +29,7 @@ import static com.jindouyun.common.constant.WxResponseCode.*;
  */
 @RestController
 @RequestMapping("/wx/cart")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class WxCartController {
 
     private final Log logger = LogFactory.getLog(WxCartController.class);
@@ -243,7 +244,9 @@ public class WxCartController {
             }
         }
 
-        return ResponseUtil.ok(existCart != null ? existCart.getId() : cart.getId());
+//        return ResponseUtil.ok(existCart != null ? existCart.getId() : cart.getId());
+        return existCart != null ? checkout(userId, existCart.getId(), null, null, null)
+                : checkout(userId, cart.getId(), null, null, null);
     }
 
     /**
@@ -401,21 +404,21 @@ public class WxCartController {
     /**
      * 购物车下单
      *
-     * @param userId    用户ID
-     * @param cartId    购物车商品ID：
-     *                  如果购物车商品ID是空，则下单当前用户所有购物车商品；
-     *                  如果购物车商品ID非空，则只下单当前购物车商品。
-     * @param addressId 收货地址ID：
-     *                  如果收货地址ID是空，则查询当前用户的默认地址。
-     * @param couponId  优惠券ID：
-     *                  如果优惠券ID是空，则自动选择合适的优惠券。
+     * @param userId       用户ID
+     * @param cartId       购物车商品ID：
+     *                     如果购物车商品ID是空，则下单当前用户所有购物车商品；
+     *                     如果购物车商品ID非空，则只下单当前购物车商品。
+     * @param addressId    收货地址ID：
+     *                     如果收货地址ID是空，则查询当前用户的默认地址。
+     * @param couponId     优惠券ID：
+     *                     如果优惠券ID是空，则自动选择合适的优惠券。
      * @param userCouponId 用户拥有的优惠卷的id
      * @return 购物车操作结果
      */
     @GetMapping("checkout")
     public Object checkout(@LoginUser Integer userId, Integer cartId, Integer addressId, Integer couponId, Integer userCouponId/*, Integer grouponRulesId*/) {
-        System.out.println("couponId"+couponId);
-        System.out.println("userCouponId"+userCouponId);
+        System.out.println("couponId" + couponId);
+        System.out.println("userCouponId" + userCouponId);
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -465,7 +468,7 @@ public class WxCartController {
             checkedGoodsList.add(cart);
             // 商品信息
             JindouyunGoods goods = goodsService.findById(cart.getGoodsId());
-            if (goods.getBrandId() != 0){
+            if (goods.getBrandId() != 0) {
                 brandId = goods.getBrandId();
             }
 
@@ -489,11 +492,11 @@ public class WxCartController {
         System.out.println(couponUserList);
         for (JindouyunCouponUser couponUser : couponUserList) {
             tmpUserCouponId = couponUser.getId();
-            System.out.println("userId"+userId);
-            System.out.println("couponUser.getCouponId()"+couponUser.getCouponId());
-            System.out.println("tmpUserCouponId"+tmpUserCouponId);
-            System.out.println("checkedGoodsPrice"+checkedGoodsPrice);
-            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponUser.getCouponId(), tmpUserCouponId, checkedGoodsPrice,brandId);
+            System.out.println("userId" + userId);
+            System.out.println("couponUser.getCouponId()" + couponUser.getCouponId());
+            System.out.println("tmpUserCouponId" + tmpUserCouponId);
+            System.out.println("checkedGoodsPrice" + checkedGoodsPrice);
+            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponUser.getCouponId(), tmpUserCouponId, checkedGoodsPrice, brandId);
             if (coupon == null) {
                 continue;
             }
@@ -520,7 +523,7 @@ public class WxCartController {
             userCouponId = tmpUserCouponId;
         } else {
 
-            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponId, userCouponId, checkedGoodsPrice,brandId);
+            JindouyunCoupon coupon = couponVerifyService.checkCoupon(userId, couponId, userCouponId, checkedGoodsPrice, brandId);
             // 用户选择的优惠券有问题，则选择合适优惠券，否则使用用户选择的优惠券
             if (coupon == null) {
                 couponPrice = tmpCouponPrice;
