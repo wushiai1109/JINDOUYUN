@@ -129,8 +129,8 @@ public class MerchantAuthController extends AuthServiceImpl {
             brandInfo.setDelivery_price(brand.getDeliveryPrice());
             brandInfo.setStart_time(brand.getStartTime());
             brandInfo.setEnd_time(brand.getEndTime());
-            brandInfo.setToday_order(brand.getTodayOrder());
-            brandInfo.setToday_turnover(brand.getTodayTurnover());
+//            brandInfo.setToday_order(brand.getTodayOrder());
+//            brandInfo.setToday_turnover(brand.getTodayTurnover());
             brandInfo.setAverage_price(new BigDecimal(brand.getTotalTurnover().doubleValue()/brand.getTotalOrder()));
             //设置认证
             merchantInfo.setAuth(true);
@@ -235,8 +235,8 @@ public class MerchantAuthController extends AuthServiceImpl {
             brandInfo.setDelivery_price(brand.getDeliveryPrice());
             brandInfo.setStart_time(brand.getStartTime());
             brandInfo.setEnd_time(brand.getEndTime());
-            brandInfo.setToday_order(brand.getTodayOrder());
-            brandInfo.setToday_turnover(brand.getTodayTurnover());
+//            brandInfo.setToday_order(brand.getTodayOrder());
+//            brandInfo.setToday_turnover(brand.getTodayTurnover());
             brandInfo.setAverage_price(new BigDecimal(brand.getTotalTurnover().doubleValue()/brand.getTotalOrder()));
             //设置认证
             merchantInfo.setAuth(true);

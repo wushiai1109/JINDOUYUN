@@ -1,13 +1,10 @@
 package com.jindouyun.admin.jindouyun.merchant.dto;
 
-import com.jindouyun.db.domain.JindouyunAddress;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -25,8 +22,8 @@ public class BrandInfo {
     private String name;
     private String desc;
     private String picUrl;
-    private LocalDateTime start_time;
-    private LocalDateTime end_time;
+    private Byte start_time;
+    private Byte end_time;
     private BigDecimal delivery_price;
     private BigDecimal today_turnover;
     private BigDecimal average_price;

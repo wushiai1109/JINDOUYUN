@@ -94,9 +94,9 @@ public class WxBrandController {
         map.put("endTime", entity.getEndTime());
         map.put("deliveryPrice", entity.getDeliveryPrice());
         map.put("totalTurnover", entity.getTotalTurnover());
-        map.put("todayTurnover", entity.getTodayTurnover());
+//        map.put("todayTurnover", entity.getTodayTurnover());
         map.put("totalOrder", entity.getTotalOrder());
-        map.put("todayOrder", entity.getTodayOrder());
+//        map.put("todayOrder", entity.getTodayOrder());
         map.put("floorPrice", entity.getFloorPrice());
         map.put("sortOrder", entity.getSortOrder());
         map.put("status", entity.getStatus());
