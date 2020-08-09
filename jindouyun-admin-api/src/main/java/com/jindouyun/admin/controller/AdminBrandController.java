@@ -35,22 +35,10 @@ public class AdminBrandController {
     public Object list(String id, String name,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
-                       @Sort @RequestParam(defaultValue = "add_time") String sort,
+                       @Sort(accepts = {"id","delivery_price","floor_price","sort_order","add_time"}) @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunBrand> brandList = brandService.querySelective(id, name, page, limit, sort, order);
         return ResponseUtil.okList(brandList);
-    }
-
-    @RequiresPermissions("admin:brand:create")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "添加")
-    @PostMapping("/create")
-    public Object create(@RequestBody JindouyunBrand brand) {
-        Object error = validate(brand);
-        if (error != null) {
-            return error;
-        }
-        brandService.add(brand);
-        return ResponseUtil.ok(brand);
     }
 
     @RequiresPermissions("admin:brand:read")
@@ -61,25 +49,11 @@ public class AdminBrandController {
         return ResponseUtil.ok(brand);
     }
 
-    @RequiresPermissions("admin:brand:update")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "编辑")
-    @PostMapping("/update")
-    public Object update(@RequestBody JindouyunBrand brand) {
-        Object error = validate(brand);
-        if (error != null) {
-            return error;
-        }
-        if (brandService.updateById(brand) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-        return ResponseUtil.ok(brand);
-    }
 
     @RequiresPermissions("admin:brand:delete")
     @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "删除")
     @PostMapping("/delete")
-    public Object delete(@RequestBody JindouyunBrand brand) {
-        Integer id = brand.getId();
+    public Object delete(@RequestParam("id") Integer id) {
         if (id == null) {
             return ResponseUtil.badArgument();
         }

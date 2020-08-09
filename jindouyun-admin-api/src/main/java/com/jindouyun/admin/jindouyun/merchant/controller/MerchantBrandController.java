@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
+import static com.jindouyun.admin.util.ValidateUtil.validate;
+
 /**
  * @className:
  * @description:
@@ -26,24 +28,6 @@ public class MerchantBrandController {
     @Autowired
     private JindouyunBrandService brandService;
 
-    private Object validate(JindouyunBrand brand) {
-        String name = brand.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-
-        String desc = brand.getDesc();
-        if (StringUtils.isEmpty(desc)) {
-            return ResponseUtil.badArgument();
-        }
-
-        BigDecimal price = brand.getFloorPrice();
-        if (price == null) {
-            return ResponseUtil.badArgument();
-        }
-        return null;
-    }
-
     @RequiresPermissions("admin:brand:update")
     @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "编辑")
     @PostMapping("/update")
@@ -55,6 +39,18 @@ public class MerchantBrandController {
         if (brandService.updateById(brand) == 0) {
             return ResponseUtil.updatedDataFailed();
         }
+        return ResponseUtil.ok(brand);
+    }
+
+    @RequiresPermissions("admin:brand:create")
+    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "添加")
+    @PostMapping("/create")
+    public Object create(@RequestBody JindouyunBrand brand) {
+        Object error = validate(brand);
+        if (error != null) {
+            return error;
+        }
+        brandService.add(brand);
         return ResponseUtil.ok(brand);
     }
 

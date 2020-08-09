@@ -17,7 +17,10 @@ import java.util.List;
 public class JindouyunBrandService {
     @Resource
     private JindouyunBrandMapper brandMapper;
-    private Column[] columns = new Column[]{Column.id, Column.name, Column.desc, Column.notice, Column.picUrl, Column.floorPrice};
+    private Column[] columns = new Column[]{Column.id, Column.userId, Column.adderssId,
+            Column.name, Column.desc, Column.notice, Column.picUrl, Column.startTime,
+            Column.endTime, Column.deliveryPrice, Column.totalTurnover, Column.totalOrder,
+            Column.floorPrice, Column.status};
 
     /**
      * 分页查询所有商家
@@ -28,17 +31,18 @@ public class JindouyunBrandService {
      * @return
      */
     public List<JindouyunBrand> query(Integer page, Integer limit, String sort, String order) {
-        JindouyunBrandExample example = new JindouyunBrandExample();
-        example.or().andDeletedEqualTo(false);
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
-        PageHelper.startPage(page, limit);
-        return brandMapper.selectByExampleSelective(example, columns);
+//        JindouyunBrandExample example = new JindouyunBrandExample();
+//        example.or().andDeletedEqualTo(false);
+//        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+//            example.setOrderByClause(sort + " " + order);
+//        }
+//        PageHelper.startPage(page, limit);
+//        return brandMapper.selectByExampleSelective(example, columns);
+        return querySelective(null,null,page,limit,sort,order);
     }
 
     public List<JindouyunBrand> query(Integer page, Integer limit) {
-        return query(page, limit, null, null);
+        return querySelective(null,null, page, limit, null, null);
     }
 
     public JindouyunBrand findByUserId(Integer userId){
@@ -78,7 +82,7 @@ public class JindouyunBrandService {
         }
 
         PageHelper.startPage(page, size);
-        return brandMapper.selectByExample(example);
+        return brandMapper.selectByExampleSelective(example,columns);
     }
 
     public int updateById(JindouyunBrand brand) {

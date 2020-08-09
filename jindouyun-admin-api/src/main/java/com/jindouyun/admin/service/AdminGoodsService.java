@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.jindouyun.admin.util.AdminResponseCode.GOODS_NAME_EXIST;
+import static com.jindouyun.admin.util.ValidateUtil.validate;
 
 
 @Service
@@ -62,84 +63,6 @@ public class AdminGoodsService {
     }
 
     /**
-     * 验证商品
-     * @param goodsAllinone
-     * @return
-     */
-    private Object validate(GoodsAllinone goodsAllinone) {
-        JindouyunGoods goods = goodsAllinone.getGoods();
-        String name = goods.getName();
-        if (StringUtils.isEmpty(name)) {
-            return ResponseUtil.badArgument();
-        }
-        String goodsSn = goods.getGoodsSn();
-        if (StringUtils.isEmpty(goodsSn)) {
-            return ResponseUtil.badArgument();
-        }
-        // 商家可以不设置，如果设置则需要验证商家存在
-        Integer brandId = goods.getBrandId();
-        if (brandId != null && brandId != 0) {
-            if (brandService.findById(brandId) == null) {
-                return ResponseUtil.badArgumentValue();
-            }
-        }
-        // 分类可以不设置，如果设置则需要验证分类存在
-        Integer categoryId = goods.getCategoryId();
-        if (categoryId != null && categoryId != 0) {
-            if (categoryService.findById(categoryId) == null) {
-                return ResponseUtil.badArgumentValue();
-            }
-        }
-
-//        验证商品属性
-        JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
-        for (JindouyunGoodsAttribute attribute : attributes) {
-            String attr = attribute.getAttribute();
-            if (StringUtils.isEmpty(attr)) {
-                return ResponseUtil.badArgument();
-            }
-            String value = attribute.getValue();
-            if (StringUtils.isEmpty(value)) {
-                return ResponseUtil.badArgument();
-            }
-        }
-
-        //验证商品Specification
-        JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
-        for (JindouyunGoodsSpecification specification : specifications) {
-            String spec = specification.getSpecification();
-            if (StringUtils.isEmpty(spec)) {
-                return ResponseUtil.badArgument();
-            }
-            String value = specification.getValue();
-            if (StringUtils.isEmpty(value)) {
-                return ResponseUtil.badArgument();
-            }
-        }
-
-        //验证商品规格
-        JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
-        for (JindouyunGoodsProduct product : products) {
-            Integer number = product.getNumber();
-            if (number == null || number < 0) {
-                return ResponseUtil.badArgument();
-            }
-
-            BigDecimal price = product.getPrice();
-            if (price == null) {
-                return ResponseUtil.badArgument();
-            }
-
-            String[] productSpecifications = product.getSpecifications();
-            if (productSpecifications.length == 0) {
-                return ResponseUtil.badArgument();
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * 编辑商品
      *
      * NOTE：
@@ -169,6 +92,21 @@ public class AdminGoodsService {
         }
 
         JindouyunGoods goods = goodsAllinone.getGoods();
+
+        Integer brandId = goods.getBrandId();
+        if (brandId != null && brandId != 0) {
+            if (brandService.findById(brandId) == null) {
+                return ResponseUtil.badArgumentValue();
+            }
+        }
+        // 分类可以不设置，如果设置则需要验证分类存在
+        Integer categoryId = goods.getCategoryId();
+        if (categoryId != null && categoryId != 0) {
+            if (categoryService.findById(categoryId) == null) {
+                return ResponseUtil.badArgumentValue();
+            }
+        }
+
         JindouyunGoodsAttribute[] attributes = goodsAllinone.getAttributes();
         JindouyunGoodsSpecification[] specifications = goodsAllinone.getSpecifications();
         JindouyunGoodsProduct[] products = goodsAllinone.getProducts();
@@ -198,8 +136,6 @@ public class AdminGoodsService {
         for (JindouyunGoodsSpecification specification : specifications) {
             // 目前只支持更新规格表的图片字段
             if(specification.getUpdateTime() == null){
-                specification.setSpecification(null);
-                specification.setValue(null);
                 specificationService.updateById(specification);
             }
         }

@@ -17,6 +17,9 @@ import java.util.List;
 @Service
 public class JindouyunGoodsService {
     Column[] columns = new Column[]{Column.id, Column.name, Column.brief, Column.picUrl, Column.originPrice, Column.nowPrice};
+    Column[] detailedColumns = new Column[]{Column.id, Column.goodsSn, Column.name, Column.categoryId,
+            Column.brandId, Column.gallery, Column.keywords, Column.brief, Column.isOnSale,
+            Column.picUrl, Column.originPrice, Column.nowPrice};
     @Resource
     private JindouyunGoodsMapper goodsMapper;
 
@@ -129,7 +132,7 @@ public class JindouyunGoodsService {
 
         PageHelper.startPage(offset, limit);
 
-        return goodsMapper.selectByExampleSelective(example, columns);
+        return goodsMapper.selectByExampleSelective(example, detailedColumns);
     }
 
     /**
@@ -163,7 +166,7 @@ public class JindouyunGoodsService {
         }
 
         PageHelper.startPage(page, size);
-        return goodsMapper.selectByExample(example);
+        return goodsMapper.selectByExampleSelective(example,detailedColumns);
     }
 
     /**
@@ -175,7 +178,7 @@ public class JindouyunGoodsService {
     public JindouyunGoods findById(Integer id) {
         JindouyunGoodsExample example = new JindouyunGoodsExample();
         example.or().andIdEqualTo(id).andDeletedEqualTo(false);
-        return goodsMapper.selectOneByExample(example);
+        return goodsMapper.selectOneByExampleSelective(example,detailedColumns);
     }
 
     /**
