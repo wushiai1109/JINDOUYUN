@@ -298,6 +298,7 @@ public class WxAuthController extends AuthServiceImpl {
      * @param body 手机号码 { mobile: xxx}
      * @return
      */
+    @Override
     @PostMapping("captcha")
     public Object captcha(@RequestBody String body) {
         String phoneNumber = JacksonUtil.parseString(body, "mobile");
@@ -390,6 +391,7 @@ public class WxAuthController extends AuthServiceImpl {
      * @param body
      * @return
      */
+    @Override
     @PostMapping("bindPhone")
     public Object bindPhone(@LoginUser Integer userId, @RequestBody String body) {
         if (userId == null) {
@@ -407,6 +409,7 @@ public class WxAuthController extends AuthServiceImpl {
         return ResponseUtil.ok();
     }
 
+    @Override
     @PostMapping("logout")
     public Object logout(@LoginUser Integer userId) {
         if (userId == null) {
@@ -415,6 +418,7 @@ public class WxAuthController extends AuthServiceImpl {
         return ResponseUtil.ok();
     }
 
+    @Override
     @GetMapping("info")
     public Object info(@LoginUser Integer userId) {
 //        System.out.println(userId);

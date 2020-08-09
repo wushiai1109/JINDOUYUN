@@ -12,6 +12,10 @@ public class DeliveryConstant {
     public static final byte TODAY_STATUS_REST = 0;
     public static final byte TODAY_STATUS_WORK = 1;
 
+    //骑手派送方式
+    public static final byte WORK_TYPE_WALK = 0;
+    public static final byte WORK_TYPE_RIDE = 1;
+
     //骑手工作状态
     public static final byte WORK_STATUS_NOT_WORKING = 0;
     public static final byte WORK_STATUS_WORKING_UNDELIVERED = 1;

@@ -205,5 +205,8 @@
         <table tableName="jindouyun_deliveries_performance">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="jindouyun_order_split">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

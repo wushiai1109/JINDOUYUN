@@ -56,7 +56,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    private Byte goodsOrderNum;
+    private Integer goodsOrderNum;
 
     /**
      *
@@ -65,7 +65,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    private Byte menuOrderNum;
+    private Integer menuOrderNum;
 
     /**
      *
@@ -74,7 +74,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    private Byte expressOrderNum;
+    private Integer expressOrderNum;
 
     /**
      *
@@ -191,7 +191,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    public Byte getGoodsOrderNum() {
+    public Integer getGoodsOrderNum() {
         return goodsOrderNum;
     }
 
@@ -203,7 +203,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    public void setGoodsOrderNum(Byte goodsOrderNum) {
+    public void setGoodsOrderNum(Integer goodsOrderNum) {
         this.goodsOrderNum = goodsOrderNum;
     }
 
@@ -215,7 +215,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    public Byte getMenuOrderNum() {
+    public Integer getMenuOrderNum() {
         return menuOrderNum;
     }
 
@@ -227,7 +227,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    public void setMenuOrderNum(Byte menuOrderNum) {
+    public void setMenuOrderNum(Integer menuOrderNum) {
         this.menuOrderNum = menuOrderNum;
     }
 
@@ -239,7 +239,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    public Byte getExpressOrderNum() {
+    public Integer getExpressOrderNum() {
         return expressOrderNum;
     }
 
@@ -251,7 +251,7 @@ public class JindouyunDeliveriesPerformance implements Serializable {
      *
      * @mbg.generated
      */
-    public void setExpressOrderNum(Byte expressOrderNum) {
+    public void setExpressOrderNum(Integer expressOrderNum) {
         this.expressOrderNum = expressOrderNum;
     }
 
@@ -494,9 +494,9 @@ public class JindouyunDeliveriesPerformance implements Serializable {
         id("id", "id", "INTEGER", false),
         userId("user_id", "userId", "INTEGER", false),
         todayWorkTime("today_work_time", "todayWorkTime", "INTEGER", false),
-        goodsOrderNum("goods_order_num", "goodsOrderNum", "TINYINT", false),
-        menuOrderNum("menu_order_num", "menuOrderNum", "TINYINT", false),
-        expressOrderNum("express_order_num", "expressOrderNum", "TINYINT", false),
+        goodsOrderNum("goods_order_num", "goodsOrderNum", "INTEGER", false),
+        menuOrderNum("menu_order_num", "menuOrderNum", "INTEGER", false),
+        expressOrderNum("express_order_num", "expressOrderNum", "INTEGER", false),
         addTime("add_time", "addTime", "TIMESTAMP", false),
         updateTime("update_time", "updateTime", "TIMESTAMP", false),
         deleted("deleted", "deleted", "BIT", false);
