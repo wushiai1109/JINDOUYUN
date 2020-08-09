@@ -651,7 +651,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumEqualTo(Byte value) {
+        public Criteria andGoodsOrderNumEqualTo(Integer value) {
             addCriterion("goods_order_num =", value, "goodsOrderNum");
             return (Criteria) this;
         }
@@ -667,7 +667,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumNotEqualTo(Byte value) {
+        public Criteria andGoodsOrderNumNotEqualTo(Integer value) {
             addCriterion("goods_order_num <>", value, "goodsOrderNum");
             return (Criteria) this;
         }
@@ -683,7 +683,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumGreaterThan(Byte value) {
+        public Criteria andGoodsOrderNumGreaterThan(Integer value) {
             addCriterion("goods_order_num >", value, "goodsOrderNum");
             return (Criteria) this;
         }
@@ -699,7 +699,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumGreaterThanOrEqualTo(Byte value) {
+        public Criteria andGoodsOrderNumGreaterThanOrEqualTo(Integer value) {
             addCriterion("goods_order_num >=", value, "goodsOrderNum");
             return (Criteria) this;
         }
@@ -715,7 +715,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumLessThan(Byte value) {
+        public Criteria andGoodsOrderNumLessThan(Integer value) {
             addCriterion("goods_order_num <", value, "goodsOrderNum");
             return (Criteria) this;
         }
@@ -731,7 +731,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumLessThanOrEqualTo(Byte value) {
+        public Criteria andGoodsOrderNumLessThanOrEqualTo(Integer value) {
             addCriterion("goods_order_num <=", value, "goodsOrderNum");
             return (Criteria) this;
         }
@@ -747,22 +747,22 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumIn(List<Byte> values) {
+        public Criteria andGoodsOrderNumIn(List<Integer> values) {
             addCriterion("goods_order_num in", values, "goodsOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumNotIn(List<Byte> values) {
+        public Criteria andGoodsOrderNumNotIn(List<Integer> values) {
             addCriterion("goods_order_num not in", values, "goodsOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumBetween(Byte value1, Byte value2) {
+        public Criteria andGoodsOrderNumBetween(Integer value1, Integer value2) {
             addCriterion("goods_order_num between", value1, value2, "goodsOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andGoodsOrderNumNotBetween(Byte value1, Byte value2) {
+        public Criteria andGoodsOrderNumNotBetween(Integer value1, Integer value2) {
             addCriterion("goods_order_num not between", value1, value2, "goodsOrderNum");
             return (Criteria) this;
         }
@@ -777,7 +777,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumEqualTo(Byte value) {
+        public Criteria andMenuOrderNumEqualTo(Integer value) {
             addCriterion("menu_order_num =", value, "menuOrderNum");
             return (Criteria) this;
         }
@@ -793,7 +793,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumNotEqualTo(Byte value) {
+        public Criteria andMenuOrderNumNotEqualTo(Integer value) {
             addCriterion("menu_order_num <>", value, "menuOrderNum");
             return (Criteria) this;
         }
@@ -809,7 +809,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumGreaterThan(Byte value) {
+        public Criteria andMenuOrderNumGreaterThan(Integer value) {
             addCriterion("menu_order_num >", value, "menuOrderNum");
             return (Criteria) this;
         }
@@ -825,7 +825,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumGreaterThanOrEqualTo(Byte value) {
+        public Criteria andMenuOrderNumGreaterThanOrEqualTo(Integer value) {
             addCriterion("menu_order_num >=", value, "menuOrderNum");
             return (Criteria) this;
         }
@@ -841,7 +841,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumLessThan(Byte value) {
+        public Criteria andMenuOrderNumLessThan(Integer value) {
             addCriterion("menu_order_num <", value, "menuOrderNum");
             return (Criteria) this;
         }
@@ -857,7 +857,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumLessThanOrEqualTo(Byte value) {
+        public Criteria andMenuOrderNumLessThanOrEqualTo(Integer value) {
             addCriterion("menu_order_num <=", value, "menuOrderNum");
             return (Criteria) this;
         }
@@ -873,22 +873,22 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumIn(List<Byte> values) {
+        public Criteria andMenuOrderNumIn(List<Integer> values) {
             addCriterion("menu_order_num in", values, "menuOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumNotIn(List<Byte> values) {
+        public Criteria andMenuOrderNumNotIn(List<Integer> values) {
             addCriterion("menu_order_num not in", values, "menuOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumBetween(Byte value1, Byte value2) {
+        public Criteria andMenuOrderNumBetween(Integer value1, Integer value2) {
             addCriterion("menu_order_num between", value1, value2, "menuOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andMenuOrderNumNotBetween(Byte value1, Byte value2) {
+        public Criteria andMenuOrderNumNotBetween(Integer value1, Integer value2) {
             addCriterion("menu_order_num not between", value1, value2, "menuOrderNum");
             return (Criteria) this;
         }
@@ -903,7 +903,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumEqualTo(Byte value) {
+        public Criteria andExpressOrderNumEqualTo(Integer value) {
             addCriterion("express_order_num =", value, "expressOrderNum");
             return (Criteria) this;
         }
@@ -919,7 +919,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumNotEqualTo(Byte value) {
+        public Criteria andExpressOrderNumNotEqualTo(Integer value) {
             addCriterion("express_order_num <>", value, "expressOrderNum");
             return (Criteria) this;
         }
@@ -935,7 +935,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumGreaterThan(Byte value) {
+        public Criteria andExpressOrderNumGreaterThan(Integer value) {
             addCriterion("express_order_num >", value, "expressOrderNum");
             return (Criteria) this;
         }
@@ -951,7 +951,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumGreaterThanOrEqualTo(Byte value) {
+        public Criteria andExpressOrderNumGreaterThanOrEqualTo(Integer value) {
             addCriterion("express_order_num >=", value, "expressOrderNum");
             return (Criteria) this;
         }
@@ -967,7 +967,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumLessThan(Byte value) {
+        public Criteria andExpressOrderNumLessThan(Integer value) {
             addCriterion("express_order_num <", value, "expressOrderNum");
             return (Criteria) this;
         }
@@ -983,7 +983,7 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumLessThanOrEqualTo(Byte value) {
+        public Criteria andExpressOrderNumLessThanOrEqualTo(Integer value) {
             addCriterion("express_order_num <=", value, "expressOrderNum");
             return (Criteria) this;
         }
@@ -999,22 +999,22 @@ public class JindouyunDeliveriesPerformanceExample {
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumIn(List<Byte> values) {
+        public Criteria andExpressOrderNumIn(List<Integer> values) {
             addCriterion("express_order_num in", values, "expressOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumNotIn(List<Byte> values) {
+        public Criteria andExpressOrderNumNotIn(List<Integer> values) {
             addCriterion("express_order_num not in", values, "expressOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumBetween(Byte value1, Byte value2) {
+        public Criteria andExpressOrderNumBetween(Integer value1, Integer value2) {
             addCriterion("express_order_num between", value1, value2, "expressOrderNum");
             return (Criteria) this;
         }
 
-        public Criteria andExpressOrderNumNotBetween(Byte value1, Byte value2) {
+        public Criteria andExpressOrderNumNotBetween(Integer value1, Integer value2) {
             addCriterion("express_order_num not between", value1, value2, "expressOrderNum");
             return (Criteria) this;
         }

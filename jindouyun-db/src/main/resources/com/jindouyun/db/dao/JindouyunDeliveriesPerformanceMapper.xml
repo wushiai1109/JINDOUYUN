@@ -9,9 +9,9 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="today_work_time" jdbcType="INTEGER" property="todayWorkTime" />
-    <result column="goods_order_num" jdbcType="TINYINT" property="goodsOrderNum" />
-    <result column="menu_order_num" jdbcType="TINYINT" property="menuOrderNum" />
-    <result column="express_order_num" jdbcType="TINYINT" property="expressOrderNum" />
+    <result column="goods_order_num" jdbcType="INTEGER" property="goodsOrderNum" />
+    <result column="menu_order_num" jdbcType="INTEGER" property="menuOrderNum" />
+    <result column="express_order_num" jdbcType="INTEGER" property="expressOrderNum" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -118,7 +118,7 @@
       distinct
     </if>
     <choose>
-      <when test="selective != null and selective.length > 0">
+      <when test="selective != null and selective.length &gt; 0">
         <foreach collection="selective" item="column" separator=",">
           ${column.aliasedEscapedColumnName}
         </foreach>
@@ -171,7 +171,7 @@
     -->
     select
     <choose>
-      <when test="selective != null and selective.length > 0">
+      <when test="selective != null and selective.length &gt; 0">
         <foreach collection="selective" item="column" separator=",">
           ${column.aliasedEscapedColumnName}
         </foreach>
@@ -212,8 +212,8 @@
     insert into jindouyun_deliveries_performance (user_id, today_work_time, goods_order_num, 
       menu_order_num, express_order_num, add_time, 
       update_time, deleted)
-    values (#{userId,jdbcType=INTEGER}, #{todayWorkTime,jdbcType=INTEGER}, #{goodsOrderNum,jdbcType=TINYINT}, 
-      #{menuOrderNum,jdbcType=TINYINT}, #{expressOrderNum,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP}, 
+    values (#{userId,jdbcType=INTEGER}, #{todayWorkTime,jdbcType=INTEGER}, #{goodsOrderNum,jdbcType=INTEGER}, 
+      #{menuOrderNum,jdbcType=INTEGER}, #{expressOrderNum,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.jindouyun.db.domain.JindouyunDeliveriesPerformance">
@@ -259,13 +259,13 @@
         #{todayWorkTime,jdbcType=INTEGER},
       </if>
       <if test="goodsOrderNum != null">
-        #{goodsOrderNum,jdbcType=TINYINT},
+        #{goodsOrderNum,jdbcType=INTEGER},
       </if>
       <if test="menuOrderNum != null">
-        #{menuOrderNum,jdbcType=TINYINT},
+        #{menuOrderNum,jdbcType=INTEGER},
       </if>
       <if test="expressOrderNum != null">
-        #{expressOrderNum,jdbcType=TINYINT},
+        #{expressOrderNum,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -305,13 +305,13 @@
         today_work_time = #{record.todayWorkTime,jdbcType=INTEGER},
       </if>
       <if test="record.goodsOrderNum != null">
-        goods_order_num = #{record.goodsOrderNum,jdbcType=TINYINT},
+        goods_order_num = #{record.goodsOrderNum,jdbcType=INTEGER},
       </if>
       <if test="record.menuOrderNum != null">
-        menu_order_num = #{record.menuOrderNum,jdbcType=TINYINT},
+        menu_order_num = #{record.menuOrderNum,jdbcType=INTEGER},
       </if>
       <if test="record.expressOrderNum != null">
-        express_order_num = #{record.expressOrderNum,jdbcType=TINYINT},
+        express_order_num = #{record.expressOrderNum,jdbcType=INTEGER},
       </if>
       <if test="record.addTime != null">
         add_time = #{record.addTime,jdbcType=TIMESTAMP},
@@ -336,9 +336,9 @@
     set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
       today_work_time = #{record.todayWorkTime,jdbcType=INTEGER},
-      goods_order_num = #{record.goodsOrderNum,jdbcType=TINYINT},
-      menu_order_num = #{record.menuOrderNum,jdbcType=TINYINT},
-      express_order_num = #{record.expressOrderNum,jdbcType=TINYINT},
+      goods_order_num = #{record.goodsOrderNum,jdbcType=INTEGER},
+      menu_order_num = #{record.menuOrderNum,jdbcType=INTEGER},
+      express_order_num = #{record.expressOrderNum,jdbcType=INTEGER},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       deleted = #{record.deleted,jdbcType=BIT}
@@ -360,13 +360,13 @@
         today_work_time = #{todayWorkTime,jdbcType=INTEGER},
       </if>
       <if test="goodsOrderNum != null">
-        goods_order_num = #{goodsOrderNum,jdbcType=TINYINT},
+        goods_order_num = #{goodsOrderNum,jdbcType=INTEGER},
       </if>
       <if test="menuOrderNum != null">
-        menu_order_num = #{menuOrderNum,jdbcType=TINYINT},
+        menu_order_num = #{menuOrderNum,jdbcType=INTEGER},
       </if>
       <if test="expressOrderNum != null">
-        express_order_num = #{expressOrderNum,jdbcType=TINYINT},
+        express_order_num = #{expressOrderNum,jdbcType=INTEGER},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -388,9 +388,9 @@
     update jindouyun_deliveries_performance
     set user_id = #{userId,jdbcType=INTEGER},
       today_work_time = #{todayWorkTime,jdbcType=INTEGER},
-      goods_order_num = #{goodsOrderNum,jdbcType=TINYINT},
-      menu_order_num = #{menuOrderNum,jdbcType=TINYINT},
-      express_order_num = #{expressOrderNum,jdbcType=TINYINT},
+      goods_order_num = #{goodsOrderNum,jdbcType=INTEGER},
+      menu_order_num = #{menuOrderNum,jdbcType=INTEGER},
+      express_order_num = #{expressOrderNum,jdbcType=INTEGER},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
@@ -419,7 +419,7 @@
     -->
     select
     <choose>
-      <when test="selective != null and selective.length > 0">
+      <when test="selective != null and selective.length &gt; 0">
         <foreach collection="selective" item="column" separator=",">
           ${column.aliasedEscapedColumnName}
         </foreach>

@@ -244,9 +244,18 @@ public class WxCartController {
             }
         }
 
+        Integer[] cartIds1 = new Integer[1];
+        Integer[] cartIds2 = new Integer[1];
+        if (existCart != null) {
+            cartIds1[0] = existCart.getId();
+        } else {
+            cartIds2[0] = cart.getId();
+        }
+
+
 //        return ResponseUtil.ok(existCart != null ? existCart.getId() : cart.getId());
-        return existCart != null ? checkout(userId, existCart.getId(), null, null, null)
-                : checkout(userId, cart.getId(), null, null, null);
+        return existCart != null ? checkout(userId, cartIds1, null, null, null)
+                : checkout(userId, cartIds2, null, null, null);
     }
 
     /**
@@ -405,7 +414,7 @@ public class WxCartController {
      * 购物车下单
      *
      * @param userId       用户ID
-     * @param cartId       购物车商品ID：
+     * @param cartIds       购物车商品ID：
      *                     如果购物车商品ID是空，则下单当前用户所有购物车商品；
      *                     如果购物车商品ID非空，则只下单当前购物车商品。
      * @param addressId    收货地址ID：
@@ -416,7 +425,7 @@ public class WxCartController {
      * @return 购物车操作结果
      */
     @GetMapping("checkout")
-    public Object checkout(@LoginUser Integer userId, Integer cartId, Integer addressId, Integer couponId, Integer userCouponId/*, Integer grouponRulesId*/) {
+    public Object checkout(@LoginUser Integer userId, Integer[] cartIds, Integer addressId, Integer couponId, Integer userCouponId/*, Integer grouponRulesId*/) {
         System.out.println("couponId" + couponId);
         System.out.println("userCouponId" + userCouponId);
         if (userId == null) {
@@ -452,24 +461,41 @@ public class WxCartController {
 //        }
 
         // 商品价格
-        List<JindouyunCart> checkedGoodsList = null;
+        List<JindouyunCart> checkedGoodsList = new ArrayList<>();
 
         //商品是否是外卖，是则赋值为外卖商家id
         Integer brandId = 0;
 
-        if (cartId == null || cartId.equals(0)) {
+//        if (cartId == null || cartId.equals(0)) {
+//            checkedGoodsList = cartService.queryByUidAndChecked(userId);
+//        } else {
+//            JindouyunCart cart = cartService.findById(cartId);
+//            if (cart == null) {
+//                return ResponseUtil.badArgumentValue();
+//            }
+//            checkedGoodsList = new ArrayList<>(1);
+//            checkedGoodsList.add(cart);
+//            // 商品信息
+//            JindouyunGoods goods = goodsService.findById(cart.getGoodsId());
+//            if (goods.getBrandId() != 0) {
+//                brandId = goods.getBrandId();
+//            }
+//
+//        }
+        if (cartIds == null || cartIds.length == 0) {
             checkedGoodsList = cartService.queryByUidAndChecked(userId);
         } else {
-            JindouyunCart cart = cartService.findById(cartId);
-            if (cart == null) {
-                return ResponseUtil.badArgumentValue();
-            }
-            checkedGoodsList = new ArrayList<>(1);
-            checkedGoodsList.add(cart);
-            // 商品信息
-            JindouyunGoods goods = goodsService.findById(cart.getGoodsId());
-            if (goods.getBrandId() != 0) {
-                brandId = goods.getBrandId();
+            for (Integer cartId : cartIds) {
+                JindouyunCart cart = cartService.findById(cartId);
+                if (cart == null) {
+                    return ResponseUtil.badArgumentValue();
+                }
+                checkedGoodsList.add(cart);
+                // 商品信息
+                JindouyunGoods goods = goodsService.findById(cart.getGoodsId());
+                if (goods.getBrandId() != 0) {
+                    brandId = goods.getBrandId();
+                }
             }
 
         }
@@ -552,7 +578,7 @@ public class WxCartController {
         data.put("addressId", addressId);
         data.put("couponId", couponId);
         data.put("userCouponId", userCouponId);
-        data.put("cartId", cartId);
+        data.put("cartIds", cartIds);
         data.put("checkedAddress", checkedAddress);
         data.put("availableCouponLength", availableCouponLength);
         data.put("goodsTotalPrice", checkedGoodsPrice);
