@@ -310,4 +310,10 @@ public class JindouyunGoodsService {
 
         return goodsMapper.selectByExampleSelective(example, columns);
     }
+
+    public JindouyunGoods findByGoodsSn(String goodsSn) {
+        JindouyunGoodsExample example = new JindouyunGoodsExample();
+        example.or().andGoodsSnEqualTo(goodsSn).andDeletedEqualTo(false);
+        return goodsMapper.selectOneByExample(example);
+    }
 }
