@@ -930,10 +930,10 @@ public class WxOrderService {
             return ResponseUtil.badArgumentValue();
         }
 
-        OrderHandleOption handleOption = OrderUtil.build(order);
-        if (!handleOption.isConfirm()) {
-            return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能确认收货");
-        }
+//        OrderHandleOption handleOption = OrderUtil.build(order);
+//        if (!handleOption.isConfirm()) {
+//            return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能确认收货");
+//        }
 
         Short comments = orderGoodsService.getComments(orderId);
         order.setComments(comments);
