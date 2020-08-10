@@ -50,9 +50,9 @@ public class OrderUtil {
             return "已取消(系统)";
         }
 
-        if (status == 200) {
-            return "已付款团购";
-        }
+//        if (status == 200) {
+//            return "已付款团购";
+//        }
 
         if (status == 201) {
             return "已付款";
@@ -66,9 +66,9 @@ public class OrderUtil {
             return "已退款";
         }
 
-        if (status == 204) {
-            return "已超时团购";
-        }
+//        if (status == 204) {
+//            return "已超时团购";
+//        }
 
         if (status == 301) {
             return "已发货";

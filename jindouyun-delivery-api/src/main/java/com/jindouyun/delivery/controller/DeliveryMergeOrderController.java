@@ -9,8 +9,11 @@ import com.jindouyun.db.service.JindouyunMergeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.LocalDateTime.now;
 
 /**
  * @ClassName DeliveryManageOrderController
@@ -31,6 +34,8 @@ public class DeliveryMergeOrderController {
 
 
     /**
+     * 完成订单
+     *
      * @param userId
      * @return
      */
@@ -42,12 +47,49 @@ public class DeliveryMergeOrderController {
         List<JindouyunGrabOrder> grabOrderList = grabOrderService.selectAllOrder(userId);
         List<JindouyunMergeOrder> mergeOrderList = new ArrayList<>();
         for (JindouyunGrabOrder grabOrder : grabOrderList) {
-            JindouyunMergeOrder mergeOrder = mergeOrderService.selectById(grabOrder.getOrderId());
-            if (mergeOrder.getStatus() != null && mergeOrder.getStatus() == 2){
+            JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(grabOrder.getOrderId());
+            if (mergeOrder.getStatus() != null && mergeOrder.getStatus() == 2) {
                 mergeOrderList.add(mergeOrder);
             }
         }
         return ResponseUtil.ok(mergeOrderList);
+    }
+
+
+    /**
+     * 确认取件
+     *
+     * @param userId
+     * @return
+     */
+    @PostMapping("pickup")
+    public Object pickup(@LoginUser Integer userId, @RequestParam("orderId") Integer orderId) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+        JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(orderId);
+        mergeOrder.setStatus((byte)1);
+        mergeOrder.setPickupTime(LocalDateTime.now());
+        Object result = mergeOrderService.updateOrderStatus(mergeOrder);
+        return ResponseUtil.ok(mergeOrder);
+    }
+
+    /**
+     * 确认送达
+     *
+     * @param userId
+     * @return
+     */
+    @PostMapping("arrive")
+    public Object arrive(@LoginUser Integer userId, @RequestParam("orderId") Integer orderId) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+        JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(orderId);
+        mergeOrder.setStatus((byte)2);
+        mergeOrder.setArriveTime(LocalDateTime.now());
+        Object result = mergeOrderService.updateOrderStatus(mergeOrder);
+        return ResponseUtil.ok(mergeOrder);
     }
 
 
