@@ -27,6 +27,8 @@
     <result column="refund_type" jdbcType="VARCHAR" property="refundType" />
     <result column="refund_content" jdbcType="VARCHAR" property="refundContent" />
     <result column="refund_time" jdbcType="TIMESTAMP" property="refundTime" />
+    <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="pickup_time" jdbcType="TIMESTAMP" property="pickupTime" />
     <result column="confirm_time" jdbcType="TIMESTAMP" property="confirmTime" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -105,8 +107,8 @@
     -->
     id, user_id, merge_id, express_type, order_sn, order_status, consignee, mobile, address, 
     building, message, actual_price, pikeup_code, delivery_time, isWeight, pay_id, pay_time, 
-    refund_amount, refund_type, refund_content, refund_time, confirm_time, add_time, 
-    update_time, deleted
+    refund_amount, refund_type, refund_content, refund_time, receive_time, pickup_time, 
+    confirm_time, add_time, update_time, deleted
   </sql>
   <select id="selectByExample" parameterType="com.jindouyun.db.domain.JindouyunExpressOrderExample" resultMap="BaseResultMap">
     <!--
@@ -233,18 +235,18 @@
       message, actual_price, pikeup_code, 
       delivery_time, isWeight, pay_id, 
       pay_time, refund_amount, refund_type, 
-      refund_content, refund_time, confirm_time, 
-      add_time, update_time, deleted
-      )
+      refund_content, refund_time, receive_time, 
+      pickup_time, confirm_time, add_time, 
+      update_time, deleted)
     values (#{userId,jdbcType=INTEGER}, #{mergeId,jdbcType=INTEGER}, #{expressType,jdbcType=VARCHAR}, 
       #{orderSn,jdbcType=VARCHAR}, #{orderStatus,jdbcType=SMALLINT}, #{consignee,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{building,jdbcType=SMALLINT}, 
       #{message,jdbcType=VARCHAR}, #{actualPrice,jdbcType=DECIMAL}, #{pikeupCode,jdbcType=CHAR}, 
       #{deliveryTime,jdbcType=VARCHAR}, #{isweight,jdbcType=INTEGER}, #{payId,jdbcType=VARCHAR}, 
       #{payTime,jdbcType=TIMESTAMP}, #{refundAmount,jdbcType=DECIMAL}, #{refundType,jdbcType=VARCHAR}, 
-      #{refundContent,jdbcType=VARCHAR}, #{refundTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}, 
-      #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
-      )
+      #{refundContent,jdbcType=VARCHAR}, #{refundTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP}, 
+      #{pickupTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.jindouyun.db.domain.JindouyunExpressOrder">
     <!--
@@ -315,6 +317,12 @@
       </if>
       <if test="refundTime != null">
         refund_time,
+      </if>
+      <if test="receiveTime != null">
+        receive_time,
+      </if>
+      <if test="pickupTime != null">
+        pickup_time,
       </if>
       <if test="confirmTime != null">
         confirm_time,
@@ -389,6 +397,12 @@
       </if>
       <if test="refundTime != null">
         #{refundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiveTime != null">
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pickupTime != null">
+        #{pickupTime,jdbcType=TIMESTAMP},
       </if>
       <if test="confirmTime != null">
         #{confirmTime,jdbcType=TIMESTAMP},
@@ -484,6 +498,12 @@
       <if test="record.refundTime != null">
         refund_time = #{record.refundTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.receiveTime != null">
+        receive_time = #{record.receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.pickupTime != null">
+        pickup_time = #{record.pickupTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.confirmTime != null">
         confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
       </if>
@@ -528,6 +548,8 @@
       refund_type = #{record.refundType,jdbcType=VARCHAR},
       refund_content = #{record.refundContent,jdbcType=VARCHAR},
       refund_time = #{record.refundTime,jdbcType=TIMESTAMP},
+      receive_time = #{record.receiveTime,jdbcType=TIMESTAMP},
+      pickup_time = #{record.pickupTime,jdbcType=TIMESTAMP},
       confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
       add_time = #{record.addTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -603,6 +625,12 @@
       <if test="refundTime != null">
         refund_time = #{refundTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="receiveTime != null">
+        receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pickupTime != null">
+        pickup_time = #{pickupTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="confirmTime != null">
         confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
       </if>
@@ -644,6 +672,8 @@
       refund_type = #{refundType,jdbcType=VARCHAR},
       refund_content = #{refundContent,jdbcType=VARCHAR},
       refund_time = #{refundTime,jdbcType=TIMESTAMP},
+      receive_time = #{receiveTime,jdbcType=TIMESTAMP},
+      pickup_time = #{pickupTime,jdbcType=TIMESTAMP},
       confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
