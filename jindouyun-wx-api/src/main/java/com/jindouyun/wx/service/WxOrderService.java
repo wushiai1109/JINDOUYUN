@@ -51,6 +51,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.jindouyun.common.constant.WxResponseCode.*;
+
 /**
  * @ClassName WxOrderService
  * @Description * 订单服务
@@ -83,6 +84,10 @@ public class WxOrderService {
 
     @Autowired
     private JindouyunUserService userService;
+
+    @Autowired
+    private JindouyunGoodsService goodsService;
+
     @Autowired
     private JindouyunOrderService orderService;
     @Autowired
@@ -437,6 +442,8 @@ public class WxOrderService {
             // 订单商品
             JindouyunOrderGoods orderGoods = new JindouyunOrderGoods();
             orderGoods.setOrderId(order.getId());
+            JindouyunGoods goods = goodsService.findByGoodsSn(cartGoods.getGoodsSn());
+            orderGoods.setBrandId(goods.getBrandId());
             orderGoods.setGoodsId(cartGoods.getGoodsId());
             orderGoods.setGoodsSn(cartGoods.getGoodsSn());
             orderGoods.setProductId(cartGoods.getProductId());
@@ -536,17 +543,17 @@ public class WxOrderService {
         List<JindouyunOrderGoods> jindouyunOrderGoods = orderGoodsMapper.selectByExampleSelective(example);
         System.out.println(jindouyunOrderGoods);
 
-        List<Map<String,Object>> mapList = new ArrayList<>();
+        List<Map<String, Object>> mapList = new ArrayList<>();
 
         for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
             JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
-            if (jindouyunOrder.getUserId().intValue() == userId.intValue()){
-                Map<String,Object> map = new HashMap<>();
+            if (jindouyunOrder.getUserId().intValue() == userId.intValue()) {
+                Map<String, Object> map = new HashMap<>();
                 map.put("id", jindouyunOrder.getId());
                 map.put("orderSn", jindouyunOrder.getOrderSn());
                 map.put("actualPrice", jindouyunOrder.getActualPrice());
                 map.put("orderStatusText", OrderUtil.orderStatusText(jindouyunOrder));
-                map.put("goodsList",orderGoods);
+                map.put("goodsList", orderGoods);
                 mapList.add(map);
             }
         }
