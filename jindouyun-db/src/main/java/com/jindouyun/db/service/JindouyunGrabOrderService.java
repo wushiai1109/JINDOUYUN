@@ -32,4 +32,10 @@ public class JindouyunGrabOrderService {
         }
         return grabOrderMapper.insertSelective(jindouyunGrabOrder);
     }
+
+    public List<JindouyunGrabOrder> selectAllOrder(Integer userId) {
+        JindouyunGrabOrderExample example = new JindouyunGrabOrderExample();
+        example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false);
+        return grabOrderMapper.selectByExample(example);
+    }
 }
