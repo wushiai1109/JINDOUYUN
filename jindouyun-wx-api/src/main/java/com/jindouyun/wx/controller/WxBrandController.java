@@ -60,6 +60,8 @@ public class WxBrandController {
             map.put("desc", brand.getDesc());
             map.put("notice", brand.getNotice());
             map.put("picUrl", brand.getPicUrl());
+            map.put("startTime",brand.getStartTime());
+            map.put("endTime",brand.getEndTime());
             map.put("floorPrice", brand.getFloorPrice());
             map.put("couponList", couponList);
             mapList.add(map);
