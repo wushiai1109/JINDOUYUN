@@ -3,6 +3,7 @@ package com.jindouyun.db.service;
 import com.jindouyun.db.dao.JindouyunOrderGoodsMapper;
 import com.jindouyun.db.domain.JindouyunOrder;
 import com.jindouyun.db.domain.JindouyunOrderGoods;
+import com.jindouyun.db.domain.JindouyunOrderGoods.Column;
 import com.jindouyun.db.domain.JindouyunOrderGoodsExample;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,20 @@ import java.util.List;
 public class JindouyunOrderGoodsService {
     @Resource
     private JindouyunOrderGoodsMapper orderGoodsMapper;
+
+    Column[] columns = new Column[]{Column.id,Column.goodsName,Column.goodsSn,
+                                    Column.number,Column.specifications,Column.isArrive};
+
+    /**
+     * 根据splitOrderId 查询
+     * @param splitOrderId
+     * @return
+     */
+    public List<JindouyunOrderGoods> queryBySplitOrderId(Integer splitOrderId){
+        JindouyunOrderGoodsExample example = new JindouyunOrderGoodsExample();
+        example.or().andOrderIdEqualTo(splitOrderId).andDeletedEqualTo(false);
+        return orderGoodsMapper.selectByExampleSelective(example,columns);
+    }
 
     /**
      * 添加

@@ -1,7 +1,6 @@
-package com.jindouyun.admin.model.dto;
+package com.jindouyun.admin.model.vo;
 
 import com.jindouyun.db.domain.JindouyunExpressOrder;
-import com.jindouyun.db.domain.JindouyunOrderSplit;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

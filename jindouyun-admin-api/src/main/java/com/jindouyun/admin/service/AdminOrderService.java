@@ -4,10 +4,7 @@ import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-import com.jindouyun.admin.model.dto.MergeExpressInfo;
-import com.jindouyun.admin.model.dto.MergeExpressVO;
-import com.jindouyun.admin.model.dto.MergeInfo;
-import com.jindouyun.admin.model.dto.MergeVO;
+import com.jindouyun.admin.model.vo.*;
 import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.core.notify.NotifyType;
 import com.jindouyun.common.util.JacksonUtil;
@@ -15,7 +12,6 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.db.util.OrderUtil;
-import io.swagger.models.auth.In;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +41,8 @@ public class AdminOrderService {
     @Autowired
     private JindouyunUserService userService;
     @Autowired
+    private JindouyunBrandService brandService;
+    @Autowired
     private JindouyunOrderSplitService splitService;
     @Autowired
     private JindouyunMergeOrderService mergeOrderService;
@@ -56,6 +54,23 @@ public class AdminOrderService {
     private NotifyService notifyService;
     @Autowired
     private LogHelper logHelper;
+
+    /**
+     * 根据分单号 查询订单详情
+     * @param splitOrderId
+     * @return
+     */
+    public Object queryDetailBySplitId(Integer splitOrderId){
+        JindouyunOrderSplit orderSplit = splitService.queryById(splitOrderId);
+        if(orderSplit == null){
+            System.err.println("据分单号 查询订单详情 - splitOrder为 null");
+            return ResponseUtil.badArgument();
+        }
+        BrandVo brandVo = brandService.findBrandVoById(orderSplit.getBrandId());
+        List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryBySplitOrderId(splitOrderId);
+        AdminOrderSplitVO splitVO = new AdminOrderSplitVO(brandVo,orderSplit,orderGoodsList);
+        return ResponseUtil.ok(splitVO);
+    }
 
     /**
      * 条件查询 userId orderSn orderStatusArray
@@ -76,17 +91,25 @@ public class AdminOrderService {
     }
 
     /**
-     * 查询订单详情
+     * 查询用户订单详情
      * @param id
      * @return
      */
     public Object detail(Integer id) {
         JindouyunOrder order = orderService.findById(id);
-        List<JindouyunOrderGoods> orderGoods = orderGoodsService.queryByOid(id);
+        List<JindouyunOrderSplit> orderSplits = splitService.queryByOid(id);
+        List<AdminOrderSplitVO> splitOrderVOs = new ArrayList<>();
+        for (JindouyunOrderSplit orderSplit:orderSplits) {
+            BrandVo brandVo = brandService.findBrandVoById(orderSplit.getBrandId());
+            List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryBySplitOrderId(orderSplit.getOrderId());
+            AdminOrderSplitVO splitVO = new AdminOrderSplitVO(brandVo,orderSplit,orderGoodsList);
+            splitOrderVOs.add(splitVO);
+        }
+        System.err.println(order.getUserId());
         UserVo user = userService.findUserVoById(order.getUserId());
         Map<String, Object> data = new HashMap<>();
         data.put("order", order);
-        data.put("orderGoods", orderGoods);
+        data.put("splitOrders", splitOrderVOs);
         data.put("user", user);
 
         return ResponseUtil.ok(data);
@@ -295,7 +318,7 @@ public class AdminOrderService {
             //组织以合并订单，和未合并订单
             MergeVO mergeVO = new MergeVO();
             List<JindouyunOrderSplit> unMergeList = new ArrayList<>();
-            Map<Integer,MergeInfo> mergeMap = new HashMap<>();
+            Map<Integer, MergeInfo> mergeMap = new HashMap<>();
 
             for (JindouyunOrderSplit splitOrder:orderSplits) {
                 //未合并

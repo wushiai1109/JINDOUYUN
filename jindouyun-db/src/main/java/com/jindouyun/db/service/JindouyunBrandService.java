@@ -3,6 +3,7 @@ package com.jindouyun.db.service;
 import com.github.pagehelper.PageHelper;
 
 import com.jindouyun.db.dao.JindouyunBrandMapper;
+import com.jindouyun.db.domain.BrandVo;
 import com.jindouyun.db.domain.JindouyunBrand;
 import com.jindouyun.db.domain.JindouyunBrand.Column;
 import com.jindouyun.db.domain.JindouyunBrandExample;
@@ -21,6 +22,19 @@ public class JindouyunBrandService {
             Column.name, Column.desc, Column.notice, Column.picUrl, Column.startTime,
             Column.endTime, Column.deliveryPrice, Column.totalTurnover, Column.totalOrder,
             Column.floorPrice, Column.status};
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public BrandVo findBrandVoById(Integer id){
+        JindouyunBrand brand = findById(id);
+        BrandVo brandVo = new BrandVo();
+        brandVo.setId(brand.getId());
+        brandVo.setName(brand.getName());
+        return brandVo;
+    }
 
     /**
      * 分页查询所有商家

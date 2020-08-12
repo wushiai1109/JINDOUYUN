@@ -65,15 +65,23 @@ public class AdminOrderController {
     /**
      * 订单详情
      *
-     * @param id
+     * @param orderId
      * @return
      */
     @RequiresPermissions("admin:order:read")
-    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "详情")
+    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "用户订单详情")
     @GetMapping("/detail")
-    public Object detail(@NotNull Integer id) {
-        return adminOrderService.detail(id);
+    public Object detail(@NotNull Integer orderId) {
+        return adminOrderService.detail(orderId);
     }
+
+    @RequiresPermissions("admin:order:read")
+    @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "详情")
+    @GetMapping("/detailSplitOrder")
+    public Object detailSplitOrder(@NotNull Integer orderSplitId) {
+        return adminOrderService.queryDetailBySplitId(orderSplitId);
+    }
+
 
     /**
      * 订单退款

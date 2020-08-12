@@ -27,6 +27,17 @@ public class JindouyunOrderSplitService {
     @Resource
     private JindouyunOrderSplitMapper splitMapper;
 
+    /**
+     * 根据订单号查询
+     * @param oid
+     * @return
+     */
+    public List<JindouyunOrderSplit> queryByOid(Integer oid){
+        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+        example.or().andOrderIdEqualTo(oid);
+        return splitMapper.selectByExample(example);
+    }
+
     public int setMergeIdNull(Integer mergeId){
         JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
         orderSplit.setMergeId(-1);
@@ -53,6 +64,7 @@ public class JindouyunOrderSplitService {
 
     public JindouyunOrderSplit queryById(Integer id){return splitMapper.selectByPrimaryKey(id);
     }
+
 
     /**
      * 根据 mergerId brandId orderId 以及 orderStatus 查找
