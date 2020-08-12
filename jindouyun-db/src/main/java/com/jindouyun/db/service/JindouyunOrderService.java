@@ -5,6 +5,8 @@ import com.jindouyun.db.dao.JindouyunOrderGoodsMapper;
 import com.jindouyun.db.dao.JindouyunOrderMapper;
 import com.jindouyun.db.dao.OrderMapper;
 import com.jindouyun.db.domain.*;
+import com.jindouyun.db.domain.JindouyunOrder;
+import com.jindouyun.db.domain.JindouyunOrder.Column;
 import com.jindouyun.db.util.OrderUtil;
 import org.apache.ibatis.ognl.ObjectElementsAccessor;
 import org.springframework.stereotype.Service;
@@ -16,16 +18,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.jindouyun.common.util.CharUtil.getRandomNum;
+
 @Service
 public class JindouyunOrderService {
     @Resource
     private JindouyunOrderMapper jindouyunOrderMapper;
     @Resource
     private OrderMapper orderMapper;
-
     @Resource
     private JindouyunOrderGoodsMapper orderGoodsMapper;
 
+    private Column[] allColumns = Column.values();
     /**
      * 添加订单
      *
@@ -55,16 +59,6 @@ public class JindouyunOrderService {
         return jindouyunOrderMapper.selectByPrimaryKey(orderId);
     }
 
-    private String getRandomNum(Integer num) {
-        String base = "0123456789";
-        Random random = new Random();
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < num; i++) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
-        }
-        return sb.toString();
-    }
 
     /**
      * 查询 orderSn和userId 同时满足的数量
@@ -102,20 +96,21 @@ public class JindouyunOrderService {
      * @return
      */
     public List<JindouyunOrder> queryByOrderStatus(Integer userId, List<Short> orderStatus, Integer page, Integer limit, String sort, String order) {
-        JindouyunOrderExample example = new JindouyunOrderExample();
-        example.setOrderByClause(JindouyunOrder.Column.addTime.desc());
-        JindouyunOrderExample.Criteria criteria = example.or();
-        criteria.andUserIdEqualTo(userId);
-        if (orderStatus != null) {
-            criteria.andOrderStatusIn(orderStatus);
-        }
-        criteria.andDeletedEqualTo(false);
-        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-            example.setOrderByClause(sort + " " + order);
-        }
-
-        PageHelper.startPage(page, limit);
-        return jindouyunOrderMapper.selectByExample(example);
+//        JindouyunOrderExample example = new JindouyunOrderExample();
+//        example.setOrderByClause(JindouyunOrder.Column.addTime.desc());
+//        JindouyunOrderExample.Criteria criteria = example.or();
+//        criteria.andUserIdEqualTo(userId);
+//        if (orderStatus != null) {
+//            criteria.andOrderStatusIn(orderStatus);
+//        }
+//        criteria.andDeletedEqualTo(false);
+//        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+//            example.setOrderByClause(sort + " " + order);
+//        }
+//
+//        PageHelper.startPage(page, limit);
+//        return jindouyunOrderMapper.selectByExample(example);
+        return queryGoodsOrderSelective(userId,null,null,null,null,null,null,null,orderStatus,page,limit,sort,order,allColumns);
     }
 
     /**
@@ -131,26 +126,94 @@ public class JindouyunOrderService {
      * @return
      */
     public List<JindouyunOrder> querySelective(Integer userId, String orderSn, List<Short> orderStatusArray, Integer page, Integer limit, String sort, String order) {
+//        JindouyunOrderExample example = new JindouyunOrderExample();
+//        JindouyunOrderExample.Criteria criteria = example.createCriteria();
+//
+//        if (userId != null) {
+//            criteria.andUserIdEqualTo(userId);
+//        }
+//        if (!StringUtils.isEmpty(orderSn)) {
+//            criteria.andOrderSnEqualTo(orderSn);
+//        }
+//        if (orderStatusArray != null && orderStatusArray.size() != 0) {
+//            criteria.andOrderStatusIn(orderStatusArray);
+//        }
+//        criteria.andDeletedEqualTo(false);
+//
+//        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+//            example.setOrderByClause(sort + " " + order);
+//        }
+//
+//        PageHelper.startPage(page, limit);
+//        return jindouyunOrderMapper.selectByExample(example);
+        return queryGoodsOrderSelective(userId,orderSn,null,null,null,null,null,null,orderStatusArray,
+                page,limit,sort,order,allColumns);
+    }
+
+    public List<JindouyunOrder> queryGoodsOrderIdsSelective(Integer userId, String orderSn, String name, String mobile,
+                                                         Short building, String address, LocalDateTime startTime, LocalDateTime endTime,
+                                                         List<Short> orderStatusArray, Integer page,
+                                                         Integer limit, String sort, String order){
+        return queryGoodsOrderSelective(userId, orderSn, name, mobile, building, address, startTime, endTime, orderStatusArray, page, limit, sort, order, new Column[]{Column.id});
+    }
+
+    /**
+     * 查询
+     * @param userId
+     * @param building
+     * @param address
+     * @param startTime
+     * @param endTime
+     * @param orderStatusArray
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @return
+     */
+    public List<JindouyunOrder> queryGoodsOrderSelective(Integer userId, String orderSn, String name, String mobile,
+                                                         Short building, String address, LocalDateTime startTime, LocalDateTime endTime,
+                                                         List<Short> orderStatusArray, Integer page,
+                                                         Integer limit, String sort, String order, Column[] columns){
         JindouyunOrderExample example = new JindouyunOrderExample();
         JindouyunOrderExample.Criteria criteria = example.createCriteria();
 
         if (userId != null) {
             criteria.andUserIdEqualTo(userId);
         }
-        if (!StringUtils.isEmpty(orderSn)) {
+        if (!StringUtils.isEmpty(orderSn)){
             criteria.andOrderSnEqualTo(orderSn);
+        }
+        if (!StringUtils.isEmpty(name)){
+            criteria.andConsigneeEqualTo(name);
+        }
+        if (!StringUtils.isEmpty(mobile)){
+            criteria.andMobileEqualTo(mobile);
+        }
+        if (building != null){
+            criteria.andBuildingEqualTo(building);
+        }
+        if (!StringUtils.isEmpty(address)){
+            criteria.andAddressEqualTo("%" + address + "%");
+        }
+        if (startTime != null && endTime !=null){
+            criteria.andAddTimeBetween(startTime,endTime);
         }
         if (orderStatusArray != null && orderStatusArray.size() != 0) {
             criteria.andOrderStatusIn(orderStatusArray);
         }
+
         criteria.andDeletedEqualTo(false);
 
         if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
             example.setOrderByClause(sort + " " + order);
         }
 
-        PageHelper.startPage(page, limit);
-        return jindouyunOrderMapper.selectByExample(example);
+        if(page!= null && limit != null){
+            PageHelper.startPage(page,limit);
+        }
+
+        return jindouyunOrderMapper.selectByExampleSelective(example,columns);
     }
 
     /**

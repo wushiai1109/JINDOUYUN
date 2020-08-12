@@ -4,15 +4,18 @@ import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
+import com.jindouyun.admin.model.dto.MergeExpressInfo;
+import com.jindouyun.admin.model.dto.MergeExpressVO;
+import com.jindouyun.admin.model.dto.MergeInfo;
+import com.jindouyun.admin.model.dto.MergeVO;
 import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.core.notify.NotifyType;
 import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.db.domain.JindouyunOrder;
-import com.jindouyun.db.domain.JindouyunOrderGoods;
-import com.jindouyun.db.domain.UserVo;
+import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.db.util.OrderUtil;
+import io.swagger.models.auth.In;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +42,15 @@ public class AdminOrderService {
     @Autowired
     private JindouyunOrderService orderService;
     @Autowired
+    private JindouyunExpressOrderService expressOrderService;
+    @Autowired
     private JindouyunGoodsProductService productService;
     @Autowired
     private JindouyunUserService userService;
+    @Autowired
+    private JindouyunOrderSplitService splitService;
+    @Autowired
+    private JindouyunMergeOrderService mergeOrderService;
     @Autowired
     private JindouyunCommentService commentService;
     @Autowired
@@ -265,4 +275,211 @@ public class AdminOrderService {
 //        return ResponseUtil.ok();
 //    }
 
+
+    public Object select(Byte type, Integer userId, Integer mergeId, String orderSn, Integer brandId,
+                                            String name, String mobile, Short building, String address, LocalDateTime startTime,LocalDateTime endTime,
+                                            List<Short> orderStatusArray, Integer page, Integer limit, String sort, String order){
+
+        List<Integer> orderIds;
+        Object reslut = null;
+        //查找符合条件的orderId列表
+        //商品（0） 外卖（0）
+        if( type == 0 || type == 1){
+            //查询所有符合条件的 商品订单
+            List<JindouyunOrder> orders = orderService.queryGoodsOrderIdsSelective(
+                    userId,orderSn,name,mobile,building,address,startTime,endTime,null,null,null,null,null);
+            orderIds = new ArrayList<>();
+            for (JindouyunOrder jindouyunOrder:orders) {
+                orderIds.add(jindouyunOrder.getId());
+            }
+            //查询所有订单下 的split_order,商品或者是外卖订单在此处区分
+            List<JindouyunOrderSplit> orderSplits = splitService.querySelective(type, mergeId,brandId,orderStatusArray,orderIds,page,limit,sort,order);
+
+            //组织以合并订单，和未合并订单
+            MergeVO mergeVO = new MergeVO();
+            List<JindouyunOrderSplit> unMergeList = new ArrayList<>();
+            Map<Integer,MergeInfo> mergeMap = new HashMap<>();
+
+            for (JindouyunOrderSplit splitOrder:orderSplits) {
+                //未合并
+                if(splitOrder.getMergeId() == -1 || splitOrder.getMergeId()==null){
+                    unMergeList.add(splitOrder);
+                //已合并
+                }else{
+                    Integer id = splitOrder.getMergeId();
+                    JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(id);
+                    if(mergeOrder != null){
+                        if(!mergeMap.containsKey(id)){
+                            MergeInfo mergeInfo = new MergeInfo();
+                            mergeInfo.setId(id);
+                            mergeInfo.setOrderSn(mergeOrder.getOrderSn());
+                            mergeInfo.setMessage(mergeOrder.getMessage());
+                            mergeInfo.setAllPrice(mergeOrder.getAllPrice());
+                            mergeInfo.setSplitOrder(new ArrayList<>());
+                        }
+                        MergeInfo mergeInfo = mergeMap.get(id);
+                        mergeInfo.getSplitOrder().add(splitOrder);
+                    }
+                }
+            }
+            mergeVO.setType(type);
+            mergeVO.setUnMergeList(unMergeList);
+            mergeVO.setMergeList((List<MergeInfo>)mergeMap.values());
+            reslut = mergeVO;
+        }else if(type == 2){
+            //查询所有符合条件的 快递订单
+            List<JindouyunExpressOrder> orders = expressOrderService.queryCommonOrderSelective(userId,mergeId,orderSn,name,mobile,building,address,
+                    startTime,endTime,orderStatusArray,page,limit,sort,order);
+            //组织以合并订单，和未合并订单
+            MergeExpressVO mergeExpressVO = new MergeExpressVO();
+            List<JindouyunExpressOrder> unMergeList = new ArrayList<>();
+            Map<Integer, MergeExpressInfo> mergeMap = new HashMap<>();
+
+            for (JindouyunExpressOrder expressOrder:orders) {
+                //未合并
+                if(expressOrder.getMergeId() == -1 || expressOrder.getMergeId()==null){
+                    unMergeList.add(expressOrder);
+                    //已合并
+                }else{
+                    Integer id = expressOrder.getMergeId();
+                    JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(id);
+                    if(mergeOrder != null){
+                        if(!mergeMap.containsKey(id)){
+                            MergeExpressInfo mergeExpressInfo = new MergeExpressInfo();
+                            mergeExpressInfo.setId(id);
+                            mergeExpressInfo.setOrderSn(mergeOrder.getOrderSn());
+                            mergeExpressInfo.setMessage(mergeOrder.getMessage());
+                            mergeExpressInfo.setAllPrice(mergeOrder.getAllPrice());
+                            mergeExpressInfo.setSplitOrder(new ArrayList<>());
+                        }
+                        MergeExpressInfo mergeExpressInfo = mergeMap.get(id);
+                        mergeExpressInfo.getSplitOrder().add(expressOrder);
+                    }
+                }
+            }
+            mergeExpressVO.setType(type);
+            mergeExpressVO.setUnMergeList(unMergeList);
+            mergeExpressVO.setMergeList((List<MergeExpressInfo>)mergeMap.values());
+            reslut = mergeExpressVO;
+        }else {
+            ResponseUtil.badArgument();
+        }
+
+        return ResponseUtil.ok(reslut);
+    }
+
+    /**
+     *  合并订单
+     * @param type
+     * @param adminId
+     * @param message
+     * @param release
+     * @param orderIds
+     * @return
+     */
+    @Transactional
+    public Object merge(Byte type, Integer adminId, String message, Byte release, List<Integer> orderIds) {
+
+        if (type != 0 || type != 1 || type != 2) {
+            System.err.println("订单合并 - type：" + type);
+            return ResponseUtil.badArgument();
+        }
+        JindouyunMergeOrder mergeOrder = new JindouyunMergeOrder();
+
+        String orderSn = mergeOrderService.generateOrderSn(adminId);
+        mergeOrder.setAdminId(adminId);
+        mergeOrder.setOrderSn(orderSn);
+        mergeOrder.setMessage(message);
+        mergeOrder.setType(type);
+        mergeOrder.setRelease(release);
+        mergeOrder.setStatus((byte) 0);
+        if (release == 1) {
+            mergeOrder.setReleaseTime(LocalDateTime.now().plusSeconds(30));
+        }
+
+        if (mergeOrderService.add(mergeOrder) == 0) {
+            System.err.println("订单合并 - 订单添加失败");
+            return ResponseUtil.fail();
+        }
+        mergeOrder = mergeOrderService.queryByAdminIdAndOrderSn(adminId, orderSn);
+        if (mergeOrder == null) {
+            System.err.println("订单合并 - 订单添加后，未查询到该计量");
+            return ResponseUtil.fail();
+        }
+        Short num = null;
+        BigDecimal allPrice = new BigDecimal(0);
+
+        // 合并订单
+        if (type == 0 || type == 1) {
+            for (Integer orderSplitId : orderIds) {
+                JindouyunOrderSplit orderSplit = splitService.queryById(orderSplitId);
+                if (orderSplit.getMergeId() == -1 || orderSplit.getMergeId()==null) {
+                    if (splitService.updateMergeId(orderSplitId, mergeOrder.getId()) != 0) {
+                        allPrice.add(orderSplit.getGoodsPrice());
+                        num++;
+                    }
+                }else{
+
+                }
+            }
+        } else if (type == 2) {
+            for (Integer orderSplitId : orderIds) {
+                JindouyunExpressOrder expressOrder = expressOrderService.queryById(orderSplitId);
+                if (expressOrder.getMergeId() == -1 || expressOrder.getMergeId() == null) {
+                    if (expressOrderService.updateMergeId(orderSplitId, mergeOrder.getId()) != 0) {
+                        allPrice.add(expressOrder.getActualPrice());
+                        num++;
+                    }
+                }
+            }
+        }
+        //
+        mergeOrder.setNum(num);
+        mergeOrder.setAllPrice(allPrice);
+
+        if(mergeOrderService.updateAllPriceAndNum(mergeOrder.getId(), allPrice, num) ==0 ){
+            return ResponseUtil.fail();
+        }
+        return ResponseUtil.ok();
+    }
+
+
+    /**
+     * 发布
+     * @param mergeId
+     * @param adminId
+     * @return
+     */
+    @Transactional
+    public Object release(Integer mergeId,Integer adminId){
+        JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(mergeId);
+        if(mergeOrder == null){
+            System.err.println("发布mergeOrder - mergeOrder不存在");
+            return ResponseUtil.badArgument();
+        }
+        if (mergeOrderService.updateRelease(mergeId,adminId)!=0){
+            return ResponseUtil.ok();
+        }
+        return ResponseUtil.fail();
+    }
+
+    /**
+     *
+     * @param mergeId
+     * @return
+     */
+    @Transactional
+    public Object delete(Byte type, Integer mergeId){
+        if(type == 0|| type == 1){
+            splitService.setMergeIdNull(mergeId);
+        }else if(type == 2){
+            expressOrderService.setMergeIdNull(mergeId);
+        }else{
+            return ResponseUtil.badArgument();
+        }
+        if(mergeOrderService.delete(mergeId)==0){
+            return ResponseUtil.badArgument();
+        }
+        return ResponseUtil.ok();
+    }
 }

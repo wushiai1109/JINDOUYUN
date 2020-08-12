@@ -4,6 +4,7 @@ import com.jindouyun.db.domain.JindouyunOrder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /*
  * 订单流程：下单成功－》支付订单－》发货－》收货
@@ -192,5 +193,16 @@ public class OrderUtil {
 
     public static boolean isAutoConfirmStatus(JindouyunOrder JindouyunOrder) {
         return OrderUtil.STATUS_AUTO_CONFIRM == JindouyunOrder.getOrderStatus().shortValue();
+    }
+
+    private String getRandomNum(Integer num) {
+        String base = "0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < num; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
     }
 }
