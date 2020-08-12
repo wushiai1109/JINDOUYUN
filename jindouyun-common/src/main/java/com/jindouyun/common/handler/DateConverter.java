@@ -26,6 +26,10 @@ public class DateConverter implements Converter<String, LocalDateTime> {
             return null;
         }
 
+        if("null".equals(value)){
+            return null;
+        }
+
         value = value.trim();
 
         try {

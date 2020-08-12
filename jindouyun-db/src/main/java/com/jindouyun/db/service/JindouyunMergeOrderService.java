@@ -47,6 +47,7 @@ public class JindouyunMergeOrderService {
      */
     public Integer updateRelease(Integer id,Integer adminId){
         JindouyunMergeOrder mergeOrder = new JindouyunMergeOrder();
+        mergeOrder.setId(id);
         mergeOrder.setAdminId(adminId);
         mergeOrder.setRelease((byte) 1);
         mergeOrder.setUpdateTime(LocalDateTime.now());
@@ -114,6 +115,7 @@ public class JindouyunMergeOrderService {
     public int add(JindouyunMergeOrder mergeOrder){
         mergeOrder.setAddTime(LocalDateTime.now());
         mergeOrder.setUpdateTime(LocalDateTime.now());
+        mergeOrder.setDeleted(false);
         return mergeOrderMapper.insert(mergeOrder);
     }
 

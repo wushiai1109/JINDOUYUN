@@ -5,10 +5,10 @@ import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.JindouyunAddressService;
+import com.jindouyun.db.service.JindouyunExpressOrderService;
 import com.jindouyun.db.service.JindouyunOrderService;
 import com.jindouyun.db.util.OrderUtil;
 import com.jindouyun.common.annotation.LoginUser;
-import com.jindouyun.wx.service.JindouyunExpressOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

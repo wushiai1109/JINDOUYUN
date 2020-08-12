@@ -121,7 +121,8 @@ public class AdminOrderController {
     public Object list(@RequestParam("type") Byte type,
                        Integer userId, Integer mergeId, String orderSn,Integer brandId,
                        String name, String mobile, Short building, String address,
-                       LocalDateTime startTime, LocalDateTime endTime,
+                       @RequestParam(defaultValue = "") LocalDateTime startTime,
+                       @RequestParam(defaultValue = "") LocalDateTime endTime,
                        @RequestParam(required = false) List<Short> orderStatusArray,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
@@ -141,7 +142,7 @@ public class AdminOrderController {
      */
     @RequiresPermissions("admin:order:merge")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单合并")
-    @GetMapping("/merge")
+    @PostMapping("/merge")
     public Object merge(@RequestParam("type") Byte type,@RequestParam("adminId") Integer adminId,
                         @RequestParam(value = "message", required = false) String message,
                         @RequestParam(value = "release") Byte release,
@@ -158,7 +159,7 @@ public class AdminOrderController {
      */
     @RequiresPermissions("admin:order:release")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "发布")
-    @GetMapping("/release")
+    @PostMapping("/release")
     public Object release(@RequestParam("mergeId") Integer mergeId,
                           @RequestParam("adminId") Integer adminId){
         return adminOrderService.release(mergeId,adminId);
@@ -171,7 +172,7 @@ public class AdminOrderController {
      */
     @RequiresPermissions("admin:order:delete")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "删除合并订单")
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public Object delete(@RequestParam("type") Byte type,
                          @RequestParam("mergeId") Integer mergeId){
         return adminOrderService.delete(type, mergeId);

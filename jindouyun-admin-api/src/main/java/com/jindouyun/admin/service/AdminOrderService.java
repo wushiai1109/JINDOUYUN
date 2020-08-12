@@ -25,10 +25,7 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.jindouyun.admin.util.AdminResponseCode.*;
 
@@ -302,7 +299,7 @@ public class AdminOrderService {
 
             for (JindouyunOrderSplit splitOrder:orderSplits) {
                 //未合并
-                if(splitOrder.getMergeId() == -1 || splitOrder.getMergeId()==null){
+                if(splitOrder.getMergeId() == null || splitOrder.getMergeId()== -1){
                     unMergeList.add(splitOrder);
                 //已合并
                 }else{
@@ -316,6 +313,7 @@ public class AdminOrderService {
                             mergeInfo.setMessage(mergeOrder.getMessage());
                             mergeInfo.setAllPrice(mergeOrder.getAllPrice());
                             mergeInfo.setSplitOrder(new ArrayList<>());
+                            mergeMap.put(id,mergeInfo);
                         }
                         MergeInfo mergeInfo = mergeMap.get(id);
                         mergeInfo.getSplitOrder().add(splitOrder);
@@ -324,7 +322,7 @@ public class AdminOrderService {
             }
             mergeVO.setType(type);
             mergeVO.setUnMergeList(unMergeList);
-            mergeVO.setMergeList((List<MergeInfo>)mergeMap.values());
+            mergeVO.setMergeList(new ArrayList<>(mergeMap.values()));
             reslut = mergeVO;
         }else if(type == 2){
             //查询所有符合条件的 快递订单
@@ -337,7 +335,7 @@ public class AdminOrderService {
 
             for (JindouyunExpressOrder expressOrder:orders) {
                 //未合并
-                if(expressOrder.getMergeId() == -1 || expressOrder.getMergeId()==null){
+                if(expressOrder.getMergeId() == null || expressOrder.getMergeId()== -1){
                     unMergeList.add(expressOrder);
                     //已合并
                 }else{
@@ -351,6 +349,7 @@ public class AdminOrderService {
                             mergeExpressInfo.setMessage(mergeOrder.getMessage());
                             mergeExpressInfo.setAllPrice(mergeOrder.getAllPrice());
                             mergeExpressInfo.setSplitOrder(new ArrayList<>());
+                            mergeMap.put(id,mergeExpressInfo);
                         }
                         MergeExpressInfo mergeExpressInfo = mergeMap.get(id);
                         mergeExpressInfo.getSplitOrder().add(expressOrder);
@@ -359,7 +358,7 @@ public class AdminOrderService {
             }
             mergeExpressVO.setType(type);
             mergeExpressVO.setUnMergeList(unMergeList);
-            mergeExpressVO.setMergeList((List<MergeExpressInfo>)mergeMap.values());
+            mergeExpressVO.setMergeList(new ArrayList<>(mergeMap.values()));
             reslut = mergeExpressVO;
         }else {
             ResponseUtil.badArgument();
@@ -380,7 +379,7 @@ public class AdminOrderService {
     @Transactional
     public Object merge(Byte type, Integer adminId, String message, Byte release, List<Integer> orderIds) {
 
-        if (type != 0 || type != 1 || type != 2) {
+        if (type != 0 && type != 1 && type != 2) {
             System.err.println("订单合并 - type：" + type);
             return ResponseUtil.badArgument();
         }
@@ -406,14 +405,14 @@ public class AdminOrderService {
             System.err.println("订单合并 - 订单添加后，未查询到该计量");
             return ResponseUtil.fail();
         }
-        Short num = null;
+        Short num = 0;
         BigDecimal allPrice = new BigDecimal(0);
 
         // 合并订单
         if (type == 0 || type == 1) {
             for (Integer orderSplitId : orderIds) {
                 JindouyunOrderSplit orderSplit = splitService.queryById(orderSplitId);
-                if (orderSplit.getMergeId() == -1 || orderSplit.getMergeId()==null) {
+                if (orderSplit.getMergeId() == null || orderSplit.getMergeId()== -1) {
                     if (splitService.updateMergeId(orderSplitId, mergeOrder.getId()) != 0) {
                         allPrice.add(orderSplit.getGoodsPrice());
                         num++;
@@ -425,7 +424,7 @@ public class AdminOrderService {
         } else if (type == 2) {
             for (Integer orderSplitId : orderIds) {
                 JindouyunExpressOrder expressOrder = expressOrderService.queryById(orderSplitId);
-                if (expressOrder.getMergeId() == -1 || expressOrder.getMergeId() == null) {
+                if (expressOrder.getMergeId() == null || expressOrder.getMergeId() == -1) {
                     if (expressOrderService.updateMergeId(orderSplitId, mergeOrder.getId()) != 0) {
                         allPrice.add(expressOrder.getActualPrice());
                         num++;
@@ -440,7 +439,7 @@ public class AdminOrderService {
         if(mergeOrderService.updateAllPriceAndNum(mergeOrder.getId(), allPrice, num) ==0 ){
             return ResponseUtil.fail();
         }
-        return ResponseUtil.ok();
+        return ResponseUtil.ok(mergeOrder);
     }
 
 
