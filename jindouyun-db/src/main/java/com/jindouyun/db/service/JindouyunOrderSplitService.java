@@ -116,12 +116,12 @@ public class JindouyunOrderSplitService {
         return splitMapper.selectByExample(example);
     }
 
-    public int add(JindouyunOrderSplit orderSplit){
-        orderSplit.setAddTime(LocalDateTime.now());
-        orderSplit.setUpdateTime(LocalDateTime.now());
-        orderSplit.setDeleted(false);
-        return splitMapper.insertSelective(orderSplit);
-    }
+//    public int add(JindouyunOrderSplit orderSplit){
+//        orderSplit.setAddTime(LocalDateTime.now());
+//        orderSplit.setUpdateTime(LocalDateTime.now());
+//        orderSplit.setDeleted(false);
+//        return splitMapper.insertSelective(orderSplit);
+//    }
 
 
     public int add(JindouyunOrderSplit orderSplit) {
@@ -130,9 +130,9 @@ public class JindouyunOrderSplitService {
         return splitMapper.insertSelective(orderSplit);
     }
 
-    public List<JindouyunOrderSplit> queryByOid(Integer id) {
-        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
-        example.or().andOrderIdEqualTo(id).andDeletedEqualTo(false);
-        return splitMapper.selectByExample(example);
-    }
+//    public List<JindouyunOrderSplit> queryByOid(Integer id) {
+//        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+//        example.or().andOrderIdEqualTo(id).andDeletedEqualTo(false);
+//        return splitMapper.selectByExample(example);
+//    }
 }

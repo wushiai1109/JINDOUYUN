@@ -23,53 +23,60 @@ import java.util.List;
 @Service
 public class JindouyunExpressOrderService {
 
-    Column[] columns = new Column[]{Column.id,Column.userId,Column.expressType,Column.orderSn,
-                                    Column.orderStatus,Column.consignee,Column.mobile,Column.address,
-                                    Column.building,Column.message,Column.actualPrice,
-                                    Column.deliveryTime,Column.isweight};
+    Column[] columns = new Column[]{Column.id, Column.userId, Column.expressType, Column.orderSn,
+            Column.orderStatus, Column.consignee, Column.mobile, Column.address,
+            Column.building, Column.message, Column.actualPrice,
+            Column.deliveryTime, Column.isweight};
 
     @Resource
     private JindouyunExpressOrderMapper expressOrderMapper;
 
     /**
      * 将Merge设为-1
+     *
      * @param mergeId
      * @return
      */
-    public int setMergeIdNull(Integer mergeId){
+    public int setMergeIdNull(Integer mergeId) {
         JindouyunExpressOrder expressOrder = new JindouyunExpressOrder();
         expressOrder.setMergeId(-1);
         expressOrder.setUpdateTime(LocalDateTime.now());
         JindouyunExpressOrderExample example = new JindouyunExpressOrderExample();
-        example.or().andMergeIdEqualTo(mergeId).andOrderStatusIn(new ArrayList<>(){{add((short)301);}});
-        return expressOrderMapper.updateByExampleSelective(expressOrder,example);
+        example.or().andMergeIdEqualTo(mergeId).andOrderStatusIn(new ArrayList<>() {{
+            add((short) 301);
+        }});
+        return expressOrderMapper.updateByExampleSelective(expressOrder, example);
     }
 
     /**
      * 更新 mergeId
+     *
      * @param id
      * @param mergeId
      * @return
      */
-    public int updateMergeId(Integer id,Integer mergeId){
+    public int updateMergeId(Integer id, Integer mergeId) {
         JindouyunExpressOrder expressOrder = new JindouyunExpressOrder();
         expressOrder.setMergeId(mergeId);
         expressOrder.setUpdateTime(LocalDateTime.now());
         JindouyunExpressOrderExample example = new JindouyunExpressOrderExample();
         example.or().andIdEqualTo(id);
-        return expressOrderMapper.updateByExampleSelective(expressOrder,example);
+        return expressOrderMapper.updateByExampleSelective(expressOrder, example);
     }
 
     /**
      * 查找 by id
+     *
      * @param id
      * @return
      */
-    public JindouyunExpressOrder queryById(Integer id){
+    public JindouyunExpressOrder queryById(Integer id) {
         return expressOrderMapper.selectByPrimaryKey(id);
     }
+
     /**
      * 返回order VO
+     *
      * @param userId
      * @param mergeId
      * @param orderSn
@@ -87,15 +94,14 @@ public class JindouyunExpressOrderService {
      * @return
      */
     public List<JindouyunExpressOrder> queryCommonOrderSelective(Integer userId, Integer mergeId, String orderSn, String name,
-                                                      String mobile, Short building, String address, LocalDateTime startTime,
-                                                      LocalDateTime endTime, List<Short> orderStatusArray, Integer page,
-                                                      Integer limit, String sort, String order){
-        return querySelective(userId,mergeId,orderSn,name,mobile,building,address,
-                startTime,endTime,orderStatusArray,page,limit,sort,order,columns);
+                                                                 String mobile, Short building, String address, LocalDateTime startTime,
+                                                                 LocalDateTime endTime, List<Short> orderStatusArray, Integer page,
+                                                                 Integer limit, String sort, String order) {
+        return querySelective(userId, mergeId, orderSn, name, mobile, building, address,
+                startTime, endTime, orderStatusArray, page, limit, sort, order, columns);
     }
 
     /**
-     *
      * @param userId
      * @param mergeId
      * @param orderSn
@@ -115,32 +121,32 @@ public class JindouyunExpressOrderService {
     public List<JindouyunExpressOrder> querySelective(Integer userId, Integer mergeId, String orderSn, String name,
                                                       String mobile, Short building, String address, LocalDateTime startTime,
                                                       LocalDateTime endTime, List<Short> orderStatusArray, Integer page,
-                                                      Integer limit, String sort, String order, Column[] columns){
+                                                      Integer limit, String sort, String order, Column[] columns) {
         JindouyunExpressOrderExample example = new JindouyunExpressOrderExample();
         JindouyunExpressOrderExample.Criteria criteria = example.createCriteria();
-        if(userId != null){
+        if (userId != null) {
             criteria.andUserIdEqualTo(userId);
         }
-        if(mergeId != null){
+        if (mergeId != null) {
             criteria.andMergeIdEqualTo(mergeId);
         }
-        if(!StringUtils.isEmpty(orderSn)){
+        if (!StringUtils.isEmpty(orderSn)) {
             criteria.andOrderSnEqualTo(orderSn);
         }
-        if(!StringUtils.isEmpty(name)){
+        if (!StringUtils.isEmpty(name)) {
             criteria.andConsigneeEqualTo(name);
         }
-        if (!StringUtils.isEmpty(mobile)){
+        if (!StringUtils.isEmpty(mobile)) {
             criteria.andMobileEqualTo(mobile);
         }
-        if (building != null){
+        if (building != null) {
             criteria.andBuildingEqualTo(building);
         }
-        if (!StringUtils.isEmpty(address)){
+        if (!StringUtils.isEmpty(address)) {
             criteria.andAddressEqualTo("%" + address + "%");
         }
-        if (startTime != null && endTime !=null){
-            criteria.andAddTimeBetween(startTime,endTime);
+        if (startTime != null && endTime != null) {
+            criteria.andAddTimeBetween(startTime, endTime);
         }
         if (orderStatusArray != null && orderStatusArray.size() != 0) {
             criteria.andOrderStatusIn(orderStatusArray);
@@ -152,9 +158,21 @@ public class JindouyunExpressOrderService {
             example.setOrderByClause(sort + " " + order);
         }
 
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(page, limit);
 
-        return expressOrderMapper.selectByExampleSelective(example,columns);
+        return expressOrderMapper.selectByExampleSelective(example, columns);
+    }
+
+    /**
+     * 添加订单
+     *
+     * @param order
+     * @return
+     */
+    public int add(JindouyunExpressOrder order) {
+        order.setAddTime(LocalDateTime.now());
+        order.setUpdateTime(LocalDateTime.now());
+        return expressOrderMapper.insertSelective(order);
     }
 
 }
