@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import javax.print.DocFlavor;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,19 +31,6 @@ public class JindouyunExpressOrderService {
     @Resource
     private JindouyunExpressOrderMapper expressOrderMapper;
 
-
-    /**
-     * 添加订单
-     *
-     * @param order
-     * @return
-     */
-    public int add(JindouyunExpressOrder order) {
-        order.setAddTime(LocalDateTime.now());
-        order.setUpdateTime(LocalDateTime.now());
-        return expressOrderMapper.insertSelective(order);
-    }
-
     /**
      * 将Merge设为-1
      * @param mergeId
@@ -53,7 +41,7 @@ public class JindouyunExpressOrderService {
         expressOrder.setMergeId(-1);
         expressOrder.setUpdateTime(LocalDateTime.now());
         JindouyunExpressOrderExample example = new JindouyunExpressOrderExample();
-        example.or().andMergeIdEqualTo(mergeId);
+        example.or().andMergeIdEqualTo(mergeId).andOrderStatusIn(new ArrayList<>(){{add((short)301);}});
         return expressOrderMapper.updateByExampleSelective(expressOrder,example);
     }
 

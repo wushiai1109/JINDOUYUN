@@ -5,6 +5,7 @@ import com.jindouyun.db.dao.JindouyunOrderSplitMapper;
 import com.jindouyun.db.domain.JindouyunOrderSplit;
 import com.jindouyun.db.domain.JindouyunOrderSplit.Column;
 import com.jindouyun.db.domain.JindouyunOrderSplitExample;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,12 +28,18 @@ public class JindouyunOrderSplitService {
     @Resource
     private JindouyunOrderSplitMapper splitMapper;
 
+    public List<JindouyunOrderSplit> queryByOid(Integer id){
+        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+        example.or().andOrderIdEqualTo(id).andDeletedEqualTo(false);
+        return splitMapper.selectByExample(example);
+    }
+
     public int setMergeIdNull(Integer mergeId) {
         JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
         orderSplit.setMergeId(-1);
         orderSplit.setUpdateTime(LocalDateTime.now());
         JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
-        example.or().andMergeIdEqualTo(mergeId);
+        example.or().andMergeIdEqualTo(mergeId).andOrderStatusIn(new ArrayList<>(){{add((short)201);add((short)202);add((short)203);add((short)301);}});
         return splitMapper.updateByExampleSelective(orderSplit, example);
     }
 
@@ -107,6 +114,13 @@ public class JindouyunOrderSplitService {
         PageHelper.startPage(page, limit);
 
         return splitMapper.selectByExample(example);
+    }
+
+    public int add(JindouyunOrderSplit orderSplit){
+        orderSplit.setAddTime(LocalDateTime.now());
+        orderSplit.setUpdateTime(LocalDateTime.now());
+        orderSplit.setDeleted(false);
+        return splitMapper.insertSelective(orderSplit);
     }
 
 

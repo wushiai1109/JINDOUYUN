@@ -69,7 +69,7 @@ jindouyun:
 
     # minIO 对象存储配置信息
     minio:
-      endpoint:
-      accessKey:
-      secretKey:
-      bucketName:
+      endpoint: http://49.235.20.228:9000
+      accessKey: AKIAIOSFODNN7EXAMPLE
+      secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      bucketName: litemall

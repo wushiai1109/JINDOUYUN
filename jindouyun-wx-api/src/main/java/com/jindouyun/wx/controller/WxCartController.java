@@ -6,6 +6,7 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.common.annotation.LoginUser;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -502,7 +503,6 @@ public class WxCartController {
             }
 
         }
-
         //各商家的商品总额是否大于起送费要求
         Map<Integer, BigDecimal> map = new HashMap<>();
 

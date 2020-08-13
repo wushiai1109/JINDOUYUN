@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -23,6 +24,13 @@ public class MergeInfo {
     private String orderSn;
     private String message;
     private BigDecimal allPrice;
+    private int num;
+    private Byte release;
+    private Byte status;
+    private LocalDateTime releaseTime;
+    private LocalDateTime receiveTime;
+    private LocalDateTime pickupTime;
+    private LocalDateTime arriveTime;
     private List<JindouyunOrderSplit> splitOrder;
 
 }

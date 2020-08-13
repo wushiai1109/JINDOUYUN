@@ -485,7 +485,6 @@ public class WxOrderService {
                 productListSum.add(goodsProduct.getPrice());
             }
             brandService.increaseTotalTurnover(brandId,productListSum);
-
             //写入分单
             JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
             orderSplit.setUserId(userId);
@@ -500,6 +499,7 @@ public class WxOrderService {
             orderSplit.setGoodsPrice(productListSum);
             orderSplitService.add(orderSplit);
         }
+
 
 
 //        // 删除购物车里面的商品信息

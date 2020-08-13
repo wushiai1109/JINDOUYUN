@@ -2,6 +2,7 @@ package com.jindouyun.admin.controller;
 
 import com.jindouyun.admin.annotation.RequiresPermissionsDesc;
 import com.jindouyun.admin.service.AdminOrderService;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.express.ExpressService;
 import com.jindouyun.common.validator.Order;
 import com.jindouyun.common.validator.Sort;
@@ -141,48 +142,51 @@ public class AdminOrderController {
 
     /**
      * 合并订单
-     * @param type
-     * @param adminId
-     * @param message
-     * @param release
-     * @param orderIds
+     * @param body
+     *          {
+     *              "type":0,
+     *              "message":"xxx",
+     *              "release":1,
+     *              "orderIds":[11,12]
+     *          }
      * @return
      */
     @RequiresPermissions("admin:order:merge")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "订单合并")
     @PostMapping("/merge")
-    public Object merge(@RequestParam("type") Byte type,@RequestParam("adminId") Integer adminId,
-                        @RequestParam(value = "message", required = false) String message,
-                        @RequestParam(value = "release") Byte release,
-                        @RequestParam("orderIds") List<Integer> orderIds){
-        return adminOrderService.merge(type,adminId,message,release,orderIds);
+    public Object merge(@RequestBody String body){
+        Byte type = JacksonUtil.parseByte(body,"type");
+        String message = JacksonUtil.parseString(body,"message");
+        Byte release = JacksonUtil.parseByte(body,"release");
+        List<Integer> orderIds = JacksonUtil.parseIntegerList(body,"orderIds");
+        return adminOrderService.merge(type,message,release,orderIds);
 
     }
 
     /**
      * 发布
-     * @param mergeId
-     * @param adminId
+     * @param body {"mergeId":8}
      * @return
      */
     @RequiresPermissions("admin:order:release")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "发布")
     @PostMapping("/release")
-    public Object release(@RequestParam("mergeId") Integer mergeId,
-                          @RequestParam("adminId") Integer adminId){
-        return adminOrderService.release(mergeId,adminId);
+    public Object release(@RequestBody String body){
+        Integer mergeId = JacksonUtil.parseInteger(body,"mergeId");
+        return adminOrderService.release(mergeId);
     }
 
     /**
      * 删除
-     * @param mergeId
+     * @param body {"type":0,"mergeId":8}
      * @return
      */
     @RequiresPermissions("admin:order:delete")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "删除合并订单")
     @PostMapping("/delete")
-    public Object delete(@RequestParam("type") Byte type,
-                         @RequestParam("mergeId") Integer mergeId){
+    public Object delete(@RequestBody String body){
+        Byte type = JacksonUtil.parseByte(body,"type");
+        Integer mergeId = JacksonUtil.parseInteger(body,"mergeId");
         return adminOrderService.delete(type, mergeId);
     }
 

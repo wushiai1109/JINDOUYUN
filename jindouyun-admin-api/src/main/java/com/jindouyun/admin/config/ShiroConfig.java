@@ -46,8 +46,10 @@ public class ShiroConfig {
 
     @Bean
     public SessionManager sessionManager() {
-
-        return new AdminWebSessionManager();
+        AdminWebSessionManager sessionManager = new AdminWebSessionManager();
+        //设置过期时间
+        sessionManager.setGlobalSessionTimeout(2 * 3600 * 1000);
+        return sessionManager;
     }
 
     @Bean
