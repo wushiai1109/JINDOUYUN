@@ -47,6 +47,18 @@ public class WxInviteController {
         if (userId.intValue() != invite.getInvitedUserId().intValue()){
             ResponseUtil.fail(500, "用户不能填写本人的邀请码");
         }
+
+        JindouyunInviteExample example1 = new JindouyunInviteExample();
+        JindouyunInviteExample.Criteria criteria1 = example1.createCriteria();
+
+        criteria1.andInviteIdEqualTo(userId);
+        criteria1.andDeletedEqualTo(false);
+
+        JindouyunInvite jindouyunInvite1 = inviteMapper.selectOneByExample(example1);
+        if (jindouyunInvite1 == null){
+            return ResponseUtil.fail(500,"无此邀请码，请检查后再输入");
+        }
+
         invite.setInvitedUserId(userId);
 
         JindouyunInviteExample example = new JindouyunInviteExample();
