@@ -157,7 +157,9 @@ public class WxAddressController {
         }
 
         addressService.delete(id);
-        return ResponseUtil.ok();
+
+        List<JindouyunAddress> addresses = addressService.queryByUid(userId);
+        return ResponseUtil.okList(addresses);
     }
 
 }
