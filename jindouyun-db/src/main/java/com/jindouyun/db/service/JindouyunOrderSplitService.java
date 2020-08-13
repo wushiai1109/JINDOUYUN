@@ -110,4 +110,15 @@ public class JindouyunOrderSplitService {
     }
 
 
+    public int add(JindouyunOrderSplit orderSplit) {
+        orderSplit.setAddTime(LocalDateTime.now());
+        orderSplit.setUpdateTime(LocalDateTime.now());
+        return splitMapper.insertSelective(orderSplit);
+    }
+
+    public List<JindouyunOrderSplit> queryByOid(Integer id) {
+        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+        example.or().andOrderIdEqualTo(id).andDeletedEqualTo(false);
+        return splitMapper.selectByExample(example);
+    }
 }

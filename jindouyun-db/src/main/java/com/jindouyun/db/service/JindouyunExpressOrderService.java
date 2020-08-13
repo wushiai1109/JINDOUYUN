@@ -169,16 +169,4 @@ public class JindouyunExpressOrderService {
         return expressOrderMapper.selectByExampleSelective(example,columns);
     }
 
-    /**
-     * 添加订单
-     *
-     * @param order
-     * @return
-     */
-    public int add(JindouyunExpressOrder order) {
-        order.setAddTime(LocalDateTime.now());
-        order.setUpdateTime(LocalDateTime.now());
-        return expressOrderMapper.insertSelective(order);
-    }
-
 }
