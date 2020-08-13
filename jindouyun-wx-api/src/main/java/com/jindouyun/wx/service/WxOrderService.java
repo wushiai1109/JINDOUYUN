@@ -477,7 +477,7 @@ public class WxOrderService {
             map.put(goods.getBrandId(), goodsProductList);
         }
 
-        //修改商家销售量，修改商家销量金额
+        //修改商家总销售量，总销量金额
         for (Integer brandId : map.keySet()) {
             List<JindouyunGoodsProduct> productList = map.get(brandId);
             BigDecimal productListSum = new BigDecimal(0);
@@ -486,7 +486,6 @@ public class WxOrderService {
             }
             brandService.increaseTotalTurnover(brandId,productListSum);
         }
-
 
 
 //        // 删除购物车里面的商品信息
