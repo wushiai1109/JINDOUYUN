@@ -38,7 +38,7 @@ public class AdminAdController {
     public Object list(String name, String content,
                        @RequestParam(defaultValue = "1") Integer page,
                        @RequestParam(defaultValue = "10") Integer limit,
-                       @Sort(accepts = {"id","position","start_time","end_time"}) @RequestParam(defaultValue = "add_time") String sort,
+                       @Sort(accepts = {"id","add_time","position","start_time","end_time"}) @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order) {
         List<JindouyunAd> adList = adService.querySelective(name, content, page, limit, sort, order);
         return ResponseUtil.okList(adList);

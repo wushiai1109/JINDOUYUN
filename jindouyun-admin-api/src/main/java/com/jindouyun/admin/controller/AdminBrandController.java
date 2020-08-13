@@ -1,6 +1,7 @@
 package com.jindouyun.admin.controller;
 
 import com.jindouyun.admin.annotation.RequiresPermissionsDesc;
+import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.common.validator.Order;
 import com.jindouyun.common.validator.Sort;
@@ -53,7 +54,8 @@ public class AdminBrandController {
     @RequiresPermissions("admin:brand:delete")
     @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "删除")
     @PostMapping("/delete")
-    public Object delete(@RequestParam("id") Integer id) {
+    public Object delete(@RequestBody String body) {
+        Integer id = JacksonUtil.parseInteger(body,"id");
         if (id == null) {
             return ResponseUtil.badArgument();
         }
