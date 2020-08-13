@@ -1,9 +1,6 @@
 package com.jindouyun.admin.model.vo;
 
-import com.jindouyun.db.domain.JindouyunClockin;
-import com.jindouyun.db.domain.JindouyunDeliveriesPerformance;
-import com.jindouyun.db.domain.JindouyunDeliveryStaff;
-import com.jindouyun.db.domain.JindouyunUser;
+import com.jindouyun.db.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,8 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class StaffInfo {
 
-    private JindouyunUser user;
-    private JindouyunDeliveryStaff staff;
+    private StaffVO staffVO;
     private List<JindouyunClockin> workTimes;
     private JindouyunDeliveriesPerformance performance;
 

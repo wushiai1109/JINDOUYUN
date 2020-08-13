@@ -14,7 +14,7 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunDeliveryStaff;
 import com.jindouyun.db.domain.JindouyunRegisteDeliveries;
 import com.jindouyun.db.domain.JindouyunUser;
-import com.jindouyun.db.service.JindouyunDeliveryService;
+import com.jindouyun.db.service.JindouyunDeliveryStaffService;
 import com.jindouyun.db.service.JindouyunRegiteDeliveryService;
 import com.jindouyun.db.service.JindouyunUserService;
 import com.jindouyun.delivery.dto.DeliveryInfo;
@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +48,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
     private JindouyunUserService userService;
 
     @Autowired
-    private JindouyunDeliveryService deliveryService;
+    private JindouyunDeliveryStaffService deliveryStaffService;
 
     @Autowired
     private JindouyunRegiteDeliveryService registerDeliveryService;
@@ -106,7 +105,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
         deliveryInfo.setMobile(user.getMobile());
 
         //判断是否已认证
-        JindouyunDeliveryStaff deliveryStaff = deliveryService.queryByUserId(user.getId());
+        JindouyunDeliveryStaff deliveryStaff = deliveryStaffService.queryByUserId(user.getId());
         if(deliveryStaff != null){
             deliveryInfo.setAuth(true);
         }
@@ -190,7 +189,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
         deliveryInfo.setMobile(user.getMobile());
 
         //判断是否已认证
-        JindouyunDeliveryStaff deliveryStaff = deliveryService.queryByUserId(user.getId());
+        JindouyunDeliveryStaff deliveryStaff = deliveryStaffService.queryByUserId(user.getId());
         if(deliveryStaff != null){
             deliveryInfo.setAuth(true);
         }
@@ -372,7 +371,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
-        Object result = deliveryService.modifyStatus(userId,todayStatus);
+        Object result = deliveryStaffService.modifyStatus(userId,todayStatus);
 
         DeliveryInfo deliveryInfo = LoginUserManager.deliveryInfoMap.get(userId);
         deliveryInfo.getDeliveryStaff().setTodayStatus(todayStatus);
@@ -393,7 +392,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
-        Object result = deliveryService.modifyType(userId,workType);
+        Object result = deliveryStaffService.modifyType(userId,workType);
 
         DeliveryInfo deliveryInfo = LoginUserManager.deliveryInfoMap.get(userId);
         deliveryInfo.getDeliveryStaff().setWorkType(workType);
@@ -416,7 +415,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
         String userName = JacksonUtil.parseString(body, "userName");
         String mobile = JacksonUtil.parseString(body, "mobile");
 
-        Object result = deliveryService.modifyInfo(userId,userName,mobile);
+        Object result = deliveryStaffService.modifyInfo(userId,userName,mobile);
 
         DeliveryInfo deliveryInfo = LoginUserManager.deliveryInfoMap.get(userId);
         deliveryInfo.setUsername(userName);
