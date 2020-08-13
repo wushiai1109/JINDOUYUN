@@ -30,6 +30,19 @@ public class JindouyunExpressOrderService {
     @Resource
     private JindouyunExpressOrderMapper expressOrderMapper;
 
+
+    /**
+     * 添加订单
+     *
+     * @param order
+     * @return
+     */
+    public int add(JindouyunExpressOrder order) {
+        order.setAddTime(LocalDateTime.now());
+        order.setUpdateTime(LocalDateTime.now());
+        return expressOrderMapper.insertSelective(order);
+    }
+
     /**
      * 将Merge设为-1
      * @param mergeId

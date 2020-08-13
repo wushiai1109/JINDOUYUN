@@ -30,6 +30,7 @@ public class OrderUnpaidTask extends Task {
         this.orderId = orderId;
     }
 
+    //30分钟超时
     public OrderUnpaidTask(Integer orderId){
         super("OrderUnpaidTask-" + orderId, SystemConfig.getOrderUnpaid() * 60 * 1000);
         this.orderId = orderId;

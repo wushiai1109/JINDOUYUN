@@ -22,52 +22,43 @@ import java.util.List;
 @Service
 public class JindouyunOrderSplitService {
 
-    Column[] setMergeIdNullColumns = new JindouyunOrderSplit.Column[]{Column.mergeId,Column.updateTime};
+    Column[] setMergeIdNullColumns = new JindouyunOrderSplit.Column[]{Column.mergeId, Column.updateTime};
 
     @Resource
     private JindouyunOrderSplitMapper splitMapper;
 
-    /**
-     * 根据订单号查询
-     * @param oid
-     * @return
-     */
-    public List<JindouyunOrderSplit> queryByOid(Integer oid){
-        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
-        example.or().andOrderIdEqualTo(oid);
-        return splitMapper.selectByExample(example);
-    }
-
-    public int setMergeIdNull(Integer mergeId){
+    public int setMergeIdNull(Integer mergeId) {
         JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
         orderSplit.setMergeId(-1);
         orderSplit.setUpdateTime(LocalDateTime.now());
         JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
         example.or().andMergeIdEqualTo(mergeId);
-        return splitMapper.updateByExampleSelective(orderSplit,example);
+        return splitMapper.updateByExampleSelective(orderSplit, example);
     }
 
     /**
      * 添加mergeId
+     *
      * @param orderSplitId
      * @param mergeId
      * @return
      */
-    public int updateMergeId(Integer orderSplitId, Integer mergeId){
+    public int updateMergeId(Integer orderSplitId, Integer mergeId) {
         JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
         orderSplit.setMergeId(mergeId);
         orderSplit.setUpdateTime(LocalDateTime.now());
         JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
         example.or().andIdEqualTo(orderSplitId);
-        return splitMapper.updateByExampleSelective(orderSplit,example);
+        return splitMapper.updateByExampleSelective(orderSplit, example);
     }
 
-    public JindouyunOrderSplit queryById(Integer id){return splitMapper.selectByPrimaryKey(id);
+    public JindouyunOrderSplit queryById(Integer id) {
+        return splitMapper.selectByPrimaryKey(id);
     }
-
 
     /**
      * 根据 mergerId brandId orderId 以及 orderStatus 查找
+     *
      * @param mergerId
      * @param brandId
      * @param orderStatusArray
@@ -77,34 +68,34 @@ public class JindouyunOrderSplitService {
      * @param order
      * @return
      */
-    public List<JindouyunOrderSplit> querySelective(Byte type, Integer mergerId,Integer brandId, List<Short> orderStatusArray, List<Integer> orderIdArray, Integer page, Integer limit, String sort, String order){
+    public List<JindouyunOrderSplit> querySelective(Byte type, Integer mergerId, Integer brandId, List<Short> orderStatusArray, List<Integer> orderIdArray, Integer page, Integer limit, String sort, String order) {
         JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
         JindouyunOrderSplitExample.Criteria criteria = example.createCriteria();
 
         //商品
-        if( type == 0){
-            if(brandId != null && brandId !=0){
+        if (type == 0) {
+            if (brandId != null || brandId != 0) {
                 return new ArrayList<>();
             }
             criteria.andBrandIdEqualTo(0);
-        //外卖
-        }else if( type == 1){
+            //外卖
+        } else if (type == 1) {
 
-            if(brandId != null){
+            if (brandId != null) {
                 criteria.andBrandIdEqualTo(brandId);
-            }else{
+            } else {
                 criteria.andBrandIdNotEqualTo(0);
             }
         }
-        if(mergerId != null){
+        if (mergerId != null) {
             criteria.andMergeIdEqualTo(mergerId);
         }
 
-        if(orderIdArray != null){
+        if (orderIdArray != null) {
             criteria.andOrderIdIn(orderIdArray);
         }
 
-        if(orderStatusArray != null){
+        if (orderStatusArray != null) {
             criteria.andOrderStatusIn(orderStatusArray);
         }
         criteria.andDeletedEqualTo(false);
@@ -113,9 +104,10 @@ public class JindouyunOrderSplitService {
             example.setOrderByClause(sort + " " + order);
         }
 
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(page, limit);
 
         return splitMapper.selectByExample(example);
     }
+
 
 }

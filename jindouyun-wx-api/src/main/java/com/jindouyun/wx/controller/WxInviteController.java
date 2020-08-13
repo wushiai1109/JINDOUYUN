@@ -44,6 +44,9 @@ public class WxInviteController {
         if (invite == null) {
             return ResponseUtil.badArgument();
         }
+        if (userId.intValue() != invite.getInvitedUserId().intValue()){
+            ResponseUtil.fail(500, "用户不能填写本人的邀请码");
+        }
         invite.setInvitedUserId(userId);
 
         JindouyunInviteExample example = new JindouyunInviteExample();

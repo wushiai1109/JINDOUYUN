@@ -86,6 +86,9 @@ public class WxOrderService {
     private JindouyunUserService userService;
 
     @Autowired
+    private JindouyunOrderSplitService orderSplitService;
+
+    @Autowired
     private JindouyunGoodsService goodsService;
 
     @Autowired
@@ -100,6 +103,9 @@ public class WxOrderService {
     private JindouyunRegionService regionService;
     @Autowired
     private JindouyunGoodsProductService productService;
+
+    @Autowired
+    private JindouyunBrandService brandService;
 
     @Resource
     private JindouyunOrderMapper jindouyunOrderMapper;
@@ -437,6 +443,14 @@ public class WxOrderService {
         orderId = order.getId();
         System.out.println("~~~~~~~~~" + orderId);
 
+        //订单中的商品集合
+        List<Integer> productIds = new ArrayList<>();
+
+        //订单中各商家的商品
+        Map<Integer, List<JindouyunGoodsProduct>> map = new HashMap<>();
+        List<JindouyunGoodsProduct> goodsProductList = new ArrayList<>();
+
+
         // 添加订单商品表项
         for (JindouyunCart cartGoods : checkedGoodsList) {
             // 订单商品
@@ -453,12 +467,33 @@ public class WxOrderService {
             orderGoods.setNumber(cartGoods.getNumber());
             orderGoods.setSpecifications(cartGoods.getSpecifications());
             orderGoods.setAddTime(LocalDateTime.now());
-
             orderGoodsService.add(orderGoods);
+
+            //订单中的商品集合
+            productIds.add(cartGoods.getProductId());
+
+            //订单中各商家的商品
+            goodsProductList.add(productService.findById(cartGoods.getProductId()));
+            map.put(goods.getBrandId(), goodsProductList);
         }
 
-        // 删除购物车里面的商品信息
-        cartService.clearGoods(userId);
+        //修改商家销售量，修改商家销量金额
+        for (Integer brandId : map.keySet()) {
+            List<JindouyunGoodsProduct> productList = map.get(brandId);
+            BigDecimal productListSum = new BigDecimal(0);
+            for (JindouyunGoodsProduct goodsProduct : productList) {
+                productListSum.add(goodsProduct.getPrice());
+            }
+            brandService.increaseTotalTurnover(brandId,productListSum);
+        }
+
+
+
+//        // 删除购物车里面的商品信息
+//        cartService.clearGoods(userId);
+        //删除购物车对应商品
+        cartService.delete(productIds, userId);
+
 
         // 商品货品数量减少
         for (JindouyunCart checkGoods : checkedGoodsList) {
@@ -520,6 +555,7 @@ public class WxOrderService {
 //            data.put("grouponLinkId", 0);
 //        }
 
+
         return ResponseUtil.ok(data);
     }
 
@@ -553,7 +589,7 @@ public class WxOrderService {
                 map.put("orderSn", jindouyunOrder.getOrderSn());
                 map.put("actualPrice", jindouyunOrder.getActualPrice());
                 map.put("orderStatusText", OrderUtil.orderStatusText(jindouyunOrder));
-                map.put("goodsList", orderGoods);
+                map.put("goodsList", orderGoodsService.queryByOid(jindouyunOrder.getId()));
                 mapList.add(map);
             }
         }

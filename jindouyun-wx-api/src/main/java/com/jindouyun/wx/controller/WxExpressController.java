@@ -5,10 +5,10 @@ import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.JindouyunAddressService;
-import com.jindouyun.db.service.JindouyunExpressOrderService;
 import com.jindouyun.db.service.JindouyunOrderService;
 import com.jindouyun.db.util.OrderUtil;
 import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.db.service.JindouyunExpressOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +40,7 @@ public class WxExpressController {
      * 提交订单
      *
      * @param userId 用户ID
-     * @param body   快递信息，{ addressId: xxx, express：xxx }
+     * @param body   快递信息
      * @return 提交订单操作结果
      */
     @PostMapping("submit")
@@ -52,14 +52,14 @@ public class WxExpressController {
             return ResponseUtil.badArgument();
         }
 
-        Integer addressId = JacksonUtil.parseInteger(body, "addressId");
-        String expressType = JacksonUtil.parseString(body, "expressType");
-        Integer isweight = JacksonUtil.parseInteger(body, "isweight");
-        String message = JacksonUtil.parseString(body, "message");
-        String pikeupCode = JacksonUtil.parseString(body, "pikeupCode");
-        String consignee = JacksonUtil.parseString(body, "consignee");
-        String mobile = JacksonUtil.parseString(body, "mobile");
-        String deliveryTime = JacksonUtil.parseString(body, "deliveryTime");
+        Integer addressId = JacksonUtil.parseInteger(body, "addressId");//地址id
+        String expressType = JacksonUtil.parseString(body, "expressType");//快递类型
+        Integer isweight = JacksonUtil.parseInteger(body, "isweight");//0：不是重件，1：重件
+        String message = JacksonUtil.parseString(body, "message");//备注
+        String pikeupCode = JacksonUtil.parseString(body, "pikeupCode");//取货码
+        String consignee = JacksonUtil.parseString(body, "consignee");//收件人
+        String mobile = JacksonUtil.parseString(body, "mobile");//电话
+        String deliveryTime = JacksonUtil.parseString(body, "deliveryTime");//派送时间
 
         // 收货地址
         JindouyunAddress checkedAddress = addressService.query(userId, addressId);

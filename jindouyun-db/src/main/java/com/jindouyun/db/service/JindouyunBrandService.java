@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -118,5 +119,26 @@ public class JindouyunBrandService {
         JindouyunBrandExample example = new JindouyunBrandExample();
         example.or().andDeletedEqualTo(false);
         return brandMapper.selectByExample(example);
+    }
+
+//    public void increaseTotalOrder(Integer brandId) {
+//        JindouyunBrand jindouyunBrand = brandMapper.selectByPrimaryKey(brandId);
+//        jindouyunBrand.setTotalOrder(jindouyunBrand.getTotalOrder()+1);
+//
+//        JindouyunBrandExample example = new JindouyunBrandExample();
+//        example.or().andIdEqualTo(brandId).andDeletedEqualTo(false);
+//
+//        brandMapper.updateByExampleSelective(jindouyunBrand,example);
+//    }
+
+    public void increaseTotalTurnover(Integer brandId, BigDecimal productListSum) {
+        JindouyunBrand jindouyunBrand = brandMapper.selectByPrimaryKey(brandId);
+        jindouyunBrand.setTotalOrder(jindouyunBrand.getTotalOrder()+1);
+        jindouyunBrand.setTotalTurnover(jindouyunBrand.getTotalTurnover().add(productListSum));
+
+        JindouyunBrandExample example = new JindouyunBrandExample();
+        example.or().andIdEqualTo(brandId).andDeletedEqualTo(false);
+
+        brandMapper.updateByExampleSelective(jindouyunBrand,example);
     }
 }
