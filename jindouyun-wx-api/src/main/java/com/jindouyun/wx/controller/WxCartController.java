@@ -6,6 +6,7 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.common.annotation.LoginUser;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -45,6 +46,9 @@ public class WxCartController {
 
     @Autowired
     private JindouyunAddressService addressService;
+
+    @Autowired
+    private JindouyunBrandService brandService;
 
     @Autowired
     private JindouyunCouponUserService couponUserService;
@@ -414,7 +418,7 @@ public class WxCartController {
      * 购物车下单
      *
      * @param userId       用户ID
-     * @param cartIds       购物车商品ID：
+     * @param cartIds      购物车商品ID：
      *                     如果购物车商品ID是空，则下单当前用户所有购物车商品；
      *                     如果购物车商品ID非空，则只下单当前购物车商品。
      * @param addressId    收货地址ID：
@@ -460,7 +464,7 @@ public class WxCartController {
 //            grouponPrice = grouponRules.getDiscount();
 //        }
 
-        // 商品价格
+        // 商品
         List<JindouyunCart> checkedGoodsList = new ArrayList<>();
 
         //商品是否是外卖，是则赋值为外卖商家id
@@ -499,6 +503,23 @@ public class WxCartController {
             }
 
         }
+        //各商家的商品总额是否大于起送费要求
+        Map<Integer, BigDecimal> map = new HashMap<>();
+
+        //判断商品是否满足各商家的起送费用
+        for (JindouyunCart cart : checkedGoodsList) {
+            JindouyunGoods goods = goodsService.findByGoodsSn(cart.getGoodsSn());
+            map.put(goods.getBrandId(), map.getOrDefault(goods.getBrandId(), new BigDecimal(0).add(cart.getPrice())));
+        }
+
+        for (Integer brand : map.keySet()) {
+            JindouyunBrand jindouyunBrand = brandService.findById(brand);
+            BigDecimal bigDecimal = map.get(brand);
+            if (jindouyunBrand.getDeliveryPrice().compareTo(bigDecimal) < 0) {
+                return ResponseUtil.fail(500,"有商品未达到商家的起送费");
+            }
+        }
+
         BigDecimal checkedGoodsPrice = new BigDecimal(0.00);
         for (JindouyunCart cart : checkedGoodsList) {
 //            //  只有当团购规格商品ID符合才进行团购优惠

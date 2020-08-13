@@ -28,6 +28,12 @@ public class JindouyunGrabOrderService {
     @Autowired
     private JindouyunMergeOrderService mergeOrderService;
 
+    public void add(JindouyunGrabOrder grabOrder){
+        grabOrder.setAddTime(LocalDateTime.now());
+        grabOrder.setUpdateTime(LocalDateTime.now());
+        grabOrder.setDeleted(false);
+        grabOrderMapper.insertSelective(grabOrder);
+    }
 
     public Object insertOneByGrabOrder(JindouyunGrabOrder jindouyunGrabOrder) {
         JindouyunGrabOrderExample example = new JindouyunGrabOrderExample();

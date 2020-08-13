@@ -485,7 +485,21 @@ public class WxOrderService {
                 productListSum.add(goodsProduct.getPrice());
             }
             brandService.increaseTotalTurnover(brandId,productListSum);
+            //写入分单
+            JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
+            orderSplit.setUserId(userId);
+            orderSplit.setBrandId(brandId);
+            orderSplit.setOrderId(orderId);
+            orderSplit.setOrderSn(orderService.generateOrderSn(userId));
+            orderSplit.setOrderStatus(OrderUtil.STATUS_CREATE);
+            orderSplit.setConsignee(checkedAddress.getName());
+            orderSplit.setMobile(checkedAddress.getTel());
+            orderSplit.setMessage(message);
+            orderSplit.setBuilding(checkedAddress.getBuilding());
+            orderSplit.setGoodsPrice(productListSum);
+            orderSplitService.add(orderSplit);
         }
+
 
 
 //        // 删除购物车里面的商品信息
