@@ -52,7 +52,7 @@ public class JindouyunCouponVerifyService {
         }
 
         //检查是否是通用券或者是否是此商家的优惠券
-        if (brandId != 0) {
+        if (brandId != 0 && brandId != 1) {
             System.out.println("brand"+brandId.intValue());
             System.out.println("~~~~"+couponId);
             System.out.println("!!!"+coupon.getId());
