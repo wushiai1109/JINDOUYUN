@@ -20,6 +20,6 @@ public class StaffInfo {
 
     private StaffVO staffVO;
     private List<JindouyunClockin> workTimes;
-    private JindouyunDeliveriesPerformance performance;
+    private StaffPerformance performance;
 
 }

@@ -26,7 +26,9 @@ public class JindouyunClockinService {
 
     public List<JindouyunClockin> todayWork(Integer userId, LocalDateTime date) {
         JindouyunClockinExample clockinExample = new JindouyunClockinExample();
-        clockinExample.or().andUserIdEqualTo(userId).andWorkStartBetween(date,date.plusDays(1)).andDeletedEqualTo(false);
+        LocalDateTime startTime = LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),0,0,0);
+        LocalDateTime endTime = startTime.minusDays(1);
+        clockinExample.or().andUserIdEqualTo(userId).andWorkStartBetween(startTime,endTime).andDeletedEqualTo(false);
         return clockinMapper.selectByExample(clockinExample);
     }
 

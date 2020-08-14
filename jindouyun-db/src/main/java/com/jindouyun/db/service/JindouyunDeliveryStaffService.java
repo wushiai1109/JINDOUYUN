@@ -11,7 +11,9 @@ import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @className: JindouyunDeliveryStaff
@@ -31,6 +33,12 @@ public class JindouyunDeliveryStaffService {
     @Resource
     JindouyunUserService userService;
 
+    public List<JindouyunDeliveryStaff> all(){
+        JindouyunDeliveryStaffExample example = new JindouyunDeliveryStaffExample();
+        example.or().andDeletedEqualTo(false);
+        return deliveryStaffMapper.selectByExample(example);
+    }
+
     /**
      * 通过主键查询
      * @param id
@@ -46,10 +54,11 @@ public class JindouyunDeliveryStaffService {
      * @return
      */
     public StaffVO queryStaffVOById(Integer id){
-        return queryStaffVO(id,null,1,10,null,null).get(0);
+        List<StaffVO> list = (List<StaffVO>)queryStaffVO(id,null,1,10,null,null).get("staffList");
+        return list.get(0);
     }
 
-    public List<StaffVO> queryStaffVO (Integer id, Short status, Integer page, Integer limit, String sort, String order){
+    public Map<String, Object> queryStaffVO (Integer id, Short status, Integer page, Integer limit, String sort, String order){
         List<StaffVO> staffVOs = new ArrayList<>();
         List<JindouyunDeliveryStaff> allStaff = queryAll(id, status, page, limit, sort, order);
         PageInfo pageInfo = new PageInfo(allStaff);
@@ -61,9 +70,15 @@ public class JindouyunDeliveryStaffService {
             staffVO.setWorkType(staff.getWorkType());
             UserVo user = userService.findUserVoById(staff.getUserId());
             staffVO.setUser(user);
+            staffVOs.add(staffVO);
         }
-        pageInfo.setList(staffVOs);
-        return (List<StaffVO>) pageInfo;
+        Map<String,Object> map = new HashMap<>();
+        map.put("page",pageInfo.getPageNum());
+        map.put("limit",pageInfo.getPageSize());
+        map.put("total",pageInfo.getTotal());
+        map.put("pages",pageInfo.getPages());
+        map.put("staffList",staffVOs);
+        return map;
     }
 
     public List<JindouyunDeliveryStaff> queryAll(Integer id,Short status,Integer page,Integer limit,String sort,String order){

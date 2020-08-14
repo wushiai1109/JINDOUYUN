@@ -81,7 +81,7 @@ public class JindouyunOrderSplitService {
 
         //商品
         if (type == 0) {
-            if (brandId != null || brandId != 0) {
+            if (brandId != null && brandId != 0) {
                 return new ArrayList<>();
             }
             criteria.andBrandIdEqualTo(0);

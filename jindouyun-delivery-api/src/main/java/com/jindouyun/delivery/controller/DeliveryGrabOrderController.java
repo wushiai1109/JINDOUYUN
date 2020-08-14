@@ -21,20 +21,20 @@ public class DeliveryGrabOrderController {
     @Autowired
     private JindouyunGrabOrderService grabOrderService;
 
-    /**
-     *
-     * @param userId
-     * @param jindouyunGrabOrder {orderId:xxx,deliveryId:xxx,adminId:xxx,force:xxx}
-     * @return
-     */
-    @PostMapping("receive")
-    public Object receive(@LoginUser Integer userId, @RequestBody JindouyunGrabOrder jindouyunGrabOrder) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-        jindouyunGrabOrder.setUserId(userId);
-        Object result = grabOrderService.insertOneByGrabOrder(jindouyunGrabOrder);
-        return ResponseUtil.ok(result);
-    }
+//    /**
+//     *
+//     * @param userId
+//     * @param jindouyunGrabOrder {orderId:xxx,deliveryId:xxx,adminId:xxx,force:xxx}
+//     * @return
+//     */
+//    @PostMapping("receive")
+//    public Object receive(@LoginUser Integer userId, @RequestBody JindouyunGrabOrder jindouyunGrabOrder) {
+//        if (userId == null) {
+//            return ResponseUtil.unlogin();
+//        }
+//        jindouyunGrabOrder.setUserId(userId);
+//        Object result = grabOrderService.insertOneByGrabOrder(jindouyunGrabOrder);
+//        return ResponseUtil.ok(result);
+//    }
 
 }
