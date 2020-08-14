@@ -107,9 +107,18 @@ public class DeliveryAuthController extends AuthServiceImpl {
 
         //判断是否已认证
         JindouyunDeliveryStaff deliveryStaff = deliveryService.queryByUserId(user.getId());
+
+        //判断是否已申请
+        JindouyunRegisteDeliveries registeDeliveries = registerDeliveryService.findOneBy(user.getId());
+
         if(deliveryStaff != null){
             deliveryInfo.setAuth(true);
         }
+
+        if(registeDeliveries != null){
+            deliveryInfo.setApply(true);
+        }
+
         deliveryInfo.setDeliveryStaff(deliveryStaff);
 
         // token
@@ -191,9 +200,18 @@ public class DeliveryAuthController extends AuthServiceImpl {
 
         //判断是否已认证
         JindouyunDeliveryStaff deliveryStaff = deliveryService.queryByUserId(user.getId());
+
+        //判断是否已申请
+        JindouyunRegisteDeliveries registeDeliveries = registerDeliveryService.findOneBy(user.getId());
+
         if(deliveryStaff != null){
             deliveryInfo.setAuth(true);
         }
+
+        if(registeDeliveries != null){
+            deliveryInfo.setApply(true);
+        }
+
         deliveryInfo.setDeliveryStaff(deliveryStaff);
 
         // token
