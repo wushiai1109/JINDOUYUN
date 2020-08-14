@@ -517,7 +517,7 @@ public class AdminOrderService {
         JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(mergeId);
         if(mergeOrder == null){
             System.err.println("发布mergeOrder - mergeOrder不存在");
-            return ResponseUtil.badArgument();
+            return ResponseUtil.fail(MERGE_ORDER_NUEXIST,"mergeId不存在");
         }
         sendMergeOrderToDeliveryBrand(mergeOrder);
         if (mergeOrderService.updateRelease(mergeId,admin.getId())!=0){

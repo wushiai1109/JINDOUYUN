@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,14 +21,14 @@ import java.util.List;
 @Transactional
 public class JindouyunClockinService {
 
-    @Autowired
+    @Resource
     private JindouyunClockinMapper clockinMapper;
 
 
     public List<JindouyunClockin> todayWork(Integer userId, LocalDateTime date) {
         JindouyunClockinExample clockinExample = new JindouyunClockinExample();
         LocalDateTime startTime = LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),0,0,0);
-        LocalDateTime endTime = startTime.minusDays(1);
+        LocalDateTime endTime = startTime.plusDays(1);
         clockinExample.or().andUserIdEqualTo(userId).andWorkStartBetween(startTime,endTime).andDeletedEqualTo(false);
         return clockinMapper.selectByExample(clockinExample);
     }

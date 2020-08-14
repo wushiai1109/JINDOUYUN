@@ -25,6 +25,7 @@ public class AdminResponseCode {
     public static final Integer GROUPON_GOODS_EXISTED = 651;
     public static final Integer GROUPON_GOODS_OFFLINE = 652;
     public static final Integer MERGE_ORDER_NUEXIST = 701;
+    public static final Integer MERGE_ORDER_UNRELEASED = 702;
     public static final Integer GRABORDER_ORDER_NUEXIST = 711;
     public static final Integer GRABORDER_ORDER_RECEIVED = 712;
 

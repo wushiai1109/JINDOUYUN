@@ -103,6 +103,10 @@ public class AdminDeliveryService {
             System.err.println("强制派单 - 合单不存在");
             return ResponseUtil.fail(MERGE_ORDER_NUEXIST,"合单不存在");
         }
+        if (mergeOrder.getRelease() == 0){
+            System.err.println("强制派单 - 合单未发布");
+            return ResponseUtil.fail(MERGE_ORDER_UNRELEASED,"合单未发布");
+        }
         JindouyunGrabOrder grabOrder = grabOrderService.queryByMergeId(mergeId);
         if(grabOrder == null){
             System.err.println("强制派单 - grabOrder不存在");
