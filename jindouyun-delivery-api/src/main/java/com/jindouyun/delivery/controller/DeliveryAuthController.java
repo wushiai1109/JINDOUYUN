@@ -14,7 +14,7 @@ import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunDeliveryStaff;
 import com.jindouyun.db.domain.JindouyunRegisteDeliveries;
 import com.jindouyun.db.domain.JindouyunUser;
-import com.jindouyun.db.service.JindouyunDeliveryService;
+import com.jindouyun.db.service.JindouyunDeliveryStaffService;
 import com.jindouyun.db.service.JindouyunRegiteDeliveryService;
 import com.jindouyun.db.service.JindouyunUserService;
 import com.jindouyun.delivery.dto.DeliveryInfo;
@@ -49,7 +49,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
     private JindouyunUserService userService;
 
     @Autowired
-    private JindouyunDeliveryService deliveryService;
+    private JindouyunDeliveryStaffService deliveryService;
 
     @Autowired
     private JindouyunRegiteDeliveryService registerDeliveryService;
