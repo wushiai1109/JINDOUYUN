@@ -515,7 +515,7 @@ public class WxCartController {
         for (Integer brand : map.keySet()) {
             JindouyunBrand jindouyunBrand = brandService.findById(brand);
             BigDecimal bigDecimal = map.get(brand);
-            if (jindouyunBrand.getDeliveryPrice().compareTo(bigDecimal) < 0) {
+            if (jindouyunBrand.getDeliveryPrice().compareTo(bigDecimal) > 0) {
                 return ResponseUtil.fail(500,"有商品未达到商家的起送费");
             }
         }
