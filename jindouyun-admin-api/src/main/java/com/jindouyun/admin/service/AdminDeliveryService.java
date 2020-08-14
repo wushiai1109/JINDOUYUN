@@ -88,7 +88,7 @@ public class AdminDeliveryService {
                 map.put(staff.getId(),user.getNickname());
             }
         }
-        return map;
+        return ResponseUtil.ok(map);
     }
 
     /**

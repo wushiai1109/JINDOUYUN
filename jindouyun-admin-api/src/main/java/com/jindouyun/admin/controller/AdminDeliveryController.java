@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  * @className: AdminDeliveryController
  * @description: 配送员管理
@@ -38,7 +40,8 @@ public class AdminDeliveryController {
                        @RequestParam(defaultValue = "10") Integer limit,
                        @Sort @RequestParam(defaultValue = "add_time") String sort,
                        @Order @RequestParam(defaultValue = "desc") String order){
-        return deliveryService.list(deliveryId, today_status, page, limit, sort, order);
+        Object result = deliveryService.list(deliveryId, today_status, page, limit, sort, order);
+        return ResponseUtil.ok(result);
     }
 
     @RequiresPermissions("admin:delivery:info")
