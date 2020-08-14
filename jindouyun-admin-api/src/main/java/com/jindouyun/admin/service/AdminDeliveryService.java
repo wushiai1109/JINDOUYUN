@@ -1,14 +1,21 @@
 package com.jindouyun.admin.service;
 
-import com.jindouyun.db.domain.JindouyunClockin;
-import com.jindouyun.db.domain.JindouyunDeliveryStaff;
-import com.jindouyun.db.domain.StaffVO;
-import com.jindouyun.db.service.JindouyunDeliveryStaffService;
+import com.jindouyun.admin.model.vo.StaffInfo;
+import com.jindouyun.common.constant.MergeOrderConstant;
+import com.jindouyun.core.util.ResponseUtil;
+import com.jindouyun.db.domain.*;
+import com.jindouyun.db.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.jindouyun.admin.util.AdminResponseCode.GRABORDER_ORDER_RECEIVED;
+import static com.jindouyun.admin.util.AdminResponseCode.MERGE_ORDDER_NUEXIST;
 
 /**
  * @className: AdminDeliveryService
@@ -21,6 +28,21 @@ public class AdminDeliveryService {
 
     @Autowired
     private JindouyunDeliveryStaffService staffService;
+
+    @Autowired
+    private JindouyunClockinService clockinService;
+
+    @Autowired
+    private JindouyunDeliveriesPerformanceService performanceService;
+
+    @Autowired
+    private JindouyunUserService userService;
+
+    @Autowired
+    private JindouyunMergeOrderService mergeOrderService;
+
+    @Autowired
+    private JindouyunGrabOrderService grabOrderService;
 
     /**
      * 查询所有配送员
@@ -46,8 +68,27 @@ public class AdminDeliveryService {
         if(staffVO == null){
             System.err.println("配送员详情 - id错误");
         }
-//        List<JindouyunClockin> workTimes =
-        return null;
+        List<JindouyunClockin> workTimes = clockinService.todayWork(id, LocalDateTime.now());
+        StaffPerformance performance = performanceService.queryStaffPerformance(id,LocalDateTime.now());
+
+        StaffInfo staffInfo = new StaffInfo(staffVO,workTimes,performance);
+        return ResponseUtil.ok(staffInfo);
+    }
+
+    /**
+     * 获取所有派送员的名字和id
+     * @return
+     */
+    public Object allStaffName(){
+        List<JindouyunDeliveryStaff> all = staffService.all();
+        Map<Integer,String> map = new HashMap<>();
+        for (JindouyunDeliveryStaff staff:all) {
+            JindouyunUser user = userService.findById(staff.getUserId());
+            if(user != null){
+                map.put(staff.getId(),user.getNickname());
+            }
+        }
+        return map;
     }
 
     /**
@@ -57,9 +98,29 @@ public class AdminDeliveryService {
      * @return
      */
     @Transactional
-    public Object forceOrder(Integer mergeId){
-        return null;
+    public Object forceOrder(Integer mergeId,Integer deliveryId){
+        JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(mergeId);
+        if(mergeOrder == null){
+            System.err.println("强制派单 - 合单不存在");
+            return ResponseUtil.fail(MERGE_ORDDER_NUEXIST,"合单不存在");
+        }
+        JindouyunGrabOrder grabOrder = grabOrderService.queryByMergeId(mergeId);
+        if(grabOrder == null){
+            System.err.println("强制派单 - grabOrder不存在");
+            return ResponseUtil.badArgument();
+        }
+        if(grabOrder.getDeliveryId() != null && grabOrder.getDeliveryId() !=0){
+            System.err.println("强制派单 - 该订单已被接单");
+            return ResponseUtil.fail(GRABORDER_ORDER_RECEIVED,"该订单已被接单");
+        }
+        if(grabOrderService.updateDeliveryId(grabOrder.getId(),deliveryId)!=0){
+            mergeOrder.setPickupTime(LocalDateTime.now());
+            mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_REVEIVE);
+            mergeOrderService.updateOrderStatus(mergeOrder);
+            return ResponseUtil.ok();
+        }
+        return ResponseUtil.fail();
     }
 
-    
+
 }

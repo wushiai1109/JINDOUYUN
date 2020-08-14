@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +28,7 @@ import static com.jindouyun.common.util.CharUtil.getRandomNum;
 @Transactional
 public class JindouyunMergeOrderService {
 
-    @Autowired
+    @Resource
     private JindouyunMergeOrderMapper mergeOrderMapper;
 
     /**
@@ -123,9 +124,8 @@ public class JindouyunMergeOrderService {
         return mergeOrderMapper.selectByPrimaryKey(orderId);
     }
 
-    public Object updateOrderStatus(JindouyunMergeOrder mergeOrder) {
-        JindouyunMergeOrderExample example = new JindouyunMergeOrderExample();
-        example.or().andIdEqualTo(mergeOrder.getId());
-        return mergeOrderMapper.updateByExampleSelective(mergeOrder,example);
+    public int updateOrderStatus(JindouyunMergeOrder mergeOrder) {
+        return mergeOrderMapper.updateByPrimaryKeySelective(mergeOrder);
     }
+
 }

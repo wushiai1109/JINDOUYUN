@@ -554,17 +554,21 @@ public class AdminOrderService {
         //发布到骑手端
         Byte type = mergeOrder.getType();
         if( type == 0 || type == 2){
-            JindouyunGrabOrder grabOrder = new JindouyunGrabOrder();
-            grabOrder.setOrderId(mergeOrder.getId());
-            grabOrder.setAdminId(mergeOrder.getAdminId());
-            grabOrder.setForce(false);
-            grabOrderService.add(grabOrder);
             //发布到商家端
+            if(grabOrderService.queryByMergeId(mergeOrder.getId()) == null){
+                JindouyunGrabOrder grabOrder = new JindouyunGrabOrder();
+                grabOrder.setOrderId(mergeOrder.getId());
+                grabOrder.setAdminId(mergeOrder.getAdminId());
+                grabOrder.setForce(false);
+                grabOrderService.add(grabOrder);
+            }
         }else if(type == 1){
-            JindouyunBrandOrder brandOrder = new JindouyunBrandOrder();
-            brandOrder.setOrderId(mergeOrder.getId());
-            brandOrder.setStatus((short)mergeOrder.getStatus());
-            brandOrderService.add(brandOrder);
+            if(brandOrderService.queryByMergeId(mergeOrder.getId()) == null){
+                JindouyunBrandOrder brandOrder = new JindouyunBrandOrder();
+                brandOrder.setOrderId(mergeOrder.getId());
+                brandOrder.setStatus((short)mergeOrder.getStatus());
+                brandOrderService.add(brandOrder);
+            }
         }
     }
 }

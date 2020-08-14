@@ -1,6 +1,7 @@
 package com.jindouyun.delivery.controller;
 
 import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.common.constant.MergeOrderConstant;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunGrabOrder;
 import com.jindouyun.db.domain.JindouyunMergeOrder;
@@ -68,9 +69,9 @@ public class DeliveryMergeOrderController {
             return ResponseUtil.unlogin();
         }
         JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(orderId);
-        mergeOrder.setStatus((byte)1);
+        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_REVEIVE);
         mergeOrder.setPickupTime(LocalDateTime.now());
-        Object result = mergeOrderService.updateOrderStatus(mergeOrder);
+        mergeOrderService.updateOrderStatus(mergeOrder);
         return ResponseUtil.ok(mergeOrder);
     }
 
@@ -86,9 +87,9 @@ public class DeliveryMergeOrderController {
             return ResponseUtil.unlogin();
         }
         JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(orderId);
-        mergeOrder.setStatus((byte)2);
+        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_ARRIVED);
         mergeOrder.setArriveTime(LocalDateTime.now());
-        Object result = mergeOrderService.updateOrderStatus(mergeOrder);
+        mergeOrderService.updateOrderStatus(mergeOrder);
         return ResponseUtil.ok(mergeOrder);
     }
 
