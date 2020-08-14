@@ -5,7 +5,7 @@
         select
         substr(add_time,1,10) as day,
         count(distinct id) as users
-        from litemall_user
+        from jindouyun_user
         group by substr(add_time,1,10)
     </select>
     <select id="statOrder" resultType="map">
@@ -15,7 +15,7 @@
         count(distinct user_id) as customers,
         sum(actual_price) as amount,
         round(sum(actual_price)/count(distinct user_id),2) as pcr
-        from litemall_order
+        from jindouyun_order
         where order_status in(401,402)
         group by substr(add_time,1,10)
     </select>
@@ -25,7 +25,7 @@
         count(distinct order_id) as orders,
         sum(number) as products,
         sum(number*price) as amount
-        from litemall_order_goods
+        from jindouyun_order_goods
         group by substr(add_time,1, 10)
     </select>
 </mapper>

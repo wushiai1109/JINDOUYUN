@@ -3276,3 +3276,437 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2020-08-14 18:09:54,508 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
 2020-08-14 18:09:54,508 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:09:54.5075302(Timestamp), false(Boolean)
 2020-08-14 18:09:54,509 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:13:26,135 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-14 18:13:26,241 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-14 18:13:26,268 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-14 18:13:28,487 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:13:28,505 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:13:28,510 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:13:28.4955147(Timestamp), false(Boolean)
+2020-08-14 18:13:28,512 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:13:28,523 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:13:28,525 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:13:28.5194506(Timestamp), false(Boolean)
+2020-08-14 18:13:28,527 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:14:21,854 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, username, `password`, last_login_ip, last_login_time, avatar, add_time, update_time, deleted, role_ids from jindouyun_admin WHERE ( username = ? and deleted = ? ) 
+2020-08-14 18:14:21,856 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), false(Boolean)
+2020-08-14 18:14:21,864 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:21,972 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==>  Preparing: update jindouyun_admin SET username = ?, `password` = ?, last_login_ip = ?, last_login_time = ?, avatar = ?, add_time = ?, update_time = ?, deleted = ?, role_ids = ? where id = ? 
+2020-08-14 18:14:21,990 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), $2a$10$.rEfyBb/GURD9P2p0fRg/OAJGloGNDkJS4lY0cQHeqDgsbdTylBpu(String), 0:0:0:0:0:0:0:1(String), 2020-08-14 18:14:21.9707589(Timestamp), https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif(String), 2018-02-01 00:00:00.0(Timestamp), 2020-08-14 18:14:21.9707589(Timestamp), false(Boolean), [1](String), 1(Integer)
+2020-08-14 18:14:21,998 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-14 18:14:22,000 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==>  Preparing: insert into jindouyun_log ( `admin`, ip, `type`, `action`, `status`, `result`, `comment`, add_time, update_time ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? ) 
+2020-08-14 18:14:22,005 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), 0:0:0:0:0:0:0:1(String), 1(Integer), 登录(String), true(Boolean), (String), (String), 2020-08-14 18:14:21.9986559(Timestamp), 2020-08-14 18:14:21.9986559(Timestamp)
+2020-08-14 18:14:22,010 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-14 18:14:22,012 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==>  Preparing: SELECT LAST_INSERT_ID() 
+2020-08-14 18:14:22,013 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-14 18:14:22,015 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:28,529 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:14:28,530 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:14:28,531 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:14:28.5302092(Timestamp), false(Boolean)
+2020-08-14 18:14:28,532 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:14:28,533 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:14:28,534 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:14:28.5328688(Timestamp), false(Boolean)
+2020-08-14 18:14:28,534 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:14:30,047 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:14:30,051 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:14:30,053 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,063 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:14:30,064 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:14:30,066 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,102 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:14:30,103 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:14:30,105 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,107 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:14:30,108 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:14:30,109 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,149 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample_COUNT [BaseJdbcLogger.java : 159] ==>  Preparing: SELECT count(0) FROM jindouyun_delivery_staff WHERE (id = ? AND deleted = ?) 
+2020-08-14 18:14:30,152 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample_COUNT [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:14:30,154 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample_COUNT [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,156 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, today_status, work_type, work_status, add_time, update_time, deleted from jindouyun_delivery_staff WHERE ( id = ? and deleted = ? ) LIMIT ? 
+2020-08-14 18:14:30,159 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean), 10(Integer)
+2020-08-14 18:14:30,161 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,165 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, username, `password`, gender, birthday, last_login_time, last_login_ip, nickname, mobile, avatar, weixin_openid, session_key, `status`, add_time, update_time, deleted from jindouyun_user where id = ? 
+2020-08-14 18:14:30,167 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer)
+2020-08-14 18:14:30,170 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,183 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, delivery_id, user_id, work_start, work_end, work_time, add_time, update_time, deleted from jindouyun_clockin WHERE ( user_id = ? and work_start between ? and ? and deleted = ? ) 
+2020-08-14 18:14:30,185 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), 2020-08-14 00:00:00.0(Timestamp), 2020-08-15 00:00:00.0(Timestamp), false(Boolean)
+2020-08-14 18:14:30,187 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 2
+2020-08-14 18:14:30,190 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, delivery_id, user_id, work_start, work_end, work_time, add_time, update_time, deleted from jindouyun_clockin WHERE ( user_id = ? and work_start between ? and ? and deleted = ? ) 
+2020-08-14 18:14:30,192 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), 2020-08-14 00:00:00.0(Timestamp), 2020-08-15 00:00:00.0(Timestamp), false(Boolean)
+2020-08-14 18:14:30,194 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 2
+2020-08-14 18:14:30,203 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, today_work_time, today_time, goods_order_num, menu_order_num, express_order_num, add_time, update_time, deleted from jindouyun_deliveries_performance WHERE ( user_id = ? and today_time = ? and deleted = ? ) limit 1 
+2020-08-14 18:14:30,206 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), 2020-08-14(Date), false(Boolean)
+2020-08-14 18:14:30,210 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:14:30,214 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, today_work_time, today_time, goods_order_num, menu_order_num, express_order_num, add_time, update_time, deleted from jindouyun_deliveries_performance WHERE ( user_id = ? and today_time between ? and ? and deleted = ? ) 
+2020-08-14 18:14:30,216 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), 2020-08-01(Date), 2020-08-31(Date), false(Boolean)
+2020-08-14 18:14:30,217 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 2
+2020-08-14 18:41:58,651 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-14 18:41:58,743 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-14 18:41:58,768 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-14 18:42:00,829 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:42:00,846 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:42:00,850 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:42:00.8387879(Timestamp), false(Boolean)
+2020-08-14 18:42:00,853 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:42:00,863 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:42:00,864 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:42:00.859871(Timestamp), false(Boolean)
+2020-08-14 18:42:00,866 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:42:49,038 WARN [http-nio-8080-exec-1] c.j.a.config.ShiroExceptionHandler [ShiroExceptionHandler.java : 30] This subject is anonymous - it does not have any identifying principals and authorization operations require an identity to check against.  A Subject instance will acquire these identifying principals automatically after a successful login is performed be executing org.apache.shiro.subject.Subject.login(AuthenticationToken) or when 'Remember Me' functionality is enabled by the SecurityManager.  This exception can also occur when a previously logged-in Subject has logged out which makes it anonymous again.  Because an identity is currently not known due to any of these conditions, authorization is denied.
+org.apache.shiro.authz.UnauthenticatedException: This subject is anonymous - it does not have any identifying principals and authorization operations require an identity to check against.  A Subject instance will acquire these identifying principals automatically after a successful login is performed be executing org.apache.shiro.subject.Subject.login(AuthenticationToken) or when 'Remember Me' functionality is enabled by the SecurityManager.  This exception can also occur when a previously logged-in Subject has logged out which makes it anonymous again.  Because an identity is currently not known due to any of these conditions, authorization is denied.
+	at org.apache.shiro.subject.support.DelegatingSubject.assertAuthzCheckPossible(DelegatingSubject.java:203)
+	at org.apache.shiro.subject.support.DelegatingSubject.checkPermission(DelegatingSubject.java:208)
+	at org.apache.shiro.authz.aop.PermissionAnnotationHandler.assertAuthorized(PermissionAnnotationHandler.java:74)
+	at org.apache.shiro.authz.aop.AuthorizingAnnotationMethodInterceptor.assertAuthorized(AuthorizingAnnotationMethodInterceptor.java:84)
+	at org.apache.shiro.authz.aop.AnnotationsAuthorizingMethodInterceptor.assertAuthorized(AnnotationsAuthorizingMethodInterceptor.java:100)
+	at org.apache.shiro.authz.aop.AuthorizingMethodInterceptor.invoke(AuthorizingMethodInterceptor.java:38)
+	at org.apache.shiro.spring.security.interceptor.AopAllianceAnnotationsAuthorizingMethodInterceptor.invoke(AopAllianceAnnotationsAuthorizingMethodInterceptor.java:115)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.jindouyun.admin.controller.AdminDeliveryController$$EnhancerBySpringCGLIB$$61cdce00.info(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: org.apache.shiro.authz.AuthorizationException: Not authorized to invoke method: public java.lang.Object com.jindouyun.admin.controller.AdminDeliveryController.info(java.lang.Integer)
+	at org.apache.shiro.authz.aop.AuthorizingAnnotationMethodInterceptor.assertAuthorized(AuthorizingAnnotationMethodInterceptor.java:90)
+	... 76 common frames omitted
+2020-08-14 18:42:52,179 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, username, `password`, last_login_ip, last_login_time, avatar, add_time, update_time, deleted, role_ids from jindouyun_admin WHERE ( username = ? and deleted = ? ) 
+2020-08-14 18:42:52,180 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), false(Boolean)
+2020-08-14 18:42:52,187 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:42:52,291 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==>  Preparing: update jindouyun_admin SET username = ?, `password` = ?, last_login_ip = ?, last_login_time = ?, avatar = ?, add_time = ?, update_time = ?, deleted = ?, role_ids = ? where id = ? 
+2020-08-14 18:42:52,301 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), $2a$10$.rEfyBb/GURD9P2p0fRg/OAJGloGNDkJS4lY0cQHeqDgsbdTylBpu(String), 0:0:0:0:0:0:0:1(String), 2020-08-14 18:42:52.2891855(Timestamp), https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif(String), 2018-02-01 00:00:00.0(Timestamp), 2020-08-14 18:42:52.2891855(Timestamp), false(Boolean), [1](String), 1(Integer)
+2020-08-14 18:42:52,309 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-14 18:42:52,312 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==>  Preparing: insert into jindouyun_log ( `admin`, ip, `type`, `action`, `status`, `result`, `comment`, add_time, update_time ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? ) 
+2020-08-14 18:42:52,317 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), 0:0:0:0:0:0:0:1(String), 1(Integer), 登录(String), true(Boolean), (String), (String), 2020-08-14 18:42:52.3101258(Timestamp), 2020-08-14 18:42:52.3111247(Timestamp)
+2020-08-14 18:42:52,321 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-14 18:42:52,323 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==>  Preparing: SELECT LAST_INSERT_ID() 
+2020-08-14 18:42:52,324 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-14 18:42:52,326 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:43:00,868 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:43:00,869 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:43:00,870 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:43:00.8688123(Timestamp), false(Boolean)
+2020-08-14 18:43:00,871 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:43:00,872 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:43:00,873 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:43:00.8728134(Timestamp), false(Boolean)
+2020-08-14 18:43:00,874 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:43:23,497 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:43:23,499 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:43:23,502 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:43:23,511 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:43:23,513 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:43:23,515 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:43:23,531 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:43:23,532 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:43:23,533 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:43:23,536 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:43:23,536 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:43:23,538 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:43:23,541 DEBUG [http-nio-8080-exec-4] c.j.db.dao.StatMapper.statUser [BaseJdbcLogger.java : 159] ==>  Preparing: select substr(add_time,1,10) as day, count(distinct id) as users from litemall_user group by substr(add_time,1,10) 
+2020-08-14 18:43:23,544 DEBUG [http-nio-8080-exec-4] c.j.db.dao.StatMapper.statUser [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-14 18:43:23,590 ERROR [http-nio-8080-exec-4] c.j.c.config.GlobalExceptionHandler [GlobalExceptionHandler.java : 72] 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'jindouyun.litemall_user' doesn't exist
+### The error may exist in com/jindouyun/db/dao/StatMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: select         substr(add_time,1,10) as day,         count(distinct id) as users         from litemall_user         group by substr(add_time,1,10)
+### Cause: java.sql.SQLSyntaxErrorException: Table 'jindouyun.litemall_user' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'jindouyun.litemall_user' doesn't exist
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'jindouyun.litemall_user' doesn't exist
+### The error may exist in com/jindouyun/db/dao/StatMapper.xml
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: select         substr(add_time,1,10) as day,         count(distinct id) as users         from litemall_user         group by substr(add_time,1,10)
+### Cause: java.sql.SQLSyntaxErrorException: Table 'jindouyun.litemall_user' doesn't exist
+; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Table 'jindouyun.litemall_user' doesn't exist
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:234)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:72)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy89.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:230)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:139)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:76)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:59)
+	at com.sun.proxy.$Proxy131.statUser(Unknown Source)
+	at com.jindouyun.db.service.StatService.statUser(StatService.java:17)
+	at com.jindouyun.admin.controller.AdminStatController.statUser(AdminStatController.java:32)
+	at com.jindouyun.admin.controller.AdminStatController$$FastClassBySpringCGLIB$$f6897bd0.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.apache.shiro.spring.security.interceptor.AopAllianceAnnotationsAuthorizingMethodInterceptor$1.proceed(AopAllianceAnnotationsAuthorizingMethodInterceptor.java:82)
+	at org.apache.shiro.authz.aop.AuthorizingMethodInterceptor.invoke(AuthorizingMethodInterceptor.java:39)
+	at org.apache.shiro.spring.security.interceptor.AopAllianceAnnotationsAuthorizingMethodInterceptor.invoke(AopAllianceAnnotationsAuthorizingMethodInterceptor.java:115)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.jindouyun.admin.controller.AdminStatController$$EnhancerBySpringCGLIB$$e95382e2.statUser(<generated>)
+	at com.jindouyun.admin.controller.AdminStatController$$FastClassBySpringCGLIB$$f6897bd0.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:749)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.apache.shiro.spring.security.interceptor.AopAllianceAnnotationsAuthorizingMethodInterceptor$1.proceed(AopAllianceAnnotationsAuthorizingMethodInterceptor.java:82)
+	at org.apache.shiro.authz.aop.AuthorizingMethodInterceptor.invoke(AuthorizingMethodInterceptor.java:39)
+	at org.apache.shiro.spring.security.interceptor.AopAllianceAnnotationsAuthorizingMethodInterceptor.invoke(AopAllianceAnnotationsAuthorizingMethodInterceptor.java:115)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:688)
+	at com.jindouyun.admin.controller.AdminStatController$$EnhancerBySpringCGLIB$$f99b3960.statUser(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:387)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at com.alibaba.druid.support.http.WebStatFilter.doFilter(WebStatFilter.java:123)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'jindouyun.litemall_user' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:970)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:387)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3409)
+	at com.alibaba.druid.wall.WallFilter.preparedStatement_execute(WallFilter.java:619)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.filter.FilterEventAdapter.preparedStatement_execute(FilterEventAdapter.java:440)
+	at com.alibaba.druid.filter.FilterChainImpl.preparedStatement_execute(FilterChainImpl.java:3407)
+	at com.alibaba.druid.proxy.jdbc.PreparedStatementProxyImpl.execute(PreparedStatementProxyImpl.java:167)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:498)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at com.sun.proxy.$Proxy135.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:63)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:326)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:143)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at com.sun.proxy.$Proxy165.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:148)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:141)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	... 100 common frames omitted
+2020-08-14 18:44:00,877 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:44:00,878 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:44:00,878 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:44:00.8771337(Timestamp), false(Boolean)
+2020-08-14 18:44:00,879 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:44:00,881 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:44:00,882 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:44:00.8798903(Timestamp), false(Boolean)
+2020-08-14 18:44:00,883 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:45:00,886 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:45:00,890 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:45:00,891 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:45:00.8868943(Timestamp), false(Boolean)
+2020-08-14 18:45:00,892 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:45:00,893 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:45:00,894 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:45:00.8924454(Timestamp), false(Boolean)
+2020-08-14 18:45:00,895 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:46:00,235 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-14 18:46:00,323 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-14 18:46:00,349 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-14 18:46:02,450 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:46:02,466 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:46:02,470 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:46:02.4580869(Timestamp), false(Boolean)
+2020-08-14 18:46:02,472 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:46:02,482 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:46:02,484 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:46:02.478485(Timestamp), false(Boolean)
+2020-08-14 18:46:02,486 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:46:03,446 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, username, `password`, last_login_ip, last_login_time, avatar, add_time, update_time, deleted, role_ids from jindouyun_admin WHERE ( username = ? and deleted = ? ) 
+2020-08-14 18:46:03,449 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), false(Boolean)
+2020-08-14 18:46:03,456 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:03,559 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==>  Preparing: update jindouyun_admin SET username = ?, `password` = ?, last_login_ip = ?, last_login_time = ?, avatar = ?, add_time = ?, update_time = ?, deleted = ?, role_ids = ? where id = ? 
+2020-08-14 18:46:03,576 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), $2a$10$.rEfyBb/GURD9P2p0fRg/OAJGloGNDkJS4lY0cQHeqDgsbdTylBpu(String), 0:0:0:0:0:0:0:1(String), 2020-08-14 18:46:03.5581578(Timestamp), https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif(String), 2018-02-01 00:00:00.0(Timestamp), 2020-08-14 18:46:03.5581578(Timestamp), false(Boolean), [1](String), 1(Integer)
+2020-08-14 18:46:03,584 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-14 18:46:03,587 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==>  Preparing: insert into jindouyun_log ( `admin`, ip, `type`, `action`, `status`, `result`, `comment`, add_time, update_time ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ? ) 
+2020-08-14 18:46:03,592 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] ==> Parameters: admin123(String), 0:0:0:0:0:0:0:1(String), 1(Integer), 登录(String), true(Boolean), (String), (String), 2020-08-14 18:46:03.5860714(Timestamp), 2020-08-14 18:46:03.5860714(Timestamp)
+2020-08-14 18:46:03,598 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-14 18:46:03,599 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==>  Preparing: SELECT LAST_INSERT_ID() 
+2020-08-14 18:46:03,601 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-14 18:46:03,602 DEBUG [http-nio-8080-exec-1] c.j.d.d.J.insertSelective!selectKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:13,073 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:46:13,075 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:46:13,077 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:13,086 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:46:13,087 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:46:13,089 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:13,104 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:46:13,106 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:46:13,107 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:13,108 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:46:13,109 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:46:13,110 DEBUG [http-nio-8080-exec-3] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:13,113 DEBUG [http-nio-8080-exec-3] c.j.db.dao.StatMapper.statUser [BaseJdbcLogger.java : 159] ==>  Preparing: select substr(add_time,1,10) as day, count(distinct id) as users from jindouyun_user group by substr(add_time,1,10) 
+2020-08-14 18:46:13,117 DEBUG [http-nio-8080-exec-3] c.j.db.dao.StatMapper.statUser [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-14 18:46:13,121 DEBUG [http-nio-8080-exec-3] c.j.db.dao.StatMapper.statUser [BaseJdbcLogger.java : 159] <==      Total: 3
+2020-08-14 18:46:22,088 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:46:22,089 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:46:22,091 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:22,095 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:46:22,096 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:46:22,098 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:22,100 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:46:22,101 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:46:22,103 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:22,105 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:46:22,106 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:46:22,108 DEBUG [http-nio-8080-exec-4] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:22,110 DEBUG [http-nio-8080-exec-4] c.j.db.dao.StatMapper.statGoods [BaseJdbcLogger.java : 159] ==>  Preparing: select substr(add_time,1, 10) as day, count(distinct order_id) as orders, sum(number) as products, sum(number*price) as amount from jindouyun_order_goods group by substr(add_time,1, 10) 
+2020-08-14 18:46:22,111 DEBUG [http-nio-8080-exec-4] c.j.db.dao.StatMapper.statGoods [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-14 18:46:22,115 DEBUG [http-nio-8080-exec-4] c.j.db.dao.StatMapper.statGoods [BaseJdbcLogger.java : 159] <==      Total: 4
+2020-08-14 18:46:52,043 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:46:52,044 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:46:52,047 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:52,050 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:46:52,051 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:46:52,053 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:52,056 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, enabled, add_time, update_time, deleted from jindouyun_role WHERE ( id in ( ? ) and enabled = ? and deleted = ? ) 
+2020-08-14 18:46:52,057 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), true(Boolean), false(Boolean)
+2020-08-14 18:46:52,060 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:52,061 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, permission, add_time, update_time, deleted from jindouyun_permission WHERE ( role_id in ( ? ) and deleted = ? ) 
+2020-08-14 18:46:52,062 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-14 18:46:52,064 DEBUG [http-nio-8080-exec-6] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-14 18:46:52,065 DEBUG [http-nio-8080-exec-6] c.j.db.dao.StatMapper.statOrder [BaseJdbcLogger.java : 159] ==>  Preparing: select substr(add_time,1,10) as day, count(id) as orders, count(distinct user_id) as customers, sum(actual_price) as amount, round(sum(actual_price)/count(distinct user_id),2) as pcr from jindouyun_order where order_status in(401,402) group by substr(add_time,1,10) 
+2020-08-14 18:46:52,067 DEBUG [http-nio-8080-exec-6] c.j.db.dao.StatMapper.statOrder [BaseJdbcLogger.java : 159] ==> Parameters: 
+2020-08-14 18:46:52,072 DEBUG [http-nio-8080-exec-6] c.j.db.dao.StatMapper.statOrder [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:47:02,486 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-14 18:47:02,487 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:47:02,488 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-14 18:47:02.4868719(Timestamp), false(Boolean)
+2020-08-14 18:47:02,489 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-14 18:47:02,491 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-14 18:47:02,491 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-14 18:47:02.4906218(Timestamp), false(Boolean)
+2020-08-14 18:47:02,492 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
