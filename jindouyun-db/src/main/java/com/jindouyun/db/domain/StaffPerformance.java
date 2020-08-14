@@ -10,16 +10,31 @@ import java.util.List;
  */
 public class StaffPerformance {
 
+    //工作时间段
     private List<JindouyunClockin> todayWorkTimeList;
+    //今日工作时间（分）
     private Integer todayWorkSumMinute;
-    private Integer todayWorkDeliveriesCount;
+    //今日商品订单配送次数
+    private Integer todayGoodsDeliveriesSum;
+    //今日外卖订单配送次数
+    private Integer todayMenuDeliveriesSum;
+    //今日快递订单配送次数
+    private Integer todayExpressDeliveriesSum;
+    //今日配送总数
     private Integer todayWorkDeliveriesSum;
+    //本月工作时间
     private Integer monthWorkSumMinute;
+    //本月最长工作时间
     private Integer monthWorkMax;
+    //本月最短工作时间
     private Integer monthWorkMin;
+    //本月商品订单配送次数
     private Integer monthGoodsDeliveriesSum;
+    //本月外卖订单配送次数
     private Integer monthMenuDeliveriesSum;
+    //本月快递订单配送次数
     private Integer monthExpressDeliveriesSum;
+    //本月配送总次数
     private Integer monthWorkDeliveriesSum;
 
     public List<JindouyunClockin> getTodayWorkTimeList() {
@@ -38,12 +53,32 @@ public class StaffPerformance {
         this.todayWorkSumMinute = todayWorkSumMinute;
     }
 
-    public Integer getTodayWorkDeliveriesCount() {
-        return todayWorkDeliveriesCount;
+    public Integer getTodayGoodsDeliveriesSum() {
+        return todayGoodsDeliveriesSum;
     }
 
-    public void setTodayWorkDeliveriesCount(Integer todayWorkDeliveriesCount) {
-        this.todayWorkDeliveriesCount = todayWorkDeliveriesCount;
+    public void setTodayGoodsDeliveriesSum(Integer todayGoodsDeliveriesSum) {
+        this.todayGoodsDeliveriesSum = todayGoodsDeliveriesSum;
+    }
+
+    public Integer getTodayMenuDeliveriesSum() {
+        return todayMenuDeliveriesSum;
+    }
+
+    public void setTodayMenuDeliveriesSum(Integer todayMenuDeliveriesSum) {
+        this.todayMenuDeliveriesSum = todayMenuDeliveriesSum;
+    }
+
+    public Integer getTodayExpressDeliveriesSum() {
+        return todayExpressDeliveriesSum;
+    }
+
+    public void setTodayExpressDeliveriesSum(Integer todayExpressDeliveriesSum) {
+        this.todayExpressDeliveriesSum = todayExpressDeliveriesSum;
+    }
+
+    public Integer getMonthWorkMin() {
+        return monthWorkMin;
     }
 
     public Integer getTodayWorkDeliveriesSum() {

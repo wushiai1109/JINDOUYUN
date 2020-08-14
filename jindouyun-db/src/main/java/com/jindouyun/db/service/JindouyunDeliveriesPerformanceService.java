@@ -77,7 +77,9 @@ public class JindouyunDeliveriesPerformanceService {
 
         performance.setTodayWorkTimeList(workTimeList);
         performance.setTodayWorkSumMinute(deliveriesPerformance.getTodayWorkTime());
-        performance.setTodayWorkDeliveriesCount(todayWorkDeliveriesSum);
+        performance.setTodayGoodsDeliveriesSum(deliveriesPerformance.getGoodsOrderNum());
+        performance.setTodayMenuDeliveriesSum(deliveriesPerformance.getMenuOrderNum());
+        performance.setTodayExpressDeliveriesSum(deliveriesPerformance.getExpressOrderNum());
         performance.setTodayWorkDeliveriesSum(todayWorkDeliveriesSum);
         performance.setMonthWorkSumMinute(monthWorkSumMinute);
         performance.setMonthWorkMax(monthWorkMax);

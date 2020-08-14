@@ -14,8 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.jindouyun.admin.util.AdminResponseCode.GRABORDER_ORDER_RECEIVED;
-import static com.jindouyun.admin.util.AdminResponseCode.MERGE_ORDDER_NUEXIST;
+import static com.jindouyun.admin.util.AdminResponseCode.*;
 
 /**
  * @className: AdminDeliveryService
@@ -102,7 +101,7 @@ public class AdminDeliveryService {
         JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(mergeId);
         if(mergeOrder == null){
             System.err.println("强制派单 - 合单不存在");
-            return ResponseUtil.fail(MERGE_ORDDER_NUEXIST,"合单不存在");
+            return ResponseUtil.fail(MERGE_ORDER_NUEXIST,"合单不存在");
         }
         JindouyunGrabOrder grabOrder = grabOrderService.queryByMergeId(mergeId);
         if(grabOrder == null){
