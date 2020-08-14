@@ -25,5 +25,6 @@ public class DeliveryInfo {
     private String mobile;
     private String avatar;
     private boolean auth;
+    private boolean isApply;
     private JindouyunDeliveryStaff deliveryStaff;
 }

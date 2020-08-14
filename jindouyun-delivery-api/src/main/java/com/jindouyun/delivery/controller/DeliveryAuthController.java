@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
     private JindouyunUserService userService;
 
     @Autowired
-    private JindouyunDeliveryStaffService deliveryStaffService;
+    private JindouyunDeliveryStaffService deliveryService;
 
     @Autowired
     private JindouyunRegiteDeliveryService registerDeliveryService;
@@ -105,17 +106,26 @@ public class DeliveryAuthController extends AuthServiceImpl {
         deliveryInfo.setMobile(user.getMobile());
 
         //判断是否已认证
-        JindouyunDeliveryStaff deliveryStaff = deliveryStaffService.queryByUserId(user.getId());
-        if(deliveryStaff != null){
+        JindouyunDeliveryStaff deliveryStaff = deliveryService.queryByUserId(user.getId());
+
+        //判断是否已申请
+        JindouyunRegisteDeliveries registeDeliveries = registerDeliveryService.findOneBy(user.getId());
+
+        if (deliveryStaff != null) {
             deliveryInfo.setAuth(true);
         }
+
+        if (registeDeliveries != null) {
+            deliveryInfo.setApply(true);
+        }
+
         deliveryInfo.setDeliveryStaff(deliveryStaff);
 
         // token
         String token = UserTokenManager.generateToken(user.getId());
 
         //加入用户缓存
-        LoginUserManager.deliveryInfoMap.put(user.getId(),deliveryInfo);
+        LoginUserManager.deliveryInfoMap.put(user.getId(), deliveryInfo);
 
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("token", token);
@@ -189,17 +199,26 @@ public class DeliveryAuthController extends AuthServiceImpl {
         deliveryInfo.setMobile(user.getMobile());
 
         //判断是否已认证
-        JindouyunDeliveryStaff deliveryStaff = deliveryStaffService.queryByUserId(user.getId());
-        if(deliveryStaff != null){
+        JindouyunDeliveryStaff deliveryStaff = deliveryService.queryByUserId(user.getId());
+
+        //判断是否已申请
+        JindouyunRegisteDeliveries registeDeliveries = registerDeliveryService.findOneBy(user.getId());
+
+        if (deliveryStaff != null) {
             deliveryInfo.setAuth(true);
         }
+
+        if (registeDeliveries != null) {
+            deliveryInfo.setApply(true);
+        }
+
         deliveryInfo.setDeliveryStaff(deliveryStaff);
 
         // token
         String token = UserTokenManager.generateToken(user.getId());
 
         //加入缓存
-        LoginUserManager.deliveryInfoMap.put(user.getId(),deliveryInfo);
+        LoginUserManager.deliveryInfoMap.put(user.getId(), deliveryInfo);
 
         Map<Object, Object> result = new HashMap<Object, Object>();
         result.put("token", token);
@@ -209,10 +228,11 @@ public class DeliveryAuthController extends AuthServiceImpl {
 
     /**
      * 注册成为骑手
+     *
      * @return
      */
     @PostMapping("register")
-    public Object register(@LoginUser Integer userId, @RequestParam(name = "message",required = false) String message){
+    public Object register(@LoginUser Integer userId, @RequestParam(name = "message", required = false) String message) {
         JindouyunRegisteDeliveries registerDeliveries = new JindouyunRegisteDeliveries();
         registerDeliveries.setUserId(userId);
         registerDeliveries.setMessage(message);
@@ -240,13 +260,13 @@ public class DeliveryAuthController extends AuthServiceImpl {
     /**
      * 账号密码重置
      *
-     * @param body    请求内容
-     *                {
-     *                password: xxx,
-     *                mobile: xxx
-     *                code: xxx
-     *                }
-     *                其中code是手机验证码，目前还不支持手机短信验证码
+     * @param body 请求内容
+     *             {
+     *             password: xxx,
+     *             mobile: xxx
+     *             code: xxx
+     *             }
+     *             其中code是手机验证码，目前还不支持手机短信验证码
      * @return 登录结果
      * 成功则 { errno: 0, errmsg: '成功' }
      * 失败则 { errno: XXX, errmsg: XXX }
@@ -257,20 +277,20 @@ public class DeliveryAuthController extends AuthServiceImpl {
         String mobile = JacksonUtil.parseString(body, "mobile");
         String code = JacksonUtil.parseString(body, "code");
 
-        Object result = super.reset(password,mobile,code);
+        Object result = super.reset(password, mobile, code);
         return result;
     }
 
     /**
      * 账号手机号码重置
      *
-     * @param body    请求内容
-     *                {
-     *                password: xxx,
-     *                mobile: xxx
-     *                code: xxx
-     *                }
-     *                其中code是手机验证码，目前还不支持手机短信验证码
+     * @param body 请求内容
+     *             {
+     *             password: xxx,
+     *             mobile: xxx
+     *             code: xxx
+     *             }
+     *             其中code是手机验证码，目前还不支持手机短信验证码
      * @return 登录结果
      * 成功则 { errno: 0, errmsg: '成功' }
      * 失败则 { errno: XXX, errmsg: XXX }
@@ -284,7 +304,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
         String mobile = JacksonUtil.parseString(body, "mobile");
         String code = JacksonUtil.parseString(body, "code");
 
-        Object result = super.resetPhone(userId,password,mobile,code);
+        Object result = super.resetPhone(userId, password, mobile, code);
 
         return result;
     }
@@ -293,12 +313,12 @@ public class DeliveryAuthController extends AuthServiceImpl {
     /**
      * 账号信息更新
      *
-     * @param body    请求内容
-     *                {
-     *                avatar: xxx,
-     *                gender: xxx
-     *                nickname: xxx
-     *                }
+     * @param body 请求内容
+     *             {
+     *             avatar: xxx,
+     *             gender: xxx
+     *             nickname: xxx
+     *             }
      * @return 登录结果
      */
     @PostMapping("profile")
@@ -309,7 +329,7 @@ public class DeliveryAuthController extends AuthServiceImpl {
         String avatar = JacksonUtil.parseString(body, "avatar");
         Byte gender = JacksonUtil.parseByte(body, "gender");
         String nickname = JacksonUtil.parseString(body, "nickname");
-        Object result = super.profile(userId,gender,avatar,nickname);
+        Object result = super.profile(userId, gender, avatar, nickname);
         return result;
     }
 
@@ -363,20 +383,23 @@ public class DeliveryAuthController extends AuthServiceImpl {
     /**
      * 修改工作状态
      *
-     * @param todayStatus    请求内容
+     * @param body 请求内容
      * @return 登录结果
      */
     @PostMapping("modify_today_status")
-    public Object modifyStatus(@LoginUser Integer userId, @RequestParam(name = "todayStatus")Short todayStatus) {
+    public Object modifyStatus(@LoginUser Integer userId, @RequestBody String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
-        Object result = deliveryStaffService.modifyStatus(userId,todayStatus);
+
+        Short todayStatus = JacksonUtil.parseShort(body, "todayStatus");
+
+        Object result = deliveryService.modifyStatus(userId, todayStatus);
 
         DeliveryInfo deliveryInfo = LoginUserManager.deliveryInfoMap.get(userId);
         deliveryInfo.getDeliveryStaff().setTodayStatus(todayStatus);
 
-        LoginUserManager.deliveryInfoMap.put(userId,deliveryInfo);
+        LoginUserManager.deliveryInfoMap.put(userId, deliveryInfo);
         return ResponseUtil.ok(result);
     }
 
@@ -384,44 +407,47 @@ public class DeliveryAuthController extends AuthServiceImpl {
     /**
      * 修改工作方式
      *
-     * @param workType    请求内容
+     * @param body 请求内容
      * @return 登录结果
      */
     @PostMapping("modify_work_type")
-    public Object modifyType(@LoginUser Integer userId, @RequestParam(name = "workType")Byte workType) {
+    public Object modifyType(@LoginUser Integer userId, @RequestBody String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
-        Object result = deliveryStaffService.modifyType(userId,workType);
+
+        Byte workType = JacksonUtil.parseByte(body, "workType");
+
+        Object result = deliveryService.modifyType(userId, workType);
 
         DeliveryInfo deliveryInfo = LoginUserManager.deliveryInfoMap.get(userId);
         deliveryInfo.getDeliveryStaff().setWorkType(workType);
 
-        LoginUserManager.deliveryInfoMap.put(userId,deliveryInfo);
+        LoginUserManager.deliveryInfoMap.put(userId, deliveryInfo);
         return ResponseUtil.ok(result);
     }
 
     /**
      * 修改工作信息
      *
-     * @param body    请求内容
+     * @param body 请求内容
      * @return 登录结果
      */
     @PostMapping("modify_info")
-    public Object modifyInfo(@LoginUser Integer userId, @RequestBody String body ) {
+    public Object modifyInfo(@LoginUser Integer userId, @RequestBody String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
         String userName = JacksonUtil.parseString(body, "userName");
         String mobile = JacksonUtil.parseString(body, "mobile");
 
-        Object result = deliveryStaffService.modifyInfo(userId,userName,mobile);
+        Object result = deliveryService.modifyInfo(userId, userName, mobile);
 
         DeliveryInfo deliveryInfo = LoginUserManager.deliveryInfoMap.get(userId);
         deliveryInfo.setUsername(userName);
         deliveryInfo.setMobile(mobile);
 
-        LoginUserManager.deliveryInfoMap.put(userId,deliveryInfo);
+        LoginUserManager.deliveryInfoMap.put(userId, deliveryInfo);
         return ResponseUtil.ok(LoginUserManager.deliveryInfoMap.get(userId));
     }
 

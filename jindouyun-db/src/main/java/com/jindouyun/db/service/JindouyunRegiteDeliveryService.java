@@ -1,7 +1,9 @@
 package com.jindouyun.db.service;
 
 import com.jindouyun.db.dao.JindouyunRegisteDeliveriesMapper;
+import com.jindouyun.db.domain.JindouyunDeliveryStaffExample;
 import com.jindouyun.db.domain.JindouyunRegisteDeliveries;
+import com.jindouyun.db.domain.JindouyunRegisteDeliveriesExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,4 +29,9 @@ public class JindouyunRegiteDeliveryService {
         registerDeliveriesMapper.insertSelective(register);
     }
 
+    public JindouyunRegisteDeliveries findOneBy(Integer id) {
+        JindouyunRegisteDeliveriesExample example = new JindouyunRegisteDeliveriesExample();
+        example.or().andUserIdEqualTo(id).andDeletedEqualTo(false);
+        return registerDeliveriesMapper.selectOneByExample(example);
+    }
 }
