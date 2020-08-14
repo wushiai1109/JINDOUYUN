@@ -172,6 +172,7 @@ public class JindouyunExpressOrderService {
     public int add(JindouyunExpressOrder order) {
         order.setAddTime(LocalDateTime.now());
         order.setUpdateTime(LocalDateTime.now());
+        order.setDeleted(false);
         return expressOrderMapper.insertSelective(order);
     }
 

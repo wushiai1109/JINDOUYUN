@@ -23,6 +23,7 @@ public class JindouyunClockinService {
     @Autowired
     private JindouyunClockinMapper clockinMapper;
 
+
     public List<JindouyunClockin> todayWork(Integer userId, LocalDateTime date) {
         JindouyunClockinExample clockinExample = new JindouyunClockinExample();
         clockinExample.or().andUserIdEqualTo(userId).andWorkStartBetween(date,date.plusDays(1)).andDeletedEqualTo(false);

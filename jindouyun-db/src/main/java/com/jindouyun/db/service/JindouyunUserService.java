@@ -34,8 +34,10 @@ public class JindouyunUserService {
     public UserVo findUserVoById(Integer userId) {
         JindouyunUser user = findById(userId);
         UserVo userVo = new UserVo();
+        userVo.setId(user.getId());
         userVo.setNickname(user.getNickname());
         userVo.setAvatar(user.getAvatar());
+        userVo.setMobile(user.getMobile());
         return userVo;
     }
 
