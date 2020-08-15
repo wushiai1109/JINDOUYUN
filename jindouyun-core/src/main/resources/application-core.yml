@@ -77,9 +77,16 @@ jindouyun:
       # 这个地方应该是wx模块的WxStorageController的fetch方法对应的地址
       address: http://localhost:8080/wx/storage/fetch/
 
-    # minIO 对象存储配置信息
+    # minIO 对象存储配置信息 dev
+#    minio:
+#      endpoint: http://49.235.20.228:9000
+#      accessKey: AKIAIOSFODNN7EXAMPLE
+#      secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+#      bucketName: litemall
+
+#     minIO 对象存储配置信息 test
     minio:
-      endpoint: http://49.235.20.228:9000
+      endpoint: http://59.110.153.227:9000
       accessKey: AKIAIOSFODNN7EXAMPLE
       secretKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-      bucketName: litemall
+      bucketName: jindouyun

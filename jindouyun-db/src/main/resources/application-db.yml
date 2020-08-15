@@ -4,6 +4,7 @@ pagehelper:
   supportMethodsArguments:  true
   params: count=countSql
 
+# dev
 spring:
   datasource:
     druid:
@@ -15,4 +16,17 @@ spring:
       max-active:  50
       min-idle:  10
       max-wait:  60000
+
+# test
+#spring:
+#  datasource:
+#    druid:
+#      url:  jdbc:mysql://localhost:3306/test_jindouyun?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false
+#      driver-class-name:  com.mysql.cj.jdbc.Driver
+#      username:  jindouyun
+#      password:  jindouyun666
+#      initial-size:  10
+#      max-active:  50
+#      min-idle:  10
+#      max-wait:  60000
 
