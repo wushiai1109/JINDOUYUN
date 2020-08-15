@@ -31,7 +31,7 @@ public class AdminBrandController {
     private JindouyunBrandService brandService;
 
     @RequiresPermissions("admin:brand:list")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "查询")
+    @RequiresPermissionsDesc(menu = {"商场管理", "外卖店家管理"}, button = "查询")
     @GetMapping("/list")
     public Object list(String id, String name,
                        @RequestParam(defaultValue = "1") Integer page,
@@ -42,9 +42,9 @@ public class AdminBrandController {
         return ResponseUtil.okList(brandList);
     }
 
-    @RequiresPermissions("admin:brand:read")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "详情")
-    @GetMapping("/read")
+    @RequiresPermissions("admin:brand:detail")
+    @RequiresPermissionsDesc(menu = {"商场管理", "外卖店家管理"}, button = "详情")
+    @GetMapping("/detail")
     public Object read(@NotNull Integer id) {
         JindouyunBrand brand = brandService.findById(id);
         return ResponseUtil.ok(brand);
@@ -52,7 +52,7 @@ public class AdminBrandController {
 
 
     @RequiresPermissions("admin:brand:delete")
-    @RequiresPermissionsDesc(menu = {"商场管理", "品牌管理"}, button = "删除")
+    @RequiresPermissionsDesc(menu = {"商场管理", "外卖店家管理"}, button = "删除")
     @PostMapping("/delete")
     public Object delete(@RequestBody String body) {
         Integer id = JacksonUtil.parseInteger(body,"id");

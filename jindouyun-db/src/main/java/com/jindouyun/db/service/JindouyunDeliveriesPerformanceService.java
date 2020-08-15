@@ -31,13 +31,23 @@ public class JindouyunDeliveriesPerformanceService {
     public StaffPerformance queryStaffPerformance(Integer userId, LocalDateTime date){
         //当日配送各时间段
         List<JindouyunClockin> workTimeList = clockinService.todayWork(userId, date);
-
+        int todayWorkSumMinute = 0;
         //当日各配送快递的数量
         LocalDate todayTime = date.toLocalDate();
         JindouyunDeliveriesPerformance deliveriesPerformance = findDeliveriesCountByTime(userId, todayTime);
+        int goodsOrderNum = 0;
+        int menuOrderNum = 0;
+        int expressOrderNum = 0;
+        if(deliveriesPerformance != null){
+            todayWorkSumMinute = deliveriesPerformance.getTodayWorkTime();
+            goodsOrderNum = deliveriesPerformance.getGoodsOrderNum() != null ? deliveriesPerformance.getGoodsOrderNum() : 0;
+            menuOrderNum = deliveriesPerformance.getMenuOrderNum() != null ? deliveriesPerformance.getMenuOrderNum() : 0;
+            expressOrderNum = deliveriesPerformance.getExpressOrderNum() != null ? deliveriesPerformance.getExpressOrderNum() : 0;
+
+        }
 
         //当日总派送快递数量
-        int todayWorkDeliveriesSum = deliveriesPerformance.getGoodsOrderNum() + deliveriesPerformance.getMenuOrderNum() + deliveriesPerformance.getExpressOrderNum();
+        int todayWorkDeliveriesSum = goodsOrderNum + menuOrderNum + expressOrderNum;
 
         //本月配送信息
         //本月第一天
@@ -68,18 +78,18 @@ public class JindouyunDeliveriesPerformanceService {
         monthWorkDeliveriesSum = monthGoodsDeliveriesSum + monthMenuDeliveriesSum + monthExpressDeliveriesSum;
 
         //本月未工作
-        if (monthWorkMax == monthWorkMin) {
-            monthWorkMax = 0;
+        if (monthWorkMin == 44640) {
             monthWorkMin = 0;
         }
+
 
         StaffPerformance performance = new StaffPerformance();
 
         performance.setTodayWorkTimeList(workTimeList);
-        performance.setTodayWorkSumMinute(deliveriesPerformance.getTodayWorkTime());
-        performance.setTodayGoodsDeliveriesSum(deliveriesPerformance.getGoodsOrderNum());
-        performance.setTodayMenuDeliveriesSum(deliveriesPerformance.getMenuOrderNum());
-        performance.setTodayExpressDeliveriesSum(deliveriesPerformance.getExpressOrderNum());
+        performance.setTodayWorkSumMinute(todayWorkSumMinute);
+        performance.setTodayGoodsDeliveriesSum(goodsOrderNum);
+        performance.setTodayMenuDeliveriesSum(menuOrderNum);
+        performance.setTodayExpressDeliveriesSum(expressOrderNum);
         performance.setTodayWorkDeliveriesSum(todayWorkDeliveriesSum);
         performance.setMonthWorkSumMinute(monthWorkSumMinute);
         performance.setMonthWorkMax(monthWorkMax);

@@ -142,7 +142,7 @@ public class AdminRoleController {
     private Set<String> systemPermissionsString = null;
 
     private List<PermVo> getSystemPermissions() {
-        final String basicPackage = "org.linlinjava.Jindouyun.admin";
+        final String basicPackage = "com.linlinjava.Jindouyun.admin";
         if (systemPermissions == null) {
             List<Permission> permissions = PermissionUtil.listPermission(context, basicPackage);
             systemPermissions = PermissionUtil.listPermVo(permissions);

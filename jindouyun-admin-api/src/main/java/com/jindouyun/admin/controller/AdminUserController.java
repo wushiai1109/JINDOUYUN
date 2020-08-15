@@ -38,4 +38,5 @@ public class AdminUserController {
         List<JindouyunUser> userList = userService.querySelective(username, mobile, page, limit, sort, order);
         return ResponseUtil.okList(userList);
     }
+
 }
