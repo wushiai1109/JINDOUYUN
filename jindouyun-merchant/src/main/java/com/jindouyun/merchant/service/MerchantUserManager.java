@@ -1,6 +1,6 @@
-package com.jindouyun.admin.jindouyun.merchant.service;
+package com.jindouyun.merchant.service;
 
-import com.jindouyun.admin.jindouyun.merchant.dto.MerchantInfo;
+import com.jindouyun.merchant.dto.MerchantInfo;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

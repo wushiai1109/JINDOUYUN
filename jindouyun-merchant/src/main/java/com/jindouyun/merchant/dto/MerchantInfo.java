@@ -1,4 +1,4 @@
-package com.jindouyun.admin.jindouyun.merchant.dto;
+package com.jindouyun.merchant.dto;
 
 import com.jindouyun.common.domain.UserInfo;
 import com.jindouyun.db.domain.JindouyunAddress;

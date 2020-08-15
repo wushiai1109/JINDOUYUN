@@ -1,7 +1,7 @@
 package com.jindouyun.admin.controller;
 
 import com.jindouyun.admin.annotation.RequiresPermissionsDesc;
-import com.jindouyun.admin.model.dto.GoodsAllinone;
+import com.jindouyun.db.domain.GoodsAllinone;
 import com.jindouyun.admin.service.AdminGoodsService;
 import com.jindouyun.common.validator.Order;
 import com.jindouyun.common.validator.Sort;

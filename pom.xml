@@ -17,6 +17,7 @@
         <module>jindouyun-wx-api</module>
         <module>jindouyun-delivery-api</module>
         <module>jindouyun-common</module>
+        <module>jindouyun-merchant</module>
     </modules>
 
     <parent>
@@ -64,6 +65,11 @@
             <dependency>
                 <groupId>com.JinDouYun</groupId>
                 <artifactId>jindouyun-delivery-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.JinDouYun</groupId>
+                <artifactId>jindouyun-merchant</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

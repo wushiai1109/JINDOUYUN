@@ -47,7 +47,7 @@ public class AdminCouponController {
     @RequiresPermissions("admin:coupon:listuser")
     @RequiresPermissionsDesc(menu = {"推广管理", "优惠券管理"}, button = "查询用户")
     @GetMapping("/listuser")
-    public Object listuser(Integer userId, Integer couponId, Short status,
+    public Object listUser(Integer userId, Integer couponId, Short status,
                            @RequestParam(defaultValue = "1") Integer page,
                            @RequestParam(defaultValue = "10") Integer limit,
                            @Sort @RequestParam(defaultValue = "add_time") String sort,

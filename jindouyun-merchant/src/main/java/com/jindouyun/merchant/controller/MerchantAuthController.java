@@ -1,17 +1,15 @@
-package com.jindouyun.admin.jindouyun.merchant.controller;
+package com.jindouyun.merchant.controller;
 
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
-import com.jindouyun.admin.jindouyun.merchant.dto.BrandInfo;
-import com.jindouyun.admin.jindouyun.merchant.dto.MerchantInfo;
-import com.jindouyun.admin.jindouyun.merchant.service.MerchantUserManager;
+import com.jindouyun.merchant.dto.BrandInfo;
+import com.jindouyun.merchant.dto.MerchantInfo;
+import com.jindouyun.merchant.service.MerchantUserManager;
 import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.common.domain.UserInfo;
 import com.jindouyun.common.domain.WxLoginInfo;
-import com.jindouyun.common.service.CaptchaCodeManager;
 import com.jindouyun.common.service.UserTokenManager;
-import com.jindouyun.core.notify.NotifyService;
 import com.jindouyun.common.util.CharUtil;
 import com.jindouyun.common.util.IpUtil;
 import com.jindouyun.common.util.JacksonUtil;
@@ -24,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -392,7 +389,7 @@ public class MerchantAuthController extends AuthServiceImpl {
 
     @Override
     @PostMapping("logout")
-    public Object logout(Integer userId) {
+    public Object logout(@LoginUser Integer userId) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
@@ -403,7 +400,7 @@ public class MerchantAuthController extends AuthServiceImpl {
 
     @Override
     @GetMapping("info")
-    public Object info(Integer userId) {
+    public Object info(@LoginUser Integer userId) {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
