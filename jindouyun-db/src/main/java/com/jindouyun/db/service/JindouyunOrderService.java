@@ -96,20 +96,6 @@ public class JindouyunOrderService {
      * @return
      */
     public List<JindouyunOrder> queryByOrderStatus(Integer userId, List<Short> orderStatus, Integer page, Integer limit, String sort, String order) {
-//        JindouyunOrderExample example = new JindouyunOrderExample();
-//        example.setOrderByClause(JindouyunOrder.Column.addTime.desc());
-//        JindouyunOrderExample.Criteria criteria = example.or();
-//        criteria.andUserIdEqualTo(userId);
-//        if (orderStatus != null) {
-//            criteria.andOrderStatusIn(orderStatus);
-//        }
-//        criteria.andDeletedEqualTo(false);
-//        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-//            example.setOrderByClause(sort + " " + order);
-//        }
-//
-//        PageHelper.startPage(page, limit);
-//        return jindouyunOrderMapper.selectByExample(example);
         return queryGoodsOrderSelective(userId,null,null,null,null,null,null,null,orderStatus,page,limit,sort,order,allColumns);
     }
 
@@ -126,26 +112,6 @@ public class JindouyunOrderService {
      * @return
      */
     public List<JindouyunOrder> querySelective(Integer userId, String orderSn, List<Short> orderStatusArray, Integer page, Integer limit, String sort, String order) {
-//        JindouyunOrderExample example = new JindouyunOrderExample();
-//        JindouyunOrderExample.Criteria criteria = example.createCriteria();
-//
-//        if (userId != null) {
-//            criteria.andUserIdEqualTo(userId);
-//        }
-//        if (!StringUtils.isEmpty(orderSn)) {
-//            criteria.andOrderSnEqualTo(orderSn);
-//        }
-//        if (orderStatusArray != null && orderStatusArray.size() != 0) {
-//            criteria.andOrderStatusIn(orderStatusArray);
-//        }
-//        criteria.andDeletedEqualTo(false);
-//
-//        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
-//            example.setOrderByClause(sort + " " + order);
-//        }
-//
-//        PageHelper.startPage(page, limit);
-//        return jindouyunOrderMapper.selectByExample(example);
         return queryGoodsOrderSelective(userId,orderSn,null,null,null,null,null,null,orderStatusArray,
                 page,limit,sort,order,allColumns);
     }

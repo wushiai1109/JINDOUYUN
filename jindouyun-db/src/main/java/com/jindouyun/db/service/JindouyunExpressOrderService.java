@@ -5,6 +5,7 @@ import com.jindouyun.db.dao.JindouyunExpressOrderMapper;
 import com.jindouyun.db.domain.JindouyunExpressOrder;
 import com.jindouyun.db.domain.JindouyunExpressOrder.Column;
 import com.jindouyun.db.domain.JindouyunExpressOrderExample;
+import com.jindouyun.db.domain.JindouyunOrderSplitExample;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +31,17 @@ public class JindouyunExpressOrderService {
 
     @Resource
     private JindouyunExpressOrderMapper expressOrderMapper;
+
+    /**
+     * 根据mergeId 查询
+     * @param mergeId
+     * @return
+     */
+    public List<JindouyunExpressOrder> queryByMergeId(Integer mergeId){
+        JindouyunExpressOrderExample example = new JindouyunExpressOrderExample();
+        example.or().andMergeIdEqualTo(mergeId).andDeletedEqualTo(false);
+        return expressOrderMapper.selectByExample(example);
+    }
 
     /**
      * 将Merge设为-1

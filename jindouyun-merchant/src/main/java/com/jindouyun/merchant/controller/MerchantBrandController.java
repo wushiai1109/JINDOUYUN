@@ -34,5 +34,5 @@ public class MerchantBrandController {
         }
         return ResponseUtil.ok(brand);
     }
-    
+
 }

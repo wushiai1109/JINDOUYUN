@@ -2,10 +2,10 @@ package com.jindouyun.db.service;
 
 import com.github.pagehelper.PageHelper;
 import com.jindouyun.db.dao.JindouyunOrderSplitMapper;
-import com.jindouyun.db.domain.JindouyunOrderSplit;
+import com.jindouyun.db.domain.*;
 import com.jindouyun.db.domain.JindouyunOrderSplit.Column;
-import com.jindouyun.db.domain.JindouyunOrderSplitExample;
 import io.swagger.models.auth.In;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +27,35 @@ public class JindouyunOrderSplitService {
 
     @Resource
     private JindouyunOrderSplitMapper splitMapper;
+
+    @Autowired
+    private JindouyunBrandService brandService;
+
+    @Autowired
+    private JindouyunOrderGoodsService orderGoodsService;
+
+
+    public OrderSplitVO queryOrderSplitVO(Integer splitOrderId){
+        JindouyunOrderSplit orderSplit = queryById(splitOrderId);
+        OrderSplitVO splitVO = null;
+        if(orderSplit != null){
+            BrandVo brandVo = brandService.findBrandVoById(orderSplit.getBrandId());
+            List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryBySplitOrderId(splitOrderId);
+            splitVO = new OrderSplitVO(brandVo,orderSplit,orderGoodsList);
+        }
+        return splitVO;
+    }
+
+    /**
+     * 根据MergeId查询
+     * @param id
+     * @return
+     */
+    public List<JindouyunOrderSplit> queryByMergeId(Integer id){
+        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+        example.or().andMergeIdEqualTo(id).andDeletedEqualTo(false);
+        return splitMapper.selectByExample(example);
+    }
 
     public List<JindouyunOrderSplit> queryByOid(Integer id){
         JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();

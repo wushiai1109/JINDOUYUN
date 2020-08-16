@@ -1,19 +1,20 @@
 package com.jindouyun.db.service;
 
 import com.jindouyun.db.dao.JindouyunMergeOrderMapper;
-import com.jindouyun.db.domain.JindouyunExpressOrder;
-import com.jindouyun.db.domain.JindouyunMergeOrder;
-import com.jindouyun.db.domain.JindouyunMergeOrderExample;
-import com.jindouyun.db.domain.JindouyunOrder;
+import com.jindouyun.db.dao.JindouyunOrderSplitMapper;
+import com.jindouyun.db.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.jindouyun.common.util.CharUtil.getRandomNum;
 
@@ -25,11 +26,59 @@ import static com.jindouyun.common.util.CharUtil.getRandomNum;
  * @Date 2020/8/10 5:18 下午
  */
 @Service
-@Transactional
 public class JindouyunMergeOrderService {
 
     @Resource
     private JindouyunMergeOrderMapper mergeOrderMapper;
+    @Resource
+    private JindouyunOrderSplitService orderSplitService;
+    @Resource
+    private JindouyunExpressOrderService expressOrderService;
+
+    public MergeExpressInfo queryMergeExpressInfoById(Integer id){
+        JindouyunMergeOrder mergeOrder = selectByPrimaryKey(id);
+        MergeExpressInfo mergeExpressInfo = null;
+        if(mergeOrder != null){
+            mergeExpressInfo = new MergeExpressInfo();
+            mergeExpressInfo.setId(id);
+            mergeExpressInfo.setOrderSn(mergeOrder.getOrderSn());
+            mergeExpressInfo.setMessage(mergeOrder.getMessage());
+            mergeExpressInfo.setAllPrice(mergeOrder.getAllPrice());
+            mergeExpressInfo.setNum(mergeOrder.getNum());
+            mergeExpressInfo.setRelease(mergeOrder.getRelease());
+            mergeExpressInfo.setStatus(mergeOrder.getStatus());
+            mergeExpressInfo.setReleaseTime(mergeOrder.getReleaseTime());
+            mergeExpressInfo.setReceiveTime(mergeOrder.getReceiveTime());
+            mergeExpressInfo.setPickupTime(mergeOrder.getPickupTime());
+            mergeExpressInfo.setPickupTime(mergeOrder.getArriveTime());
+            List<JindouyunExpressOrder> expressOrders = expressOrderService.queryByMergeId(id);
+            mergeExpressInfo.setSplitOrder(expressOrders);
+        }
+        return mergeExpressInfo;
+    }
+
+    public MergeInfo queryMergeInfoById(Integer id){
+        JindouyunMergeOrder mergeOrder = selectByPrimaryKey(id);
+        System.out.println(mergeOrder.getId());
+        MergeInfo mergeInfo = null;
+        if(mergeOrder != null){
+            mergeInfo = new MergeInfo();
+            mergeInfo.setId(id);
+            mergeInfo.setOrderSn(mergeOrder.getOrderSn());
+            mergeInfo.setMessage(mergeOrder.getMessage());
+            mergeInfo.setAllPrice(mergeOrder.getAllPrice());
+            mergeInfo.setNum(mergeOrder.getNum());
+            mergeInfo.setRelease(mergeOrder.getRelease());
+            mergeInfo.setStatus(mergeOrder.getStatus());
+            mergeInfo.setReleaseTime(mergeOrder.getReleaseTime());
+            mergeInfo.setReceiveTime(mergeOrder.getReceiveTime());
+            mergeInfo.setPickupTime(mergeOrder.getPickupTime());
+            mergeInfo.setPickupTime(mergeOrder.getArriveTime());
+            List<JindouyunOrderSplit> orderSplits = orderSplitService.queryByMergeId(id);
+            mergeInfo.setSplitOrder(orderSplits);
+        }
+        return mergeInfo;
+    }
 
     /**
      * 逻辑删除
@@ -127,5 +176,6 @@ public class JindouyunMergeOrderService {
     public int updateOrderStatus(JindouyunMergeOrder mergeOrder) {
         return mergeOrderMapper.updateByPrimaryKeySelective(mergeOrder);
     }
+
 
 }

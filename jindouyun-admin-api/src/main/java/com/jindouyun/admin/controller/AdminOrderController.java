@@ -7,6 +7,7 @@ import com.jindouyun.core.express.ExpressService;
 import com.jindouyun.common.validator.Order;
 import com.jindouyun.common.validator.Sort;
 import com.jindouyun.core.util.ResponseUtil;
+import com.jindouyun.db.domain.JindouyunExpressOrder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -75,6 +76,7 @@ public class AdminOrderController {
     public Object detail(@NotNull Integer orderId) {
         return adminOrderService.detail(orderId);
     }
+
 
     @RequiresPermissions("admin:order:read")
     @RequiresPermissionsDesc(menu = {"商场管理", "订单管理"}, button = "详情")

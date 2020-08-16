@@ -39,7 +39,7 @@
         <dependency>
             <groupId>com.JinDouYun</groupId>
             <artifactId>jindouyun-merchant</artifactId>
-            <version>0.0.1</version>
+
         </dependency>
     </dependencies>
 

@@ -63,22 +63,53 @@ public class AdminOrderService {
     private LogHelper logHelper;
 
     /**
+     * 查询快递订单详情
+     * @param orderId
+     * @return
+     */
+    public Object queryExpressOrderDetail(Integer orderId){
+        if(orderId == null){
+            return ResponseUtil.badArgument();
+        }
+        JindouyunExpressOrder expressOrder = expressOrderService.queryById(orderId);
+        return ResponseUtil.ok(expressOrder);
+    }
+
+    /**
      * 根据分单号 查询订单详情
      * @param splitOrderId
      * @return
      */
     public Object queryDetailBySplitId(Integer splitOrderId){
-        JindouyunOrderSplit orderSplit = splitService.queryById(splitOrderId);
-        if(orderSplit == null){
+        if(splitOrderId == null){
+            System.err.println("据分单号 查询订单详情 - splitOrderId为 null");
+            return ResponseUtil.badArgument();
+        }
+        OrderSplitVO splitVO = splitService.queryOrderSplitVO(splitOrderId);
+        if(splitVO == null){
             System.err.println("据分单号 查询订单详情 - splitOrder为 null");
             return ResponseUtil.badArgument();
         }
-        BrandVo brandVo = brandService.findBrandVoById(orderSplit.getBrandId());
-        List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryBySplitOrderId(splitOrderId);
-        AdminOrderSplitVO splitVO = new AdminOrderSplitVO(brandVo,orderSplit,orderGoodsList);
+
         return ResponseUtil.ok(splitVO);
     }
 
+    /**
+     * 条件查询 userId orderSn orderStatusArray
+     * @param userId
+     * @param orderSn
+     * @param orderStatusArray
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @return
+     */
+    public Object listExpressOrder(Integer userId, String orderSn, List<Short> orderStatusArray,
+                                   Integer page, Integer limit, String sort, String order){
+        List<JindouyunExpressOrder> orderList = expressOrderService.queryCommonOrderSelective(userId,null,orderSn,null,null,null,null,null,null,orderStatusArray,page,limit,sort,order);
+        return ResponseUtil.okList(orderList);
+    }
     /**
      * 条件查询 userId orderSn orderStatusArray
      * @param userId
@@ -105,11 +136,11 @@ public class AdminOrderService {
     public Object detail(Integer id) {
         JindouyunOrder order = orderService.findById(id);
         List<JindouyunOrderSplit> orderSplits = splitService.queryByOid(id);
-        List<AdminOrderSplitVO> splitOrderVOs = new ArrayList<>();
+        List<OrderSplitVO> splitOrderVOs = new ArrayList<>();
         for (JindouyunOrderSplit orderSplit:orderSplits) {
             BrandVo brandVo = brandService.findBrandVoById(orderSplit.getBrandId());
             List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryBySplitOrderId(orderSplit.getOrderId());
-            AdminOrderSplitVO splitVO = new AdminOrderSplitVO(brandVo,orderSplit,orderGoodsList);
+            OrderSplitVO splitVO = new OrderSplitVO(brandVo,orderSplit,orderGoodsList);
             splitOrderVOs.add(splitVO);
         }
 //        System.err.println(order.getUserId());
@@ -334,26 +365,9 @@ public class AdminOrderService {
                 //已合并
                 }else{
                     Integer id = splitOrder.getMergeId();
-                    JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(id);
-                    if(mergeOrder != null){
-                        if(!mergeMap.containsKey(id)){
-                            MergeInfo mergeInfo = new MergeInfo();
-                            mergeInfo.setId(id);
-                            mergeInfo.setOrderSn(mergeOrder.getOrderSn());
-                            mergeInfo.setMessage(mergeOrder.getMessage());
-                            mergeInfo.setAllPrice(mergeOrder.getAllPrice());
-                            mergeInfo.setNum(mergeOrder.getNum());
-                            mergeInfo.setRelease(mergeOrder.getRelease());
-                            mergeInfo.setStatus(mergeOrder.getStatus());
-                            mergeInfo.setReleaseTime(mergeOrder.getReleaseTime());
-                            mergeInfo.setReceiveTime(mergeOrder.getReceiveTime());
-                            mergeInfo.setPickupTime(mergeOrder.getPickupTime());
-                            mergeInfo.setPickupTime(mergeOrder.getArriveTime());
-                            mergeInfo.setSplitOrder(new ArrayList<>());
-                            mergeMap.put(id,mergeInfo);
-                        }
-                        MergeInfo mergeInfo = mergeMap.get(id);
-                        mergeInfo.getSplitOrder().add(splitOrder);
+                    if(!mergeMap.containsKey(id)){
+                        MergeInfo mergeInfo = mergeOrderService.queryMergeInfoById(id);
+                        mergeMap.put(id,mergeInfo);
                     }
                 }
             }
@@ -377,27 +391,11 @@ public class AdminOrderService {
                     //已合并
                 }else{
                     Integer id = expressOrder.getMergeId();
-                    JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(id);
-                    if(mergeOrder != null){
-                        if(!mergeMap.containsKey(id)){
-                            MergeExpressInfo mergeExpressInfo = new MergeExpressInfo();
-                            mergeExpressInfo.setId(id);
-                            mergeExpressInfo.setOrderSn(mergeOrder.getOrderSn());
-                            mergeExpressInfo.setMessage(mergeOrder.getMessage());
-                            mergeExpressInfo.setAllPrice(mergeOrder.getAllPrice());
-                            mergeExpressInfo.setNum(mergeOrder.getNum());
-                            mergeExpressInfo.setRelease(mergeOrder.getRelease());
-                            mergeExpressInfo.setStatus(mergeOrder.getStatus());
-                            mergeExpressInfo.setReleaseTime(mergeOrder.getReleaseTime());
-                            mergeExpressInfo.setReceiveTime(mergeOrder.getReceiveTime());
-                            mergeExpressInfo.setPickupTime(mergeOrder.getPickupTime());
-                            mergeExpressInfo.setPickupTime(mergeOrder.getArriveTime());
-                            mergeExpressInfo.setSplitOrder(new ArrayList<>());
-                            mergeMap.put(id,mergeExpressInfo);
-                        }
-                        MergeExpressInfo mergeExpressInfo = mergeMap.get(id);
-                        mergeExpressInfo.getSplitOrder().add(expressOrder);
+                    if(!mergeMap.containsKey(id)){
+                        MergeExpressInfo mergeExpressInfo = mergeOrderService.queryMergeExpressInfoById(id);
+                        mergeMap.put(id,mergeExpressInfo);
                     }
+
                 }
             }
             mergeExpressVO.setType(type);

@@ -1,6 +1,7 @@
 package com.jindouyun.admin.model.vo;
 
 import com.jindouyun.db.domain.JindouyunOrderSplit;
+import com.jindouyun.db.domain.MergeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

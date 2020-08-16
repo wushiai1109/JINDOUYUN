@@ -41,9 +41,12 @@ public class DeliveryDataController {
      * @return
      */
     @GetMapping("work_data")
-    public Object workData(@LoginUser Integer userId, @RequestParam("date") LocalDateTime date) {
+    public Object workData(@LoginUser Integer userId, @RequestParam(value = "date",defaultValue = "") LocalDateTime date) {
         if (userId == null) {
             return ResponseUtil.unlogin();
+        }
+        if (date == null){
+            return ResponseUtil.badArgument();
         }
 
         StaffPerformance performance = deliveriesPerformanceService.queryStaffPerformance(userId,date);
