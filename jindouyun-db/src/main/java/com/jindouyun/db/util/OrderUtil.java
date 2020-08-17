@@ -43,29 +43,29 @@ public class OrderUtil {
             return "未付款";
         }
 
-        if (status == 102) {
-            return "已取消";
-        }
+//        if (status == 102) {
+//            return "已取消";
+//        }
 
-        if (status == 103) {
-            return "已取消(系统)";
-        }
+//        if (status == 103) {
+//            return "已取消(系统)";
+//        }
 
 //        if (status == 200) {
 //            return "已付款团购";
 //        }
 
-        if (status == 201) {
-            return "已付款";
-        }
+//        if (status == 201) {
+//            return "已付款";
+//        }
 
-        if (status == 202) {
-            return "订单取消，退款中";
-        }
+//        if (status == 202) {
+//            return "订单取消，退款中";
+//        }
 
-        if (status == 203) {
-            return "已退款";
-        }
+//        if (status == 203) {
+//            return "已退款";
+//        }
 
 //        if (status == 204) {
 //            return "已超时团购";

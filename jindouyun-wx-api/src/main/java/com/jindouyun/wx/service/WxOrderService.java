@@ -842,7 +842,8 @@ public class WxOrderService {
 
         order.setPayId(payId);
         order.setPayTime(LocalDateTime.now());
-        order.setOrderStatus(OrderUtil.STATUS_PAY);
+//        order.setOrderStatus(OrderUtil.STATUS_PAY);
+        order.setOrderStatus(OrderUtil.STATUS_SHIP);
         if (orderService.updateWithOptimisticLocker(order) == 0) {
             return WxPayNotifyResponse.fail("更新数据已失效");
         }
