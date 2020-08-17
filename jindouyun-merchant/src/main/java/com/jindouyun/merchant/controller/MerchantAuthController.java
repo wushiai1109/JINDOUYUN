@@ -22,9 +22,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -105,6 +108,9 @@ public class MerchantAuthController extends AuthServiceImpl {
         userInfo.setGender(user.getGender());
         userInfo.setNickName(user.getNickname());
         merchantInfo.setUserInfo(userInfo);
+
+        //判断是否已申请认证
+//        JindouyunRegisteBrand registeBrand = registerBrandService
 
         //判断是否已认证
         JindouyunBrand brand = brandService.findByUserId(user.getId());
@@ -227,6 +233,7 @@ public class MerchantAuthController extends AuthServiceImpl {
 
             brandInfo.setId(brand.getId());
             brandInfo.setName(brand.getName());
+            brandInfo.setNotice(brand.getNotice());
             brandInfo.setDesc(brand.getDesc());
             brandInfo.setPicUrl(brand.getPicUrl());
             brandInfo.setDelivery_price(brand.getDeliveryPrice());
@@ -257,135 +264,167 @@ public class MerchantAuthController extends AuthServiceImpl {
      * @return
      */
     @PostMapping("register")
-    public Object register(@LoginUser Integer userId, @RequestParam(name = "name") String name,
-                           @RequestParam("desc") String desc, @RequestParam("picUrl") String picUrl){
+    public Object register(@LoginUser Integer userId, @RequestBody String body){
+        String name = JacksonUtil.parseString(body,"name");
+        String desc = JacksonUtil.parseString(body,"desc");
+        String picUrl = JacksonUtil.parseString(body,"picUrl");
+        String addressDetail = JacksonUtil.parseString(body,"address");
+        String phone = JacksonUtil.parseString(body,"phone");
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+        if (StringUtils.isEmpty(name) || StringUtils.isEmpty(addressDetail) || StringUtils.isEmpty(phone)){
+            ResponseUtil.badArgument();
+        }
         JindouyunRegisteBrand registerBrand = new JindouyunRegisteBrand();
         registerBrand.setName(name);
         registerBrand.setDesc(desc);
         registerBrand.setPicUrl(picUrl);
+        JindouyunAddress address = new JindouyunAddress();
+        address.setUserId(userId);
+        address.setAddressDetail(addressDetail);
+        address.setName(name);
+        address.setTel(phone);
+        if ( addressService.add(address) == 0){
+            System.err.println("register - 地址添加失败");
+            return ResponseUtil.fail();
+        }
+        List<JindouyunAddress> addressList = addressService.queryByUid(userId);
+        if(addressList == null || addressList.size() == 0){
+            System.err.println("register - 地址添加失败");
+            return ResponseUtil.fail();
+        }
+        registerBrand.setAdderssId(addressList.get(0).getId());
         registerBrandService.add(registerBrand);
         return ResponseUtil.ok();
     }
 
 
-    /**
-     * 请求验证码
-     * <p>
-     * 这里需要一定机制防止短信验证码被滥用
-     *
-     * @param body 手机号码 { mobile: xxx}
-     * @return
-     */
-    @Override
-    @PostMapping("captcha")
-    public Object captcha(@RequestBody String body) {
-        String phoneNumber = JacksonUtil.parseString(body, "mobile");
-        Object result = super.captcha(phoneNumber);
-        return result;
-    }
+//    /**
+//     * 请求验证码
+//     * <p>
+//     * 这里需要一定机制防止短信验证码被滥用
+//     *
+//     * @param body 手机号码 { mobile: xxx}
+//     * @return
+//     */
+//    @Override
+//    @PostMapping("captcha")
+//    public Object captcha(@RequestBody String body) {
+//        String phoneNumber = JacksonUtil.parseString(body, "mobile");
+//        Object result = super.captcha(phoneNumber);
+//        return result;
+//    }
 
-    /**
-     * 账号密码重置
-     *
-     * @param body    请求内容
-     *                {
-     *                password: xxx,
-     *                mobile: xxx
-     *                code: xxx
-     *                }
-     *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @return 登录结果
-     * 成功则 { errno: 0, errmsg: '成功' }
-     * 失败则 { errno: XXX, errmsg: XXX }
-     */
-    @PostMapping("reset")
-    public Object reset(@RequestBody String body) {
-        String password = JacksonUtil.parseString(body, "password");
-        String mobile = JacksonUtil.parseString(body, "mobile");
-        String code = JacksonUtil.parseString(body, "code");
+//    /**
+//     * 账号密码重置
+//     *
+//     * @param body    请求内容
+//     *                {
+//     *                password: xxx,
+//     *                mobile: xxx
+//     *                code: xxx
+//     *                }
+//     *                其中code是手机验证码，目前还不支持手机短信验证码
+//     * @return 登录结果
+//     * 成功则 { errno: 0, errmsg: '成功' }
+//     * 失败则 { errno: XXX, errmsg: XXX }
+//     */
+//    @PostMapping("reset")
+//    public Object reset(@RequestBody String body) {
+//        String password = JacksonUtil.parseString(body, "password");
+//        String mobile = JacksonUtil.parseString(body, "mobile");
+//        String code = JacksonUtil.parseString(body, "code");
+//
+//        Object result = super.reset(password,mobile,code);
+//        return result;
+//    }
 
-        Object result = super.reset(password,mobile,code);
-        return result;
-    }
-
-    /**
-     * 账号手机号码重置
-     *
-     * @param body    请求内容
-     *                {
-     *                password: xxx,
-     *                mobile: xxx
-     *                code: xxx
-     *                }
-     *                其中code是手机验证码，目前还不支持手机短信验证码
-     * @return 登录结果
-     * 成功则 { errno: 0, errmsg: '成功' }
-     * 失败则 { errno: XXX, errmsg: XXX }
-     */
-    @PostMapping("resetPhone")
-    public Object resetPhone(@LoginUser Integer userId, @RequestBody String body) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-        String password = JacksonUtil.parseString(body, "password");
-        String mobile = JacksonUtil.parseString(body, "mobile");
-        String code = JacksonUtil.parseString(body, "code");
-
-        Object result = super.resetPhone(userId,password,mobile,code);
-
-        return result;
-    }
+//    /**
+//     * 账号手机号码重置
+//     *
+//     * @param body    请求内容
+//     *                {
+//     *                password: xxx,
+//     *                mobile: xxx
+//     *                code: xxx
+//     *                }
+//     *                其中code是手机验证码，目前还不支持手机短信验证码
+//     * @return 登录结果
+//     * 成功则 { errno: 0, errmsg: '成功' }
+//     * 失败则 { errno: XXX, errmsg: XXX }
+//     */
+//    @PostMapping("resetPhone")
+//    public Object resetPhone(@LoginUser Integer userId, @RequestBody String body) {
+//        if (userId == null) {
+//            return ResponseUtil.unlogin();
+//        }
+//        String password = JacksonUtil.parseString(body, "password");
+//        String mobile = JacksonUtil.parseString(body, "mobile");
+//        String code = JacksonUtil.parseString(body, "code");
+//
+//        Object result = super.resetPhone(userId,password,mobile,code);
+//
+//        return result;
+//    }
 
 
-    /**
-     * 账号信息更新
-     *
-     * @param body    请求内容
-     *                {
-     *                avatar: xxx,
-     *                gender: xxx
-     *                nickname: xxx
-     *                }
-     * @return 登录结果
-     */
-    @PostMapping("profile")
-    public Object profile(@LoginUser Integer userId, @RequestBody String body) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-        String avatar = JacksonUtil.parseString(body, "avatar");
-        Byte gender = JacksonUtil.parseByte(body, "gender");
-        String nickname = JacksonUtil.parseString(body, "nickname");
+//    /**
+//     * 账号信息更新
+//     *
+//     * @param body    请求内容
+//     *                {
+//     *                avatar: xxx,
+//     *                gender: xxx
+//     *                nickname: xxx
+//     *                }
+//     * @return 登录结果
+//     */
+//    @PostMapping("profile")
+//    public Object profile(@LoginUser Integer userId, @RequestBody String body) {
+//        if (userId == null) {
+//            return ResponseUtil.unlogin();
+//        }
+//        String avatar = JacksonUtil.parseString(body, "avatar");
+//        Byte gender = JacksonUtil.parseByte(body, "gender");
+//        String nickname = JacksonUtil.parseString(body, "nickname");
+//
+//        Map<String, Object> result = (Map<String, Object>) super.profile(userId,gender,avatar,nickname);
+//        if((Integer) result.get("errno") == 0){
+//            UserInfo userInfo = MerchantUserManager.merchantInfoMap.get(userId).getUserInfo();
+//            userInfo.setAvatarUrl(avatar);
+//            userInfo.setNickName(nickname);
+//            userInfo.setGender(gender);
+//            MerchantUserManager.merchantInfoMap.get(userId).setUserInfo(userInfo);
+//        }
+//
+//        return result;
+//    }
 
-        Object result = super.profile(userId,gender,avatar,nickname);
-
-        return result;
-    }
-
-    /**
-     * 微信手机号码绑定
-     *
-     * @param userId
-     * @param body
-     * @return
-     */
-    @Override
-    @PostMapping("bindPhone")
-    public Object bindPhone(Integer userId, @RequestBody String body) {
-    	if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-    	JindouyunUser user = userService.findById(userId);
-        String encryptedData = JacksonUtil.parseString(body, "encryptedData");
-        String iv = JacksonUtil.parseString(body, "iv");
-        WxMaPhoneNumberInfo phoneNumberInfo = this.wxService.getUserService().getPhoneNoInfo(user.getSessionKey(), encryptedData, iv);
-        String phone = phoneNumberInfo.getPhoneNumber();
-        user.setMobile(phone);
-        if (userService.updateById(user) == 0) {
-            return ResponseUtil.updatedDataFailed();
-        }
-        return ResponseUtil.ok();
-    }
+//    /**
+//     * 微信手机号码绑定
+//     *
+//     * @param userId
+//     * @param body
+//     * @return
+//     */
+//    @Override
+//    @PostMapping("bindPhone")
+//    public Object bindPhone(Integer userId, @RequestBody String body) {
+//    	if (userId == null) {
+//            return ResponseUtil.unlogin();
+//        }
+//    	JindouyunUser user = userService.findById(userId);
+//        String encryptedData = JacksonUtil.parseString(body, "encryptedData");
+//        String iv = JacksonUtil.parseString(body, "iv");
+//        WxMaPhoneNumberInfo phoneNumberInfo = this.wxService.getUserService().getPhoneNoInfo(user.getSessionKey(), encryptedData, iv);
+//        String phone = phoneNumberInfo.getPhoneNumber();
+//        user.setMobile(phone);
+//        if (userService.updateById(user) == 0) {
+//            return ResponseUtil.updatedDataFailed();
+//        }
+//        return ResponseUtil.ok();
+//    }
 
     @Override
     @PostMapping("logout")
@@ -407,4 +446,5 @@ public class MerchantAuthController extends AuthServiceImpl {
 
         return ResponseUtil.ok(MerchantUserManager.merchantInfoMap.get(userId));
     }
+
 }

@@ -80,17 +80,17 @@ public class WxOrderController {
         return wxOrderService.find(userId, keyword);
     }
 
-    /**
-     * 取消订单
-     *
-     * @param userId 用户ID
-     * @param body   订单信息，{ orderId：xxx }
-     * @return 取消订单操作结果
-     */
-    @PostMapping("cancel")
-    public Object cancel(@LoginUser Integer userId, @RequestBody String body) {
-        return wxOrderService.cancel(userId, body);
-    }
+//    /**
+//     * 取消订单
+//     *
+//     * @param userId 用户ID
+//     * @param body   订单信息，{ orderId：xxx }
+//     * @return 取消订单操作结果
+//     */
+//    @PostMapping("cancel")
+//    public Object cancel(@LoginUser Integer userId, @RequestBody String body) {
+//        return wxOrderService.cancel(userId, body);
+//    }
 
     /**
      * 付款订单的预支付会话标识
@@ -131,17 +131,17 @@ public class WxOrderController {
         return wxOrderService.payNotify(request, response);
     }
 
-    /**
-     * 订单申请退款
-     *
-     * @param userId 用户ID
-     * @param body   订单信息，{ orderId：xxx }
-     * @return 订单退款操作结果
-     */
-    @PostMapping("refund")
-    public Object refund(@LoginUser Integer userId, @RequestBody String body) {
-        return wxOrderService.refund(userId, body);
-    }
+//    /**
+//     * 订单申请退款
+//     *
+//     * @param userId 用户ID
+//     * @param body   订单信息，{ orderId：xxx }
+//     * @return 订单退款操作结果
+//     */
+//    @PostMapping("refund")
+//    public Object refund(@LoginUser Integer userId, @RequestBody String body) {
+//        return wxOrderService.refund(userId, body);
+//    }
 
     /**
      * 确认收货

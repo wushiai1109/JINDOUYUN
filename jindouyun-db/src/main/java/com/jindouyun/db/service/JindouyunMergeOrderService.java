@@ -45,6 +45,7 @@ public class JindouyunMergeOrderService {
             mergeExpressInfo.setMessage(mergeOrder.getMessage());
             mergeExpressInfo.setAllPrice(mergeOrder.getAllPrice());
             mergeExpressInfo.setNum(mergeOrder.getNum());
+            mergeExpressInfo.setType(mergeOrder.getType());
             mergeExpressInfo.setRelease(mergeOrder.getRelease());
             mergeExpressInfo.setStatus(mergeOrder.getStatus());
             mergeExpressInfo.setReleaseTime(mergeOrder.getReleaseTime());
@@ -59,7 +60,6 @@ public class JindouyunMergeOrderService {
 
     public MergeInfo queryMergeInfoById(Integer id){
         JindouyunMergeOrder mergeOrder = selectByPrimaryKey(id);
-        System.out.println(mergeOrder.getId());
         MergeInfo mergeInfo = null;
         if(mergeOrder != null){
             mergeInfo = new MergeInfo();
@@ -68,6 +68,7 @@ public class JindouyunMergeOrderService {
             mergeInfo.setMessage(mergeOrder.getMessage());
             mergeInfo.setAllPrice(mergeOrder.getAllPrice());
             mergeInfo.setNum(mergeOrder.getNum());
+            mergeInfo.setType(mergeOrder.getType());
             mergeInfo.setRelease(mergeOrder.getRelease());
             mergeInfo.setStatus(mergeOrder.getStatus());
             mergeInfo.setReleaseTime(mergeOrder.getReleaseTime());

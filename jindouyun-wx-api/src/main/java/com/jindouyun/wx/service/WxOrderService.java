@@ -19,7 +19,6 @@ import com.jindouyun.common.util.DateTimeUtil;
 import com.jindouyun.common.util.IpUtil;
 import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.db.dao.JindouyunOrderGoodsMapper;
-import com.jindouyun.db.dao.JindouyunOrderMapper;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
 import com.jindouyun.common.constant.CouponUserConstant;
@@ -100,15 +99,10 @@ public class WxOrderService {
     @Autowired
     private JindouyunCartService cartService;
     @Autowired
-    private JindouyunRegionService regionService;
-    @Autowired
     private JindouyunGoodsProductService productService;
 
     @Autowired
     private JindouyunBrandService brandService;
-
-    @Resource
-    private JindouyunOrderMapper jindouyunOrderMapper;
 
     @Resource
     private JindouyunOrderGoodsMapper orderGoodsMapper;
@@ -136,9 +130,6 @@ public class WxOrderService {
     private CouponVerifyService couponVerifyService;
     @Autowired
     private TaskService taskService;
-
-    @Autowired
-    private JindouyunOrderMapper orderMapper;
 
     /**
      * 订单列表
@@ -595,7 +586,7 @@ public class WxOrderService {
         List<Map<String, Object>> mapList = new ArrayList<>();
 
         for (JindouyunOrderGoods orderGoods : jindouyunOrderGoods) {
-            JindouyunOrder jindouyunOrder = jindouyunOrderMapper.selectByPrimaryKey(orderGoods.getOrderId());
+            JindouyunOrder jindouyunOrder = orderService.findById(orderGoods.getOrderId());
             if (jindouyunOrder.getUserId().intValue() == userId.intValue()) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("id", jindouyunOrder.getId());
@@ -623,51 +614,51 @@ public class WxOrderService {
      * @param body   订单信息，{ orderId：xxx }
      * @return 取消订单操作结果
      */
-    @Transactional
-    public Object cancel(Integer userId, String body) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
-        if (orderId == null) {
-            return ResponseUtil.badArgument();
-        }
-
-        JindouyunOrder order = orderService.findById(orderId);
-        if (order == null) {
-            return ResponseUtil.badArgumentValue();
-        }
-        if (!order.getUserId().equals(userId)) {
-            return ResponseUtil.badArgumentValue();
-        }
-
-        LocalDateTime preUpdateTime = order.getUpdateTime();
-
-        // 检测是否能够取消
-        OrderHandleOption handleOption = OrderUtil.build(order);
-        if (!handleOption.isCancel()) {
-            return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能取消");
-        }
-
-        // 设置订单已取消状态
-        order.setOrderStatus(OrderUtil.STATUS_CANCEL);
-        order.setEndTime(LocalDateTime.now());
-        if (orderService.updateWithOptimisticLocker(order) == 0) {
-            throw new RuntimeException("更新数据已失效");
-        }
-
-        // 商品货品数量增加
-        List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryByOid(orderId);
-        for (JindouyunOrderGoods orderGoods : orderGoodsList) {
-            Integer productId = orderGoods.getProductId();
-            Short number = orderGoods.getNumber();
-            if (productService.addStock(productId, number) == 0) {
-                throw new RuntimeException("商品货品库存增加失败");
-            }
-        }
-
-        return ResponseUtil.ok();
-    }
+//    @Transactional
+//    public Object cancel(Integer userId, String body) {
+//        if (userId == null) {
+//            return ResponseUtil.unlogin();
+//        }
+//        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
+//        if (orderId == null) {
+//            return ResponseUtil.badArgument();
+//        }
+//
+//        JindouyunOrder order = orderService.findById(orderId);
+//        if (order == null) {
+//            return ResponseUtil.badArgumentValue();
+//        }
+//        if (!order.getUserId().equals(userId)) {
+//            return ResponseUtil.badArgumentValue();
+//        }
+//
+//        LocalDateTime preUpdateTime = order.getUpdateTime();
+//
+//        // 检测是否能够取消
+//        OrderHandleOption handleOption = OrderUtil.build(order);
+//        if (!handleOption.isCancel()) {
+//            return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能取消");
+//        }
+//
+//        // 设置订单已取消状态
+//        order.setOrderStatus(OrderUtil.STATUS_CANCEL);
+//        order.setEndTime(LocalDateTime.now());
+//        if (orderService.updateWithOptimisticLocker(order) == 0) {
+//            throw new RuntimeException("更新数据已失效");
+//        }
+//
+//        // 商品货品数量增加
+//        List<JindouyunOrderGoods> orderGoodsList = orderGoodsService.queryByOid(orderId);
+//        for (JindouyunOrderGoods orderGoods : orderGoodsList) {
+//            Integer productId = orderGoods.getProductId();
+//            Short number = orderGoods.getNumber();
+//            if (productService.addStock(productId, number) == 0) {
+//                throw new RuntimeException("商品货品库存增加失败");
+//            }
+//        }
+//
+//        return ResponseUtil.ok();
+//    }
 
     /**
      * 付款订单的预支付会话标识
@@ -917,40 +908,40 @@ public class WxOrderService {
      * @param body   订单信息，{ orderId：xxx }
      * @return 订单退款操作结果
      */
-    public Object refund(Integer userId, String body) {
-        if (userId == null) {
-            return ResponseUtil.unlogin();
-        }
-        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
-        if (orderId == null) {
-            return ResponseUtil.badArgument();
-        }
-
-        JindouyunOrder order = orderService.findById(orderId);
-        if (order == null) {
-            return ResponseUtil.badArgument();
-        }
-        if (!order.getUserId().equals(userId)) {
-            return ResponseUtil.badArgumentValue();
-        }
-
-        OrderHandleOption handleOption = OrderUtil.build(order);
-        if (!handleOption.isRefund()) {
-            return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能取消");
-        }
-
-        // 设置订单申请退款状态
-        order.setOrderStatus(OrderUtil.STATUS_REFUND);
-        if (orderService.updateWithOptimisticLocker(order) == 0) {
-            return ResponseUtil.updatedDateExpired();
-        }
-
-        //TODO 发送邮件和短信通知，这里采用异步发送
-        // 有用户申请退款，邮件通知运营人员
-        notifyService.notifyMail("退款申请", order.toString());
-
-        return ResponseUtil.ok();
-    }
+//    public Object refund(Integer userId, String body) {
+//        if (userId == null) {
+//            return ResponseUtil.unlogin();
+//        }
+//        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
+//        if (orderId == null) {
+//            return ResponseUtil.badArgument();
+//        }
+//
+//        JindouyunOrder order = orderService.findById(orderId);
+//        if (order == null) {
+//            return ResponseUtil.badArgument();
+//        }
+//        if (!order.getUserId().equals(userId)) {
+//            return ResponseUtil.badArgumentValue();
+//        }
+//
+//        OrderHandleOption handleOption = OrderUtil.build(order);
+//        if (!handleOption.isRefund()) {
+//            return ResponseUtil.fail(ORDER_INVALID_OPERATION, "订单不能取消");
+//        }
+//
+//        // 设置订单申请退款状态
+//        order.setOrderStatus(OrderUtil.STATUS_REFUND);
+//        if (orderService.updateWithOptimisticLocker(order) == 0) {
+//            return ResponseUtil.updatedDateExpired();
+//        }
+//
+//        //TODO 发送邮件和短信通知，这里采用异步发送
+//        // 有用户申请退款，邮件通知运营人员
+//        notifyService.notifyMail("退款申请", order.toString());
+//
+//        return ResponseUtil.ok();
+//    }
 
     /**
      * 确认收货

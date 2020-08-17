@@ -20,6 +20,7 @@ public class BrandInfo {
     private int id;
     private String name;
     private String desc;
+    private String notice;
     private String picUrl;
     private Byte start_time;
     private Byte end_time;

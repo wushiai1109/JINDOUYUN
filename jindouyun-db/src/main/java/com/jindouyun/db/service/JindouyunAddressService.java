@@ -27,6 +27,7 @@ public class JindouyunAddressService {
      */
     public List<JindouyunAddress> queryByUid(Integer uid) {
         JindouyunAddressExample example = new JindouyunAddressExample();
+        example.setOrderByClause("desc add_time");
         example.or().andUserIdEqualTo(uid).andDeletedEqualTo(false);
         return addressMapper.selectByExample(example);
     }

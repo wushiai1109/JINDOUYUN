@@ -20,13 +20,31 @@ public class MergeExpressInfo {
     private String message;
     private BigDecimal allPrice;
     private int num;
+    private Byte type;
     private Byte release;
     private Byte status;
     private LocalDateTime releaseTime;
     private LocalDateTime receiveTime;
     private LocalDateTime pickupTime;
     private LocalDateTime arriveTime;
+    private JindouyunGrabOrder grabOrder;
     private List<JindouyunExpressOrder> splitOrder;
+
+    public JindouyunGrabOrder getGrabOrder() {
+        return grabOrder;
+    }
+
+    public void setGrabOrder(JindouyunGrabOrder grabOrder) {
+        this.grabOrder = grabOrder;
+    }
+
+    public Byte getType() {
+        return type;
+    }
+
+    public void setType(Byte type) {
+        this.type = type;
+    }
 
     public int getId() {
         return id;

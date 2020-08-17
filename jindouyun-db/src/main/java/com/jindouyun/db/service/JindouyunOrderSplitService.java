@@ -34,7 +34,19 @@ public class JindouyunOrderSplitService {
     @Autowired
     private JindouyunOrderGoodsService orderGoodsService;
 
+    public int setOrderStatus(Integer splitOrderId,Short status){
+        JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
+        orderSplit.setId(splitOrderId);
+        orderSplit.setOrderStatus(status);
+        return splitMapper.updateByPrimaryKey(orderSplit);
+    }
 
+
+    /**
+     *
+     * @param splitOrderId
+     * @return
+     */
     public OrderSplitVO queryOrderSplitVO(Integer splitOrderId){
         JindouyunOrderSplit orderSplit = queryById(splitOrderId);
         OrderSplitVO splitVO = null;

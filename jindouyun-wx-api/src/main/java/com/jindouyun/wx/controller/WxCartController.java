@@ -23,8 +23,8 @@ import java.util.Map;
 import static com.jindouyun.common.constant.WxResponseCode.*;
 
 /**
- * @ClassName WxCatalogController
- * @Description 类目服务
+ * @ClassName WxCartController
+ * @Description 购物车服务
  * @Author Bruce
  * @Date 2020/7/23 8:23 下午
  */

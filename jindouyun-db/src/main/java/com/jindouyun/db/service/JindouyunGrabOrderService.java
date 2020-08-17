@@ -75,9 +75,11 @@ public class JindouyunGrabOrderService {
             Byte nowType = mergeOrder.getType();
             if (nowType == 0 || nowType == 1){
                 MergeInfo mergeInfo = mergeOrderService.queryMergeInfoById(grabOrder.getOrderId());
+                mergeInfo.setGrabOrder(grabOrder);
                 mergeList.add(mergeInfo);
             }else if(nowType == 2){
                 MergeExpressInfo mergeExpressInfo = mergeOrderService.queryMergeExpressInfoById(grabOrder.getOrderId());
+                mergeExpressInfo.setGrabOrder(grabOrder);
                 mergeList.add(mergeExpressInfo);
             }
         }
@@ -162,7 +164,9 @@ public class JindouyunGrabOrderService {
 //        List<JindouyunGrabOrder> jindouyunGrabOrders = grabOrderMapper.selectByExample(example);
 //
 //        //更新接单时间
-//        mergeOrderService.updateOrderStatusAndReceiveTime(jindouyunGrabOrder.getOrderId(), MergeOrderConstant.MERGE_ORDER_REVEIVE,LocalDateTime.now());
+//
+//        mergeOrderService.updateOrderStatus();
+//        mergeOrderService.updateOrderStatusAndReceiveTime(jindouyunGrabOrder.getOrderId(), ,LocalDateTime.now());
 //
 //        if (jindouyunGrabOrders.size() != 0){
 //            return false;
@@ -174,5 +178,9 @@ public class JindouyunGrabOrderService {
         JindouyunGrabOrderExample example = new JindouyunGrabOrderExample();
         example.or().andUserIdEqualTo(userId).andDeletedEqualTo(false);
         return grabOrderMapper.selectByExample(example);
+    }
+
+    public JindouyunGrabOrder queryById(Integer id){
+        return grabOrderMapper.selectByPrimaryKey(id);
     }
 }

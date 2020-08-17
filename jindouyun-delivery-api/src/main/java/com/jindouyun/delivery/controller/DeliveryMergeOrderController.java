@@ -4,10 +4,8 @@ import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.common.constant.MergeOrderConstant;
 import com.jindouyun.common.validator.Sort;
 import com.jindouyun.core.util.ResponseUtil;
-import com.jindouyun.db.domain.JindouyunGrabOrder;
-import com.jindouyun.db.domain.JindouyunMergeOrder;
-import com.jindouyun.db.domain.JindouyunOrder;
-import com.jindouyun.db.domain.OrderSplitVO;
+import com.jindouyun.db.domain.*;
+import com.jindouyun.db.service.JindouyunExpressOrderService;
 import com.jindouyun.db.service.JindouyunGrabOrderService;
 import com.jindouyun.db.service.JindouyunMergeOrderService;
 import com.jindouyun.db.service.JindouyunOrderSplitService;
@@ -41,6 +39,27 @@ public class DeliveryMergeOrderController {
 
     @Autowired
     private JindouyunOrderSplitService orderSplitService;
+
+    @Autowired
+    private JindouyunExpressOrderService expressOrderService;
+
+    /**
+     * 查询快递订单详情
+     * @param userId
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/expressOrderDetail")
+    public Object queryExpressOrderDetail(@LoginUser Integer userId, @NotNull Integer orderId){
+        if(userId == null){
+            return ResponseUtil.unlogin();
+        }
+        if(orderId == null){
+            return ResponseUtil.badArgument();
+        }
+        JindouyunExpressOrder expressOrder = expressOrderService.queryById(orderId);
+        return ResponseUtil.ok(expressOrder);
+    }
 
     @GetMapping("/detail")
     public Object detail(@LoginUser Integer userId, @NotNull Integer splitOrderId){
