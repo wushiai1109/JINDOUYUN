@@ -20,10 +20,11 @@ public class JindouyunRegisterBrandService {
     @Resource
     private JindouyunRegisteBrandMapper registeBrandMapper;
 
-//    public JindouyunRegisteBrand queryByUid(Integer Id){
-//        JindouyunRegisteBrandExample example = new JindouyunRegisteBrandExample();
-//        example.or()
-//    }
+    public JindouyunRegisteBrand queryByUid(Integer brandId){
+        JindouyunRegisteBrandExample example = new JindouyunRegisteBrandExample();
+        example.or().andBrandidEqualTo(brandId).andDeletedEqualTo(false);
+        return registeBrandMapper.selectOneByExample(example);
+    }
 
     public JindouyunRegisteBrand queryById(Integer id){
         return registeBrandMapper.selectByPrimaryKey(id);

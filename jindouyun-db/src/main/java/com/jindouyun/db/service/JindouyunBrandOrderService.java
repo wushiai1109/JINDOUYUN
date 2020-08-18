@@ -1,12 +1,19 @@
 package com.jindouyun.db.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jindouyun.db.dao.JindouyunBrandOrderMapper;
-import com.jindouyun.db.domain.JindouyunBrandOrder;
-import com.jindouyun.db.domain.JindouyunBrandOrderExample;
+import com.jindouyun.db.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @className: JindouyunBrandOrderService
@@ -19,6 +26,85 @@ public class JindouyunBrandOrderService {
 
     @Resource
     private JindouyunBrandOrderMapper brandOrderMapper;
+
+    @Autowired
+    private JindouyunMergeOrderService mergeOrderService;
+
+    @Autowired
+    private JindouyunGrabOrderService grabOrderService;
+
+    /**
+     * 查询合单信息
+     * @param orderStatusList
+     * @param brandId
+     * @param mergeId
+     * @param date
+     * @param page
+     * @param limit
+     * @param sort
+     * @param order
+     * @return
+     */
+    public Map<String, Object> queryMergeInfoList(List<Byte> orderStatusList, Integer brandId, Integer mergeId, LocalDateTime date, Integer page, Integer limit, String sort, String order){
+        List<JindouyunBrandOrder> brandOrders = queryBrandOrder(mergeId, date, page, limit, sort, order);
+        PageInfo pageInfo = new PageInfo(brandOrders);
+        List<Object> mergeList = new ArrayList<>();
+        for (JindouyunBrandOrder brandOrder:brandOrders) {
+            JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(brandOrder.getOrderId());
+            if (mergeOrder == null) continue;
+            if(orderStatusList != null){
+                Boolean flag = false;
+                for (Byte status:orderStatusList) {
+                    if( status == mergeOrder.getStatus()){
+                        flag = true;
+                        break;
+                    }
+                }
+                if(!flag) continue;
+            }
+
+
+            MergeInfo mergeInfo = mergeOrderService.queryMergeInfoById(brandOrder.getOrderId());
+            mergeInfo.setBrandOrder(brandOrder);
+            mergeList.add(mergeInfo);
+
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("page",pageInfo.getPageNum());
+        map.put("limit",pageInfo.getPageSize());
+        map.put("total",pageInfo.getTotal());
+        map.put("pages",pageInfo.getPages());
+        map.put("mergeInfo",mergeList);
+
+        return map;
+    }
+
+    public List<JindouyunBrandOrder> queryBrandOrder(Integer mergeId, LocalDateTime date, Integer page, Integer limit, String sort, String order){
+        JindouyunBrandOrderExample example = new JindouyunBrandOrderExample();
+        JindouyunBrandOrderExample.Criteria criteria = example.createCriteria();
+
+        if (date != null){
+            LocalDateTime startTime = LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),0,0,0);
+            LocalDateTime endTime = startTime.plusDays(1);
+            criteria.andAddTimeBetween(startTime,endTime);
+        }
+
+        if (mergeId != null){
+            criteria.andOrderIdEqualTo(mergeId);
+        }
+
+        criteria.andDeletedEqualTo(false);
+
+        if (!StringUtils.isEmpty(sort) && !StringUtils.isEmpty(order)) {
+            example.setOrderByClause(sort + " " + order);
+        }
+
+        PageHelper.startPage(page,limit);
+
+        return brandOrderMapper.selectByExample(example);
+
+    }
+
 
     /**
      * 根据mergeId查询

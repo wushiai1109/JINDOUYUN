@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
-import static com.jindouyun.merchant.util.ValidateUtil.validate;
 
 /**
  * @className:
@@ -53,6 +52,9 @@ public class MerchantBrandController {
         JindouyunBrand brand = new JindouyunBrand();
         MerchantInfo merchantInfo = MerchantUserManager.merchantInfoMap.get(userId);
         BrandInfo brandInfo = merchantInfo.getBrandInfo();
+        if(brandInfo == null){
+            return ResponseUtil.unauthz();
+        }
         brand.setId(brandInfo.getId());
         if(name != null){
             brand.setName(name);

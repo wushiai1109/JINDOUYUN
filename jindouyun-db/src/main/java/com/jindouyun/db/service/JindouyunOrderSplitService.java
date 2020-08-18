@@ -34,6 +34,13 @@ public class JindouyunOrderSplitService {
     @Autowired
     private JindouyunOrderGoodsService orderGoodsService;
 
+    public List<JindouyunOrderSplit> queryIncomesDetail(Integer brandId,LocalDateTime startTime,LocalDateTime endTime,List<Short> orderStatusArray){
+        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+        example.or().andBrandIdEqualTo(brandId).andAddTimeBetween(startTime,endTime).andOrderStatusIn(orderStatusArray).andDeletedEqualTo(false);
+        return splitMapper.selectByExample(example);
+    }
+
+
     public int setOrderStatus(Integer splitOrderId,Short status){
         JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
         orderSplit.setId(splitOrderId);

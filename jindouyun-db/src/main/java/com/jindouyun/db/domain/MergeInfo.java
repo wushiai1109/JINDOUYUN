@@ -26,7 +26,16 @@ public class MergeInfo {
     private LocalDateTime pickupTime;
     private LocalDateTime arriveTime;
     private JindouyunGrabOrder grabOrder;
+    private JindouyunBrandOrder brandOrder;
     private List<JindouyunOrderSplit> splitOrder;
+
+    public JindouyunBrandOrder getBrandOrder() {
+        return brandOrder;
+    }
+
+    public void setBrandOrder(JindouyunBrandOrder brandOrder) {
+        this.brandOrder = brandOrder;
+    }
 
     public JindouyunGrabOrder getGrabOrder() {
         return grabOrder;

@@ -1,13 +1,20 @@
 package com.jindouyun.delivery.controller;
 
+import com.fasterxml.jackson.databind.PropertyMetadata;
 import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.common.constant.MergeOrderConstant;
 import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunGrabOrder;
+import com.jindouyun.db.domain.JindouyunMergeOrder;
+import com.jindouyun.db.domain.JindouyunRegisteBrand;
 import com.jindouyun.db.service.JindouyunAddressService;
 import com.jindouyun.db.service.JindouyunGrabOrderService;
+import com.jindouyun.db.service.JindouyunMergeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * @ClassName DeliveryGrabController
@@ -22,6 +29,8 @@ public class DeliveryGrabOrderController {
 
     @Autowired
     private JindouyunGrabOrderService grabOrderService;
+    @Autowired
+    private JindouyunMergeOrderService mergeOrderService;
 
 
 
@@ -46,6 +55,11 @@ public class DeliveryGrabOrderController {
             System.err.println("接单 - grabOrder已接单");
             return ResponseUtil.badArgument();
         }
+        JindouyunMergeOrder mergeOrder = new JindouyunMergeOrder();
+        mergeOrder.setId(grabOrderId);
+        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_REVEIVE);
+        mergeOrder.setReceiveTime(LocalDateTime.now());
+        mergeOrderService.updateOrderStatus(mergeOrder);
         if( grabOrderService.updateDeliveryId(grabOrderId,userId) == 0){
             System.err.println("接单 - 数据库更新失败");
             return ResponseUtil.fail();

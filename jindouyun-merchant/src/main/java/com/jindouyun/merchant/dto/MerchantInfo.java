@@ -21,5 +21,5 @@ public class MerchantInfo {
     private UserInfo userInfo;
     private JindouyunAddress address;
     private boolean auth;
-    private boolean isApply;
+    private boolean apply;
 }

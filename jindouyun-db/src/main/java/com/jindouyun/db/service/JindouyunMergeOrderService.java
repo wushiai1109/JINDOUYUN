@@ -175,6 +175,7 @@ public class JindouyunMergeOrderService {
     }
 
     public int updateOrderStatus(JindouyunMergeOrder mergeOrder) {
+        mergeOrder.setUpdateTime(LocalDateTime.now());
         return mergeOrderMapper.updateByPrimaryKeySelective(mergeOrder);
     }
 

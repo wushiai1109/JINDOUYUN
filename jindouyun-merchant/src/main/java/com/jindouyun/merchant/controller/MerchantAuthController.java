@@ -71,6 +71,7 @@ public class MerchantAuthController extends AuthServiceImpl {
      * @return 登录结果
      */
     @PostMapping("login")
+    @Transactional
     public Object login(@RequestBody String body, HttpServletRequest request) {
         String username = JacksonUtil.parseString(body, "username");
         String password = JacksonUtil.parseString(body, "password");
@@ -109,9 +110,6 @@ public class MerchantAuthController extends AuthServiceImpl {
         userInfo.setNickName(user.getNickname());
         merchantInfo.setUserInfo(userInfo);
 
-        //判断是否已申请认证
-//        JindouyunRegisteBrand registeBrand = registerBrandService
-
         //判断是否已认证
         JindouyunBrand brand = brandService.findByUserId(user.getId());
         BrandInfo brandInfo = new BrandInfo();
@@ -134,12 +132,18 @@ public class MerchantAuthController extends AuthServiceImpl {
             brandInfo.setEnd_time(brand.getEndTime());
 //            brandInfo.setToday_order(brand.getTodayOrder());
 //            brandInfo.setToday_turnover(brand.getTodayTurnover());
-            brandInfo.setAverage_price(new BigDecimal(brand.getTotalTurnover().doubleValue()/brand.getTotalOrder()));
+            double averagePrice = brand.getTotalOrder()== 0 ? 0:brand.getTotalTurnover().doubleValue()/brand.getTotalOrder();
+            brandInfo.setAverage_price(new BigDecimal(averagePrice));
             //设置认证
             merchantInfo.setAuth(true);
+
+            //判断是否已申请认证
+            JindouyunRegisteBrand registeBrand = registerBrandService.queryByUid(brand.getUserId());
+            if(registeBrand != null){
+                merchantInfo.setApply(true);
+            }
         }
        merchantInfo.setBrandInfo(brandInfo);
-
         // token
         String token = UserTokenManager.generateToken(user.getId());
 
@@ -160,6 +164,7 @@ public class MerchantAuthController extends AuthServiceImpl {
      * @return 登录结果
      */
     @PostMapping("login_by_weixin")
+    @Transactional
     public Object loginByWeixin(@RequestBody WxLoginInfo wxLoginInfo, HttpServletRequest request) {
         String code = wxLoginInfo.getCode();
         UserInfo userInfo = wxLoginInfo.getUserInfo();
@@ -244,6 +249,12 @@ public class MerchantAuthController extends AuthServiceImpl {
             brandInfo.setAverage_price(new BigDecimal(brand.getTotalTurnover().doubleValue()/brand.getTotalOrder()));
             //设置认证
             merchantInfo.setAuth(true);
+
+            //判断是否已申请认证
+            JindouyunRegisteBrand registeBrand = registerBrandService.queryByUid(brand.getUserId());
+            if(registeBrand != null){
+                merchantInfo.setApply(true);
+            }
         }
         merchantInfo.setBrandInfo(brandInfo);
 
@@ -263,7 +274,8 @@ public class MerchantAuthController extends AuthServiceImpl {
      * 注册成为商家
      * @return
      */
-    @PostMapping("register")
+    @PostMapping("/register")
+    @Transactional
     public Object register(@LoginUser Integer userId, @RequestBody String body){
         String name = JacksonUtil.parseString(body,"name");
         String desc = JacksonUtil.parseString(body,"desc");
@@ -277,6 +289,7 @@ public class MerchantAuthController extends AuthServiceImpl {
             ResponseUtil.badArgument();
         }
         JindouyunRegisteBrand registerBrand = new JindouyunRegisteBrand();
+        registerBrand.setBrandid(userId);
         registerBrand.setName(name);
         registerBrand.setDesc(desc);
         registerBrand.setPicUrl(picUrl);
@@ -296,6 +309,7 @@ public class MerchantAuthController extends AuthServiceImpl {
         }
         registerBrand.setAdderssId(addressList.get(0).getId());
         registerBrandService.add(registerBrand);
+        MerchantUserManager.merchantInfoMap.get(userId).setApply(true);
         return ResponseUtil.ok();
     }
 

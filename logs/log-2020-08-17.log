@@ -1,0 +1,86 @@
+2020-08-17 17:13:38,050 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-17 17:13:38,106 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-17 17:13:38,134 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-17 17:13:40,268 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:13:40,285 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:13:40,288 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:13:40.2762591(Timestamp), false(Boolean)
+2020-08-17 17:13:40,291 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:13:40,300 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:13:40,300 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:13:40.2961789(Timestamp), false(Boolean)
+2020-08-17 17:13:40,302 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:14:40,304 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:14:40,308 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:14:40,309 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:14:40.3040546(Timestamp), false(Boolean)
+2020-08-17 17:14:40,310 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:14:40,311 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:14:40,311 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:14:40.3110391(Timestamp), false(Boolean)
+2020-08-17 17:14:40,312 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:15:40,315 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:15:40,318 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:15:40,319 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:15:40.3151147(Timestamp), false(Boolean)
+2020-08-17 17:15:40,320 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:15:40,323 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:15:40,325 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:15:40.3201032(Timestamp), false(Boolean)
+2020-08-17 17:15:40,327 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:16:15,785 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, key_name, key_value, add_time, update_time, deleted from jindouyun_system WHERE ( deleted = ? ) 
+2020-08-17 17:16:15,806 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: false(Boolean)
+2020-08-17 17:16:15,833 DEBUG [restartedMain] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 20
+2020-08-17 17:16:18,011 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:16:18,032 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:16:18,035 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:16:18.0212619(Timestamp), false(Boolean)
+2020-08-17 17:16:18,038 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:16:18,048 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:16:18,049 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:16:18.0441994(Timestamp), false(Boolean)
+2020-08-17 17:16:18,051 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:16:48,328 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, role_id, username, `password`, gender, birthday, last_login_time, last_login_ip, nickname, mobile, avatar, weixin_openid, session_key, `status`, add_time, update_time, deleted from jindouyun_user WHERE ( username = ? and deleted = ? ) 
+2020-08-17 17:16:48,329 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: admin(String), false(Boolean)
+2020-08-17 17:16:48,333 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-17 17:16:48,339 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==>  Preparing: update jindouyun_user SET role_id = ?, username = ?, `password` = ?, gender = ?, birthday = ?, last_login_time = ?, last_login_ip = ?, nickname = ?, mobile = ?, avatar = ?, weixin_openid = ?, session_key = ?, `status` = ?, update_time = ?, deleted = ? where id = ? 
+2020-08-17 17:16:48,341 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), admin(String), admin(String), 0(Byte), 2020-06-23(Date), 2020-08-17 17:16:48.3363679(Timestamp), 0:0:0:0:0:0:0:1(String), admin(String), 18723746542(String), (String), dhjkehlnjdjvhvugwc(String), (String), 0(Byte), 2020-08-17 17:16:48.3363679(Timestamp), false(Boolean), 1(Integer)
+2020-08-17 17:16:48,352 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-17 17:16:48,361 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, today_status, work_type, work_status, add_time, update_time, deleted from jindouyun_delivery_staff WHERE ( user_id = ? and deleted = ? ) limit 1 
+2020-08-17 17:16:48,362 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-17 17:16:48,364 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-17 17:16:48,371 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, message, add_time, update_time, deleted from jindouyun_registe_deliveries WHERE ( user_id = ? and deleted = ? ) limit 1 
+2020-08-17 17:16:48,372 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), false(Boolean)
+2020-08-17 17:16:48,374 DEBUG [http-nio-8000-exec-1] c.j.d.d.J.selectOneByExample [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-17 17:17:18,054 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:17:18,055 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:17:18,056 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:17:18.054063(Timestamp), false(Boolean)
+2020-08-17 17:17:18,057 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:17:18,058 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:17:18,059 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:17:18.0570557(Timestamp), false(Boolean)
+2020-08-17 17:17:18,060 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:18:18,062 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:18:18,068 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:18:18,069 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:18:18.0625698(Timestamp), false(Boolean)
+2020-08-17 17:18:18,071 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:18:18,072 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:18:18,073 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:18:18.0715467(Timestamp), false(Boolean)
+2020-08-17 17:18:18,074 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:18:25,115 DEBUG [http-nio-8000-exec-5] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==>  Preparing: select id, order_id, delivery_id, user_id, admin_id, `force`, add_time, update_time, deleted from jindouyun_grab_order where id = ? 
+2020-08-17 17:18:25,116 DEBUG [http-nio-8000-exec-5] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==> Parameters: null
+2020-08-17 17:18:25,118 DEBUG [http-nio-8000-exec-5] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:18:40,552 DEBUG [http-nio-8000-exec-6] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==>  Preparing: select id, order_id, delivery_id, user_id, admin_id, `force`, add_time, update_time, deleted from jindouyun_grab_order where id = ? 
+2020-08-17 17:18:40,553 DEBUG [http-nio-8000-exec-6] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==> Parameters: 8(Integer)
+2020-08-17 17:18:40,555 DEBUG [http-nio-8000-exec-6] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:19:07,586 DEBUG [http-nio-8000-exec-7] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==>  Preparing: select id, order_id, delivery_id, user_id, admin_id, `force`, add_time, update_time, deleted from jindouyun_grab_order where id = ? 
+2020-08-17 17:19:07,588 DEBUG [http-nio-8000-exec-7] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] ==> Parameters: 234(Integer)
+2020-08-17 17:19:07,589 DEBUG [http-nio-8000-exec-7] c.j.d.d.J.selectByPrimaryKey [BaseJdbcLogger.java : 159] <==      Total: 1
+2020-08-17 17:19:07,593 DEBUG [http-nio-8000-exec-7] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==>  Preparing: update jindouyun_grab_order SET delivery_id = ?, update_time = ? where id = ? 
+2020-08-17 17:19:07,594 DEBUG [http-nio-8000-exec-7] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] ==> Parameters: 1(Integer), 2020-08-17 17:19:07.592682(Timestamp), 234(Integer)
+2020-08-17 17:19:07,597 DEBUG [http-nio-8000-exec-7] c.j.d.d.J.updateByPrimaryKeySelective [BaseJdbcLogger.java : 159] <==    Updates: 1
+2020-08-17 17:19:18,077 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:19:18,079 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:19:18,080 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:19:18.0774043(Timestamp), false(Boolean)
+2020-08-17 17:19:18,081 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:19:18,083 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:19:18,083 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:19:18.082428(Timestamp), false(Boolean)
+2020-08-17 17:19:18,084 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:20:18,086 INFO [scheduling-1] com.jindouyun.admin.job.CouponJob [CouponJob.java : 36] 系统开启任务检查优惠券是否已经过期
+2020-08-17 17:20:18,089 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, `name`, `desc`, total, discount, `min`, `limit`, `type`, `status`, goods_type, goods_value, time_type, `days`, start_time, end_time, add_time, update_time, deleted from jindouyun_coupon WHERE ( `status` = ? and time_type = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:20:18,089 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 1(Short), 2020-08-17 17:20:18.0864261(Timestamp), false(Boolean)
+2020-08-17 17:20:18,091 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0
+2020-08-17 17:20:18,092 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==>  Preparing: select id, user_id, coupon_id, `status`, used_time, start_time, end_time, order_id, add_time, update_time, deleted from jindouyun_coupon_user WHERE ( `status` = ? and end_time < ? and deleted = ? ) 
+2020-08-17 17:20:18,093 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] ==> Parameters: 0(Short), 2020-08-17 17:20:18.0923708(Timestamp), false(Boolean)
+2020-08-17 17:20:18,094 DEBUG [scheduling-1] c.j.d.d.J.selectByExample [BaseJdbcLogger.java : 159] <==      Total: 0

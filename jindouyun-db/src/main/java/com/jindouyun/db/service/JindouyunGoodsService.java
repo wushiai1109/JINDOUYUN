@@ -23,6 +23,12 @@ public class JindouyunGoodsService {
     @Resource
     private JindouyunGoodsMapper goodsMapper;
 
+    public List<JindouyunGoods> queryByBrandId(Integer brandId){
+        JindouyunGoodsExample example = new JindouyunGoodsExample();
+        example.or().andBrandIdEqualTo(brandId).andDeletedEqualTo(false);
+        return goodsMapper.selectByExample(example);
+    }
+
     /**
      * 获取热卖商品
      *
