@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.jindouyun.db.util.OrderUtil.STATUS_ARRIVED;
+import static com.jindouyun.db.util.OrderUtil.STATUS_RECEIVE;
 import static java.time.LocalDateTime.now;
 
 /**
@@ -128,10 +130,16 @@ public class DeliveryMergeOrderController {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
+        //更新合单状态
         JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(orderId);
-        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_REVEIVE);
+        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_RECEIVE);
         mergeOrder.setPickupTime(LocalDateTime.now());
         mergeOrderService.updateOrderStatus(mergeOrder);
+        //更新子订单状态 302
+        if(orderSplitService.updateStatusByMergeId(mergeOrder.getId(),STATUS_RECEIVE) == 0){
+            System.err.println("取件 - 数据库更新失败");
+            return ResponseUtil.fail();
+        }
         return ResponseUtil.ok(mergeOrder);
     }
 
@@ -146,10 +154,16 @@ public class DeliveryMergeOrderController {
         if (userId == null) {
             return ResponseUtil.unlogin();
         }
+        //更新合单状态
         JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(orderId);
         mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_ARRIVED);
         mergeOrder.setArriveTime(LocalDateTime.now());
         mergeOrderService.updateOrderStatus(mergeOrder);
+        //更新子订单状态 303
+        if(orderSplitService.updateStatusByMergeId(mergeOrder.getId(),STATUS_ARRIVED) == 0){
+            System.err.println("送达 - 数据库更新失败");
+            return ResponseUtil.fail();
+        }
         return ResponseUtil.ok(mergeOrder);
     }
 

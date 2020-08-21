@@ -1,5 +1,6 @@
 package com.jindouyun.db.service;
 
+import com.jindouyun.db.dao.JindouyunBrandMapper;
 import com.jindouyun.db.dao.JindouyunMergeOrderMapper;
 import com.jindouyun.db.dao.JindouyunOrderSplitMapper;
 import com.jindouyun.db.domain.*;
@@ -28,12 +29,17 @@ import static com.jindouyun.common.util.CharUtil.getRandomNum;
 @Service
 public class JindouyunMergeOrderService {
 
+
+    @Resource
+    private JindouyunBrandService brandService;
     @Resource
     private JindouyunMergeOrderMapper mergeOrderMapper;
     @Resource
     private JindouyunOrderSplitService orderSplitService;
     @Resource
     private JindouyunExpressOrderService expressOrderService;
+    @Resource
+    private JindouyunAddressService addressService;
 
     public MergeExpressInfo queryMergeExpressInfoById(Integer id){
         JindouyunMergeOrder mergeOrder = selectByPrimaryKey(id);
@@ -53,6 +59,17 @@ public class JindouyunMergeOrderService {
             mergeExpressInfo.setPickupTime(mergeOrder.getPickupTime());
             mergeExpressInfo.setPickupTime(mergeOrder.getArriveTime());
             List<JindouyunExpressOrder> expressOrders = expressOrderService.queryByMergeId(id);
+            String address = null;
+            List<Short> deliveryRange = null;
+            if(expressOrders != null && expressOrders.size()>0){
+                deliveryRange = new ArrayList<>();
+                address = expressOrders.get(0).getAddress();
+                for (JindouyunExpressOrder expressOrder:expressOrders) {
+                    deliveryRange.add(expressOrder.getBuilding());
+                }
+            }
+            mergeExpressInfo.setAddress(address);
+            mergeExpressInfo.setDeliveryRange(deliveryRange);
             mergeExpressInfo.setSplitOrder(expressOrders);
         }
         return mergeExpressInfo;
@@ -76,6 +93,20 @@ public class JindouyunMergeOrderService {
             mergeInfo.setPickupTime(mergeOrder.getPickupTime());
             mergeInfo.setPickupTime(mergeOrder.getArriveTime());
             List<JindouyunOrderSplit> orderSplits = orderSplitService.queryByMergeId(id);
+            String address = null;
+            List<Integer> deliveryRange = null;
+            if(orderSplits != null && orderSplits.size() >0){
+                deliveryRange = new ArrayList<>();
+                JindouyunBrand brand = brandService.findById(orderSplits.get(0).getBrandId());
+                if (brand != null){
+                    address = addressService.queryById(brand.getAdderssId()).getAddressDetail();
+                }
+                for (JindouyunOrderSplit orderSplit:orderSplits) {
+                    deliveryRange.add(orderSplit.getBrandId());
+                }
+            }
+            mergeInfo.setAddress(address);
+            mergeInfo.setDeliveryRange(deliveryRange);
             mergeInfo.setSplitOrder(orderSplits);
         }
         return mergeInfo;
@@ -88,21 +119,6 @@ public class JindouyunMergeOrderService {
      */
     public Integer delete(Integer id){
         return mergeOrderMapper.logicalDeleteByPrimaryKey(id);
-    }
-
-    /**
-     * 更新 release
-     * @param id
-     * @param adminId
-     * @return
-     */
-    public Integer updateRelease(Integer id,Integer adminId){
-        JindouyunMergeOrder mergeOrder = new JindouyunMergeOrder();
-        mergeOrder.setId(id);
-        mergeOrder.setAdminId(adminId);
-        mergeOrder.setRelease((byte) 1);
-        mergeOrder.setUpdateTime(LocalDateTime.now());
-        return mergeOrderMapper.updateByPrimaryKeySelective(mergeOrder);
     }
 
     /**

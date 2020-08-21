@@ -1,11 +1,15 @@
 package com.jindouyun.merchant.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.jindouyun.common.annotation.LoginUser;
+import com.jindouyun.common.constant.MergeOrderConstant;
 import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.common.validator.Sort;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
+import com.jindouyun.merchant.dto.BrandInfo;
+import com.jindouyun.merchant.service.MerchantUserManager;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -13,8 +17,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.jindouyun.common.constant.WxResponseCode.*;
+import static com.jindouyun.db.util.OrderUtil.*;
 
 /**
  * @className: MerchantBrandOrderController
@@ -42,6 +50,9 @@ public class MerchantBrandOrderController {
     @Autowired
     private JindouyunMergeOrderService mergeOrderService;
 
+    @Autowired
+    private JindouyunOrderGoodsService goodsService;
+
     @GetMapping("/detail")
     public Object detail(@LoginUser Integer userId, @NotNull Integer splitOrderId){
         if( userId == null){
@@ -53,7 +64,7 @@ public class MerchantBrandOrderController {
 
     @GetMapping("/list")
     public Object list(@LoginUser Integer userId,
-                       @RequestParam(required = false) List<Byte> orderStatusList,
+                       @RequestParam(required = false) List<Short> orderStatusList,
                        @RequestParam("brandId") Integer brandId, Integer mergeId,
                        @RequestParam(defaultValue = "") LocalDateTime date,
                        @RequestParam(defaultValue = "1") Integer page,
@@ -64,10 +75,48 @@ public class MerchantBrandOrderController {
             return ResponseUtil.unlogin();
         }
         if (orderStatusList == null ){
-            orderStatusList = new ArrayList<>(){{add((byte)21);add((byte) 22);add((byte)31);add((byte) 32);add((byte)33);}};
+            orderStatusList = new ArrayList<>(){{add((short)21);add((short) 22);add((short)31);add((short) 32);add((short)33);}};
         }
 
         Map result = brandOrderService.queryMergeInfoList(orderStatusList, brandId, mergeId, date, page, limit, sort, order);
+        return ResponseUtil.ok(result);
+    }
+
+    @GetMapping("/completed")
+    public Object completed(@LoginUser Integer userId,@RequestParam(defaultValue = "true") Boolean completed,
+                            @RequestParam(defaultValue = "1") Integer page,
+                            @RequestParam(defaultValue = "10") Integer limit,
+                            @Sort @RequestParam(defaultValue = "add_time") String sort,
+                            @RequestParam(defaultValue = "desc") String order){
+        if(userId == null){
+            return ResponseUtil.unlogin();
+        }
+        BrandInfo brandInfo = MerchantUserManager.merchantInfoMap.get(userId).getBrandInfo();
+        List<Short> orderStatusArray = new ArrayList<>();
+        if(completed){
+            orderStatusArray.add(STATUS_SHIP);
+            orderStatusArray.add(STATUS_RECEIVE);
+            orderStatusArray.add(STATUS_ARRIVED);
+        }else{
+            orderStatusArray.add(STATUS_CANCEL);
+        }
+
+        List<JindouyunOrderSplit> orderSplits = orderSplitService.querySelective(null,null,brandInfo.getId(),orderStatusArray,null,page,limit,sort,order);
+        PageInfo<JindouyunOrderSplit> pageInfo = new PageInfo<>(orderSplits);
+        List<Map<String,Object>> orderSplitInfos = new ArrayList<>();
+        for (JindouyunOrderSplit orderSplit:orderSplits) {
+            Map<String,Object> map = new HashMap<>();
+            List<JindouyunOrderGoods> goods = goodsService.queryBySplitOrderId(orderSplit.getId());
+            map.put("orderSplit",orderSplit);
+            map.put("goods",goods);
+            orderSplitInfos.add(map);
+        }
+        Map<String,Object> result = new HashMap();
+        result.put("page",pageInfo.getPageNum());
+        result.put("limit",pageInfo.getPageSize());
+        result.put("total",pageInfo.getTotal());
+        result.put("pages",pageInfo.getPages());
+        result.put("orderSplits",orderSplitInfos);
         return ResponseUtil.ok(result);
     }
 
@@ -106,14 +155,37 @@ public class MerchantBrandOrderController {
         if(mergeOrder == null){
             return ResponseUtil.badArgument();
         }
-        mergeOrder.setStatus((byte) 22);
+        //22 更新合单状态
+        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_MERCHANT_RECEIVE);
         if(mergeOrderService.updateOrderStatus(mergeOrder) == 0){
+            return ResponseUtil.fail();
+        }
+        // 更新子订单状态
+        if(orderSplitService.updateStatusByMergeId(mergeId,STATUS_MERCHANT_RECEIVE) == 0){
             return ResponseUtil.fail();
         }
 
         return ResponseUtil.ok(mergeOrder);
     }
 
-
+    @PostMapping("/cancel")
+    public Object cancel(@LoginUser Integer userId,String body){
+        if (userId == null){
+            return ResponseUtil.unlogin();
+        }
+        Integer splitOrderId = JacksonUtil.parseInteger(body,"splitOrderId");
+        if(splitOrderId == null){
+            return ResponseUtil.badArgument();
+        }
+        JindouyunOrderSplit orderSplit = orderSplitService.queryById(splitOrderId);
+        //只有订单状态在21,22时才可以取消
+        if(orderSplit.getOrderStatus() != 21 && orderSplit.getOrderStatus() != 22){
+            return ResponseUtil.fail(ORDER_CANCEL_FAIL,"配送中，订单不可取消");
+        }
+        if(orderSplitService.setOrderStatus(splitOrderId,STATUS_CANCEL)==0){
+            return ResponseUtil.fail();
+        }
+        return ResponseUtil.ok();
+    }
 
 }

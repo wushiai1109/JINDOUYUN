@@ -41,10 +41,20 @@ public class JindouyunOrderSplitService {
     }
 
 
+    public int updateStatusByMergeId(Integer mergeId,Short status){
+        JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
+        orderSplit.setOrderStatus(status);
+        orderSplit.setUpdateTime(LocalDateTime.now());
+        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+        example.or().andMergeIdEqualTo(mergeId).andDeletedEqualTo(false);
+        return splitMapper.updateByExampleSelective(orderSplit,example);
+    }
+
     public int setOrderStatus(Integer splitOrderId,Short status){
         JindouyunOrderSplit orderSplit = new JindouyunOrderSplit();
         orderSplit.setId(splitOrderId);
         orderSplit.setOrderStatus(status);
+        orderSplit.setUpdateTime(LocalDateTime.now());
         return splitMapper.updateByPrimaryKey(orderSplit);
     }
 
@@ -112,6 +122,18 @@ public class JindouyunOrderSplitService {
     }
 
     /**
+     * 根据合单id和商家id查询
+     * @param mergeId
+     * @param brandId
+     * @return
+     */
+    public List<JindouyunOrderSplit> queryByMergeIdAndBrandId(Integer mergeId,Integer brandId){
+        JindouyunOrderSplitExample example = new JindouyunOrderSplitExample();
+        example.or().andMergeIdEqualTo(mergeId).andBrandIdEqualTo(brandId).andDeletedEqualTo(false);
+        return splitMapper.selectByExample(example);
+    }
+
+    /**
      * 根据 mergerId brandId orderId 以及 orderStatus 查找
      *
      * @param mergerId
@@ -128,19 +150,21 @@ public class JindouyunOrderSplitService {
         JindouyunOrderSplitExample.Criteria criteria = example.createCriteria();
 
         //商品
-        if (type == 0) {
+        if (type != null && type == 0) {
             if (brandId != null && brandId != 0) {
                 return new ArrayList<>();
             }
             criteria.andBrandIdEqualTo(0);
             //外卖
-        } else if (type == 1) {
+        } else if (type != null && type == 1) {
 
             if (brandId != null) {
                 criteria.andBrandIdEqualTo(brandId);
             } else {
                 criteria.andBrandIdNotEqualTo(0);
             }
+        } else if(type == null && brandId != null){
+            criteria.andBrandIdEqualTo(brandId);
         }
         if (mergerId != null) {
             criteria.andMergeIdEqualTo(mergerId);

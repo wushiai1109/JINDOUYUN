@@ -27,6 +27,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.jindouyun.admin.util.AdminResponseCode.*;
+import static com.jindouyun.common.constant.MergeOrderConstant.MERGE_ORDER_DELIVER;
+import static com.jindouyun.common.constant.MergeOrderConstant.MERGE_ORDER_MERCHANT_RECEIVE;
+import static com.jindouyun.db.util.OrderUtil.*;
 
 @Service
 
@@ -435,16 +438,15 @@ public class AdminOrderService {
         mergeOrder.setMessage(message);
         mergeOrder.setType(type);
         mergeOrder.setRelease(release);
-        if (type == 0){
-            //商家已发货 31
-            mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_DELIVER);
+        //商家已发货 31
+        //直接提取快递 31
+        if (type == 0 || type == 2){
+            mergeOrder.setStatus(MERGE_ORDER_DELIVER);
         }else if (type == 1){
             //用户已付款 商家未发货 21
             mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_UNDELIVER);
-        }else if( type == 2){
-            //直接提取快递 31
-            mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_DELIVER);
         }
+
         if (release == 1) {
             mergeOrder.setReleaseTime(LocalDateTime.now().plusSeconds(30));
         }
@@ -517,11 +519,23 @@ public class AdminOrderService {
             System.err.println("发布mergeOrder - mergeOrder不存在");
             return ResponseUtil.fail(MERGE_ORDER_NUEXIST,"mergeId不存在");
         }
-        sendMergeOrderToDeliveryBrand(mergeOrder);
-        if (mergeOrderService.updateRelease(mergeId,admin.getId())!=0){
-            return ResponseUtil.ok();
+
+        //更新状态
+        Byte type = mergeOrder.getType();
+        if ( type== 0 || type==2){
+            mergeOrder.setType(MERGE_ORDER_DELIVER);
+        }else if (type == 1){
+            mergeOrder.setType(MERGE_ORDER_MERCHANT_RECEIVE);
         }
-        return ResponseUtil.fail();
+        mergeOrder.setAdminId(admin.getId());
+        mergeOrder.setRelease((byte) 1);
+        mergeOrder.setUpdateTime(LocalDateTime.now());
+        mergeOrder.setReleaseTime(LocalDateTime.now());
+        if(mergeOrderService.updateOrderStatus(mergeOrder) == 0){
+            return ResponseUtil.fail();
+        }
+        sendMergeOrderToDeliveryBrand(mergeOrder);
+        return ResponseUtil.ok();
     }
 
     /**
@@ -549,10 +563,10 @@ public class AdminOrderService {
     }
 
     public void sendMergeOrderToDeliveryBrand(JindouyunMergeOrder mergeOrder){
-        //发布到骑手端
+
         Byte type = mergeOrder.getType();
         if( type == 0 || type == 2){
-            //发布到商家端
+            //发布到骑手端
             if(grabOrderService.queryByMergeId(mergeOrder.getId()) == null){
                 JindouyunGrabOrder grabOrder = new JindouyunGrabOrder();
                 grabOrder.setOrderId(mergeOrder.getId());
@@ -561,12 +575,29 @@ public class AdminOrderService {
                 grabOrderService.add(grabOrder);
             }
         }else if(type == 1){
+            //发布到商家端
             if(brandOrderService.queryByMergeId(mergeOrder.getId()) == null){
+                List<JindouyunOrderSplit> orderSplits = splitService.queryByMergeId(mergeOrder.getId());
+                if(orderSplits==null || orderSplits.size() != mergeOrder.getNum()){
+                    throw new RuntimeException("合单子订单数量与orderSplit数量不同");
+                }
                 JindouyunBrandOrder brandOrder = new JindouyunBrandOrder();
                 brandOrder.setOrderId(mergeOrder.getId());
+                brandOrder.setBrandId(orderSplits.get(0).getBrandId());
                 brandOrder.setStatus((short)mergeOrder.getStatus());
                 brandOrderService.add(brandOrder);
             }
+        }
+        //更新子订单的状态
+        if( type == 0) {
+            //201
+            splitService.updateStatusByMergeId(mergeOrder.getId(), STATUS_PAY);
+        }else if( type == 1){
+            //301
+            splitService.updateStatusByMergeId(mergeOrder.getId(), STATUS_SHIP);
+        }else if(type == 2){
+            //301
+            expressOrderService.updateStatusByMergeId(mergeOrder.getId(),STATUS_SHIP);
         }
     }
 }

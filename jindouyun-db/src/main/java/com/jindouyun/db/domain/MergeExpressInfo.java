@@ -27,8 +27,26 @@ public class MergeExpressInfo {
     private LocalDateTime receiveTime;
     private LocalDateTime pickupTime;
     private LocalDateTime arriveTime;
+    private List<Short> deliveryRange;
+    private String address;
     private JindouyunGrabOrder grabOrder;
     private List<JindouyunExpressOrder> splitOrder;
+
+    public List<Short> getDeliveryRange() {
+        return deliveryRange;
+    }
+
+    public void setDeliveryRange(List<Short> deliveryRange) {
+        this.deliveryRange = deliveryRange;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public JindouyunGrabOrder getGrabOrder() {
         return grabOrder;

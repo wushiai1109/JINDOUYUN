@@ -2,10 +2,13 @@ package com.jindouyun.merchant.controller;
 
 import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.core.util.ResponseUtil;
+import com.jindouyun.db.domain.JindouyunBrandPerformance;
 import com.jindouyun.db.domain.JindouyunOrderSplit;
+import com.jindouyun.db.service.JindouyunBrandPerformanceService;
 import com.jindouyun.db.service.JindouyunOrderSplitService;
 import com.jindouyun.merchant.dto.BrandInfo;
 import com.jindouyun.merchant.service.MerchantUserManager;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,8 @@ public class MerchantPerformance {
 
     @Autowired
     private JindouyunOrderSplitService orderSplitService;
+    @Autowired
+    private JindouyunBrandPerformanceService performanceService;
 
     @GetMapping("/incomeDetails")
     public Object incomeDetails(@LoginUser Integer userId, LocalDateTime data){
@@ -55,6 +60,15 @@ public class MerchantPerformance {
         List<JindouyunOrderSplit>  orderSplits = orderSplitService.queryIncomesDetail(brandInfo.getId(),startTime,endTime,orderStatusArray);
 
         return ResponseUtil.ok(orderSplits);
+    }
+
+    @GetMapping("/todayData")
+    public Object todayData(@LoginUser Integer userId){
+        if(userId == null){
+            return ResponseUtil.unlogin();
+        }
+        JindouyunBrandPerformance performance = performanceService.queryTodayByUid(userId);
+        return ResponseUtil.ok(performance);
     }
 
 }

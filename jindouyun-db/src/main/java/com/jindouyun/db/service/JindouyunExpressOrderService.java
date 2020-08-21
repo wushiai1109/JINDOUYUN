@@ -32,6 +32,16 @@ public class JindouyunExpressOrderService {
     @Resource
     private JindouyunExpressOrderMapper expressOrderMapper;
 
+    public int updateStatusByMergeId(Integer mergeId,Short status){
+        JindouyunExpressOrder expressOrder = new JindouyunExpressOrder();
+        expressOrder.setOrderStatus(status);
+        expressOrder.setUpdateTime(LocalDateTime.now());
+        JindouyunExpressOrderExample example = new JindouyunExpressOrderExample();
+        example.or().andMergeIdEqualTo(mergeId).andDeletedEqualTo(false);
+        return expressOrderMapper.updateByExampleSelective(expressOrder,example);
+    }
+
+
     /**
      * 根据mergeId 查询
      * @param mergeId

@@ -10,8 +10,8 @@ import java.util.Random;
  * 订单流程：下单成功－》支付订单－》发货－》收货
  * 订单状态：
  * 101 订单生成，未支付；102，下单未支付用户取消；103，下单未支付超期系统自动取消
- * 201 支付完成，商家未发货；202，订单生成，已付款未发货，用户申请退款；203，管理员执行退款操作，确认退款成功；
- * 301 商家发货，用户未确认；
+ * 201 支付完成，商家未发货；202 商家接单 203，订单生成，已付款未发货，用户申请退款；204，管理员执行退款操作，确认退款成功；
+ * 301 商家发货，等待配送员接单；302 配送员接单，配送中；303 已送达
  * 401 用户确认收货，订单结束； 402 用户没有确认收货，但是快递反馈已收货后，超过一定时间，系统自动确认收货，订单结束。
  *
  * 当101用户未付款时，此时用户可以进行的操作是取消或者付款
@@ -27,13 +27,16 @@ public class OrderUtil {
     public static final Short STATUS_SHIP = 301;
     public static final Short STATUS_CONFIRM = 401;
     public static final Short STATUS_CANCEL = 102;
+    public static final Short STATUS_MERCHANT_RECEIVE = 202;
     public static final Short STATUS_AUTO_CANCEL = 103;
     public static final Short STATUS_ADMIN_CANCEL = 104;
-    public static final Short STATUS_REFUND = 202;
-    public static final Short STATUS_REFUND_CONFIRM = 203;
+    public static final Short STATUS_RECEIVE = 302;
+    public static final Short STATUS_ARRIVED = 303;
+    public static final Short STATUS_REFUND = 203;
+    public static final Short STATUS_REFUND_CONFIRM = 204;
     public static final Short STATUS_AUTO_CONFIRM = 402;
     public static final Short STATUS_PAY_GROUPON = 200;
-    public static final Short STATUS_TIMEOUT_GROUPON = 204;
+    public static final Short STATUS_TIMEOUT_GROUPON = 205;
 
 
     public static String orderStatusText(JindouyunOrder order) {

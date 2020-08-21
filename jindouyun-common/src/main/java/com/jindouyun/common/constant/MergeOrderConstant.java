@@ -16,8 +16,9 @@ package com.jindouyun.common.constant;
 public class MergeOrderConstant {
 
     public static final Byte MERGE_ORDER_UNDELIVER = 21;
+    public static final Byte MERGE_ORDER_MERCHANT_RECEIVE = 22;
     public static final Byte MERGE_ORDER_DELIVER = 31;
-    public static final Byte MERGE_ORDER_REVEIVE = 32;
+    public static final Byte MERGE_ORDER_RECEIVE = 32;
     public static final Byte MERGE_ORDER_ARRIVED = 33;
 
 }

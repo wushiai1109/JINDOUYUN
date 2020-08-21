@@ -7,14 +7,18 @@ import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.JindouyunGrabOrder;
 import com.jindouyun.db.domain.JindouyunMergeOrder;
+import com.jindouyun.db.domain.JindouyunOrderSplit;
 import com.jindouyun.db.domain.JindouyunRegisteBrand;
 import com.jindouyun.db.service.JindouyunAddressService;
 import com.jindouyun.db.service.JindouyunGrabOrderService;
 import com.jindouyun.db.service.JindouyunMergeOrderService;
+import com.jindouyun.db.service.JindouyunOrderSplitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+
+import static com.jindouyun.db.util.OrderUtil.STATUS_SHIP;
 
 /**
  * @ClassName DeliveryGrabController
@@ -31,6 +35,8 @@ public class DeliveryGrabOrderController {
     private JindouyunGrabOrderService grabOrderService;
     @Autowired
     private JindouyunMergeOrderService mergeOrderService;
+    @Autowired
+    private JindouyunOrderSplitService splitService;
 
 
 
@@ -55,12 +61,19 @@ public class DeliveryGrabOrderController {
             System.err.println("接单 - grabOrder已接单");
             return ResponseUtil.badArgument();
         }
+        //更新合单状态
         JindouyunMergeOrder mergeOrder = new JindouyunMergeOrder();
-        mergeOrder.setId(grabOrderId);
-        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_REVEIVE);
+        mergeOrder.setId(grabOrder.getOrderId());
+        //31
+        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_RECEIVE);
         mergeOrder.setReceiveTime(LocalDateTime.now());
         mergeOrderService.updateOrderStatus(mergeOrder);
         if( grabOrderService.updateDeliveryId(grabOrderId,userId) == 0){
+            System.err.println("接单 - 数据库更新失败");
+            return ResponseUtil.fail();
+        }
+        //更新子订单状态 301
+        if(splitService.updateStatusByMergeId(mergeOrder.getId(),STATUS_SHIP) == 0){
             System.err.println("接单 - 数据库更新失败");
             return ResponseUtil.fail();
         }

@@ -5,10 +5,13 @@ import com.jindouyun.db.domain.JindouyunOrder;
 import com.jindouyun.db.domain.JindouyunOrderGoods;
 import com.jindouyun.db.domain.JindouyunOrderGoods.Column;
 import com.jindouyun.db.domain.JindouyunOrderGoodsExample;
+import com.jindouyun.db.domain.JindouyunOrderSplit;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,8 +19,9 @@ public class JindouyunOrderGoodsService {
     @Resource
     private JindouyunOrderGoodsMapper orderGoodsMapper;
 
-    Column[] columns = new Column[]{Column.id,Column.goodsName,Column.goodsSn,
+    Column[] columns = new Column[]{Column.id,Column.goodsName,Column.goodsSn,Column.price,Column.picUrl,
                                     Column.number,Column.specifications,Column.isArrive};
+
 
     /**
      * 根据splitOrderId 查询

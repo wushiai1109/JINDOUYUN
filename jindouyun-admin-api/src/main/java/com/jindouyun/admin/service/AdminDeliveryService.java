@@ -118,7 +118,7 @@ public class AdminDeliveryService {
         }
         if(grabOrderService.updateDeliveryId(grabOrder.getId(),deliveryId)!=0){
             mergeOrder.setPickupTime(LocalDateTime.now());
-            mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_REVEIVE);
+            mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_RECEIVE);
             mergeOrderService.updateOrderStatus(mergeOrder);
             return ResponseUtil.ok();
         }

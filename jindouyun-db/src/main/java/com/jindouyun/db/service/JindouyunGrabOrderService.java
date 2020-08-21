@@ -57,7 +57,9 @@ public class JindouyunGrabOrderService {
         List<Object> mergeList = new ArrayList<>();
         for (JindouyunGrabOrder grabOrder:grabOrders) {
             JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(grabOrder.getOrderId());
-            if (mergeOrder == null) continue;
+            if (mergeOrder == null) {
+                continue;
+            }
             if(orderStatusList != null){
                 Boolean flag = false;
                 for (Byte status:orderStatusList) {

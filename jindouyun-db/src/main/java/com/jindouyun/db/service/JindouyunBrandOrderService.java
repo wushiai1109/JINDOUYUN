@@ -30,9 +30,6 @@ public class JindouyunBrandOrderService {
     @Autowired
     private JindouyunMergeOrderService mergeOrderService;
 
-    @Autowired
-    private JindouyunGrabOrderService grabOrderService;
-
     /**
      * 查询合单信息
      * @param orderStatusList
@@ -45,29 +42,14 @@ public class JindouyunBrandOrderService {
      * @param order
      * @return
      */
-    public Map<String, Object> queryMergeInfoList(List<Byte> orderStatusList, Integer brandId, Integer mergeId, LocalDateTime date, Integer page, Integer limit, String sort, String order){
-        List<JindouyunBrandOrder> brandOrders = queryBrandOrder(mergeId, date, page, limit, sort, order);
+    public Map<String, Object> queryMergeInfoList(List<Short> orderStatusList, Integer brandId, Integer mergeId, LocalDateTime date, Integer page, Integer limit, String sort, String order){
+        List<JindouyunBrandOrder> brandOrders = queryBrandOrder(orderStatusList,brandId,mergeId, date, page, limit, sort, order);
         PageInfo pageInfo = new PageInfo(brandOrders);
         List<Object> mergeList = new ArrayList<>();
         for (JindouyunBrandOrder brandOrder:brandOrders) {
-            JindouyunMergeOrder mergeOrder = mergeOrderService.selectByPrimaryKey(brandOrder.getOrderId());
-            if (mergeOrder == null) continue;
-            if(orderStatusList != null){
-                Boolean flag = false;
-                for (Byte status:orderStatusList) {
-                    if( status == mergeOrder.getStatus()){
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!flag) continue;
-            }
-
-
             MergeInfo mergeInfo = mergeOrderService.queryMergeInfoById(brandOrder.getOrderId());
             mergeInfo.setBrandOrder(brandOrder);
             mergeList.add(mergeInfo);
-
         }
         Map<String,Object> map = new HashMap<>();
         map.put("page",pageInfo.getPageNum());
@@ -79,9 +61,17 @@ public class JindouyunBrandOrderService {
         return map;
     }
 
-    public List<JindouyunBrandOrder> queryBrandOrder(Integer mergeId, LocalDateTime date, Integer page, Integer limit, String sort, String order){
+    public List<JindouyunBrandOrder> queryBrandOrder(List<Short> orderStatusArray,Integer brandId, Integer mergeId, LocalDateTime date, Integer page, Integer limit, String sort, String order){
         JindouyunBrandOrderExample example = new JindouyunBrandOrderExample();
         JindouyunBrandOrderExample.Criteria criteria = example.createCriteria();
+
+        if(orderStatusArray != null){
+            criteria.andStatusIn(orderStatusArray);
+        }
+
+        if (brandId != null){
+            criteria.andBrandIdEqualTo(brandId);
+        }
 
         if (date != null){
             LocalDateTime startTime = LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),0,0,0);
