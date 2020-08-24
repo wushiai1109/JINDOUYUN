@@ -30,6 +30,15 @@ public class JindouyunBrandOrderService {
     @Autowired
     private JindouyunMergeOrderService mergeOrderService;
 
+    public int updateStatusByMergeId(Integer mergeId,Short status){
+        JindouyunBrandOrder brandOrder = new JindouyunBrandOrder();
+        brandOrder.setStatus(status);
+        brandOrder.setUpdateTime(LocalDateTime.now());
+        JindouyunBrandOrderExample example = new JindouyunBrandOrderExample();
+        example.or().andOrderIdEqualTo(mergeId).andDeletedEqualTo(false);
+        return brandOrderMapper.updateByExampleSelective(brandOrder,example);
+    }
+
     /**
      * 查询合单信息
      * @param orderStatusList
@@ -45,7 +54,7 @@ public class JindouyunBrandOrderService {
     public Map<String, Object> queryMergeInfoList(List<Short> orderStatusList, Integer brandId, Integer mergeId, LocalDateTime date, Integer page, Integer limit, String sort, String order){
         List<JindouyunBrandOrder> brandOrders = queryBrandOrder(orderStatusList,brandId,mergeId, date, page, limit, sort, order);
         PageInfo pageInfo = new PageInfo(brandOrders);
-        List<Object> mergeList = new ArrayList<>();
+        List<MergeInfo> mergeList = new ArrayList<>();
         for (JindouyunBrandOrder brandOrder:brandOrders) {
             MergeInfo mergeInfo = mergeOrderService.queryMergeInfoById(brandOrder.getOrderId());
             mergeInfo.setBrandOrder(brandOrder);

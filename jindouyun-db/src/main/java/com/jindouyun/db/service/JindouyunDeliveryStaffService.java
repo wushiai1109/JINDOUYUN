@@ -55,6 +55,9 @@ public class JindouyunDeliveryStaffService {
      */
     public StaffVO queryStaffVOById(Integer id){
         List<StaffVO> list = (List<StaffVO>)queryStaffVO(id,null,1,10,null,null).get("staffList");
+        if(list == null || list.size()==0){
+            return null;
+        }
         return list.get(0);
     }
 

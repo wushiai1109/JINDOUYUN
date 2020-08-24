@@ -40,7 +40,6 @@ public class MerchantGoodsService {
 
 
     /**
-     * 条件查询 goodsId or goodsSn or name
      * @param brandId
      * @return
      */
@@ -159,12 +158,12 @@ public class MerchantGoodsService {
 
     @Transactional
     public Object delete(JindouyunGoods goods) {
-        Integer id = goods.getId();
-        if (id == null) {
+        Integer gid = goods.getId();
+        if (gid == null) {
             return ResponseUtil.badArgument();
         }
 
-        Integer gid = goods.getId();
+        gid = goods.getId();
         goodsService.deleteById(gid);
         specificationService.deleteByGid(gid);
         attributeService.deleteByGid(gid);

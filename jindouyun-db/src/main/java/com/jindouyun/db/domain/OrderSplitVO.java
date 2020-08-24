@@ -4,6 +4,7 @@ import com.jindouyun.db.domain.BrandVo;
 import com.jindouyun.db.domain.JindouyunOrderGoods;
 import com.jindouyun.db.domain.JindouyunOrderSplit;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class OrderSplitVO {
     private BrandVo brandVo;
     private JindouyunOrderSplit orderSplit;
     private List<JindouyunOrderGoods> orderGoods;
+    private BigDecimal deliveryPrice;
 
     public OrderSplitVO() {
     }
@@ -25,6 +27,14 @@ public class OrderSplitVO {
         this.brandVo = brandVo;
         this.orderSplit = orderSplit;
         this.orderGoods = orderGoods;
+    }
+
+    public BigDecimal getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(BigDecimal deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
     }
 
     public BrandVo getBrandVo() {

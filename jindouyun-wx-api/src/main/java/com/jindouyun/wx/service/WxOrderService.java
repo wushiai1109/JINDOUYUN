@@ -954,6 +954,7 @@ public class WxOrderService {
      * @param body   订单信息，{ orderId：xxx }
      * @return 订单操作结果
      */
+    @Transactional
     public Object confirm(Integer userId, String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();
@@ -1061,6 +1062,7 @@ public class WxOrderService {
      * @param body   订单信息，{ orderId：xxx }
      * @return 订单操作结果
      */
+    @Transactional
     public Object comment(Integer userId, String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();

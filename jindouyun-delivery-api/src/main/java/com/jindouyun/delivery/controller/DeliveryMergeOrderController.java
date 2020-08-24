@@ -3,6 +3,7 @@ package com.jindouyun.delivery.controller;
 import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.common.constant.MergeOrderConstant;
 import com.jindouyun.common.validator.Sort;
+import com.jindouyun.core.system.SystemConfig;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.JindouyunExpressOrderService;
@@ -10,9 +11,11 @@ import com.jindouyun.db.service.JindouyunGrabOrderService;
 import com.jindouyun.db.service.JindouyunMergeOrderService;
 import com.jindouyun.db.service.JindouyunOrderSplitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +72,11 @@ public class DeliveryMergeOrderController {
             return ResponseUtil.unlogin();
         }
         OrderSplitVO splitVO = orderSplitService.queryOrderSplitVO(splitOrderId);
+        BigDecimal freightPrice = new BigDecimal(1.00);
+        if (splitVO.getOrderSplit().getGoodsPrice().compareTo(SystemConfig.getFreightLimit()) < 0) {
+            freightPrice = SystemConfig.getFreight();
+        }
+        splitVO.setDeliveryPrice(freightPrice);
         return ResponseUtil.ok(splitVO);
     }
 
@@ -126,6 +134,7 @@ public class DeliveryMergeOrderController {
      * @return
      */
     @PostMapping("pickup")
+    @Transactional
     public Object pickup(@LoginUser Integer userId, @RequestParam("orderId") Integer orderId) {
         if (userId == null) {
             return ResponseUtil.unlogin();
@@ -150,6 +159,7 @@ public class DeliveryMergeOrderController {
      * @return
      */
     @PostMapping("arrive")
+    @Transactional
     public Object arrive(@LoginUser Integer userId, @RequestParam("orderId") Integer orderId) {
         if (userId == null) {
             return ResponseUtil.unlogin();

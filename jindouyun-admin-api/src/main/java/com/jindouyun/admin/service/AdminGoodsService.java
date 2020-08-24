@@ -93,7 +93,7 @@ public class AdminGoodsService {
         JindouyunGoods goods = goodsAllinone.getGoods();
 
         Integer brandId = goods.getBrandId();
-        if (brandId != null && brandId != 0) {
+        if (brandId != null && brandId != -1) {
             if (brandService.findById(brandId) == null) {
                 return ResponseUtil.badArgumentValue();
             }
@@ -200,6 +200,9 @@ public class AdminGoodsService {
         if (goodsService.checkExistByName(name)) {
             return ResponseUtil.fail(GOODS_NAME_EXIST, "商品名已经存在");
         }
+
+        //增加商城商品
+        goods.setBrandId(0);
 
         // 商品表里面有一个字段nowPrice记录当前商品的最低价
         BigDecimal retailPrice = new BigDecimal(Integer.MAX_VALUE);

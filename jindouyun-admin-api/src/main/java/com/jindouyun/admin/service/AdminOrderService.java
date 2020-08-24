@@ -569,6 +569,8 @@ public class AdminOrderService {
             //发布到骑手端
             if(grabOrderService.queryByMergeId(mergeOrder.getId()) == null){
                 JindouyunGrabOrder grabOrder = new JindouyunGrabOrder();
+                grabOrder.setDeliveryId(-1);
+                grabOrder.setUserId(-1);
                 grabOrder.setOrderId(mergeOrder.getId());
                 grabOrder.setAdminId(mergeOrder.getAdminId());
                 grabOrder.setForce(false);
@@ -585,6 +587,8 @@ public class AdminOrderService {
                 brandOrder.setOrderId(mergeOrder.getId());
                 brandOrder.setBrandId(orderSplits.get(0).getBrandId());
                 brandOrder.setStatus((short)mergeOrder.getStatus());
+                brandOrder.setUserId(-1);
+                brandOrder.setDeliveryId(-1);
                 brandOrderService.add(brandOrder);
             }
         }

@@ -4,7 +4,9 @@ import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.GoodsAllinone;
 import com.jindouyun.db.domain.JindouyunGoods;
+import com.jindouyun.merchant.dto.BrandInfo;
 import com.jindouyun.merchant.service.MerchantGoodsService;
+import com.jindouyun.merchant.service.MerchantUserManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,8 @@ public class MerchantGoodsController {
         if(userId == null){
             return ResponseUtil.unlogin();
         }
-        return merchantGoodsService.list(userId);
+        BrandInfo brandInfo = MerchantUserManager.merchantInfoMap.get(userId).getBrandInfo();
+        return merchantGoodsService.list(brandInfo.getId());
     }
 
 
@@ -45,6 +48,7 @@ public class MerchantGoodsController {
      */
     @PostMapping("/update")
     public Object update(@RequestBody GoodsAllinone goodsAllinone) {
+        goodsAllinone.setAttributes(null);
         return merchantGoodsService.update(goodsAllinone);
     }
 
@@ -73,13 +77,12 @@ public class MerchantGoodsController {
     /**
      * 商品详情
      *
-     * @param id
+     * @param goodId
      * @return
      */
     @GetMapping("/detail")
-    public Object detail(@NotNull Integer id) {
-        return merchantGoodsService.detail(id);
-
+    public Object detail(@NotNull Integer goodId) {
+        return merchantGoodsService.detail(goodId);
     }
 
 }

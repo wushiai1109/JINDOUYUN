@@ -5,6 +5,7 @@ import com.jindouyun.common.annotation.LoginUser;
 import com.jindouyun.common.constant.MergeOrderConstant;
 import com.jindouyun.common.util.JacksonUtil;
 import com.jindouyun.common.validator.Sort;
+import com.jindouyun.core.system.SystemConfig;
 import com.jindouyun.core.util.ResponseUtil;
 import com.jindouyun.db.domain.*;
 import com.jindouyun.db.service.*;
@@ -12,15 +13,18 @@ import com.jindouyun.merchant.dto.BrandInfo;
 import com.jindouyun.merchant.service.MerchantUserManager;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.jindouyun.common.constant.MergeOrderConstant.MERGE_ORDER_MERCHANT_RECEIVE;
 import static com.jindouyun.common.constant.WxResponseCode.*;
 import static com.jindouyun.db.util.OrderUtil.*;
 
@@ -59,6 +63,11 @@ public class MerchantBrandOrderController {
             return ResponseUtil.unlogin();
         }
         OrderSplitVO splitVO = orderSplitService.queryOrderSplitVO(splitOrderId);
+        BigDecimal freightPrice = new BigDecimal(1.00);
+        if (splitVO.getOrderSplit().getGoodsPrice().compareTo(SystemConfig.getFreightLimit()) < 0) {
+            freightPrice = SystemConfig.getFreight();
+        }
+        splitVO.setDeliveryPrice(freightPrice);
         return ResponseUtil.ok(splitVO);
     }
 
@@ -75,10 +84,18 @@ public class MerchantBrandOrderController {
             return ResponseUtil.unlogin();
         }
         if (orderStatusList == null ){
-            orderStatusList = new ArrayList<>(){{add((short)21);add((short) 22);add((short)31);add((short) 32);add((short)33);}};
+            orderStatusList = new ArrayList<>(){{add((short)21);add((short) 22);}};
         }
 
         Map result = brandOrderService.queryMergeInfoList(orderStatusList, brandId, mergeId, date, page, limit, sort, order);
+        Map<Integer,List<JindouyunOrderGoods>> goodsMap = new HashMap<>();
+        for (MergeInfo mergeInfo:(List<MergeInfo>)result.get("mergeInfo")) {
+            for (JindouyunOrderSplit orderSplit:mergeInfo.getSplitOrder()) {
+                List<JindouyunOrderGoods> goods = goodsService.queryBySplitOrderId(orderSplit.getId());
+                goodsMap.put(orderSplit.getId(),goods);
+            }
+        }
+        result.put("goodsList",goodsMap);
         return ResponseUtil.ok(result);
     }
 
@@ -143,6 +160,7 @@ public class MerchantBrandOrderController {
     }
 
     @PostMapping("/receive")
+    @Transactional
     public Object receive(@LoginUser Integer userId,@RequestBody String body){
         if (userId == null){
             return ResponseUtil.unlogin();
@@ -156,8 +174,12 @@ public class MerchantBrandOrderController {
             return ResponseUtil.badArgument();
         }
         //22 更新合单状态
-        mergeOrder.setStatus(MergeOrderConstant.MERGE_ORDER_MERCHANT_RECEIVE);
+        mergeOrder.setStatus(MERGE_ORDER_MERCHANT_RECEIVE);
         if(mergeOrderService.updateOrderStatus(mergeOrder) == 0){
+            return ResponseUtil.fail();
+        }
+        //更新商家订单
+        if(brandOrderService.updateStatusByMergeId(mergeId,(short)MERGE_ORDER_MERCHANT_RECEIVE)==0){
             return ResponseUtil.fail();
         }
         // 更新子订单状态
@@ -169,7 +191,7 @@ public class MerchantBrandOrderController {
     }
 
     @PostMapping("/cancel")
-    public Object cancel(@LoginUser Integer userId,String body){
+    public Object cancel(@LoginUser Integer userId,@RequestBody String body){
         if (userId == null){
             return ResponseUtil.unlogin();
         }
@@ -179,7 +201,7 @@ public class MerchantBrandOrderController {
         }
         JindouyunOrderSplit orderSplit = orderSplitService.queryById(splitOrderId);
         //只有订单状态在21,22时才可以取消
-        if(orderSplit.getOrderStatus() != 21 && orderSplit.getOrderStatus() != 22){
+        if(orderSplit.getOrderStatus() != 201 && orderSplit.getOrderStatus() != 202){
             return ResponseUtil.fail(ORDER_CANCEL_FAIL,"配送中，订单不可取消");
         }
         if(orderSplitService.setOrderStatus(splitOrderId,STATUS_CANCEL)==0){

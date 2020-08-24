@@ -12,6 +12,7 @@ import com.jindouyun.merchant.dto.MerchantInfo;
 import com.jindouyun.merchant.service.MerchantUserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,6 +49,8 @@ public class MerchantBrandController {
         String phone = JacksonUtil.parseString(body,"phone");
         String addressDetail = JacksonUtil.parseString(body,"addressDetail");
         String deliveryPrice = JacksonUtil.parseString(body,"deliveryPrice");
+        String desc = JacksonUtil.parseString(body,"desc");
+        String picUrl = JacksonUtil.parseString(body,"picUrl");
 
         JindouyunBrand brand = new JindouyunBrand();
         MerchantInfo merchantInfo = MerchantUserManager.merchantInfoMap.get(userId);
@@ -56,11 +59,11 @@ public class MerchantBrandController {
             return ResponseUtil.unauthz();
         }
         brand.setId(brandInfo.getId());
-        if(name != null){
+        if(!StringUtils.isEmpty(name)){
             brand.setName(name);
             brandInfo.setName(name);
         }
-        if(notice != null){
+        if(!StringUtils.isEmpty(notice)){
             brand.setNotice(notice);
             brandInfo.setNotice(notice);
         }
@@ -69,6 +72,14 @@ public class MerchantBrandController {
             brand.setEndTime(endTime);
             brandInfo.setStart_time(startTime);
             brandInfo.setEnd_time(endTime);
+        }
+        if(!StringUtils.isEmpty(desc)){
+            brand.setDesc(desc);
+            brandInfo.setDesc(desc);
+        }
+        if(!StringUtils.isEmpty(picUrl)){
+            brand.setPicUrl(picUrl);
+            brandInfo.setPicUrl(picUrl);
         }
         if(deliveryPrice != null){
             BigDecimal price;
@@ -80,10 +91,10 @@ public class MerchantBrandController {
             brand.setDeliveryPrice(price);
         }
         JindouyunAddress address = merchantInfo.getAddress();
-        if(addressDetail != null){
+        if(!StringUtils.isEmpty(addressDetail)){
             address.setAddressDetail(addressDetail);
         }
-        if(phone != null){
+        if(!StringUtils.isEmpty(phone)){
             address.setTel(phone);
         }
         if(addressService.update(address) == 0){

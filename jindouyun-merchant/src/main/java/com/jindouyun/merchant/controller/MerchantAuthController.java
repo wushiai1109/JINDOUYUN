@@ -137,12 +137,14 @@ public class MerchantAuthController extends AuthServiceImpl {
             //设置认证
             merchantInfo.setAuth(true);
 
-            //判断是否已申请认证
-            JindouyunRegisteBrand registeBrand = registerBrandService.queryByUid(brand.getUserId());
-            if(registeBrand != null){
-                merchantInfo.setApply(true);
-            }
         }
+
+        //判断是否已申请认证
+        JindouyunRegisteBrand registeBrand = registerBrandService.queryByUid(user.getId());
+        if(registeBrand != null){
+            merchantInfo.setApply(true);
+        }
+
        merchantInfo.setBrandInfo(brandInfo);
         // token
         String token = UserTokenManager.generateToken(user.getId());
@@ -246,16 +248,18 @@ public class MerchantAuthController extends AuthServiceImpl {
             brandInfo.setEnd_time(brand.getEndTime());
 //            brandInfo.setToday_order(brand.getTodayOrder());
 //            brandInfo.setToday_turnover(brand.getTodayTurnover());
-            brandInfo.setAverage_price(new BigDecimal(brand.getTotalTurnover().doubleValue()/brand.getTotalOrder()));
+            double averagePrice = brand.getTotalOrder()== 0 ? 0:brand.getTotalTurnover().doubleValue()/brand.getTotalOrder();
+            brandInfo.setAverage_price(new BigDecimal(averagePrice));
             //设置认证
             merchantInfo.setAuth(true);
-
-            //判断是否已申请认证
-            JindouyunRegisteBrand registeBrand = registerBrandService.queryByUid(brand.getUserId());
-            if(registeBrand != null){
-                merchantInfo.setApply(true);
-            }
         }
+
+        //判断是否已申请认证
+        JindouyunRegisteBrand registeBrand = registerBrandService.queryByUid(user.getId());
+        if(registeBrand != null){
+            merchantInfo.setApply(true);
+        }
+
         merchantInfo.setBrandInfo(brandInfo);
 
         // token
@@ -309,7 +313,9 @@ public class MerchantAuthController extends AuthServiceImpl {
         }
         registerBrand.setAdderssId(addressList.get(0).getId());
         registerBrandService.add(registerBrand);
-        MerchantUserManager.merchantInfoMap.get(userId).setApply(true);
+        MerchantInfo merchantInfo = MerchantUserManager.merchantInfoMap.get(userId);
+        merchantInfo.setApply(true);
+        MerchantUserManager.merchantInfoMap.put(userId,merchantInfo);
         return ResponseUtil.ok();
     }
 

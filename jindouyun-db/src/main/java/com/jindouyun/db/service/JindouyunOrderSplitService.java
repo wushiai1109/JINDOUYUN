@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class JindouyunOrderSplitService {
         orderSplit.setId(splitOrderId);
         orderSplit.setOrderStatus(status);
         orderSplit.setUpdateTime(LocalDateTime.now());
-        return splitMapper.updateByPrimaryKey(orderSplit);
+        return splitMapper.updateByPrimaryKeySelective(orderSplit);
     }
 
 

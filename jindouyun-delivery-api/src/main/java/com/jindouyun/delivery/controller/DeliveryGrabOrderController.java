@@ -14,6 +14,7 @@ import com.jindouyun.db.service.JindouyunGrabOrderService;
 import com.jindouyun.db.service.JindouyunMergeOrderService;
 import com.jindouyun.db.service.JindouyunOrderSplitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -47,6 +48,7 @@ public class DeliveryGrabOrderController {
      * @return
      */
     @PostMapping("receive")
+    @Transactional
     public Object receive(@LoginUser Integer userId, @RequestBody String body) {
         if (userId == null) {
             return ResponseUtil.unlogin();

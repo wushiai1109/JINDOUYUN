@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@ConfigurationProperties(prefix = "jindouyun.jindouyun")
+@ConfigurationProperties(prefix = "jindouyun.merchant")
 public class MerchantWxProperties {
 
     private String appId;
